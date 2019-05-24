@@ -5,6 +5,7 @@ import com.neuedu.lab.model.mapper.ConstantMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ConstantService {
@@ -12,9 +13,8 @@ public class ConstantService {
     private ConstantMapper constantMapper;
 
 
-    public String[] getPaymentType(){
-        System.out.println("service getpaymenttype");
-        return constantMapper.getPaymentType(Constant.CONSTANT_PAYMENT_TYPE).split(" ");
+    public List<String> getPaymentType(){
+        return constantMapper.getPaymentType(Constant.CONSTANT_PAYMENT_TYPE);
     }
 
 }

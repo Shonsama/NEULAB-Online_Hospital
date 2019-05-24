@@ -1,5 +1,8 @@
 package com.neuedu.lab.model.mapper;
 
+
+import java.util.List;
+
 public interface ConstantMapper {
-    public String getPaymentType(String id);
+    public List<String> getPaymentType(String id);
 }

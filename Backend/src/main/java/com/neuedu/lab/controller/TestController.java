@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.neuedu.lab.model.po.Constant;
 import com.neuedu.lab.model.po.Emp;
@@ -39,7 +40,7 @@ public class TestController {
 	}
 
 	@RequestMapping("/payment_type")
-	public String[] getPaymentType(){
+	public List<String> getPaymentType(){
 		System.out.println("payment_type");
 		return constantService.getPaymentType();
 	}
