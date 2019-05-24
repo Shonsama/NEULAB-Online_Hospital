@@ -1,14 +1,15 @@
-package com.example.demo.model.service;
+package com.neuedu.lab.model.service;
 
+import com.neuedu.lab.model.mapper.EmpMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.mapper.EmpMapper;
+import javax.annotation.Resource;
 
 @Service
 public class TestService {
 	
-	@Autowired
+	@Resource
 	private EmpMapper empMapper;
 	
 	public void test()

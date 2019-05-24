@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.model.mapper.EmpMapper">
+<mapper namespace="com.neuedu.lab.model.mapper.EmpMapper">
 
    <select id="getEmps" resultType="Emp">
        select * from emp 

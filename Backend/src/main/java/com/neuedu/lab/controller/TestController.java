@@ -1,13 +1,15 @@
-package com.example.demo.controller;
+package com.neuedu.lab.controller;
 
 import java.sql.Date;
+import java.util.List;
 
+import com.neuedu.lab.model.po.Constant;
+import com.neuedu.lab.model.po.Emp;
+import com.neuedu.lab.model.service.ConstantService;
+import com.neuedu.lab.model.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.model.po.Emp;
-import com.example.demo.model.service.TestService;
 
 @RestController
 @RequestMapping("/test")
@@ -15,6 +17,8 @@ public class TestController {
 	
 	@Autowired
 	private TestService testService;
+	@Autowired
+	private ConstantService constantService;
 	
 	@RequestMapping("/test")
 	public String test()
@@ -33,6 +37,12 @@ public class TestController {
 		e.setHiredate(new Date(System.currentTimeMillis()));
 		
 		return e;
+	}
+
+	@RequestMapping("/payment_type")
+	public List<String> getPaymentType(){
+		System.out.println("payment_type");
+		return constantService.getPaymentType();
 	}
 
 }

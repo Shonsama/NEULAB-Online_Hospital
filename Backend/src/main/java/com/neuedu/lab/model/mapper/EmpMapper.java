@@ -1,8 +1,8 @@
-package com.example.demo.model.mapper;
+package com.neuedu.lab.model.mapper;
 
 import java.util.List;
 
-import com.example.demo.model.po.Emp;
+import com.neuedu.lab.model.po.Emp;
 
 public interface EmpMapper {
 	

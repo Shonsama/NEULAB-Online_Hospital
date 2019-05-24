@@ -1,4 +1,4 @@
-package com.example.demo.model.po;
+package com.neuedu.lab.model.po;
 
 import java.sql.Date;
 
