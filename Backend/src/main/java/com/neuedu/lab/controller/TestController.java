@@ -1,13 +1,12 @@
-package com.example.demo.controller;
+package com.neuedu.lab.controller;
 
 import java.sql.Date;
 
+import com.neuedu.lab.model.po.Emp;
+import com.neuedu.lab.model.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.model.po.Emp;
-import com.example.demo.model.service.TestService;
 
 @RestController
 @RequestMapping("/test")
