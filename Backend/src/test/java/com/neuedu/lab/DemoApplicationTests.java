@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.neuedu.lab;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
