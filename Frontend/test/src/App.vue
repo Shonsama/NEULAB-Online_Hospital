@@ -28,7 +28,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="primaryDrawer.clipped" app dark absolute color="primary" height="50px">
+    <v-toolbar :clipped-left="primaryDrawer.clipped" app dark absolute color="primary" dense>
       <v-toolbar-side-icon
         dark
         v-if="primaryDrawer.type !== 'permanent'"
@@ -99,10 +99,10 @@ export default {
       items: [
         {title: '基础信息维护', icon: 'dashboard', id: '/BasicInfo'},
         {title: '门诊挂号收费', icon: 'account_box', id: '/RegisterCharge'},
-        {title: '门诊医生工作站', icon: 'assignment', id: '/RegisterCharge'},
-        {title: '门诊医技工作站', icon: 'credit_card'},
-        {title: '门诊药房工作站', icon: 'card_travel'},
-        {title: '门诊财务管理', icon: 'calendar_today'}
+        {title: '门诊医生工作站', icon: 'assignment', id: '/Diagnostician'},
+        {title: '门诊医技工作站', icon: 'credit_card', id: '/RegisterCharge'},
+        {title: '门诊药房工作站', icon: 'card_travel', id: '/RegisterCharge'},
+        {title: '门诊财务管理', icon: 'calendar_today', id: '/RegisterCharge'}
       ],
       right: null,
       dark: false,

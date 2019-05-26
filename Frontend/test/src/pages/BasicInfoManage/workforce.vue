@@ -124,7 +124,8 @@
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-flex xs3>
+
+      <v-flex xs2>
         <v-menu
           ref="menu"
           v-model="menu"
@@ -141,7 +142,7 @@
             <v-text-field
               v-model="date"
               label="开始日期"
-              prepend-icon="event"
+              prepend-inner-icon="event"
               readonly
               v-on="on"
             ></v-text-field>
@@ -153,7 +154,7 @@
           </v-date-picker>
         </v-menu>
       </v-flex>
-      <v-flex xs3 offset-xs1>
+      <v-flex xs2>
         <v-menu
           ref="menu"
           v-model="menu"
@@ -170,7 +171,6 @@
             <v-text-field
               v-model="date"
               label="结束日期"
-              prepend-icon="event"
               readonly
               v-on="on"
             ></v-text-field>

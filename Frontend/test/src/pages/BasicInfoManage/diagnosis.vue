@@ -8,7 +8,7 @@
       </v-btn>
     </v-toolbar>
     <v-layout>
-      <v-flex xs5>
+      <v-flex xs15 md5>
         <v-card-text>
           <v-treeview
             v-model="tree"
@@ -25,7 +25,7 @@
 
       <v-divider vertical></v-divider>
 
-      <v-flex xs10>
+      <v-flex xs15 md10>
         <v-data-table
           v-model="selected"
           :headers="headers"

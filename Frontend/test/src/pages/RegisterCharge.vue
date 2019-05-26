@@ -18,23 +18,14 @@
           <div v-if="item.id == 'register'">
             <register></register>
           </div>
-          <div v-if="item.id == 'office'">
-            <office></office>
+          <div v-if="item.id == 'charge'">
+            <charge></charge>
           </div>
-          <div v-if="item.id == 'user'">
-            <user></user>
+          <div v-if="item.id == 'dailySum'">
+            <dailySum></dailySum>
           </div>
-          <div v-if="item.id == 'registerLevel'">
-            <registerLevel></registerLevel>
-          </div>
-          <div v-if="item.id == 'nonMedcine'">
-            <non-medicine></non-medicine>
-          </div>
-          <div v-if="item.id == 'workforce'">
-            <workforce></workforce>
-          </div>
-          <div v-if="item.id == 'patCate'">
-            <pay-cate></pay-cate>
+          <div v-if="item.id == 'dailySumHistory'">
+            <dailySumHistory></dailySumHistory>
           </div>
           <!--<router-view name="office"></router-view name="office">-->
         </v-card>
@@ -45,10 +36,16 @@
 
 <script>
 import register from '@/pages/RegisterCharge/register'
+import charge from '@/pages/RegisterCharge/charge'
+import dailySum from '@/pages/RegisterCharge/dailySum'
+import dailySumHistory from '@/pages/RegisterCharge/dailySumHistory'
 export default {
   name: 'RegisterCharge',
   components: {
-    register
+    charge,
+    register,
+    dailySum,
+    dailySumHistory
   },
   data () {
     return {
@@ -64,6 +61,10 @@ export default {
       {
         name: '收费员日结',
         id: 'dailySum'
+      },
+      {
+        name: '日结历史查询',
+        id: 'dailySumHistory'
       }]
     }
   }

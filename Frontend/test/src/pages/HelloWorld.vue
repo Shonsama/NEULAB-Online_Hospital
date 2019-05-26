@@ -8,15 +8,15 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-            <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password"></v-text-field>
+            <v-text-field prepend-inner-icon="person" name="login" label="Login" type="text"></v-text-field>
+            <v-text-field id="password" prepend-inner-icon="lock" name="password" label="Password" type="password"></v-text-field>
             <v-select
               v-model="route"
               :items="states"
               menu-props="auto"
               label="Identity"
               hide-details
-              prepend-icon="account_box"
+              prepend-inner-icon="account_box"
               required
             ></v-select>
           </v-form>

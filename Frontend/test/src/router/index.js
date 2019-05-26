@@ -10,6 +10,7 @@ import nonMedicine from '@/pages/BasicInfoManage/nonMedicine'
 import diagnosis from '@/pages/BasicInfoManage/diagnosis'
 import workforce from '@/pages/BasicInfoManage/workforce'
 import BasicInfoManage from '@/pages/BasicInfoManage'
+import Diagnostician from '@/pages/Diagnostician'
 
 Vue.use(Router)
 
@@ -47,6 +48,15 @@ export default new Router({
         {path: '/RegisterCharge/diagnosis', component: diagnosis},
         {path: '/RegisterCharge/workforce', component: workforce}
       ]
+    },
+    {
+      path: '/Diagnostician',
+      name: 'Diagnostician',
+      component: Diagnostician,
+      // children: [
+      //   {path: '/Diagnostician/office', component: office},
+      //
+      // ]
     }
   ]
 })
