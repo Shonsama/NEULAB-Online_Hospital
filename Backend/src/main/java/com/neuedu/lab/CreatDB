@@ -1,0 +1,138 @@
+
+#疾病信息表
+drop table if exists  `his`.`disease_info`;
+CREATE TABLE `his`.`disease_info` (
+  `disease_id` VARCHAR(45) NOT NULL,
+  `disease_type` VARCHAR(45) NULL,
+  `disease_name` VARCHAR(45) NULL,
+  `disease_icd` VARCHAR(45) NULL,
+  PRIMARY KEY (`disease_id`));
+  
+  
+  #非药品目录表
+  drop table if exists  `his`.`non_medicine_cat`;
+  CREATE TABLE `his`.`non_medicine_cat` (
+  `non_medicine_id` VARCHAR(45) NOT NULL,
+  `non_medicine_type` VARCHAR(45) NULL,
+  `non_medicine_name` VARCHAR(45) NULL,
+  `non_medicine_unit_price` float(45) NULL,
+  `non_medicine_specification` VARCHAR(45) NULL,
+  PRIMARY KEY (`non_medicine_id`));
+  
+  
+  #挂号级别表
+  drop table  if exists  `his`.`register_level`;
+  CREATE TABLE `his`.`register_level` (
+  `register_level_id` VARCHAR(45) NOT NULL,
+  `default` boolean NULL,
+  `seq_num` int NULL,
+  `level` VARCHAR(45) NULL,
+  `fee` float not null,
+  PRIMARY KEY (`register_level_id`));
+  
+  
+  #医生排班管理表
+	drop table  if exists `his`.`schedule_management`;
+    CREATE TABLE `his`.`schedule_management` (
+  `oper_date` date NOT NULL,
+  `management_date` date NOT NULL,
+  `management_num` int NOT NULL,
+  `state` boolean NULL,
+  `day` varchar(10) not null,
+  `time` varchar(10) not null
+  );
+  
+    #科室信息表
+	drop table  if exists `his`.`department_info`;
+    CREATE TABLE `his`.`department_info` (
+  `department_id` int NOT NULL,
+  `department_type` varchar(45) NOT NULL,
+  `department_cat` varchar(45) NOT NULL,
+  `department_name` varchar(60) NULL,
+  PRIMARY KEY (`department_id`));
+  
+  #挂号表
+  drop table  if exists `his`.`register_info`;
+    CREATE TABLE `his`.`register_info` (
+  `register_id` int NOT NULL,
+  `state` varchar(10) NOT NULL,
+  `records_book` boolean NOT NULL,
+  `fee` float NOT NULL,
+  `invoice_num` varchar(45) NOT NULL,
+  `pay_type` varchar(45) NOT NULL,
+  PRIMARY KEY (`register_id`));
+  
+  
+  drop table if exists  `his`.`user`;
+  CREATE TABLE `his`.`user_info` (
+    `user_account` VARCHAR(45) NOT NULL,
+    `user_password` VARCHAR(45) NOT NULL,
+    `user_name` VARCHAR(45)NOT NULL,
+    `user_tpe` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`user_account`));
+  
+  drop table if exists  `his`.`patient`;
+  CREATE TABLE `his`.`patient_info` (
+    `patient_id` VARCHAR(45) NOT NULL,
+    `patient_address` VARCHAR(400) NULL,
+    `patient_birthDate` date NULL,
+    `patient_age` VARCHAR(45) NULL,
+    `patient_gender` VARCHAR(45) NULL,
+    `patient_name` VARCHAR(45) NULL,
+    PRIMARY KEY (`patient_id`));
+  
+    drop table if exists  `his`.`doctor`;
+  CREATE TABLE `his`.`doctor_info` (
+    `doctor_account` VARCHAR(45) NOT NULL,
+    `doctor_type` VARCHAR(45) NOT NULL,
+    `doctor_available` boolean NOT NULL,
+     PRIMARY KEY (`doctor_account`),
+     KEY `user_info` (`doctor_account`),
+    CONSTRAINT `user_info`FOREIGN KEY  (`doctor_account`)  REFERENCES  `user_info` (`user_account`));
+  
+    drop table if exists  `his`.`record_pattern`;
+  CREATE TABLE `his`.`record_info` (
+    `record_type` VARCHAR(45) NOT NULL,
+    `record_category` VARCHAR(45) NOT NULL,
+    `record_range` VARCHAR(45)NOT NULL,
+    `record_name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`record_name`));
+  
+    drop table if exists  `his`.`record`;
+  CREATE TABLE `his`.`record` (
+   `patient_id` VARCHAR(45) NOT NULL,
+    `doctor_account` VARCHAR(45) NOT NULL,
+    `outpatient_num` VARCHAR(45) NOT NULL,
+    `record_diagnosis` VARCHAR(400) NOT NULL,
+    `record_syndrome` VARCHAR(400) NOT NULL,
+    `record_health_check` VARCHAR(400) NULL,
+    `record_xianbingshi` VARCHAR(400)  NULL,
+    `record_jiwangshi` VARCHAR(400)  NULL,
+    `record_cure_situation` VARCHAR(400) NULL,
+    `record_confirm_diagnosis` VARCHAR(400) NULL,
+    `record_allergy_his` VARCHAR(400) NULL,
+    PRIMARY KEY (`outpatient_num`),
+    KEY `outpatient` (`outpatient_num`),
+    CONSTRAINT `outpatient`FOREIGN KEY  (`outpatient_num`)  REFERENCES  `outpatient` (`outpatient_num`),
+    KEY `patient_info` (`patient_id`),
+    CONSTRAINT `patient_info`FOREIGN KEY  (`patient_id`)  REFERENCES  `patient_info` (`patient_id`),
+      KEY `doctor_info` (`doctor_account`),
+    CONSTRAINT `doctor_info`FOREIGN KEY  (`doctor_account`)  REFERENCES  `doctor_info` (`doctor_account`));
+  
+    CREATE TABLE `his`.`common_diagnosis` (
+    `doctor_account` VARCHAR(45) NOT NULL,
+    `record_type` VARCHAR(45) NOT NULL,
+    `record_category` VARCHAR(45) NOT NULL,
+    `record_range` VARCHAR(45)NOT NULL,
+    `record_name` VARCHAR(45) NOT NULL,
+    `record_diagnosis` VARCHAR(400) NOT NULL,
+    `record_syndrome` VARCHAR(400) NOT NULL,
+    `record_health_check` VARCHAR(400) NULL,
+    `record_xianbingshi` VARCHAR(400)  NULL,
+    `record_jiwangshi` VARCHAR(400)  NULL,
+    `record_cure_situation` VARCHAR(400) NULL,
+    `record_confirm_diagnosis` VARCHAR(400) NULL,
+    `record_allergy_his` VARCHAR(400) NULL,
+     PRIMARY KEY (`doctor_account`),
+     KEY `user_info` (`doctor_account`),
+    CONSTRAINT `user_info`FOREIGN KEY  (`doctor_account`)  REFERENCES  `user_info` (`user_account`));
