@@ -58,8 +58,6 @@
             label="姓名"
             placeholder="请输入姓名"
             required
-
-
           ></v-text-field>
         </v-flex>
 
@@ -71,7 +69,6 @@
             label="性别"
             required
             placeholder="请选择性别"
-
           ></v-select>
         </v-flex>
 
@@ -184,12 +181,8 @@
             placeholder="请选择挂号级别"
           ></v-select>
         </v-flex>
-
-
       </v-layout>
       <v-layout>
-
-
         <v-flex
           xs2
           md2
@@ -225,14 +218,11 @@
             required
           ></v-checkbox>
         </v-flex>
-
-
         <v-flex xs2 md2>
           <v-text-field
             label="应收金额"
             placeholder="$23"
             disabled
-
           ></v-text-field>
         </v-flex>
         <v-btn small style="margin-top: 25px">挂号</v-btn>

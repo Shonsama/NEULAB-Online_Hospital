@@ -1,7 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
-      <v-flex
-      >
+      <v-flex>
         <v-toolbar flat>
           <v-flex xs3>
             <v-text-field

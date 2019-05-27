@@ -12,7 +12,7 @@
             label="科室"
           ></v-select>
           <v-select
-            style="width:20px;margin-left: 10px"
+            style="width:20px; margin-left: 10px"
             :items="items"
             label="挂号等级"
           ></v-select>

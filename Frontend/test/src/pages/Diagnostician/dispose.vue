@@ -50,6 +50,10 @@
         <v-flex  xs3 md3>
           <v-toolbar flat dense>
             <v-toolbar-title  >常用模板</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn>
+              模板管理
+            </v-btn>
           </v-toolbar>
           <v-data-table
             v-model="selected"

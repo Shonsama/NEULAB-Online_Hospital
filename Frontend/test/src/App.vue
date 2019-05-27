@@ -2,11 +2,8 @@
   <v-app id="sandbox" :dark="dark">
     <v-navigation-drawer
       v-model="primaryDrawer.model"
-      :permanent="primaryDrawer.type === 'permanent'"
       :temporary="primaryDrawer.type === 'temporary'"
-      :clipped="primaryDrawer.clipped"
-      :floating="primaryDrawer.floating"
-      :mini-variant="primaryDrawer.mini"
+      :clipped="true"
       absolute
       overflow
       app
@@ -28,7 +25,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="primaryDrawer.clipped" app dark absolute color="primary" dense>
+    <v-toolbar :clipped-left="true" app dark absolute color="primary" dense>
       <v-toolbar-side-icon
         dark
         v-if="primaryDrawer.type !== 'permanent'"
@@ -36,6 +33,14 @@
       ></v-toolbar-side-icon>
       <v-toolbar-title class="white--text">东软云HIS</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn
+          v-for = "item in items"
+          :key="item.title"
+          flat
+          @click="$router.push(item.id)"
+        >{{item.title}}</v-btn>
+      </v-toolbar-items>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-icon
@@ -62,9 +67,6 @@
                           primary
                         ></v-radio>
                       </v-radio-group>
-                      <v-switch v-model="primaryDrawer.clipped" label="Clipped" primary></v-switch>
-                      <v-switch v-model="primaryDrawer.floating" label="Floating" primary></v-switch>
-                      <v-switch v-model="primaryDrawer.mini" label="Mini" primary></v-switch>
                     </v-flex>
                     <v-flex xs12 md6>
                       <span>Footer</span>
@@ -96,23 +98,21 @@ export default {
   name: 'App',
   data () {
     return {
+      item_now: '',
       items: [
         {title: '基础信息维护', icon: 'dashboard', id: '/BasicInfo'},
         {title: '门诊挂号收费', icon: 'account_box', id: '/RegisterCharge'},
         {title: '门诊医生工作站', icon: 'assignment', id: '/Diagnostician'},
-        {title: '门诊医技工作站', icon: 'credit_card', id: '/RegisterCharge'},
-        {title: '门诊药房工作站', icon: 'card_travel', id: '/RegisterCharge'},
-        {title: '门诊财务管理', icon: 'calendar_today', id: '/RegisterCharge'}
+        {title: '门诊医技工作站', icon: 'credit_card', id: '/Meditech'},
+        {title: '门诊药房工作站', icon: 'card_travel', id: '/Pharmacy'},
+        {title: '门诊财务管理', icon: 'calendar_today', id: '/Finance'}
       ],
       right: null,
       dark: false,
       drawers: ['Default (no property)', 'Permanent', 'Temporary'],
       primaryDrawer: {
         model: null,
-        type: 'default (no property)',
-        clipped: false,
-        floating: false,
-        mini: false
+        type: 'default (no property)'
       },
       footer: {
         inset: false

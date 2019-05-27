@@ -5,28 +5,22 @@
       <v-btn small color="primary">
         暂存
       </v-btn>
-
-
       <v-btn small color="primary">
         提交
       </v-btn>
-
-
       <v-btn small color="primary">
         清空
       </v-btn>
-
-
       <v-btn small color="primary">
         刷新
       </v-btn>
-
     </v-layout>
   </v-toolbar>
     <v-layout>
       <v-flex xs12>
       <v-form
-        class="pa-3 pt-4"
+        class="pa-3 pt-4 scroll-y"
+        style="max-height: 900px"
       >
         <v-card-title primary-title>
           <div>
@@ -164,8 +158,8 @@ export default {
   name: 'case',
   data () {
     return {
-      expand:false,
-      Dexpand:false
+      expand: false,
+      Dexpand: false
 
     }
   }
