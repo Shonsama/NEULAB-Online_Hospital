@@ -80,42 +80,36 @@
 </template>
 
 <script>
-  export default {
-    name: 'office',
-    data: () => ({
-      expand: false,
-      selected: [],
-      headers: [
-        {
-          text: '常量ID',
-          align: 'left',
-          value: 'id'
-        },
-        { text: '常量名称', value: 'name' },
-        { text: '常量类别', value: 'category' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: [
-        {
-          id: 'XNH',
-          name: '新农合',
-          category: '结算类别',
-        },
-      ],
-    }),
-
-    computed: {
-    },
-
-    watch: {
-
-    },
-    methods: {
-      load:function(){
-
+export default {
+  name: 'office',
+  data: () => ({
+    expand: false,
+    selected: [],
+    headers: [
+      {
+        text: '常量ID',
+        align: 'left',
+        value: 'id'
+      },
+      { text: '常量名称', value: 'name' },
+      { text: '常量类别', value: 'category' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: [
+      {
+        id: 'XNH',
+        name: '新农合',
+        category: '结算类别'
       }
-    }
+    ]
+  }),
+  computed: {
+  },
+  watch: {
+  },
+  methods: {
   }
+}
 </script>
 
 <style scoped>

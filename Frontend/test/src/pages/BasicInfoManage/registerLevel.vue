@@ -83,46 +83,40 @@
 </template>
 
 <script>
-  export default {
-    name: 'office',
-    data: () => ({
-      expand: false,
-      selected: [],
-      headers: [
-        {
-          text: '号别编码',
-          align: 'left',
-          value: 'id'
-        },
-        { text: '号别名称', value: 'level' },
-        { text: '顺序号', value: 'sequence' },
-        { text: '费用', value: 'fee' },
-        { text: '挂号限额', value: 'maximum' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: [
-        {
-          id: 'ZJ',
-          level: '专家',
-          sequence: 2,
-          fee: 5,
-          maximum: 50,
-        },
-      ],
-    }),
-
-    computed: {
-    },
-
-    watch: {
-
-    },
-    methods: {
-      load:function(){
-
+export default {
+  name: 'office',
+  data: () => ({
+    expand: false,
+    selected: [],
+    headers: [
+      {
+        text: '号别编码',
+        align: 'left',
+        value: 'id'
+      },
+      { text: '号别名称', value: 'level' },
+      { text: '顺序号', value: 'sequence' },
+      { text: '费用', value: 'fee' },
+      { text: '挂号限额', value: 'maximum' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: [
+      {
+        id: 'ZJ',
+        level: '专家',
+        sequence: 2,
+        fee: 5,
+        maximum: 50
       }
-    }
+    ]
+  }),
+  computed: {
+  },
+  watch: {
+  },
+  methods: {
   }
+}
 </script>
 
 <style scoped>

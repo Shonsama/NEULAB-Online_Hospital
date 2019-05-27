@@ -102,21 +102,17 @@ export default {
         id: 'XXGNK',
         name: '心血管内科',
         classification: '内科',
-        type: '临床',
-      },
-    ],
+        type: '临床'
+      }
+    ]
   }),
 
   computed: {
   },
 
   watch: {
-
   },
   methods: {
-    load:function(){
-
-    }
   }
 }
 </script>

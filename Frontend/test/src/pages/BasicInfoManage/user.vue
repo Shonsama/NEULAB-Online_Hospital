@@ -82,44 +82,38 @@
 </template>
 
 <script>
-  export default {
-    name: 'office',
-    data: () => ({
-      expand: false,
-      selected: [],
-      headers: [
-        {
-          text: '科室编号',
-          align: 'left',
-          value: 'id'
-        },
-        { text: '科室名称', value: 'name' },
-        { text: '科室分类', value: 'classification' },
-        { text: '科室类型', value: 'type' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: [
-        {
-          id: 'XXGNK',
-          name: '心血管内科',
-          classification: '内科',
-          type: '临床',
-        },
-      ],
-    }),
-
-    computed: {
-    },
-
-    watch: {
-
-    },
-    methods: {
-      load:function(){
-
+export default {
+  name: 'office',
+  data: () => ({
+    expand: false,
+    selected: [],
+    headers: [
+      {
+        text: '科室编号',
+        align: 'left',
+        value: 'id'
+      },
+      { text: '科室名称', value: 'name' },
+      { text: '科室分类', value: 'classification' },
+      { text: '科室类型', value: 'type' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: [
+      {
+        id: 'XXGNK',
+        name: '心血管内科',
+        classification: '内科',
+        type: '临床'
       }
-    }
+    ]
+  }),
+  computed: {
+  },
+  watch: {
+  },
+  methods: {
   }
+}
 </script>
 
 <style scoped>
