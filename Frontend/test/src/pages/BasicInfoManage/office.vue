@@ -1,7 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
-      <v-flex
-      >
+      <v-flex>
         <v-toolbar flat>
           <v-toolbar-title>Expandable Table</v-toolbar-title>
           <v-spacer></v-spacer>

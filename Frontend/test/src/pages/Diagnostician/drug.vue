@@ -4,11 +4,14 @@
       <v-flex>
     <v-card>
       <v-toolbar flat dense>
-        <v-toolbar-title  >门诊诊断</v-toolbar-title>
+        <v-toolbar-title>门诊诊断</v-toolbar-title>
       </v-toolbar>
       <v-layout>
-        <v-flex xs3>
-
+        <v-flex xs4>
+          <v-card-title>
+            门诊处方
+            <v-spacer></v-spacer>
+          </v-card-title>
           <v-data-table
             v-model="selected"
             :headers="headers"
@@ -51,6 +54,10 @@
         </v-flex>
         <v-divider vertical></v-divider>
         <v-flex  xs9>
+          <v-card-title>
+            本处方金额合计
+            <v-spacer></v-spacer>
+          </v-card-title>
           <v-data-table
             v-model="selected"
             :headers="headers"
@@ -97,10 +104,24 @@
       <v-flex>
       <v-card>
         <v-layout>
-          <v-flex xs3>
-            <v-toolbar flat dense>
-              <v-toolbar-title  >处方模板</v-toolbar-title>
-            </v-toolbar>
+          <v-flex xs4>
+            <v-card-title>
+              <v-layout column>
+                处方模板
+                <v-layout>
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="模板名称"
+                single-line
+                hide-details
+              ></v-text-field>
+                <v-btn style="margin-top: 10px">
+                  模板管理
+                </v-btn>
+                </v-layout>
+              </v-layout>
+            </v-card-title>
             <v-data-table
               v-model="selected"
               :headers="headers"
@@ -142,9 +163,14 @@
           </v-flex>
           <v-divider vertical></v-divider>
           <v-flex  xs9>
-            <v-toolbar flat dense>
-              <v-toolbar-title> 模板详情</v-toolbar-title>
-            </v-toolbar>
+            <v-card-title>
+              <v-layout>
+                模板详情
+              </v-layout>
+              <v-btn small>
+                使用
+              </v-btn>
+            </v-card-title>
             <v-data-table
               v-model="selected"
               :headers="headers"
@@ -195,6 +221,7 @@
 <script>
 export default {
   name: 'drug'
+
 }
 </script>
 
