@@ -1,11 +1,11 @@
 <template>
-
+  <div></div>
 </template>
 
 <script>
-    export default {
-        name: "workSumByDepartment"
-    }
+export default {
+  name: 'workSumByDepartment'
+}
 </script>
 
 <style scoped>
