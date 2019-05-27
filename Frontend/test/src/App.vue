@@ -38,6 +38,7 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
+
       <v-toolbar :clipped-left="primaryDrawer.clipped" app absolute>
         <v-toolbar-side-icon
           v-if="primaryDrawer.type !== 'permanent'"
@@ -53,6 +54,7 @@
           <v-icon >notifications</v-icon>
         </v-btn>
       </v-toolbar>
+
       <v-content>
         <v-container fluid>
           <router-view/>
