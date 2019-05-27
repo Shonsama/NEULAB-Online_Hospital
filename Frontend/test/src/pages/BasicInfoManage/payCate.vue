@@ -1,12 +1,20 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
-    <v-flex
-    >
+    <v-flex>
       <v-toolbar flat>
-        <v-toolbar-title>Expandable Table</v-toolbar-title>
+        <v-flex xs3>
+          <v-text-field
+            prepend-inner-icon="search"
+            v-model="firstname"
+            :rules="nameRules"
+            label="编号/名称"
+            required
+          ></v-text-field>
+        </v-flex>
+
         <v-spacer></v-spacer>
         <v-btn   @click="expand = !expand">
-          {{ expand ? 'Close' : 'Keep' }} other rows
+          新增
         </v-btn>
       </v-toolbar>
       <v-data-table
@@ -25,12 +33,9 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <td >{{ props.item.id }}</td>
+          <td >{{ props.item.name }}</td>
+          <td >{{ props.item.category }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               small
@@ -76,7 +81,34 @@
 
 <script>
 export default {
-  name: 'payCate'
+  name: 'office',
+  data: () => ({
+    expand: false,
+    selected: [],
+    headers: [
+      {
+        text: '常量ID',
+        align: 'left',
+        value: 'id'
+      },
+      { text: '常量名称', value: 'name' },
+      { text: '常量类别', value: 'category' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: [
+      {
+        id: 'XNH',
+        name: '新农合',
+        category: '结算类别'
+      }
+    ]
+  }),
+  computed: {
+  },
+  watch: {
+  },
+  methods: {
+  }
 }
 </script>
 

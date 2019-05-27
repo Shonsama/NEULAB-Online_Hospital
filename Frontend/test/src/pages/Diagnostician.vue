@@ -4,8 +4,8 @@
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
-          <div v-show="show" style="white-space: nowrap" >
-            <v-toolbar flat >
+          <div v-show="show" style="white-space: nowrap">
+            <v-toolbar flat>
               <v-text-field  prepend-inner-icon="account_box" name="login" label="选择患者"  type="text" ></v-text-field>
               <v-spacer></v-spacer>
               <v-btn flat icon color="primary">
@@ -223,10 +223,10 @@ export default {
         name: '本人',
         id: 'self'
       },
-        {
-          name: '科室',
-          id: 'department'
-        }],
+      {
+        name: '科室',
+        id: 'department'
+      }],
       items: [{
         name: '病例首页',
         id: 'caseHistory'

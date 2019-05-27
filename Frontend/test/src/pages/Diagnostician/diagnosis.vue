@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-card>
-      <v-toolbar flat >
+      <v-toolbar flat dense>
         <v-toolbar-title  >西医</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn   dark color="primary" >
