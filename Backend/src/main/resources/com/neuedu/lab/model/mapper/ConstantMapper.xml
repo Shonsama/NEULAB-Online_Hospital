@@ -5,8 +5,8 @@
 <mapper namespace="com.neuedu.lab.model.mapper.ConstantMapper">
 
     <select id="getPaymentType" resultType="String">
-        select content from constant
-        where id=#{id}
+        select constant_name from constant
+        where constant_type=#{type}
     </select>
 
 </mapper>
