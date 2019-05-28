@@ -25,9 +25,9 @@
 ["constant_type":"payment_type"]
 5. 返回参数
 [
-{"id"="1","constant_type"="payment_type","constant_name"="自费"},
-{"id"="2","constant_type"="payment_type","constant_name"="新农合"},
-{"id"="3","constant_type"="payment_type","constant_name"="医保"}
+{"constant_id"="1","constant_type"="payment_type","constant_name"="自费"},
+{"constant_id"="2","constant_type"="payment_type","constant_name"="新农合"},
+{"constant_id"="3","constant_type"="payment_type","constant_name"="医保"}
 ]
 
 ##### 2.后端负责人：王朋
