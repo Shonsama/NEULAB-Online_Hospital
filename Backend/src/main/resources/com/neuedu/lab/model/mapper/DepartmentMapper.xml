@@ -5,8 +5,8 @@
 <mapper namespace="com.neuedu.lab.model.mapper.DepartmentMapper">
 
     <!--增加科室信息-->
-    <insert id="insertDepartment" parameterType="com.neuedu.lab.model.po.Department">
-        insert into department (department_id, department_name, department_cat, department_type)
+    <insert id="addDepartment" parameterType="com.neuedu.lab.model.po.Department">
+        insert into department_info (department_id, department_name, department_cat, department_type)
         values(#{department_id},
         #{department_name},
         #{department_cat},
@@ -15,20 +15,13 @@
 
     <!--删除科室信息-->
     <delete id="deleteDepartment" parameterType="com.neuedu.lab.model.po.Department">
-        DELETE FROM his.constant
-        <where>
-            <if test="constant_id != null">
-                AND his.constant.constant_id= #{constant_id}
-            </if>
-            <if test="constant_id == null">
-                AND constant_type = #{constant_type} AND constant_name = #{constant_name}
-            </if>
-        </where>
+        DELETE FROM his.department_info
+        where department_id = #{department_id}
     </delete>
 
     <!--修改科室信息-->
     <update id="updateDepartment">
-        update department
+        update department_info
         set department_id = #{department_id},
         set department_name = #{department_name},
         set department_cat = #{department_cat},
@@ -38,8 +31,8 @@
 
     <!--查询科室信息-->
     <select id="getDepartment" resultType="com.neuedu.lab.model.po.Department">
-        select from department
-        where department_id=#{department_id}
+        select * from department_info
+        where department_id = #{departmend_id}
     </select>
 
 </mapper>
