@@ -1,11 +1,12 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Bill {
     private String bill_id;
-    private Double bill_actual_sum;
-    private Double bill_sum;
+    private BigDecimal bill_actual_sum;
+    private BigDecimal bill_sum;
     private Date bill_time;
     private String bill_type;
     private Integer bill_register_id;
@@ -21,19 +22,19 @@ public class Bill {
         this.bill_id = bill_id;
     }
 
-    public Double getBill_actual_sum() {
+    public BigDecimal getBill_actual_sum() {
         return bill_actual_sum;
     }
 
-    public void setBill_actual_sum(Double bill_actual_sum) {
+    public void setBill_actual_sum(BigDecimal bill_actual_sum) {
         this.bill_actual_sum = bill_actual_sum;
     }
 
-    public Double getBill_sum() {
+    public BigDecimal getBill_sum() {
         return bill_sum;
     }
 
-    public void setBill_sum(Double bill_sum) {
+    public void setBill_sum(BigDecimal bill_sum) {
         this.bill_sum = bill_sum;
     }
 

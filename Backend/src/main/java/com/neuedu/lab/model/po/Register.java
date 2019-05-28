@@ -1,9 +1,11 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class Register {
     private Integer register_info_id;
     private Integer register_info_state;
-    private Double register_info_fee;
+    private BigDecimal register_info_fee;
     private String register_info_pay_type;
     private Integer register_info_doctor_id;
     private Integer register_info_patient_id;
@@ -25,11 +27,11 @@ public class Register {
         this.register_info_state = register_info_state;
     }
 
-    public Double getRegister_info_fee() {
+    public BigDecimal getRegister_info_fee() {
         return register_info_fee;
     }
 
-    public void setRegister_info_fee(Double register_info_fee) {
+    public void setRegister_info_fee(BigDecimal register_info_fee) {
         this.register_info_fee = register_info_fee;
     }
 

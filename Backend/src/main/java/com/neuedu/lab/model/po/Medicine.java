@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class Medicine {
     private String medicine_id;
     private String medicine_usage;
@@ -9,7 +11,7 @@ public class Medicine {
     private String medicine_factory;
     private String medicine_formulation;
     private String medicine_type;
-    private Double medicine_unit_price;
+    private BigDecimal medicine_unit_price;
     private String medicine_pinyin;
 
     public String getMedicine_id() {
@@ -76,11 +78,11 @@ public class Medicine {
         this.medicine_type = medicine_type;
     }
 
-    public Double getMedicine_unit_price() {
+    public BigDecimal getMedicine_unit_price() {
         return medicine_unit_price;
     }
 
-    public void setMedicine_unit_price(Double medicine_unit_price) {
+    public void setMedicine_unit_price(BigDecimal medicine_unit_price) {
         this.medicine_unit_price = medicine_unit_price;
     }
 

@@ -1,11 +1,13 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class NonMedicine {
     private String non_medicine_id;
     private String non_medicine_type;
     private String non_medicine_name;
     private String non_medicine_specification;
-    private Double non_medicine_unit_price;
+    private BigDecimal non_medicine_unit_price;
 
     public String getNon_medicine_id() {
         return non_medicine_id;
@@ -39,11 +41,11 @@ public class NonMedicine {
         this.non_medicine_specification = non_medicine_specification;
     }
 
-    public Double getNon_medicine_unit_price() {
+    public BigDecimal getNon_medicine_unit_price() {
         return non_medicine_unit_price;
     }
 
-    public void setNon_medicine_unit_price(Double non_medicine_unit_price) {
+    public void setNon_medicine_unit_price(BigDecimal non_medicine_unit_price) {
         this.non_medicine_unit_price = non_medicine_unit_price;
     }
 }
