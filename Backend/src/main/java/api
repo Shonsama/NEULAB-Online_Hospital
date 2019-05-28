@@ -1,7 +1,14 @@
 ### API 规约文档
 #####注：前端同学负责填写说明、类型、传入参数、返回参数；后端同学负责填写后端负责人、路径填写
 前端同学写下自己需要的接口，后端同学领任务，做完再领下一个，记得领之前先pull一下，领后及时填写并push上去~
-##### (eg)后端负责人：李雨泽
+##### ##### (eg)后端负责人：王朋
+      1. 路径: "/doctor/register_info"
+      2. 说明: 获取一个医生当天所有挂号记录
+      3. 类型: POST
+      4. 传入参数
+      ["doctor_id":"12432"]
+      5. 返回参数
+      [register_info1,register_info2,....](eg)后端负责人：李雨泽
 1. 路径："/get_department"
 2. 说明: 获取所有科室名称
 3. 类型：GET 
@@ -10,11 +17,58 @@
 
 
 
-##### (eg)后端负责人：王朋
-1. 路径: "/doctor/register_info"
-2. 说明: 获取一个医生当天所有挂号记录
+##### 1.后端负责人：王朋
+1. 路径: "/get_constant"
+2. 说明: 获取一个类型的所有常量
 3. 类型: POST
 4. 传入参数
-["doctor_id":"12432"]
+["constant_type":"payment_type"]
 5. 返回参数
-[register_info1,register_info2,....]
+[
+{"id"="1","constant_type"="payment_type","constant_name"="自费"},
+{"id"="2","constant_type"="payment_type","constant_name"="新农合"},
+{"id"="3","constant_type"="payment_type","constant_name"="医保"}
+]
+
+##### 2.后端负责人：王朋
+1. 路径: "/add_constant" 
+2. 说明: 获取一个类型的所有常量
+3. 类型: POST
+4. 传入参数
+["constant_type":"payment_type","constant_name"="众筹"]
+5. 返回参数
+成功：
+{"result"="fail"}
+失败:
+{"result"="success"}
+
+##### 2.后端负责人：王朋
+1. 路径: "/delete_constant"
+2. 说明: 删除某条常量记录
+3. 类型: POST
+4. 传入参数
+["constant_type":"payment_type","constant_name":"众筹"]
+或者
+["constant_id":"1"]
+5. 返回参数
+成功：
+{"result"="fail"}
+失败:
+{"result"="success"}
+
+##### 2.后端负责人：王朋
+1. 路径: "/update_constant"
+2. 说明: 更新某条常量记录
+3. 类型: POST
+4. 传入参数
+["constant_id":"1",constant_type":"payment_type","constant_name"="众筹"]
+5. 返回参数
+成功：
+{"result"="fail"}
+失败:
+{"result"="success"}
+
+
+
+
+
