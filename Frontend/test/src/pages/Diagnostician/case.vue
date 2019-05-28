@@ -1,21 +1,58 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-  <v-toolbar flat dense >
-    <v-layout align-center justify-space-around row fill-height>
-      <v-btn small color="primary">
+    <v-dialog
+      v-model="show"
+      max-width="400"
+    >
+      <v-card>
+        <v-toolbar flat dense>
+          <v-toolbar-title  >诊断目录</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn   flat icon dark color="primary" @click="show = !show">
+            <v-icon>
+              add
+            </v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-data-table
+          v-model="selected_dia"
+          :headers="headers_dia"
+          :items="desserts"
+          item-key="code"
+          select-all
+          hide-actions
+        >
+          <template v-slot:items="props">
+            <td>
+              <v-checkbox
+                v-model="props.selected"
+                primary
+                hide-details
+              ></v-checkbox>
+            </td>
+            <td>{{ props.item.code }}</td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.cate }}</td>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-dialog>
+    <v-toolbar flat dense >
+      <v-layout align-center justify-space-around row fill-height>
+      <v-btn small color="primary" @click="save">
         暂存
       </v-btn>
-      <v-btn small color="primary">
+      <v-btn small color="primary" @click="submit">
         提交
       </v-btn>
-      <v-btn small color="primary">
+      <v-btn small color="primary" @click="clear">
         清空
       </v-btn>
-      <v-btn small color="primary">
+      <v-btn smalsl color="primary" @click="refresh">
         刷新
       </v-btn>
     </v-layout>
-  </v-toolbar>
+    </v-toolbar>
     <v-layout>
       <v-flex xs12>
       <v-form
@@ -28,30 +65,35 @@
           </div>
         </v-card-title>
         <v-textarea
+          v-model="form.appeal"
           box
           label="主诉"
           placeholder="请输入主诉"
           rows="1"
         ></v-textarea>
         <v-textarea
+          v-model="form.now"
           box
           label="现病史"
           placeholder="请输入现病史"
           rows="2"
         ></v-textarea>
         <v-textarea
+          v-model="form.nowTreat"
           box
           label="现病治疗情况"
           placeholder="请输入现病治疗情况"
           rows="2"
         ></v-textarea>
         <v-textarea
-        box
-        label="既往史"
-        placeholder="请输入既往史"
-        rows="2"
-      ></v-textarea>
+          v-model="form.history"
+          box
+          label="既往史"
+          placeholder="请输入既往史"
+          rows="2"
+        ></v-textarea>
         <v-textarea
+          v-model="form.allergy"
           box
           label="过敏史"
           placeholder="请输入过敏史"
@@ -69,10 +111,14 @@
           <v-flex shrink>
             <v-expand-x-transition>
               <div v-show="expand" style="white-space: nowrap">
-                <v-btn color="primary" style="margin-top: 17px" @click="Dexpand = !Dexpand">
+                <v-btn color="primary" style="margin-top: 17px"
+                       @click="choose_WE"
+                >
                   西医诊断
                 </v-btn>
-                <v-btn color="primary" style="margin-top: 17px" @click="Dexpand = !Dexpand">
+                <v-btn color="primary" style="margin-top: 17px"
+                       @click="choose_CH"
+                >
                   中医诊断
                 </v-btn>
               </div>
@@ -80,12 +126,12 @@
           </v-flex>
         </v-layout>
         <v-expand-transition>
-          <div v-show="Dexpand">
+          <div v-show="expand_WE">
            <v-card>
              <v-toolbar flat >
-               <v-toolbar-title  >西医</v-toolbar-title>
+               <v-toolbar-title  >西医诊断</v-toolbar-title>
                <v-spacer></v-spacer>
-               <v-btn   dark color="primary" @click="expand = !expand">
+               <v-btn   dark color="primary" @click="show = !show">
                  新增
                </v-btn>
                <v-btn   dark color="primary" @click="expand = !expand">
@@ -95,8 +141,8 @@
              <v-data-table
                v-model="selected"
                :headers="headers"
-               :items="desserts"
-               item-key="name"
+               :items="content"
+               item-key="code_1"
                select-all
                class="elevation-1"
                style="margin-bottom: 20px"
@@ -109,39 +155,61 @@
                      hide-details
                    ></v-checkbox>
                  </td>
-                 <td>{{ props.item.name }}</td>
-                 <td class="text-xs-right">{{ props.item.calories }}</td>
-                 <td class="text-xs-right">{{ props.item.fat }}</td>
-                 <td class="text-xs-right">{{ props.item.carbs }}</td>
-                 <td class="text-xs-right">{{ props.item.protein }}</td>
-                 <td class="text-xs-right">{{ props.item.iron }}</td>
-                 <td class="justify-center layout px-0">
-                   <v-icon
-                     small
-                     class="mr-2"
-                     @click="editItem(props.item)"
-                   >
-                     edit
-                   </v-icon>
-                   <v-icon
-                     small
-                     @click="deleteItem(props.item)"
-                   >
-                     delete
-                   </v-icon>
-                 </td>
+                 <td>{{ props.item.code }}</td>
+                 <td class="text-xs-right">{{ props.item.name }}</td>
+                 <td class="text-xs-right">{{ props.item.time }}</td>
                </template>
              </v-data-table>
            </v-card>
           </div>
         </v-expand-transition>
+        <v-expand-transition>
+          <div v-show="expand_CH">
+            <v-card>
+              <v-toolbar flat >
+                <v-toolbar-title  >中医诊断</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn   dark color="primary" @click="show = !show">
+                  新增
+                </v-btn>
+                <v-btn   dark color="primary" @click="expand = !expand">
+                  删除
+                </v-btn>
+              </v-toolbar>
+              <v-data-table
+                v-model="selected"
+                :headers="headers"
+                :items="content"
+                item-key="code_2"
+                select-all
+                class="elevation-1"
+                style="margin-bottom: 20px"
+              >
+                <template v-slot:items="props">
+                  <td>
+                    <v-checkbox
+                      v-model="props.selected"
+                      primary
+                      hide-details
+                    ></v-checkbox>
+                  </td>
+                  <td>{{ props.item.name }}</td>
+                  <td>{{ props.item.code }}</td>
+                  <td>{{ props.item.time }}</td>
+                </template>
+              </v-data-table>
+            </v-card>
+          </div>
+        </v-expand-transition>
         <v-textarea
+          v-model="form.advise"
           box
           label="检查建议"
           placeholder="请输入检查建议"
           rows="2"
         ></v-textarea>
         <v-textarea
+          v-model="form.notice"
           box
           label="注意事项"
           placeholder="请输入注意事项"
@@ -158,9 +226,127 @@ export default {
   name: 'case',
   data () {
     return {
+      selected: [],
+      selected_dia: [],
+      show: false,
       expand: false,
-      Dexpand: false
+      expand_CH: false,
+      expand_WE: false,
+      desserts: [{
+        code: '1',
+        name: '1',
+        cate: '1'
+      }, {
+        code: '1',
+        name: '1',
+        cate: '1'
+      }],
+      headers: [{
+        text: '编码',
+        align: 'left',
+        value: 'code'
+      },
+      { text: '名称', value: 'name' },
+      { text: '发病时间', value: 'time' }],
+      headers_dia: [{
+        text: '编码',
+        align: 'left',
+        value: 'code'
+      },
+      { text: '名称', value: 'name' },
+      { text: '分类', value: 'cate' }],
+      content: [{
+        code: '1',
+        name: '1',
+        time: '1'
+      }, {
+        code: '2',
+        name: '2',
+        time: '2'
+      }],
+      form: {
+        appeal: '',
+        now: '',
+        history: '',
+        nowTreat: '',
+        allergy: '',
+        diagnosis: {
+          cate: '',
+          content: []
+        },
+        advise: '',
+        notice: ''
+      }
+    }
+  },
+  mounted: {
 
+  },
+  methods: {
+    getItem () {
+      let that = this
+      var url = this.HOME + ''
+      this.$http.get(url).then(response => {
+        that.desserts = response.data
+      })
+    },
+    submit () {
+      let that = this
+      var url = this.HOME + ''
+      this.$http.post(url, this.form)
+        .then(response => {
+          that.desserts = response.data
+        })
+    },
+    clear () {
+      this.form = {
+        appeal: '',
+        now: '',
+        history: '',
+        nowTreat: '',
+        allergy: '',
+        diagnosis: {
+          cate: '',
+          content: []
+        },
+        advise: '',
+        notice: ''
+      }
+      this.content = []
+    },
+    save () {
+      let that = this
+      var url = this.HOME + ''
+      this.form.diagnosis.content = this.content
+      this.$http.post(url, this.form)
+        .then(response => {
+          that.desserts = response.data
+        })
+    },
+    refresh () {
+      let that = this
+      var url = this.HOME + ''
+      this.form.diagnosis.content = this.content
+      this.$http.post(url, this.form)
+        .then(response => {
+          that.desserts = response.data
+        })
+    },
+    choose_WE () {
+      this.expand_WE = !this.expand_WE
+      this.form.diagnosis.cate = '西医'
+      this.form.diagnosis.content = []
+      if (this.expand_CH) {
+        this.expand_CH = !this.expand_CH
+      }
+    },
+    choose_CH () {
+      this.expand_CH = !this.expand_CH
+      this.form.diagnosis.cate = '中医'
+      this.form.diagnosis.content = []
+      if (this.expand_WE) {
+        this.expand_WE = !this.expand_WE
+      }
     }
   }
 }
