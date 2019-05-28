@@ -1,12 +1,20 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
-    <v-flex
-    >
+    <v-flex>
       <v-toolbar flat>
-        <v-toolbar-title>Expandable Table</v-toolbar-title>
+        <v-flex xs3>
+          <v-text-field
+            prepend-inner-icon="search"
+            v-model="firstname"
+            :rules="nameRules"
+            label="编号/名称"
+            required
+          ></v-text-field>
+        </v-flex>
+
         <v-spacer></v-spacer>
         <v-btn   @click="expand = !expand">
-          {{ expand ? 'Close' : 'Keep' }} other rows
+          新增
         </v-btn>
       </v-toolbar>
       <v-data-table
@@ -25,12 +33,11 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <td >{{ props.item.id }}</td>
+          <td >{{ props.item.name }}</td>
+          <td >{{ props.item.standard }}</td>
+          <td >{{ props.item.price_category }}</td>
+          <td >{{ props.item.price }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               small
@@ -75,9 +82,38 @@
 </template>
 
 <script>
-export default {
-  name: 'nonMedicine'
-}
+  export default {
+    name: 'office',
+    data: () => ({
+      expand: false,
+      selected: [],
+      headers: [
+        {
+          text: '疾病编码',
+          align: 'left',
+          value: 'id'
+        },
+        { text: '疾病名称', value: 'name' },
+        { text: '国际ICD编码', value: 'ICD' },
+        { text: '疾病所属分类', value: 'category' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
+      desserts: [
+        {
+          id: 'BPSZS',
+          name: '包皮伸展术',
+          category: '中医疾病',
+          ICD:'99.951'
+        }
+      ]
+    }),
+    computed: {
+    },
+    watch: {
+    },
+    methods: {
+    }
+  }
 </script>
 
 <style scoped>
