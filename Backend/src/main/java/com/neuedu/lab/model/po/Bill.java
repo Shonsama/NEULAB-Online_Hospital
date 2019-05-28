@@ -1,0 +1,87 @@
+package com.neuedu.lab.model.po;
+
+import java.util.Date;
+
+public class Bill {
+    private String bill_id;
+    private Double bill_actual_sum;
+    private Double bill_sum;
+    private Date bill_time;
+    private String bill_type;
+    private Integer bill_register_id;
+    private Integer bill_perscription_id;
+    private Integer bill_medical_skill_id;
+    private Integer bill_user_id;
+
+    public String getBill_id() {
+        return bill_id;
+    }
+
+    public void setBill_id(String bill_id) {
+        this.bill_id = bill_id;
+    }
+
+    public Double getBill_actual_sum() {
+        return bill_actual_sum;
+    }
+
+    public void setBill_actual_sum(Double bill_actual_sum) {
+        this.bill_actual_sum = bill_actual_sum;
+    }
+
+    public Double getBill_sum() {
+        return bill_sum;
+    }
+
+    public void setBill_sum(Double bill_sum) {
+        this.bill_sum = bill_sum;
+    }
+
+    public Date getBill_time() {
+        return bill_time;
+    }
+
+    public void setBill_time(Date bill_time) {
+        this.bill_time = bill_time;
+    }
+
+    public String getBill_type() {
+        return bill_type;
+    }
+
+    public void setBill_type(String bill_type) {
+        this.bill_type = bill_type;
+    }
+
+    public Integer getBill_register_id() {
+        return bill_register_id;
+    }
+
+    public void setBill_register_id(Integer bill_register_id) {
+        this.bill_register_id = bill_register_id;
+    }
+
+    public Integer getBill_perscription_id() {
+        return bill_perscription_id;
+    }
+
+    public void setBill_perscription_id(Integer bill_perscription_id) {
+        this.bill_perscription_id = bill_perscription_id;
+    }
+
+    public Integer getBill_medical_skill_id() {
+        return bill_medical_skill_id;
+    }
+
+    public void setBill_medical_skill_id(Integer bill_medical_skill_id) {
+        this.bill_medical_skill_id = bill_medical_skill_id;
+    }
+
+    public Integer getBill_user_id() {
+        return bill_user_id;
+    }
+
+    public void setBill_user_id(Integer bill_user_id) {
+        this.bill_user_id = bill_user_id;
+    }
+}
