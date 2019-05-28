@@ -28,12 +28,9 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-src/main/resources/static/css/app.7c71edea8a784dd519494c8ad697bf62.css
-src/main/resources/static/css/app.7c71edea8a784dd519494c8ad697bf62.css.map
-src/main/resources/static/js/app.1ff1724196d61d10960f.js
-src/main/resources/static/js/app.1ff1724196d61d10960f.js.map
-src/main/resources/static/js/manifest.2ae2e69a05c33dfc65f8.js
-src/main/resources/static/js/manifest.2ae2e69a05c33dfc65f8.js.map
-src/main/resources/static/js/vendor.7d29c4b19b94556c00a3.js
-src/main/resources/static/js/vendor.7d29c4b19b94556c00a3.js.map
+
+
+
+/src/main/resources/application.properties
+/src/main/resources/static/
 src/main/webapp/index.html
