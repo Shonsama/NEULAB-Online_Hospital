@@ -9,6 +9,7 @@ import com.neuedu.lab.model.service.ConstantService;
 import com.neuedu.lab.model.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,9 +41,8 @@ public class TestController {
 	}
 
 	@RequestMapping("/payment_type")
-	public List<String> getPaymentType(){
-		System.out.println("payment_type");
-		return constantService.getPaymentType();
+	public List<Constant> getPaymentType(@RequestParam String constant_type){
+		return constantService.getConstant(constant_type);
 	}
 
 }

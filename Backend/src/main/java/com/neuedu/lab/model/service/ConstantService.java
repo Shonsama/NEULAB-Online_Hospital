@@ -42,7 +42,7 @@ public class ConstantService {
 
     public boolean updateConstant(Constant constant){
         try {
-            constantMapper.updateConsant(constant);
+            constantMapper.updateConstant(constant);
         }
         catch (Exception e){
             e.printStackTrace();

@@ -5,8 +5,8 @@
 <mapper namespace="com.neuedu.lab.model.mapper.ConstantMapper">
 
     <select id="getConstant" resultType="com.neuedu.lab.model.po.Constant">
-        select constant_name from constant
-        where constant_type=#{type}
+        select * from constant
+        where constant_type=#{constant_type}
     </select>
 
     <insert id="addConstant" parameterType="com.neuedu.lab.model.po.Constant"

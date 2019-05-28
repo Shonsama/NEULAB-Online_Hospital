@@ -9,5 +9,5 @@ public interface ConstantMapper {
     public List<Constant> getConstant(String constant_type);
     public void addConstant(Constant constant);
     public void deleteConstant(Constant constant);
-    public void updateConsant(Constant constant);
+    public void updateConstant(Constant constant);
 }
