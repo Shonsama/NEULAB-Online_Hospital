@@ -1,282 +1,301 @@
+drop table  if exists `his`.`daily`;
+drop table if exists `his`.`bill`;
+drop table  if exists `his`.`template`;
+drop table  if exists `his`.`medical_skill`;
+drop table if exists `his`.`prescription`;
+drop table if exists  `his`.`record`;
+drop table  if exists `his`.`register_info`;
+drop table  if exists `his`.`schedule`;
+drop table  if exists `his`.`rule`;
+drop table if exists  `his`.`patient_info`;
+drop table if exists  `his`.`usual_diagnose`;
+drop table if exists  `his`.`doctor_info`;
+drop table  if exists  `his`.`register_level`;
+drop table  if exists  `his`.`user_info`;
+
+
 #疾病信息表，死表
 drop table if exists  `his`.`disease_info`;
 CREATE TABLE `his`.`disease_info` (
-`disease_id` varchar(45) NOT NULL,
-`disease_type` VARCHAR(45) not NULL,
-`disease_name` VARCHAR(45) not NULL,
-`disease_icd` VARCHAR(45) not NULL,
-PRIMARY KEY (`disease_id`)
-);
+  `disease_id` varchar(45) NOT NULL,
+  `disease_type` VARCHAR(45) not NULL,
+  `disease_name` VARCHAR(45) not NULL,
+  `disease_icd` VARCHAR(45) not NULL,
+  PRIMARY KEY (`disease_id`)
+)default charset=utf8;
 
-#常数表,死表
+#常数表,死表disease_infodisease_info
 drop table if exists  `his`.`constant`;
 CREATE TABLE `his`.`constant` (
-`constant_id` varchar(45) NOT NULL,
-`constant_name` VARCHAR(45) not NULL,
-`constant_type` VARCHAR(45) not NULL,
-PRIMARY KEY (`constant_id`)
-);
-
-#科室信息表
-drop table  if exists `his`.`department_info`;
-CREATE TABLE `his`.`department_info` (
-`department_id` varchar(45) NOT NULL,
-`department_type` varchar(45) NOT NULL,
-`department_cat` varchar(45) NOT NULL,
-`department_name` varchar(45) NOT NULL,
-PRIMARY KEY (`department_id`)
-);
-
-#用户信息
-drop table if exists  `his`.`user_info`;
-CREATE TABLE `his`.`user_info` (
-`user_id` VARCHAR(45) NOT NULL,#id
-`user_password` VARCHAR(45) NOT NULL,
-`user_account` VARCHAR(45)NOT NULL,#登录名
-`user_type` VARCHAR(45) NOT NULL,
-`user_name` VARCHAR(45) NOT NULL,#真实姓名
-PRIMARY KEY (`user_id`)
-);
-
-#挂号级别表
-drop table  if exists  `his`.`register_level`;
-CREATE TABLE `his`.`register_level` (
-`register_level_id` VARCHAR(45) NOT NULL,
-`register_level_seq_num` int NULL,
-`register_level_level` VARCHAR(45) NULL,
-`register_level_max` int not NULL,
-`register_level_fee` decimal(8,2) unsigned not null,
-PRIMARY KEY (`register_level_id`)
-);
-
-#医生信息
-drop table if exists  `his`.`doctor_info`;
-CREATE TABLE `his`.`doctor_info` (
-#doctor特有
-`doctor_position` VARCHAR(45) NOT NULL,#职称信息
-`doctor_arrange_or_not` boolean NOT NULL,
-#所有user均有
-`doctor_password` VARCHAR(45) NOT NULL,
-`doctor_account` VARCHAR(45)NOT NULL,#登录名
-`doctor_type` VARCHAR(45) NOT NULL,#对于医生而言，只有门诊和医技
-`doctor_name` VARCHAR(45) NOT NULL,#真实姓名
-#foreign key
-`doctor_register_level_id` VARCHAR(45) NOT NULL,#id
-`doctor_id` VARCHAR(45) NOT NULL,#id
-`doctor_department_id` varchar(45) not null,
-FOREIGN KEY  (`doctor_department_id`)  REFERENCES  `department_info` (`department_id`),
-FOREIGN KEY  (`doctor_id`)  REFERENCES  `user_info` (`user_id`),
-foreign key(`doctor_register_level_id`) references `register_level` (`register_level_id`)
-);
-
-#常用诊断
-drop table if exists  `his`.`usual_diagnose`;
-CREATE TABLE `his`.`usual_diagnose` (
-`usual_diagnose_id` VARCHAR(45) NOT NULL,
-`usual_diagnose_disease_name` VARCHAR(45) NOT NULL,
-`usual_diagnose_result` VARCHAR(400) not NULL,
-#foreign key
-`usual_diagnose_doctor_id` varchar(45) not null,
-foreign key(`usual_diagnose_doctor_id`) references `doctor_info` (`doctor_id`),
-PRIMARY KEY (`usual_diagnose_id`)
-);
-
-#患者信息
-drop table if exists  `his`.`patient_info`;
-CREATE TABLE `his`.`patient_info` (
-`patient_record_id` VARCHAR(45) NOT NULL,
-`patient_gender` bool not NULL,#男1女0
-`patient_name` VARCHAR(45)  NOT NULL,
-`patient_credit_id` VARCHAR(45) NOT NULL,
-`patient_address` VARCHAR(400) NULL,
-`patient_birthDate` date NULL,
-`patient_age` VARCHAR(45) not NULL,
-#foreign key
-`patient_doctor_id` VARCHAR(45) not NULL,
-foreign key(`patient_doctor_id`) references `doctor_info` (`doctor_id`),
-PRIMARY KEY (`patient_record_id`)
-);
-
-#排班规则表
-drop table  if exists `his`.`rule`;
-CREATE TABLE `his`.`rule` (
-`rule_id` varchar(45) NOT NULL,
-`rule_name` varchar(45) NOT NULL,
-`rule_work_time` varchar(45) NOT NULL,
-#foreign key
-`rule_doctor_id` varchar(45) NOT NULL,
-primary key(`rule_id`),
-foreign key(`rule_doctor_id`) references `doctor_info` (`doctor_id`)
-);
-
-#排班表
-drop table  if exists `his`.`schedule`;
-CREATE TABLE `his`.`schedule` (
-`schedule_start_date` date NOT NULL,
-`schedule_end_date` date NOT NULL,
-#foreign key
-`schedule_id` varchar(45) not null,
-`schedule_doctor_id` varchar(45) not null,
-foreign key(`schedule_id`) references `rule` (`rule_id`),
-foreign key(`schedule_doctor_id`) references `doctor_info` (`doctor_id`)
-);
-
-#挂号表
-drop table  if exists `his`.`register_info`;
-CREATE TABLE `his`.`register_info` (
-`register_info_id` varchar(45) NOT NULL,
-`register_info_state` bool NOT NULL,
-`register_info_records_book` boolean NOT NULL,
-`register_info_fee` decimal(8,2) unsigned NOT NULL,
-`register_info_pay_type` varchar(45) NOT NULL,
-`register_info_doctor_id` varchar(45) NOT NULL,
-`register_info_patient_id` varchar(45) NOT NULL,
-`register_info_user_id` varchar(45) not null,
-PRIMARY KEY (`register_info_id`),
-foreign key(`register_info_doctor_id`) references `doctor_info` (`doctor_id`),
-foreign key(`register_info_patient_id`) references `patient_info` (`patient_record_id`),
-foreign key(`register_info_user_id`) references `user_info` (`user_id`)
-);
-
-#病历
-drop table if exists  `his`.`record`;
-CREATE TABLE `his`.`record` (
-#连外键
-`record_patient_id` VARCHAR(45) NOT NULL,
-`record_doctor_id` VARCHAR(45) NOT NULL,
-`record_id` varchar(45) not null,
-#内在属性
-`record_first_diagnosis` VARCHAR(400) NOT NULL,
-`record_syndrome` VARCHAR(400) NOT NULL,
-`record_health_check` VARCHAR(400) NULL,
-`record_xianbingshi` VARCHAR(400)  NULL,
-`record_jiwangshi` VARCHAR(400)  NULL,
-`record_cure_situation` VARCHAR(400) NULL,
-`record_confirm_diagnosis` VARCHAR(400) NULL,
-`record_allergy_his` VARCHAR(400) NULL,
-FOREIGN KEY  (`record_patient_id`)  REFERENCES  `patient_info` (`patient_record_id`),
-FOREIGN KEY  (`record_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-FOREIGN KEY  (`record_id`)  REFERENCES  `register_info` (`register_info_id`)
-);
-
-#药品
-drop table  if exists `his`.`medicine`;
-CREATE TABLE `his`.`medicine` (
-`medicine_id` varchar(45) NOT NULL,
-`medicine_usage` varchar(45) NULL,
-`medicine_name` varchar(45) NOT NULL,
-`medicine_specifications` varchar(45) NOT NULL,
-`medicine_unit` varchar(45) NOT NULL,
-`medicine_factory` varchar(45) NOT NULL,
-`medicine_formulation` varchar(45) NOT NULL,
-`medicine_type` varchar(45) NOT NULL,
-`medicine_unit_price` varchar(45) NOT NULL,
-`medicine_pinyin` varchar(45) NOT NULL,
-PRIMARY KEY (`medicine_id`)
-);
-
-#处方记录
-drop table if exists `his`.`prescription`;
-CREATE TABLE `his`.`prescription` (
-`prescription_id` varchar(45) NOT NULL,
-`prescription_consumption` varchar(45) NOT NULL,
-`prescription_frequency` varchar(45) NOT NULL,
-`prescription_num` int NOT NULL,
-`prescription_name` varchar(45) not null,
-`prescription_day` int NOT NULL,
-`prescription_execute_state` varchar(45) NOT NULL,
-`prescription_type` varchar(45) NOT NULL,
-#foreign key
-`prescription_user_id` varchar(45) NOT NULL,
-`prescription_doctor_id` varchar(45) NOT NULL,
-`prescription_register_info_id` varchar(45) NOT NULL,
-`prescription_medicine_id` varchar(45) NOT NULL,
-PRIMARY KEY (`prescription_id`),
-FOREIGN KEY  (`prescription_user_id`)  REFERENCES  `user_info` (`user_id`),
-FOREIGN KEY  (`prescription_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
-FOREIGN KEY  (`prescription_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
-);
+  `constant_id` int NOT NULL AUTO_INCREMENT,
+  `constant_name` VARCHAR(45) not NULL,
+  `constant_type` VARCHAR(45) not NULL,
+  PRIMARY KEY (`constant_id`)
+)default charset=utf8;
 
 #非药品目录表
 drop table if exists  `his`.`non_medicine`;
 CREATE TABLE `his`.`non_medicine` (
-`non_medicine_id` VARCHAR(45) NOT NULL,
-`non_medicine_type` VARCHAR(45) NULL,
-`non_medicine_name` VARCHAR(45) NULL,
-`non_medicine_unit_price` decimal(8,2) unsigned NULL,
-`non_medicine_specification` VARCHAR(45) NULL,
-PRIMARY KEY (`non_medicine_id`));
+  `non_medicine_id` VARCHAR(45) NOT NULL,
+  `non_medicine_type` VARCHAR(45) NULL,
+  `non_medicine_name` VARCHAR(45) NULL,
+  `non_medicine_unit_price` decimal(8,2) unsigned NULL,
+  `non_medicine_specification` VARCHAR(45) NULL,
+  PRIMARY KEY (`non_medicine_id`)
+)default charset=utf8;
+
+#药品
+drop table  if exists `his`.`medicine`;
+CREATE TABLE `his`.`medicine` (
+  `medicine_id` varchar(45) NOT NULL,
+  `medicine_usage` varchar(45) NULL,
+  `medicine_name` varchar(45) NOT NULL,
+  `medicine_specifications` varchar(45) NOT NULL,
+  `medicine_unit` varchar(45) NOT NULL,
+  `medicine_factory` varchar(45) NOT NULL,
+  `medicine_formulation` varchar(45) NOT NULL,
+  `medicine_type` varchar(45) NOT NULL,
+  `medicine_unit_price` decimal(8,2)  NOT NULL,
+  `medicine_pinyin` varchar(45) NOT NULL,
+  PRIMARY KEY (`medicine_id`)
+)default charset=utf8;
+
+#科室信息表
+drop table  if exists `his`.`department_info`;
+CREATE TABLE `his`.`department_info` (
+  `department_id` varchar(45) NOT NULL,
+  `department_type` varchar(45) NOT NULL,
+  `department_cat` varchar(45) NOT NULL,
+  `department_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`department_id`)
+)default charset=utf8;
+
+
+#用户信息
+drop table if exists  `his`.`user_info`;
+CREATE TABLE `his`.`user_info` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,#id
+  `user_password` VARCHAR(45) NOT NULL,
+  `user_account` VARCHAR(45)NOT NULL,#登录名
+  `user_type` VARCHAR(45) NOT NULL,
+  `user_name` VARCHAR(45) NOT NULL,#真实姓名
+  PRIMARY KEY (`user_id`)
+)default charset=utf8;
+
+#挂号级别表
+drop table  if exists  `his`.`register_level`;
+CREATE TABLE `his`.`register_level` (
+  `register_level_id` int NOT NULL AUTO_INCREMENT,
+  `register_level_seq_num` int NULL,
+  `register_level_level` VARCHAR(45) NULL,
+  `register_level_max` int not NULL,
+  `register_level_fee` decimal(8,2) unsigned not null,
+  PRIMARY KEY (`register_level_id`)
+)default charset=utf8;
+
+#医生信息
+drop table if exists  `his`.`doctor_info`;
+CREATE TABLE `his`.`doctor_info` (
+  #doctor特有
+  `doctor_position` VARCHAR(45) NOT NULL,#职称信息
+  `doctor_arrange_or_not` boolean NOT NULL,
+  #所有user均有
+  `doctor_password` VARCHAR(45) NOT NULL,
+  `doctor_account` VARCHAR(45)NOT NULL,#登录名
+  `doctor_type` VARCHAR(45) NOT NULL,#对于医生而言，只有门诊和医技
+  `doctor_name` VARCHAR(45) NOT NULL,#真实姓名
+  #foreign key
+  `doctor_register_level_id` int NOT NULL,#id
+  `doctor_id` INT NOT NULL,#id
+  `doctor_department_id` varchar(45) not null,
+  FOREIGN KEY  (`doctor_department_id`)  REFERENCES  `department_info` (`department_id`),
+  FOREIGN KEY  (`doctor_id`)  REFERENCES  `user_info` (`user_id`),
+  foreign key(`doctor_register_level_id`) references `register_level` (`register_level_id`),
+  PRIMARY KEY (`doctor_id`)
+)default charset=utf8;
+
+#常用诊断
+drop table if exists  `his`.`usual_diagnose`;
+CREATE TABLE `his`.`usual_diagnose` (
+  `usual_diagnose_id` INT NOT NULL AUTO_INCREMENT,
+  `usual_diagnose_disease_name` VARCHAR(45) NOT NULL,
+  `usual_diagnose_result` VARCHAR(400) not NULL,
+  #foreign key
+  `usual_diagnose_doctor_id` INT not null,
+  foreign key(`usual_diagnose_doctor_id`) references `doctor_info` (`doctor_id`),
+  PRIMARY KEY (`usual_diagnose_id`)
+)default charset=utf8;
+
+#患者信息
+drop table if exists  `his`.`patient_info`;
+CREATE TABLE `his`.`patient_info` (
+  `patient_record_id`INT NOT NULL AUTO_INCREMENT,
+  `patient_gender` bool not NULL,#男1女0
+  `patient_name` VARCHAR(45)  NOT NULL,
+  `patient_credit_id` VARCHAR(45) NOT NULL,
+  `patient_address` VARCHAR(400) NULL,
+  `patient_birthDate` date NULL,
+  `patient_age` INT not NULL,
+  PRIMARY KEY (`patient_record_id`)
+)default charset=utf8;
+
+#排班规则表
+drop table  if exists `his`.`rule`;
+CREATE TABLE `his`.`rule` (
+  `rule_id` int NOT NULL AUTO_INCREMENT,
+  `rule_name` varchar(45) NOT NULL,
+  `rule_work_time` varchar(45) NOT NULL,
+  #foreign key
+  `rule_doctor_id` INT NOT NULL,
+  primary key(`rule_id`),
+  foreign key(`rule_doctor_id`) references `doctor_info` (`doctor_id`)
+)default charset=utf8;
+
+#排班表
+drop table  if exists `his`.`schedule`;
+CREATE TABLE `his`.`schedule` (
+  `schedule_start_date` date NOT NULL,
+  `schedule_end_date` date NOT NULL,
+  #foreign key
+  `schedule_id` int not null,
+  `schedule_doctor_id` INT not null,
+  foreign key(`schedule_id`) references `rule` (`rule_id`),
+  foreign key(`schedule_doctor_id`) references `doctor_info` (`doctor_id`)
+)default charset=utf8;
+
+#挂号表
+drop table  if exists `his`.`register_info`;
+CREATE TABLE `his`.`register_info` (
+  `register_info_id` INT NOT NULL AUTO_INCREMENT,
+  `register_info_state` bool NOT NULL,
+  `register_info_records_book` boolean NOT NULL,
+  `register_info_fee` decimal(8,2) unsigned NOT NULL,
+  `register_info_pay_type` varchar(45) NOT NULL,
+  `register_info_doctor_id` INT NOT NULL,
+  `register_info_patient_id` INT NOT NULL,
+  `register_info_user_id` INT not null,
+  PRIMARY KEY (`register_info_id`),
+  foreign key(`register_info_doctor_id`) references `doctor_info` (`doctor_id`),
+  foreign key(`register_info_patient_id`) references `patient_info` (`patient_record_id`),
+  foreign key(`register_info_user_id`) references `user_info` (`user_id`)
+)default charset=utf8;
+
+#病历
+drop table if exists  `his`.`record`;
+CREATE TABLE `his`.`record` (
+  #连外键
+  `record_patient_id` INT NOT NULL ,
+  `record_doctor_id` INT NOT NULL,
+  `record_id` int not null,
+  #内在属性
+  `record_first_diagnosis` VARCHAR(400) NOT NULL,
+  `record_syndrome` VARCHAR(400) NOT NULL,
+  `record_health_check` VARCHAR(400) NULL,
+  `record_xianbingshi` VARCHAR(400)  NULL,
+  `record_jiwangshi` VARCHAR(400)  NULL,
+  `record_cure_situation` VARCHAR(400) NULL,
+  `record_confirm_diagnosis` VARCHAR(400) NULL,
+  `record_allergy_his` VARCHAR(400) NULL,
+  FOREIGN KEY  (`record_patient_id`)  REFERENCES  `patient_info` (`patient_record_id`),
+  FOREIGN KEY  (`record_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
+  FOREIGN KEY  (`record_id`)  REFERENCES  `register_info` (`register_info_id`)
+)default charset=utf8;
+
+#处方记录
+drop table if exists `his`.`prescription`;
+CREATE TABLE `his`.`prescription` (
+  `prescription_id` int NOT NULL AUTO_INCREMENT,
+  `prescription_consumption` varchar(45) NOT NULL,
+  `prescription_frequency` varchar(45) NOT NULL,
+  `prescription_num` int NOT NULL,
+  `prescription_name` varchar(45) not null,
+  `prescription_day` int NOT NULL,
+  `prescription_execute_state` varchar(45) NOT NULL,
+  `prescription_type` varchar(45) NOT NULL,
+  #foreign key
+  `prescription_user_id` INT NOT NULL,
+  `prescription_doctor_id` INT NOT NULL,
+  `prescription_register_info_id` INT NOT NULL,
+  `prescription_medicine_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`prescription_id`),
+  FOREIGN KEY  (`prescription_user_id`)  REFERENCES  `user_info` (`user_id`),
+  FOREIGN KEY  (`prescription_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
+  FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
+  FOREIGN KEY  (`prescription_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
+)default charset=utf8;
 
 #医技项目记录
 drop table  if exists `his`.`medical_skill`;
 CREATE TABLE `his`.`medical_skill` (
-`medical_skill_id` varchar(45) NOT NULL,
-`medical_skill_execute_state` varchar(45) not null,
-`medical_skill_result` varchar(400) NOT NULL,
-`medical_skill_type` varchar(45) NOT NULL,
-`medical_skill_name` varchar(45) NOT NULL,
-`medical_skill_checkpoint` varchar(45) NOT NULL,
-`medical_skill_purpose` varchar(45) NOT NULL,
-`medical_skill_urgant` bool NOT NULL,
-#foreign key
-`medical_skill_register_info_id` varchar(45) NOT NULL,
-`medical_skill_user_id` varchar(45) NOT NULL,
-`medical_skill_doctor_id` varchar(45) NOT NULL,
-`medical_skill_non_medical_id` varchar(45) NOT NULL,
-FOREIGN KEY  (`medical_skill_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
-FOREIGN KEY  (`medical_skill_user_id`)  REFERENCES  `user_info` (`user_id`),
-FOREIGN KEY  (`medical_skill_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-FOREIGN KEY  (`medical_skill_non_medical_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
-PRIMARY KEY (`medical_skill_id`)
-);
+  `medical_skill_id` int NOT NULL AUTO_INCREMENT,
+  `medical_skill_execute_state` varchar(45) not null,
+  `medical_skill_result` varchar(400) NOT NULL,
+  `medical_skill_type` varchar(45) NOT NULL,
+  `medical_skill_name` varchar(45) NOT NULL,
+  `medical_skill_checkpoint` varchar(45) NOT NULL,
+  `medical_skill_purpose` varchar(45) NOT NULL,
+  `medical_skill_urgent` bool NOT NULL,
+  #foreign key
+  `medical_skill_register_info_id` INT NOT NULL,
+  `medical_skill_user_id` INT NOT NULL,
+  `medical_skill_doctor_id` INT NOT NULL,
+  `medical_skill_non_medical_id` varchar(45) NOT NULL,
+  FOREIGN KEY  (`medical_skill_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
+  FOREIGN KEY  (`medical_skill_user_id`)  REFERENCES  `user_info` (`user_id`),
+  FOREIGN KEY  (`medical_skill_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
+  FOREIGN KEY  (`medical_skill_non_medical_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
+  PRIMARY KEY (`medical_skill_id`)
+)default charset=utf8;
 
 #模板
 drop table  if exists `his`.`template`;
 CREATE TABLE `his`.`template` (
-`template_id` varchar(45) NOT NULL,
-`template_type` varchar(45) NOT NULL,
-`template_name` varchar(45) NOT NULL,
-`template_range` varchar(45) NOT NULL,
-`template_init_date` date NOT NULL,
-#foreign key
-`template_doctor_id` varchar(45) NOT NULL,
-`template_non_medicine_id` varchar(45) NOT NULL,
-`template_medicine_id` varchar(45) NOT NULL,
-PRIMARY KEY (`template_id`),
-FOREIGN KEY  (`template_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-FOREIGN KEY  (`template_non_medicine_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
-FOREIGN KEY  (`template_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
-);
+  `template_id` int NOT NULL AUTO_INCREMENT,
+  `template_type` varchar(45) NOT NULL,
+  `template_name` varchar(45) NOT NULL,
+  `template_range` varchar(45) NOT NULL,
+  `template_init_date` date NOT NULL,
+  #foreign key
+  `template_doctor_id` INT NOT NULL,
+  `template_non_medicine_id` varchar(45) NOT NULL,
+  `template_medicine_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`template_id`),
+  FOREIGN KEY  (`template_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
+  FOREIGN KEY  (`template_non_medicine_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
+  FOREIGN KEY  (`template_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
+)default charset=utf8;
 
 #发票
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
-`bill_id` varchar(45) NOT NULL,
-`bill_actual_sum` decimal(8,2) unsigned NOT NULL,
-`bill_sum` decimal(8,2) unsigned NOT NULL,
-`bill_time` date  NOT NULL,
-`bill_type` varchar(45) NOT NULL,
-#foreign key
-`bill_register_id` varchar(45) NOT NULL,
-`bill_prescription_id` varchar(45) NOT NULL,
-`bill_medical_skill_id` varchar(45) NOT NULL,
-`bill_user_id` varchar(45) NOT NULL,
-FOREIGN KEY  (`bill_register_id`)  REFERENCES  `register_info` (`register_info_id`),
-FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
-FOREIGN KEY  (`bill_medical_skill_id`)  REFERENCES  `medical_skill` (`medical_skill_id`),
-FOREIGN KEY  (`bill_user_id`)  REFERENCES  `user_info` (`user_id`),
-PRIMARY KEY (`bill_id`)
-);
+  `bill_id` varchar(45) NOT NULL,
+  `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
+  `bill_sum` decimal(8,2) unsigned NOT NULL,
+  `bill_time` DATETIME  NOT NULL,
+  `bill_type` varchar(45) NOT NULL,
+  #foreign key
+  `bill_register_id` INT NOT NULL,
+  `bill_prescription_id` INT NULL,
+  `bill_medical_skill_id` INT NULL,
+  `bill_user_id` INT NOT NULL,
+  FOREIGN KEY  (`bill_register_id`)  REFERENCES  `register_info` (`register_info_id`),
+  FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
+  FOREIGN KEY  (`bill_medical_skill_id`)  REFERENCES  `medical_skill` (`medical_skill_id`),
+  FOREIGN KEY  (`bill_user_id`)  REFERENCES  `user_info` (`user_id`),
+  PRIMARY KEY (`bill_id`)
+)default charset=utf8;
 
 #日结表
 drop table  if exists `his`.`daily`;
 CREATE TABLE `his`.`daily` (
-`daily_id` varchar(45) NOT NULL,
-`daily_start` date NOT NULL,
-`daily_end` date NOT NULL,
-#foreign key
-`daily_bill_id` varchar(45) not null,
-PRIMARY KEY (`daily_id`),
-FOREIGN KEY  (`daily_bill_id`)  REFERENCES  `bill` (`bill_id`)
-);
+  `daily_id` INT NOT NULL AUTO_INCREMENT,
+  `daily_start` DATETIME NOT NULL,
+  `daily_end` DATETIME NOT NULL,
+  `daily_user_id` INT NOT NULL ,
+  `daily_operate_time` DATETIME NOT NULL ,
+  `daily_pass` BOOLEAN NULL ,
+  PRIMARY KEY (`daily_id`),
+  FOREIGN KEY (`daily_user_id`) REFERENCES `user_info` (`user_id`)
+)default charset=utf8;
+
+show TABLES ;
