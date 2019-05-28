@@ -55,7 +55,7 @@ CREATE TABLE `his`.`medicine` (
   `medicine_factory` varchar(45) NOT NULL,
   `medicine_formulation` varchar(45) NOT NULL,
   `medicine_type` varchar(45) NOT NULL,
-  `medicine_unit_price` varchar(45) NOT NULL,
+  `medicine_unit_price` decimal(8,2)  NOT NULL,
   `medicine_pinyin` varchar(45) NOT NULL,
   PRIMARY KEY (`medicine_id`)
 )default charset=utf8;
@@ -135,10 +135,7 @@ CREATE TABLE `his`.`patient_info` (
   `patient_credit_id` VARCHAR(45) NOT NULL,
   `patient_address` VARCHAR(400) NULL,
   `patient_birthDate` date NULL,
-  `patient_age` VARCHAR(45) not NULL,
-  #foreign key
-  `patient_doctor_id` INT not NULL,
-  foreign key(`patient_doctor_id`) references `doctor_info` (`doctor_id`),
+  `patient_age` INT not NULL,
   PRIMARY KEY (`patient_record_id`)
 )default charset=utf8;
 
@@ -237,7 +234,7 @@ CREATE TABLE `his`.`medical_skill` (
   `medical_skill_name` varchar(45) NOT NULL,
   `medical_skill_checkpoint` varchar(45) NOT NULL,
   `medical_skill_purpose` varchar(45) NOT NULL,
-  `medical_skill_urgant` bool NOT NULL,
+  `medical_skill_urgent` bool NOT NULL,
   #foreign key
   `medical_skill_register_info_id` INT NOT NULL,
   `medical_skill_user_id` INT NOT NULL,
@@ -274,12 +271,12 @@ CREATE TABLE `his`.`bill` (
   `bill_id` varchar(45) NOT NULL,
   `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
   `bill_sum` decimal(8,2) unsigned NOT NULL,
-  `bill_time` date  NOT NULL,
+  `bill_time` DATETIME  NOT NULL,
   `bill_type` varchar(45) NOT NULL,
   #foreign key
   `bill_register_id` INT NOT NULL,
-  `bill_prescription_id` int NOT NULL,
-  `bill_medical_skill_id` int NOT NULL,
+  `bill_prescription_id` INT NULL,
+  `bill_medical_skill_id` INT NULL,
   `bill_user_id` INT NOT NULL,
   FOREIGN KEY  (`bill_register_id`)  REFERENCES  `register_info` (`register_info_id`),
   FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
@@ -291,14 +288,14 @@ CREATE TABLE `his`.`bill` (
 #日结表
 drop table  if exists `his`.`daily`;
 CREATE TABLE `his`.`daily` (
-  `daily_id` varchar(45) NOT NULL,
-  `daily_start` date NOT NULL,
-  `daily_end` date NOT NULL,
-  #foreign key
-  `daily_bill_id` varchar(45) not null,
+  `daily_id` INT NOT NULL AUTO_INCREMENT,
+  `daily_start` DATETIME NOT NULL,
+  `daily_end` DATETIME NOT NULL,
+  `daily_user_id` INT NOT NULL ,
+  `daily_operate_time` DATETIME NOT NULL ,
+  `daily_pass` BOOLEAN NULL ,
   PRIMARY KEY (`daily_id`),
-  FOREIGN KEY  (`daily_bill_id`)  REFERENCES  `bill` (`bill_id`)
+  FOREIGN KEY (`daily_user_id`) REFERENCES `user_info` (`user_id`)
 )default charset=utf8;
-
 
 show TABLES ;
