@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.DepartmentMapper">
+
+    <!--增加科室信息-->
+    <insert id="insertDepartment" parameterType="com.neuedu.lab.model.po.Department">
+        insert into department (department_id, department_name, department_cat, department_type)
+        values(#{department_id},
+        #{department_name},
+        #{department_cat},
+        #{department_type})
+    </insert>
+
+    <!--删除科室信息-->
+    <delete id="deleteDepartment" parameterType="com.neuedu.lab.model.po.Department">
+        DELETE FROM his.constant
+        <where>
+            <if test="constant_id != null">
+                AND his.constant.constant_id= #{constant_id}
+            </if>
+            <if test="constant_id == null">
+                AND constant_type = #{constant_type} AND constant_name = #{constant_name}
+            </if>
+        </where>
+    </delete>
+
+    <!--修改科室信息-->
+    <update id="updateDepartment">
+        update department
+        set department_id = #{department_id},
+        set department_name = #{department_name},
+        set department_cat = #{department_cat},
+        set department_type = #{department_type}
+        where department_id = #{department_id}
+    </update>
+
+    <!--查询科室信息-->
+    <select id="getDepartment" resultType="com.neuedu.lab.model.po.Department">
+        select from department
+        where department_id=#{department_id}
+    </select>
+
+</mapper>

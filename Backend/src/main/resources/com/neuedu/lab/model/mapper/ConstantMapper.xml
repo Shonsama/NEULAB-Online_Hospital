@@ -6,7 +6,7 @@
 
     <select id="getConstant" resultType="com.neuedu.lab.model.po.Constant">
         select constant_name from constant
-        where constant_type=#{type}
+        where constant_type=#{constant_type}
     </select>
 
     <insert id="addConstant" parameterType="com.neuedu.lab.model.po.Constant"
