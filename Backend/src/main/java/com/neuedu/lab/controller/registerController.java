@@ -23,6 +23,12 @@ public class registerController {
         return patient;
     }
 
+    @RequestMapping("/print_invoice")
+    public boolean printInvoice(@RequestParam String register_id){
+        //打印发票
+        return true;
+    }
+
 
 
 

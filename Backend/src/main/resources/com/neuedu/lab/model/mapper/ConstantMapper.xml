@@ -4,9 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.ConstantMapper">
 
-    <select id="getPaymentType" resultType="String">
+    <select id="getConstant" resultType="com.neuedu.lab.model.po.Constant">
         select constant_name from constant
         where constant_type=#{type}
     </select>
+
+    <insert id="addConstant" parameterType="com.neuedu.lab.model.po.Constant"
+            useGeneratedKeys="true" keyProperty="constant_id">
+        INSERT INTO his.constant(constant_name, constant_type) VALUES (#{constant_name},#{constant_type})
+    </insert>
+
+    <delete id="deleteConstant" parameterType="com.neuedu.lab.model.po.Constant">
+        DELETE FROM his.constant WHERE his.constant.constant_id= #{constant_id}
+    </delete>
+
+    <update id="updateConstant">
+        UPDATE his.constant SET
+        his.constant.constant_name= #{constant_name},
+        his.constant.constant_type= #{constant_type}
+        WHERE his.constant.constant_id = #{constant_id}
+    </update>
 
 </mapper>

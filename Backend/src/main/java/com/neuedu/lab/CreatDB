@@ -11,7 +11,7 @@ PRIMARY KEY (`disease_id`)
 #常数表,死表
 drop table if exists  `his`.`constant`;
 CREATE TABLE `his`.`constant` (
-`constant_id` varchar(45) NOT NULL,
+`constant_id` varchar(45) NOT NULL auto_increment,
 `constant_name` VARCHAR(45) not NULL,
 `constant_type` VARCHAR(45) not NULL,
 PRIMARY KEY (`constant_id`)

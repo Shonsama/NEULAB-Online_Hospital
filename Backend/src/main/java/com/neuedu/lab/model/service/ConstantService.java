@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.service;
 
-import com.neuedu.lab.Constant;
+import com.neuedu.lab.ConstantDefinition;
+import com.neuedu.lab.model.po.Constant;
 import com.neuedu.lab.model.mapper.ConstantMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,43 @@ public class ConstantService {
     private ConstantMapper constantMapper;
 
 
-    public List<String> getPaymentType(){
-        return constantMapper.getPaymentType(Constant.CONSTANT_PAYMENT_TYPE);
+    public List<Constant> getConstant(String constant_type){
+        return constantMapper.getConstant(constant_type);
     }
+
+    public boolean addConstant(Constant constant){
+        try {
+            constantMapper.addConstant(constant);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteConstant(Constant constant){
+        try {
+            constantMapper.deleteConstant(constant);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateConstant(Constant constant){
+        try {
+            constantMapper.updateConsant(constant);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
 
 }
