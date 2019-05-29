@@ -2,6 +2,7 @@ package com.neuedu.lab.model.service;
 
 import com.neuedu.lab.ConstantDefinition;
 import com.neuedu.lab.model.mapper.*;
+import com.neuedu.lab.model.po.Diagnose;
 import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Record;
 import com.neuedu.lab.model.po.Register;
@@ -21,6 +22,9 @@ public class DoctorService {
     private RecordMapper recordMapper;
     @Resource
     private MedicalSkillMapper medicalSkillMapper;
+
+    @Resource
+    private DiagnoseMapper diagnoseMapper;
 
 
     //查询一个医生的所有挂号信息
@@ -49,9 +53,14 @@ public class DoctorService {
     @Transactional
     public boolean submitRecord(Record record){
         try {
-            Boolean record_final_sumbit = recordMapper.getRecord(record.getRecord_id());
+            Boolean record_final_sumbit = recordMapper.getRecordFinalSubmitById(record.getRecord_id());
             if(record_final_sumbit== null){
                 recordMapper.addRecord(record);
+                List<Diagnose> diagnoses = record.getDiagnoses();
+                for(int i = 0; i<diagnoses.size(); i++){
+                    diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
+                    diagnoseMapper.addDiagnose(diagnoses.get(i));
+                }
                 return true;
             }
             if(record_final_sumbit){
@@ -118,6 +127,25 @@ public class DoctorService {
         return medicalSkillMapper.getMedicalSkill( medical_skill_id);
     }
 
+    //查看初步诊断信息
+    public Record getRecord(Integer record_id){
+        return recordMapper.getRecordById(record_id);
+    }
+
+    //提交最终确诊结果
+    @Transactional
+    public boolean submitFinalDiagnose(List<Diagnose> diagnoses){
+        try {
+            for(int i = 0; i<diagnoses.size(); i++){
+                diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[1]);
+                diagnoseMapper.addDiagnose(diagnoses.get(i));
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 

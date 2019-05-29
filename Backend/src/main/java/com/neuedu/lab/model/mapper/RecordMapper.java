@@ -7,7 +7,9 @@ public interface RecordMapper {
 
     public void updateRecord(Record record);
 
-    public Boolean getRecord(Integer record_id);
+    public Boolean getRecordFinalSubmitById (Integer record_id);
+
+    public Record getRecordById(Integer record_id);
 
 
 }

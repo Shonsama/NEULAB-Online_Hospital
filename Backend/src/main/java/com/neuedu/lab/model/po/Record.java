@@ -6,15 +6,22 @@ public class Record {
     private Integer record_patient_id;
     private Integer record_doctor_id;
     private Integer record_id;
-    private String record_first_diagnosis;
     private String record_syndrome;
     private String record_health_check;
     private String record_xianbingshi;
     private String record_jiwangshi;
     private String record_cure_situation;
-    private String record_confirm_diagnosis;
     private String record_allergy_his;
-//    private List<Diagnose> 
+
+    public List<Diagnose> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(List<Diagnose> diagnoses) {
+        this.diagnoses = diagnoses;
+    }
+
+    private List<Diagnose> diagnoses;
 
     public Integer getRecord_patient_id() {
         return record_patient_id;
@@ -40,13 +47,6 @@ public class Record {
         this.record_id = record_id;
     }
 
-    public String getRecord_first_diagnosis() {
-        return record_first_diagnosis;
-    }
-
-    public void setRecord_first_diagnosis(String record_first_diagnosis) {
-        this.record_first_diagnosis = record_first_diagnosis;
-    }
 
     public String getRecord_syndrome() {
         return record_syndrome;
@@ -86,14 +86,6 @@ public class Record {
 
     public void setRecord_cure_situation(String record_cure_situation) {
         this.record_cure_situation = record_cure_situation;
-    }
-
-    public String getRecord_confirm_diagnosis() {
-        return record_confirm_diagnosis;
-    }
-
-    public void setRecord_confirm_diagnosis(String record_confirm_diagnosis) {
-        this.record_confirm_diagnosis = record_confirm_diagnosis;
     }
 
     public String getRecord_allergy_his() {
