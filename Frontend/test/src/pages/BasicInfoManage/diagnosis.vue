@@ -5,7 +5,7 @@
         <v-flex xs3>
           <v-text-field
             prepend-inner-icon="search"
-            v-model="firstname"
+            v-model="search"
             :rules="nameRules"
             label="编号/名称"
             required
@@ -21,6 +21,7 @@
         v-model="selected"
         :headers="headers"
         :items="desserts"
+        :search="search"
         item-key="name"
         select-all
         class="elevation-1"
@@ -81,38 +82,38 @@
 </template>
 
 <script>
-  export default {
-    name: 'office',
-    data: () => ({
-      expand: false,
-      selected: [],
-      headers: [
-        {
-          text: '疾病编码',
-          align: 'left',
-          value: 'id'
-        },
-        { text: '疾病名称', value: 'name' },
-        { text: '国际ICD编码', value: 'ICD' },
-        { text: '疾病所属分类', value: 'category' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: [
-        {
-          id: 'BPSZS',
-          name: '包皮伸展术',
-          category: '中医疾病',
-          ICD:'99.951'
-        }
-      ]
-    }),
-    computed: {
-    },
-    watch: {
-    },
-    methods: {
-    }
+export default {
+  name: 'office',
+  data: () => ({
+    expand: false,
+    selected: [],
+    headers: [
+      {
+        text: '疾病编码',
+        align: 'left',
+        value: 'id'
+      },
+      { text: '疾病名称', value: 'name' },
+      { text: '国际ICD编码', value: 'ICD' },
+      { text: '疾病所属分类', value: 'category' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: [
+      {
+        id: 'BPSZS',
+        name: '包皮伸展术',
+        category: '中医疾病',
+        ICD: '99.951'
+      }
+    ]
+  }),
+  computed: {
+  },
+  watch: {
+  },
+  methods: {
   }
+}
 </script>
 
 <style scoped>

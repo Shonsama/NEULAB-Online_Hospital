@@ -5,7 +5,7 @@
           <v-flex xs3>
             <v-text-field
               prepend-inner-icon="search"
-              v-model="firstname"
+              v-model="search"
               :rules="nameRules"
               label="编号/名称"
               required
@@ -21,6 +21,7 @@
           v-model="selected"
           :headers="headers"
           :items="desserts"
+          :search="search"
           item-key="name"
           select-all
           class="elevation-1"
@@ -84,6 +85,7 @@
 export default {
   name: 'office',
   data: () => ({
+    search: '',
     expand: false,
     selected: [],
     headers: [
@@ -102,6 +104,12 @@ export default {
         id: 'XXGNK',
         name: '心血管内科',
         classification: '内科',
+        type: '临床'
+      },
+      {
+        id: 'GK',
+        name: '骨科',
+        classification: '外科',
         type: '临床'
       }
     ]

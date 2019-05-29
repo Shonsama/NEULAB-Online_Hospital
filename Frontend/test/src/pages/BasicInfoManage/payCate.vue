@@ -5,7 +5,7 @@
         <v-flex xs3>
           <v-text-field
             prepend-inner-icon="search"
-            v-model="firstname"
+            v-model="search"
             :rules="nameRules"
             label="编号/名称"
             required
@@ -21,6 +21,7 @@
         v-model="selected"
         :headers="headers"
         :items="desserts"
+        :search="search"
         item-key="name"
         select-all
         class="elevation-1"
