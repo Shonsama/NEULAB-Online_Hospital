@@ -6,6 +6,8 @@ import router from './router'
 import Vuetify from 'vuetify'
 import Vuex from 'vuex'
 import store from './vuex/store'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import 'vuetify/dist/vuetify.min.css'
 import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
@@ -17,12 +19,13 @@ import 'echarts/lib/component/tooltip'
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
 
-Vue.prototype.HOME = '/api'
+// Vue.prototype.HOME = '/api'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)
 Vue.use(Vuetify)
 Vue.use(Vuex)
+Vue.use(ElementUI);
 
 /* eslint-disable no-new */
 new Vue({

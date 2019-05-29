@@ -117,8 +117,7 @@ export default {
   }),
   methods: {
     load: function () {
-      this.$http.post('/department/getall', {
-      })
+      this.$http.post('http://www.wangpeng.pub/constant/test')
         .then(function (response) {
           console.log(response.data)
           this.desserts = response.data

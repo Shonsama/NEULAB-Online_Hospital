@@ -1,85 +1,45 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app id="sandbox" :dark="dark">
-    <v-navigation-drawer
-      v-model="primaryDrawer.model"
-      :temporary="primaryDrawer.type === 'temporary'"
-      absolute
-      overflow
-      app
-    >
-      <v-list class="pt-0">
-        <v-divider></v-divider>
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          @click="$router.push(item.id)"
-        >
-          <v-list-tile-action >
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar flat app dark absolute color="primary" dense>
-      <v-toolbar-side-icon
-        dark
-        v-if="primaryDrawer.type !== 'permanent'"
-        @click.stop="primaryDrawer.model = !primaryDrawer.model"
-      ></v-toolbar-side-icon>
-      <v-toolbar-title class="white--text">东软云HIS</v-toolbar-title>
+    <v-toolbar app  absolute  dense>
+      <v-toolbar-title>
+        <v-icon>local_hospital</v-icon>
+        NeuHospital
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn
-          v-for = "item in items"
-          :key="item.title"
-          flat
-          @click="$router.push(item.id)"
-        >{{item.title}}</v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              flat
+            >
+              我的身份
+              <v-icon
+                v-on="on"
+              >
+                arrow_drop_down
+              </v-icon>
+            </v-btn>
+          </template>
+        </v-menu>
       </v-toolbar-items>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-icon
-            v-on="on"
-          >
-            settings
-          </v-icon>
-        </template>
-              <v-card>
-                <v-card-text>
-                  <v-layout row wrap>
-                    <v-flex xs12 md6>
-                      <span>Scheme</span>
-                      <v-switch v-model="dark" primary label="Dark"></v-switch>
-                    </v-flex>
-                    <v-flex xs12 md6>
-                      <span>Drawer</span>
-                      <v-radio-group v-model="primaryDrawer.type" column>
-                        <v-radio
-                          v-for="drawer in drawers"
-                          :key="drawer"
-                          :label="drawer"
-                          :value="drawer.toLowerCase()"
-                          primary
-                        ></v-radio>
-                      </v-radio-group>
-                    </v-flex>
-                    <v-flex xs12 md6>
-                      <span>Footer</span>
-                      <v-switch v-model="footer.inset" label="Inset" primary></v-switch>
-                    </v-flex>
-                  </v-layout>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn flat>Cancel</v-btn>
-                  <v-btn flat color="primary">Submit</v-btn>
-                </v-card-actions>
-              </v-card>
-      </v-menu>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              flat
+              icon
+            >
+              <v-icon
+                v-on="on"
+              >
+                person
+              </v-icon>
+            </v-btn>
+          </template>
+        </v-menu>
+      </v-toolbar-items>
     </v-toolbar>
+    <v-divider />
     <v-content>
       <v-container>
       <router-view></router-view>
