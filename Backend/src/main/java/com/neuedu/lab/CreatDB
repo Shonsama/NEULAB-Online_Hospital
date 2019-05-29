@@ -12,7 +12,11 @@ drop table if exists  `his`.`usual_diagnose`;
 drop table if exists  `his`.`doctor_info`;
 drop table  if exists  `his`.`register_level`;
 drop table  if exists  `his`.`user_info`;
-
+#drop table if exists  `his`.`disease_info`;
+#drop table if exists  `his`.`constant`;
+#drop table if exists  `his`.`non_medicine`;
+#drop table  if exists `his`.`medicine`;
+#drop table  if exists `his`.`department_info`;
 
 #疾病信息表，死表
 drop table if exists  `his`.`disease_info`;
@@ -99,17 +103,16 @@ CREATE TABLE `his`.`doctor_info` (
   #doctor特有
   `doctor_position` VARCHAR(45) NOT NULL,#职称信息
   `doctor_arrange_or_not` boolean NOT NULL,
+  `doctor_id` INT NOT NULL auto_increment,#id
   #所有user均有
   `doctor_password` VARCHAR(45) NOT NULL,
   `doctor_account` VARCHAR(45)NOT NULL,#登录名
   `doctor_type` VARCHAR(45) NOT NULL,#对于医生而言，只有门诊和医技
   `doctor_name` VARCHAR(45) NOT NULL,#真实姓名
   #foreign key
-  `doctor_register_level_id` int NOT NULL,#id
-  `doctor_id` INT NOT NULL,#id
+  `doctor_register_level_id` int NOT NULL,
   `doctor_department_id` varchar(45) not null,
   FOREIGN KEY  (`doctor_department_id`)  REFERENCES  `department_info` (`department_id`),
-  FOREIGN KEY  (`doctor_id`)  REFERENCES  `user_info` (`user_id`),
   foreign key(`doctor_register_level_id`) references `register_level` (`register_level_id`),
   PRIMARY KEY (`doctor_id`)
 )default charset=utf8;
@@ -184,7 +187,7 @@ CREATE TABLE `his`.`register_info` (
 drop table if exists  `his`.`record`;
 CREATE TABLE `his`.`record` (
   #连外键
-  `record_patient_id` INT NOT NULL ,
+  `record_patient_id` INT NOT NULL,
   `record_doctor_id` INT NOT NULL,
   `record_id` int not null,
   #内在属性
@@ -268,7 +271,7 @@ CREATE TABLE `his`.`template` (
 #发票
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
-  `bill_id` INT NOT NULL AUTO_INCREMENT,
+  `bill_id` varchar(45) NOT NULL,
   `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
   `bill_sum` decimal(8,2) unsigned NOT NULL,
   `bill_time` DATETIME  NOT NULL,

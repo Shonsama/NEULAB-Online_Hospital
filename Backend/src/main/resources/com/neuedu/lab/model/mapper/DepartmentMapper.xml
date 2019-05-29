@@ -22,14 +22,19 @@
     <!--修改科室信息-->
     <update id="updateDepartment">
         update department_info
-        set department_id = #{department_id},
         set department_name = #{department_name},
-        set department_cat = #{department_cat},
-        set department_type = #{department_type}
+         department_cat = #{department_cat},
+         department_type = #{department_type}
         where department_id = #{department_id}
     </update>
 
-    <!--查询科室信息-->
+    <!--查询某科室信息-->
+    <select id="getDepartment" resultType="com.neuedu.lab.model.po.Department">
+        select * from department_info
+        where department_id LIKE concat(concat('%',#{department_id}),'%')
+    </select>
+
+    <!--查询所有科室信息-->
     <select id="getAllDepartments" resultType="com.neuedu.lab.model.po.Department">
         select * from department_info
     </select>

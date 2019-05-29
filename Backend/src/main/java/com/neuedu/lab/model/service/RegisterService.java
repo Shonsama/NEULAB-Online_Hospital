@@ -28,9 +28,9 @@ public class RegisterService {
     @Resource
     private BillMapper billMapper;
 
-    public List<Department> getAllDepartments(){
+/*    public List<Department> getAllDepartments(){
         return departmentMapper.getAllDepartments();
-    }
+    }*/
 
     public List<Doctor> getAllDoctors(String id){
         return doctorMapper.getAllDoctors(id);
