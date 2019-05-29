@@ -15,11 +15,6 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @RequestMapping("/test")
-    public List<Department> getDepartment(){
-        return departmentService.getDepartment("AAA");
-    }
-
     @RequestMapping("/getall")
 //    显示所有科室信息
     public List<Department> getAllDepartments(){

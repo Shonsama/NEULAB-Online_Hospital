@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.DiseaseInfoMapper">
+
+    <!--增加疾病信息-->
+    <insert id="addDisease" parameterType="com.neuedu.lab.model.po.DiseaseInfo">
+        insert into disease_info (disease_id, disease_type, disease_name, disease_icd)
+        values(#{disease_id},
+        #{disease_type},
+        #{disease_name},
+        #{disease_icd})
+    </insert>
+
+    <!--删除疾病信息-->
+    <delete id="deleteDisease" parameterType="com.neuedu.lab.model.po.DiseaseInfo">
+        DELETE FROM his.disease_info
+        where disease_id = #{disease_id}
+    </delete>
+
+    <!--修改疾病信息-->
+    <update id="updateDisease">
+        update disease_info
+        set disease_type = #{disease_type},
+        disease_name = #{disease_name},
+        disease_icd = #{disease_icd}
+        where disease_id = #{disease_id}
+    </update>
+
+    <!--查询某疾病信息-->
+    <select id="getDisease" resultType="com.neuedu.lab.model.po.DiseaseInfo">
+        select * from disease_info
+        where disease_id LIKE concat(concat('%',#{disease_id}),'%')
+    </select>
+
+    <!--显示所有疾病信息-->
+    <select id="getAllDiseases" resultType="com.neuedu.lab.model.po.DiseaseInfo">
+        select * from disease_info
+    </select>
+
+</mapper>

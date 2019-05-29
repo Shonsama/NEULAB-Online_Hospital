@@ -1,8 +1,6 @@
 package com.neuedu.lab;
 
-import com.neuedu.lab.model.po.Constant;
 import com.neuedu.lab.model.po.Department;
-import com.neuedu.lab.model.service.ConstantService;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
