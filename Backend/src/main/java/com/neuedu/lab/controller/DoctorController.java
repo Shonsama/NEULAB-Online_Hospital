@@ -1,9 +1,6 @@
 package com.neuedu.lab.controller;
 
-import com.neuedu.lab.model.po.MedicalSkill;
-import com.neuedu.lab.model.po.NonMedicine;
-import com.neuedu.lab.model.po.Record;
-import com.neuedu.lab.model.po.Register;
+import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.model.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +51,7 @@ public class DoctorController {
         }
     }
 
+    //添加医技项目
     @RequestMapping("/add-medical-skill")
     public String addNonMedicine(@RequestParam MedicalSkill medicalSkill){
         if(doctorService.addMedicialSkill(medicalSkill)){
@@ -65,6 +63,7 @@ public class DoctorController {
 
     }
 
+    //删除医技项目
     @RequestMapping("/delete-medical-skill")
     public String deleteNonMedicine(@RequestParam Integer medical_skill_id){
         if(doctorService.deleteMedicialSkill(medical_skill_id)){
@@ -75,6 +74,47 @@ public class DoctorController {
         }
 
     }
+
+    //开立医技项目
+    @RequestMapping("/start-medical-skill")
+    public String startNonMedicine(@RequestParam Integer medical_skill_id){
+        if(doctorService.startMedicialSkill(medical_skill_id)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+
+    }
+
+    //作废医技项目
+    @RequestMapping("/start-medical-skill")
+    public String endNonMedicine(@RequestParam Integer medical_skill_id){
+        if(doctorService.endMedicialSkill(medical_skill_id)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+    //查看初步诊断
+    @RequestMapping("/get-record")
+    public Record getRecord(@RequestParam Integer record_id){
+        return doctorService.getRecord(record_id);
+    }
+
+    //提交最终诊断
+    @RequestMapping("/submit-final-diagnose")
+    public String submitFinalDiagnose(@RequestParam List<Diagnose> diagnoses){
+        if(doctorService.submitFinalDiagnose(diagnoses)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
 
 
 
