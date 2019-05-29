@@ -18,6 +18,7 @@ public class DepartmentController {
     @RequestMapping("/getall")
 //    显示所有科室信息
     public List<Department> getAllDepartments(){
+        System.out.println("success!!!!!!!!!");
         return departmentService.getAllDepartments();
     }
 

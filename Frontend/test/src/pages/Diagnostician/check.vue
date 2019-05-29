@@ -10,6 +10,8 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
+            item-key="name11"
+
             select-all
             class="elevation-1"
           >
@@ -57,6 +59,7 @@
           <v-data-table
             v-model="selected"
             :headers="headers"
+            item-key="name13"
             :items="desserts"
             select-all
             class="elevation-1"
