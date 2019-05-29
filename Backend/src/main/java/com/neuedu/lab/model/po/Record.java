@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.util.List;
+
 public class Record {
     private Integer record_patient_id;
     private Integer record_doctor_id;
@@ -12,6 +14,7 @@ public class Record {
     private String record_cure_situation;
     private String record_confirm_diagnosis;
     private String record_allergy_his;
+//    private List<Diagnose> 
 
     public Integer getRecord_patient_id() {
         return record_patient_id;

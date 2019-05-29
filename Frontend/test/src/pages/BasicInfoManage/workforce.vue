@@ -187,7 +187,7 @@ export default {
   data: () => ({
     show: false,
     expand: false,
-    search:'',
+    search: '',
     selected_rule: [],
     selected_scheduling: [],
     items_departments: ['心血管', '口腔'],

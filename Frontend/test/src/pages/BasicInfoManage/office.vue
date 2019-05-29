@@ -34,10 +34,10 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.id }}</td>
-            <td >{{ props.item.name }}</td>
-            <td >{{ props.item.classification }}</td>
-            <td >{{ props.item.type }}</td>
+            <td>{{ props.item.department_id }}</td>
+            <td >{{ props.item.department_name }}</td>
+            <td >{{ props.item.department_cat }}</td>
+            <td >{{ props.item.department_type }}</td>
             <td class="justify-center layout px-0">
               <v-icon
                 small
@@ -99,31 +99,38 @@ export default {
       { text: '科室类型', value: 'type' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts: [
-      {
-        id: 'XXGNK',
-        name: '心血管内科',
-        classification: '内科',
-        type: '临床'
-      },
-      {
-        id: 'GK',
-        name: '骨科',
-        classification: '外科',
-        type: '临床'
-      }
-    ]
+    desserts: []
+    // desserts: [
+    //   {
+    //     id: 'XXGNK',
+    //     name: '心血管内科',
+    //     classification: '内科',
+    //     type: '临床'
+    //   },
+    //   {
+    //     id: 'GK',
+    //     name: '骨科',
+    //     classification: '外科',
+    //     type: '临床'
+    //   }
+    // ]
   }),
-  mounted: {
-
+  methods: {
+    load: function () {
+      this.$http.post('/department/getall', {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          this.desserts = response.data
+        })
+    }
+  },
+  mounted: function () {
+    this.load()
   },
   computed: {
   },
-
   watch: {
-  },
-  methods: {
-
   }
 }
 </script>
