@@ -15,15 +15,16 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @RequestMapping("/test")
-    public List<Department> getDepartment(){
-        return departmentService.getDepartment("AAA");
+    @RequestMapping("/getall")
+//    显示所有科室信息
+    public List<Department> getAllDepartments(){
+        return departmentService.getAllDepartments();
     }
 
-
     @RequestMapping("/get")
-    public void getDepartment(@RequestParam String department_id){
-        departmentService.getDepartment(department_id);
+//    显示查询科室信息
+    public List<Department> getDepartment(@RequestParam String department_id){
+        return departmentService.getDepartment(department_id);
     }
 
     @RequestMapping("/add")
