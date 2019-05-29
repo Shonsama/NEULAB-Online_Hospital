@@ -10,6 +10,9 @@ public class Register {
     private Integer register_info_doctor_id;
     private Integer register_info_patient_id;
     private Integer register_info_user_id;
+    private Doctor doctor;
+    private Patient patient;
+    private UserInfo user;
 
     public Integer getRegister_info_id() {
         return register_info_id;
