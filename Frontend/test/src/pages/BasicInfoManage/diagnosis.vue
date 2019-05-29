@@ -21,8 +21,11 @@
         v-model="selected"
         :headers="headers"
         :items="desserts"
+<<<<<<< HEAD
         :search="search"
         item-key="name"
+=======
+>>>>>>> 5e9c7291caecd0f458c378d533d2259e518710e3
         select-all
         class="elevation-1"
       >

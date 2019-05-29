@@ -53,4 +53,5 @@
         price_category,//费用分类
         price,//单价
         }]
+## 2.门诊挂号收费
 

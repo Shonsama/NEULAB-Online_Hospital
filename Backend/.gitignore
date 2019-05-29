@@ -27,3 +27,10 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+
+
+
+/src/main/resources/application.properties
+/src/main/resources/static/
+src/main/webapp/index.html

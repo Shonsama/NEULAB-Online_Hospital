@@ -122,6 +122,7 @@ export default {
   methods: {
     send: function () {
       this.$store.commit('increment')
+      this.$http.post()
     }
   }
 }
