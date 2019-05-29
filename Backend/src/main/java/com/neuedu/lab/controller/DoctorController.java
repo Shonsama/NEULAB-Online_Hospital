@@ -1,5 +1,7 @@
 package com.neuedu.lab.controller;
 
+import com.neuedu.lab.model.po.MedicalSkill;
+import com.neuedu.lab.model.po.NonMedicine;
 import com.neuedu.lab.model.po.Record;
 import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.model.service.DoctorService;
@@ -50,6 +52,28 @@ public class DoctorController {
         else {
             return "{\"result\":\"fail\"}";
         }
+    }
+
+    @RequestMapping("/add-medical-skill")
+    public String addNonMedicine(@RequestParam MedicalSkill medicalSkill){
+        if(doctorService.addMedicialSkill(medicalSkill)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+
+    }
+
+    @RequestMapping("/delete-medical-skill")
+    public String deleteNonMedicine(@RequestParam Integer medical_skill_id){
+        if(doctorService.deleteMedicialSkill(medical_skill_id)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+
     }
 
 
