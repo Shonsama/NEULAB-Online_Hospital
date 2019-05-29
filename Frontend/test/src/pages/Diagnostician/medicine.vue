@@ -126,7 +126,6 @@
                 v-model="selected"
                 :headers="headers"
                 :items="desserts"
-                item-key="name"
                 class="elevation-1"
               >
                 <template v-slot:items="props">
@@ -174,7 +173,6 @@
                 v-model="selected"
                 :headers="headers"
                 :items="desserts"
-                item-key="name"
                 select-all
                 class="elevation-1"
               >

@@ -12,7 +12,6 @@
       v-model="selected"
       :headers="headers"
       :items="desserts"
-      item-key="name"
       select-all
       class="elevation-1"
     >

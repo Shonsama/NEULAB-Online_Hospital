@@ -10,7 +10,6 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
-            item-key="name"
             select-all
             class="elevation-1"
           >
@@ -59,7 +58,6 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
-            item-key="name"
             select-all
             class="elevation-1"
           >
@@ -102,7 +100,12 @@
 
 <script>
 export default {
-  name: 'check'
+  name: 'check',
+  data () {
+
+  },
+  methods: {
+  }
 }
 </script>
 
