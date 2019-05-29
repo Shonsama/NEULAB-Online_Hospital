@@ -268,7 +268,7 @@ CREATE TABLE `his`.`template` (
 #发票
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
-  `bill_id` varchar(45) NOT NULL,
+  `bill_id` INT NOT NULL AUTO_INCREMENT,
   `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
   `bill_sum` decimal(8,2) unsigned NOT NULL,
   `bill_time` DATETIME  NOT NULL,

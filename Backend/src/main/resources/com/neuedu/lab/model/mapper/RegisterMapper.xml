@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.RegisterMapper">
+    <insert id="addRegister" parameterType="Register">
+        INSERT INTO his.register_info (register_info_state, register_info_records_book, register_info_fee,
+        register_info_pay_type, register_info_doctor_id, register_info_patient_id, register_info_user_id)
+        VALUES (#{register_info_state}, #{register_info_records_book}, #{register_info_fee},
+        #{register_info_pay_type}, #{register_info_doctor_id}, #{register_info_patient_id}, #{register_info_user_id})
+    </insert>
+
+    <select id="getRegister" parameterType="Integer">
+        SELECT * FROM his.register_info
+        WHERE register_info_id = #{register_id}
+    </select>
+</mapper>

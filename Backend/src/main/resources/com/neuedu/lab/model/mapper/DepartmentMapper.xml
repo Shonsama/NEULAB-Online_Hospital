@@ -30,9 +30,8 @@
     </update>
 
     <!--查询科室信息-->
-    <select id="getDepartment" resultType="com.neuedu.lab.model.po.Department">
+    <select id="getAllDepartments" resultType="com.neuedu.lab.model.po.Department">
         select * from department_info
-        where department_id = #{departmend_id}
     </select>
 
 </mapper>
