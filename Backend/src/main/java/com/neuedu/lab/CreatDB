@@ -1,5 +1,6 @@
 drop table  if exists `his`.`daily`;
 drop table if exists `his`.`bill`;
+drop table if exists `his`.`fee_cat`;
 drop table  if exists `his`.`template`;
 drop table  if exists `his`.`medical_skill`;
 drop table if exists `his`.`prescription`;
@@ -268,6 +269,14 @@ CREATE TABLE `his`.`template` (
   FOREIGN KEY  (`template_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
 )default charset=utf8;
 
+#费用科目
+drop table if exists `his`.`fee_cat`;
+create table `his`.`fee_cat`(
+`fee_cat_id` varchar(45) not null,
+`fee_cat_name` varchar(45) not null,
+primary key(`fee_cat_id`)
+);
+
 #发票
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
@@ -277,6 +286,7 @@ CREATE TABLE `his`.`bill` (
   `bill_time` DATETIME  NOT NULL,
   `bill_type` varchar(45) NOT NULL,
   #foreign key
+  `bill_fee_cat_id` varchar(45) not null,
   `bill_register_id` INT NOT NULL,
   `bill_prescription_id` INT NULL,
   `bill_medical_skill_id` INT NULL,
@@ -285,6 +295,7 @@ CREATE TABLE `his`.`bill` (
   FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
   FOREIGN KEY  (`bill_medical_skill_id`)  REFERENCES  `medical_skill` (`medical_skill_id`),
   FOREIGN KEY  (`bill_user_id`)  REFERENCES  `user_info` (`user_id`),
+  FOREIGN KEY  (`bill_fee_cat_id`)  REFERENCES  `fee_cat` (`fee_cat_id`),
   PRIMARY KEY (`bill_id`)
 )default charset=utf8;
 
