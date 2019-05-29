@@ -1,6 +1,6 @@
 package com.neuedu.lab.model.po;
 
-public class Disease {
+public class DiseaseInfo {
     private String disease_id;
     private String disease_type;
     private String disease_name;
