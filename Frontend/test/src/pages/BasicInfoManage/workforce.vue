@@ -9,6 +9,7 @@
         <v-spacer></v-spacer>
           <v-select
             style="width:20px;"
+            :items="items_departments"
             label="科室"
           ></v-select>
           <v-select
@@ -58,7 +59,8 @@
         <v-spacer></v-spacer>
         <v-flex xs2>
         <v-select
-          :items="items"
+          :items="items_departments"
+          v-model="search"
           label="科室"
         ></v-select>
         </v-flex>
@@ -72,6 +74,7 @@
         :headers="headers_scheduling"
         :items="desserts_scheduling"
         item-key="name"
+        :search="search"
         select-all
         class="elevation-1"
       >
@@ -184,8 +187,10 @@ export default {
   data: () => ({
     show: false,
     expand: false,
+    search:'',
     selected_rule: [],
     selected_scheduling: [],
+    items_departments: ['心血管', '口腔'],
     headers_rule: [
       {
         text: '医生名称',
@@ -232,7 +237,7 @@ export default {
     ]
   }),
   mounted: {
-
+    //  向后端query所有department
   },
   methods: {
     test: function () {
