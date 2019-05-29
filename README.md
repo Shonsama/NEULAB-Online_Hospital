@@ -2,6 +2,8 @@
 本项目为项目实训的项目代码
 ## 1.基础信息维护
 ### 科室管理：
+    1.获取所有科室信息
+    url:'Department/getAll'
     post:''
     return:
         data:[{
@@ -11,7 +13,7 @@
         type//科室类别
         }]
 ### 挂号级别管理：
-    attribute:id,level,fee,sequence,maximum
+    1.获取所有挂号级别信息
     post:''
     return:
         data:[{
@@ -22,7 +24,7 @@
         maximum//挂号限额
         }]
 ### 常数类别管理
-    attribute:id,name,category
+    1.获取所有信息
     post:''
     return:
         data:[{
