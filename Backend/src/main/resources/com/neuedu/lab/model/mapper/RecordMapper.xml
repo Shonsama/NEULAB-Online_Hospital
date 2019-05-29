@@ -25,8 +25,12 @@
         WHERE record_id = #{record_id}
     </update>
 
-    <select id="getRecordById" resultType="Boolean">
+    <select id="getRecordFinalSubmitById" resultType="Boolean">
         SELECT record_final_submit FROM  record
+        WHERE record_id = #{record_id}
+    </select>
+    <select id="getRecordById" resultType="Boolean">
+        SELECT * FROM  record
         WHERE record_id = #{record_id}
     </select>
 </mapper>

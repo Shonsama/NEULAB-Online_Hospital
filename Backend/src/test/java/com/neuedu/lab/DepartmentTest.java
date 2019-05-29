@@ -40,7 +40,6 @@ public class DepartmentTest {
     public void testGetAllDepartments(){
         System.out.println((departmentService.getAllDepartments().get(0)).toString());
         System.out.println((departmentService.getAllDepartments().get(1)).toString());
-
     }
 
     @Test
