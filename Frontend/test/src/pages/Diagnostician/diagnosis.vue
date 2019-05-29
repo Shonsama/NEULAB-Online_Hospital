@@ -15,9 +15,8 @@
         v-model="selected"
         :headers="headers"
         :items="desserts"
-        item-key="name123"
-
         select-all
+        item-key="name"
         class="elevation-1"
       >
         <template v-slot:items="props">

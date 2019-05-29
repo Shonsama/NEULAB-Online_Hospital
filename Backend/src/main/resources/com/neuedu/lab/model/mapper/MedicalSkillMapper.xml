@@ -18,7 +18,7 @@
         UPDATE medical_skill SET medical_skill_execute_state = #{medical_skill_execute_state}
     </update>
 
-    <select id="getMedicialSkill" resultType="MeicalSkill">
+    <select id="getMedicialSkill" resultType="MedicalSkill">
         SELECT * FROM medical_skill
         WHERE medical_skill_id = #{medical_skill_id}
     </select>
