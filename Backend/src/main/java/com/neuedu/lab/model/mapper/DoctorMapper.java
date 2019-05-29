@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DoctorMapper {
     public List<Doctor> getAllDoctors(String id);
+
+    public void treat(Integer register_id,String state);
 }

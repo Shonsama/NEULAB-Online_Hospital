@@ -9,4 +9,9 @@
        WHERE doctor_department_id = #{department_id};
    </select>
 
+    <update id="treat">
+        UPDATE his.register_info SET register_info_state = #{state}
+        WHERE register_info_doctor_id = #{register_id}
+    </update>
+
 </mapper>

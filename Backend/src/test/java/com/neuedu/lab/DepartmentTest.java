@@ -33,30 +33,31 @@ public class DepartmentTest {
 
     @Test
     public void testGetDepartment(){
-        System.out.println((departmentService.getDepartment("AZBK").get(0)).toString());
+        System.out.println((departmentService.getDepartment("AA").get(0)).toString());
+        System.out.println((departmentService.getDepartment("AA").get(1)).toString());
+
+    }
+
+    @Test
+    public void testGetAllDepartments(){
+        System.out.println((departmentService.getAllDepartments().get(0)).toString());
+        System.out.println((departmentService.getAllDepartments().get(1)).toString());
 
     }
 
     @Test
     public void testUpdateDepartment(){
-        Department department = departmentService.getDepartment("AAGEGHAP").get(0);
-
-        assertTrue(departmentService.deleteDepartment(department));
-
-        Department newDepartment = new Department();
-        newDepartment.setDepartment_id("AAGEGHAP");
-        newDepartment.setDepartment_cat("临床科室");
-        newDepartment.setDepartment_name("小儿麻痹");
-        newDepartment.setDepartment_type("传染科");
-
-        assertTrue(departmentService.addDepartment(newDepartment));
+        Department department = departmentService.getDepartment("AAAAAAAB").get(0);
+        department.setDepartment_cat("修改了");
+        department.setDepartment_name("yeap");
+        department.setDepartment_type("还行");
+        assertTrue(departmentService.updateDepartment(department));
 
     }
 
     @Test
     public void testDeleteDepartment(){
-        Department department = departmentService.getDepartment("AAGEGHAP").get(0);
-
+        Department department = departmentService.getDepartment("AAAAAAAB").get(0);
         assertTrue(departmentService.deleteDepartment(department));
     }
 }

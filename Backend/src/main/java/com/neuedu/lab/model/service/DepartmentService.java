@@ -16,6 +16,10 @@ public class DepartmentService {
     private DepartmentMapper departmentMapper;
 
 
+    public List<Department> getAllDepartments(){
+        return departmentMapper.getAllDepartments();
+    }
+
     public List<Department> getDepartment(String department_id){
         return departmentMapper.getDepartment(department_id);
     }
