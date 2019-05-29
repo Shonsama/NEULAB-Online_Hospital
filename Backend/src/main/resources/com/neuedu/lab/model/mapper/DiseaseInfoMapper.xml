@@ -29,13 +29,13 @@
     </update>
 
     <!--查询某疾病信息-->
-    <select id="getDisease" resultType="com.neuedu.lab.model.po.DiseaseInfo">
+    <select id="getDisease" resultType="DiseaseInfo">
         select * from disease_info
         where disease_id LIKE concat(concat('%',#{disease_id}),'%')
     </select>
 
     <!--显示所有疾病信息-->
-    <select id="getAllDiseases" resultType="com.neuedu.lab.model.po.DiseaseInfo">
+    <select id="getAllDiseases" resultType="DiseaseInfo">
         select * from disease_info
     </select>
 
