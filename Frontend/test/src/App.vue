@@ -3,7 +3,6 @@
     <v-navigation-drawer
       v-model="primaryDrawer.model"
       :temporary="primaryDrawer.type === 'temporary'"
-      :clipped="true"
       absolute
       overflow
       app
@@ -18,14 +17,13 @@
           <v-list-tile-action >
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="true" app dark absolute color="primary" dense>
+    <v-toolbar flat app dark absolute color="primary" dense>
       <v-toolbar-side-icon
         dark
         v-if="primaryDrawer.type !== 'permanent'"
@@ -121,8 +119,6 @@ export default {
   },
   methods: {
     send: function () {
-      this.$store.commit('increment')
-      this.$http.post()
     }
   }
 }

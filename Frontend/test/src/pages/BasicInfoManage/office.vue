@@ -22,7 +22,7 @@
           :headers="headers"
           :items="desserts"
           :search="search"
-          item-key="department_id"
+          item-key="name"
           select-all
           class="elevation-1"
         >
@@ -99,40 +99,36 @@ export default {
       { text: '科室类型', value: 'type' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    //  desserts: []
-    desserts: [
-      {
-        department_id: 'XXGNK',
-        department_name: '心血管内科',
-        department_cat: '内科',
-        department_type: '临床'
-      },
-      {
-        department_id: 'GK',
-        department_name: '骨科',
-        department_cat: '外科',
-        department_type: '临床'
-      }
-    ]
+    desserts: []
+    // desserts: [
+    //   {
+    //     id: 'XXGNK',
+    //     name: '心血管内科',
+    //     classification: '内科',
+    //     type: '临床'
+    //   },
+    //   {
+    //     id: 'GK',
+    //     name: '骨科',
+    //     classification: '外科',
+    //     type: '临床'
+    //   }
+    // ]
   }),
   methods: {
     load: function () {
-      let that = this
-      var url = this.HOME + '/department/getall'
-      this.$http.post(url, {
+      this.$http.post('/department/getall', {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          this.desserts = response.data
         })
-      console.log('load data ~~~~~~~~~')
-      console.log(this.desserts)
     }
   },
   mounted: function () {
-    //  this.load()
+    this.load()
   },
-    computed: {
+  computed: {
   },
   watch: {
   }

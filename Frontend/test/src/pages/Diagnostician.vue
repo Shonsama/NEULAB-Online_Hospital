@@ -122,9 +122,6 @@
                 </v-tab-item>
               </v-tabs>
             </v-layout>
-            <v-layout>
-
-            </v-layout>
           </div>
 
         </v-expand-x-transition>
@@ -160,8 +157,8 @@
               <div v-if="item.id == 'inspect'">
                 <inspect></inspect>
               </div>
-              <div v-if="item.id == 'check'">
-                <check></check>
+              <div v-if="item.id == 'jianyan'">
+                <jianyan></jianyan>
               </div>
               <div v-if="item.id == 'diagnosis'">
                 <diagnosis></diagnosis>
@@ -191,24 +188,23 @@
 <script>
 import caseHistory from '@/pages/Diagnostician/case'
 import inspect from '@/pages/Diagnostician/inspect'
-import check from '@/pages/Diagnostician/check'
 import diagnosis from '@/pages/Diagnostician/diagnosis'
 import dispose from '@/pages/Diagnostician/dispose'
 import medicine from '@/pages/Diagnostician/medicine'
 import drug from '@/pages/Diagnostician/drug'
 import cost from '@/pages/Diagnostician/cost'
+import jianyan from '@/pages/Diagnostician/jianyan'
 
 export default {
-  name: 'Diagnostician',
   components: {
     caseHistory,
     inspect,
-    check,
     diagnosis,
     dispose,
     medicine,
     drug,
-    cost
+    cost,
+    jianyan
   },
   data () {
     return {
@@ -235,7 +231,7 @@ export default {
       },
       {
         name: '检验申请',
-        id: 'check'
+        id: 'jianyan'
       },
       {
         name: '门诊确诊',

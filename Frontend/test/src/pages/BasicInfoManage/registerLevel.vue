@@ -87,7 +87,6 @@
 export default {
   name: 'office',
   data: () => ({
-    search: '',
     expand: false,
     selected: [],
     headers: [
