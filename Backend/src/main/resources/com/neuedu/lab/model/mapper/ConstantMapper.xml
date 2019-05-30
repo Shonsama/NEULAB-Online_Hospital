@@ -33,7 +33,7 @@
         WHERE his.constant.constant_id = #{constant_id}
     </update>
 
-    <select id="getAllConstant">
+    <select id="getAllConstant" resultType="Constant">
         SELECT * FROM constant
     </select>
 

@@ -3,11 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionMapper">
-    <insert id="addPrescription">
+    <insert id="addPrescription" useGeneratedKeys="true" keyProperty="prescription_id">
         INSERT INTO prescription (prescription_consumption, prescription_frequency, prescription_num, prescription_name, prescription_day, prescription_execute_state, prescription_type, prescription_user_id,
          prescription_doctor_id, prescription_register_info_id, prescription_medicine_id)
          VALUES (#{prescription_consumption},#{prescription_frequency},#{prescription_num},#{prescription_name},#{prescription_day},#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
          #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_medicine_id})
     </insert>
+
+    <delete id="deletePrescription">
+        DELETE FROM prescription WHERE prescription_id = #{prescription_id}
+    </delete>
+
+    <update id="updatePrescriptionState">
+        UPDATE prescription SET prescription_execute_state = #{prescription_execute_state}
+        WHERE prescription_id = #{prescription_id}
+    </update>
 
 </mapper>

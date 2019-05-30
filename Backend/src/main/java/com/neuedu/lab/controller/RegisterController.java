@@ -3,6 +3,7 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.model.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +27,8 @@ public class RegisterController {
     }
 
     @RequestMapping("/submit")
-    public String registerSubmit(@RequestParam Register register){
-        if(registerService.addRegister(register)){
+    public String registerSubmit(@RequestBody Register register){
+        if(registerService.addRegisterAndBill(register)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -36,7 +37,7 @@ public class RegisterController {
     }
 
     @RequestMapping("/print-bill")
-    public String printInvoice(@RequestParam Bill bill){
+    public String printInvoice(@RequestBody Bill bill){
         //打印发票
         if(registerService.addBill(bill)){
             return "{\"result\":\"success\"}";
