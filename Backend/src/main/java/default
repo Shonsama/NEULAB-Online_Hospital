@@ -4,3 +4,7 @@ spring.datasource.url=jdbc:mysql://39.108.165.56:3306/his?useUnicode=true&charac
 spring.datasource.username=root
 spring.datasource.password=Wp159159!
 并且这个mysql是8.0.16 需要在pom.xml中更改mysql-connector的版本为8.0.16
+
+
+域名：
+http://www.wangpeng.pub/
