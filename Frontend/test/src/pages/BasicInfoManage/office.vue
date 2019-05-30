@@ -110,10 +110,10 @@ export default {
     deleteItem: function (item) {
       let that = this
       let department = Qs.stringify({
-          'department_id': item.department_id,
-          'department_name': item.department_name,
-          'department_cat': item.department_cat,
-          'department_type': item.department_type
+        'department_id': item.department_id,
+        'department_name': item.department_name,
+        'department_cat': item.department_cat,
+        'department_type': item.department_type
       })
       let data = Qs.stringify({
         'department': department
