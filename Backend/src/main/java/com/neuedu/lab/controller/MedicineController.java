@@ -3,6 +3,7 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.Medicine;
 import com.neuedu.lab.model.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class MedicineController {
     }
 
     @RequestMapping("/add")
-    public String addMedicine(@RequestParam Medicine medicine){
+    public String addMedicine(@RequestBody Medicine medicine){
         if(medicineService.addMedicine(medicine)){
             return "{\"result\":\"success\"}";
         }
@@ -38,7 +39,7 @@ public class MedicineController {
     }
 
     @RequestMapping("/update")
-    public String updateMedicine(@RequestParam Medicine medicine){
+    public String updateMedicine(@RequestBody Medicine medicine){
         if(medicineService.updateMedicine(medicine)){
             return "{\"result\":\"success\"}";
         }
@@ -48,7 +49,7 @@ public class MedicineController {
     }
 
     @RequestMapping("/delete")
-    public String deleteMedicine(@RequestParam Medicine medicine){
+    public String deleteMedicine(@RequestBody Medicine medicine){
         if(medicineService.deleteMedicine(medicine)){
             return "{\"result\":\"success\"}";
         }

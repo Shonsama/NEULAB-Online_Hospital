@@ -3,6 +3,7 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/add")
-    public String addDepartment(@RequestParam Department department){
+    public String addDepartment(@RequestBody Department department){
         if(departmentService.addDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -39,7 +40,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestParam Department department){
+    public String updateConstant(@RequestBody Department department){
         if(departmentService.updateDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -49,7 +50,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestParam Department department){
+    public String deleteConstant(@RequestBody Department department){
         if(departmentService.deleteDepartment(department)){
             return "{\"result\":\"success\"}";
         }

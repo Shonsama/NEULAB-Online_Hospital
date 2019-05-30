@@ -1,5 +1,6 @@
 package com.neuedu.lab;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.junit.Test;
@@ -54,7 +55,15 @@ public class DepartmentTest {
 
     @Test
     public void testDeleteDepartment(){
+
         Department department = departmentService.getDepartment("AAAAAAAB").get(0);
+        //JSONObject jsonData = JSONObject.fromObject(department);
+        //JSONObject jsonData = JSONObject.(department);
+        JSONObject obj = new JSONObject();
+        obj.put("1",department);
+        System.out.println(obj);
+
         assertTrue(departmentService.deleteDepartment(department));
+        System.out.println(obj);
     }
 }

@@ -10,7 +10,7 @@
         #{non_medicine_type},
         #{non_medicine_name},
         #{non_medicine_unit_price},
-        #{non_medicine_specification}
+        #{non_medicine_specification})
     </insert>
 
     <!--删除非药品信息-->
