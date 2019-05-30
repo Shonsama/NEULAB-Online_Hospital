@@ -3,6 +3,7 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.DiseaseInfo;
 import com.neuedu.lab.model.service.DiseaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ public class DiseaseInfoController {
     }
 
     @RequestMapping("/add")
-    public String addDisease(@RequestParam DiseaseInfo diseaseInfo){
+    public String addDisease(@RequestBody DiseaseInfo diseaseInfo){
         if(diseaseInfoService.addDisease(diseaseInfo)){
             return "{\"result\":\"success\"}";
         }
@@ -38,7 +39,7 @@ public class DiseaseInfoController {
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestParam DiseaseInfo diseaseInfo){
+    public String updateConstant(@RequestBody DiseaseInfo diseaseInfo){
         if(diseaseInfoService.updateDisease(diseaseInfo)){
             return "{\"result\":\"success\"}";
         }
@@ -48,7 +49,7 @@ public class DiseaseInfoController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestParam DiseaseInfo diseaseInfo){
+    public String deleteConstant(@RequestBody DiseaseInfo diseaseInfo){
         if(diseaseInfoService.deleteDisease(diseaseInfo)){
             return "{\"result\":\"success\"}";
         }

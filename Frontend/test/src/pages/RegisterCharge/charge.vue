@@ -31,7 +31,6 @@
                 :counter="10"
                 label="病历号"
                 required
-                box
               ></v-text-field>
 
             </v-flex>
@@ -56,7 +55,6 @@
                 :counter="10"
                 label="姓名"
                 required
-                box
               ></v-text-field>
             </v-flex>
 
@@ -68,7 +66,6 @@
                 :items="items"
                 label="性别"
                 required
-                box
               ></v-select>
             </v-flex>
 
@@ -82,7 +79,6 @@
                 :counter="10"
                 label="家庭住址"
                 required
-                box
               ></v-text-field>
             </v-flex>
 
@@ -96,7 +92,6 @@
                 :counter="10"
                 label="身份证号"
                 required
-                box
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -123,7 +118,6 @@
                     label="出生日期"
                     readonly
                     v-on="on"
-                    box
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="date" no-title scrollable>
@@ -144,7 +138,6 @@
                 :counter="10"
                 label="年龄"
                 required
-                box
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -219,7 +212,11 @@
 
 <script>
 export default {
-  name: 'charge'
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

@@ -13,4 +13,8 @@ public interface RegisterMapper {
     public List<Register> getRegisterByDoctorId(Integer doctor_id);
 
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name);
+
+    public void updateRegisterState(Integer register_id, String register_info_state);
+
+
 }

@@ -184,12 +184,20 @@ export default {
     ]
   }),
   mounted: {
-    //  向后端query所有department
   },
   methods: {
     test: function () {
       var that = this
       console.log(that.desserts_rule[0].time)
+    },
+    load: function () {
+      let that = this
+      var url = this.HOME + '/department/getall'
+      this.$http.post(url, {})
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
+        })
     }
   }
 }

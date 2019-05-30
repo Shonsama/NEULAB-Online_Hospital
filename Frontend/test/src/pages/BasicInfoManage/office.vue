@@ -96,7 +96,6 @@ export default {
   methods: {
     load: function () {
       let that = this
-      console.log('load data ~~~~~~~~~')
       var url = this.HOME + '/department/getall'
       this.$http.post(url, {
       })
@@ -104,7 +103,6 @@ export default {
           console.log(response.data)
           that.desserts = response.data
         })
-      console.log('load data ~~~~~~~~~')
       console.log(this.desserts)
     },
     deleteItem: function (item) {
