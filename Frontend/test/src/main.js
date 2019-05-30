@@ -18,7 +18,15 @@ import 'echarts/lib/component/tooltip'
 // Taking ECharts-GL as an example:
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
-
+// let instance = axios.create({
+//   transformRequest: [function (data) {
+//     data = Qs.stringify(data)
+//     return data
+//   }],
+//   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+// })
+//
+// Vue.use(axios, instance)
 Vue.prototype.HOME = '/api'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
