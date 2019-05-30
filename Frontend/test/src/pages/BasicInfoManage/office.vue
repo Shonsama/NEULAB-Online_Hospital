@@ -38,7 +38,7 @@
           <td >{{ props.item.department_name }}</td>
           <td >{{ props.item.department_cat }}</td>
           <td >{{ props.item.department_type }}</td>
-          <td class="justify-center layout px-0">
+          <td >
             <v-icon
               small
               class="mr-2"
@@ -112,7 +112,18 @@ export default {
         })
       console.log('load data ~~~~~~~~~')
       console.log(this.desserts)
+    },
+    deleteItem: function (item) {
+      let that = this
+      var url = this.HOME + '/department/delete'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
+        })
     }
+
   },
   mounted: function () {
       this.load()
