@@ -6,7 +6,6 @@ import com.neuedu.lab.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,13 +24,13 @@ public class UserController {
 
     @RequestMapping("/get")
 //    查询某一用户信息
-    public List<User> getUser(@RequestParam String user_account){
+    public List<User> getUser(@RequestBody String user_account){
         return userService.getUser(user_account);
     }
 
     @RequestMapping("/checkValid")
     //检验登录
-    public String checkValid(@RequestParam String user_account, @RequestParam String user_password){
+    public String checkValid(@RequestBody String user_account, @RequestBody String user_password){
         return userService.checkValid(user_account,user_password);
     }
 

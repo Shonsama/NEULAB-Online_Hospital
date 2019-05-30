@@ -5,7 +5,6 @@ import com.neuedu.lab.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class DepartmentController {
 
     @RequestMapping("/get")
 //    显示查询科室信息
-    public List<Department> getDepartment(@RequestParam String department_id){
+    public List<Department> getDepartment(@RequestBody String department_id){
         return departmentService.getDepartment(department_id);
     }
 

@@ -5,7 +5,6 @@ import com.neuedu.lab.model.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class MedicineController {
 
     @RequestMapping("/get")
 //    查询药品信息
-    public List<Medicine> getMedicine(@RequestParam String medicine_id){
+    public List<Medicine> getMedicine(@RequestBody String medicine_id){
         return medicineService.getMedicine(medicine_id);
     }
 

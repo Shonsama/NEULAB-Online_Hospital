@@ -6,7 +6,6 @@ import com.neuedu.lab.model.service.NonMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class NonMedicineController {
 
     @RequestMapping("/get")
 //    查询非药品信息
-    public List<NonMedicine> getNonMedicine(@RequestParam String non_medicine_id){
+    public List<NonMedicine> getNonMedicine(@RequestBody String non_medicine_id){
         return nonMedicineService.getNonMedicine(non_medicine_id);
     }
 
