@@ -15,9 +15,9 @@ public class ConstantController {
     @Autowired
     private ConstantService constantService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/get-all")
     public List<Constant> getAllConstant(){
-        return constantService.getConstant("payment_type");
+        return constantService.getAllConstant();
     }
 
 

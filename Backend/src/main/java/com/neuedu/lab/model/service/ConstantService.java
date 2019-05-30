@@ -52,5 +52,13 @@ public class ConstantService {
     }
 
 
+    public List<Constant> getAllConstant() {
+        try{
+            return constantMapper.getAllConstant();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
 
+    }
 }

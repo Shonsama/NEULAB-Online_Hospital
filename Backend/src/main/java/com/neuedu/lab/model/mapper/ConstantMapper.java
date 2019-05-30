@@ -10,4 +10,6 @@ public interface ConstantMapper {
     public void addConstant(Constant constant);
     public void deleteConstant(Constant constant);
     public void updateConstant(Constant constant);
+
+    List<Constant> getAllConstant();
 }
