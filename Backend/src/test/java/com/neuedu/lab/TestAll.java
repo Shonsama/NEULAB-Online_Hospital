@@ -1,12 +1,16 @@
 package com.neuedu.lab;
 
 import com.neuedu.lab.model.po.DiseaseInfo;
+import com.neuedu.lab.model.po.Medicine;
 import com.neuedu.lab.model.service.DiseaseInfoService;
+import com.neuedu.lab.model.service.MedicineService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestAll {
     @Autowired
     private DiseaseInfoService diseaseInfoService;
-
+    @Autowired
+    private MedicineService medicineService;
     @Test
     public void testAddDiseaseInfo(){
         DiseaseInfo diseaseInfo = new DiseaseInfo();
@@ -31,5 +36,27 @@ public class TestAll {
     public void testDeleteDisease(){
         DiseaseInfo diseaseInfo = diseaseInfoService.getDisease("A").get(0);
         assertTrue(diseaseInfoService.deleteDisease(diseaseInfo));
+    }
+
+    @Test
+    public void testAddMedicine(){
+        Medicine medicine = new Medicine();
+        medicine.setMedicine_factory("A");
+        medicine.setMedicine_formulation("B");
+        medicine.setMedicine_id("C");
+        medicine.setMedicine_name("D");
+        medicine.setMedicine_pinyin("E");
+        medicine.setMedicine_specifications("1");
+        medicine.setMedicine_type("2");
+        medicine.setMedicine_unit("3");
+        medicine.setMedicine_unit_price(new BigDecimal(3.6));
+        medicine.setMedicine_usage("4");
+        assertTrue(medicineService.addMedicine(medicine));
+    }
+
+    @Test
+    public void testDeleteMedicine(){
+        Medicine medicine = medicineService.getMedicine("C").get(0);
+        assertTrue(medicineService.deleteMedicine(medicine));
     }
 }

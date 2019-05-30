@@ -24,6 +24,7 @@
         :items="desserts"
         select-all
         class="elevation-1"
+        extended
       >
         <template v-slot:items="props">
           <td>

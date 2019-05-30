@@ -59,6 +59,8 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
+            item-key="fat"
+
             select-all
             class="elevation-1"
           >

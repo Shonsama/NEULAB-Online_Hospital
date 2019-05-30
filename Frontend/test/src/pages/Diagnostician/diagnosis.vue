@@ -16,6 +16,7 @@
         :headers="headers"
         :items="desserts"
         select-all
+        item-key="name"
         class="elevation-1"
       >
         <template v-slot:items="props">

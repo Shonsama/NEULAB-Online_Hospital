@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.MedicineMapper">
+
+
+    <!--增加药品信息-->
+    <insert id="addMedicine" parameterType="Medicine">
+        insert into medicine (medicine_id, medicine_usage, medicine_name, medicine_specifications,
+        medicine_unit, medicine_factory, medicine_formulation, medicine_type, medicine_unit_price, medicine_pinyin)
+        values(#{medicine_id},
+        #{medicine_usage},
+        #{medicine_name},
+        #{medicine_specifications},
+        #{medicine_unit},
+        #{medicine_factory},
+        #{medicine_formulation},
+        #{medicine_type},
+        #{medicine_unit_price},
+        #{medicine_pinyin})
+    </insert>
+
+    <!--删除药品信息-->
+    <delete id="deleteMedicine" parameterType="Medicine">
+        DELETE FROM his.medicine
+        where medicine_id = #{medicine_id}
+    </delete>
+
+    <!--修改药品信息-->
+    <update id="updateMedicine">
+        update medicine
+        set medicine_usage = #{medicine_usage},
+        medicine_name = #{medicine_name},
+        medicine_specifications = #{medicine_specifications},
+        medicine_unit = #{medicine_unit},
+        medicine_factory = #{medicine_factory},
+        medicine_formulation = #{medicine_formulation},
+        medicine_type = #{medicine_type},
+        medicine_unit_price = #{medicine_unit_price},
+        medicine_pinyin = #{medicine_pinyin}
+        where medicine_id = #{medicine_id}
+    </update>
+
+    <!--查询某药品信息-->
+    <select id="getMedicine" resultType="Medicine">
+        select * from medicine
+        where medicine_id LIKE concat(concat('%',#{medicine_id}),'%')
+    </select>
+
+    <!--显示所有药品信息-->
+    <select id="getAllMedicines" resultType="Medicine">
+        select * from medicine
+    </select>
+
+
+
+</mapper>
