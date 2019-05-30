@@ -88,7 +88,7 @@ public class DoctorController {
     }
 
     //作废医技项目
-    @RequestMapping("/start-medical-skill")
+    @RequestMapping("/end-medical-skill")
     public String endNonMedicine(@RequestParam Integer medical_skill_id){
         if(doctorService.endMedicialSkill(medical_skill_id)){
             return "{\"result\":\"success\"}";
