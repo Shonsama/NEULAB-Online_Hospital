@@ -103,7 +103,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/department/getall'
+      var url =  'http://www.wangpeng.pub:8080/department/getall'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -111,22 +111,23 @@ export default {
           that.desserts = response.data
         })
       console.log('load data ~~~~~~~~~')
-      console.log(this.desserts)
-    },
-    deleteItem: function (item) {
-      let that = this
-      var url = this.HOME + '/department/delete'
-      this.$http.post(url, {
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts = response.data
-        })
+      console.log(that.desserts[0].department_id)
+      console.log('after the loading~~~~~~~~')
     }
+    // deleteItem: function (item) {
+    //   let that = this
+    //   var url =  'http://www.wangpeng.pub:8080/department/delete'
+    //   this.$http.post(url, {
+    //   })
+    //     .then(function (response) {
+    //       console.log(response.data)
+    //       that.desserts = response.data
+    //     })
+    // }
 
   },
   mounted: function () {
-      this.load()
+    this.load()
   },
   computed: {
   },
