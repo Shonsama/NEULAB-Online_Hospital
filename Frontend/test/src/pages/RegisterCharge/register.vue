@@ -5,11 +5,17 @@
     <v-toolbar-title >挂号信息</v-toolbar-title>
     <template v-slot:extension>
     <v-flex xs2>
-    <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" ></v-text-field>
+    <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" disabled="disabled" ></v-text-field>
     </v-flex>
     <v-btn
       small
-    >更新发票号
+      icon
+      flat
+      @click="disabled = !disabled"
+    >
+      <v-icon>
+        refresh
+      </v-icon>
     </v-btn>
       <v-spacer></v-spacer>
     </template>
@@ -153,6 +159,8 @@
             v-model="paycate"
             :items="payCates"
             :rules="payRules"
+            item-text="constant_name"
+            item_value="constant_id"
             label="结算类别"
             required
             placeholder="请选择结算类别"
@@ -174,8 +182,8 @@
       </v-layout>
       <v-layout>
         <v-flex
-          xs2
-          md2
+          xs12
+          md3
         >
           <v-select
             change="load_doctors"
@@ -191,8 +199,8 @@
           ></v-select>
         </v-flex>
         <v-flex
-          xs2
-          md2
+          xs12
+          md3
         >
           <v-select
             v-model="doctor_id"
@@ -207,7 +215,7 @@
           ></v-select>
         </v-flex>
 
-        <v-flex xs12 md4>
+        <v-flex xs12 md2>
           <v-checkbox
             v-model="checkbox"
             v-validate="'required'"
@@ -287,6 +295,7 @@ export default {
   name: 'register',
   data: () => ({
     valid: false,
+    disabled: true,
     patient_record_id: '',
     patient_gender: '',
     patient_name: '',
@@ -334,6 +343,9 @@ export default {
     this.load_doctors()
   },
   methods: {
+    change: function () {
+      this.disabled = !this.d
+    },
     get_patient: function (id) {
       var url = this.HOME + '/constant/get'
       var that = this
@@ -347,11 +359,11 @@ export default {
     },
     load_constants: function () {
       let that = this
-      var url = this.HOME + '/constant/get'
+      var url = this.HOME + '/constant/get-all'
       var data = Qs.stringify({
-        'constant_type': 'payment_type'
+        constant_type: 'payment_type'
       })
-      this.$http.post(url, data)
+      this.$http.post(url)
         .then(function (response) {
           console.log(response.data)
           that.payCates = response.data
