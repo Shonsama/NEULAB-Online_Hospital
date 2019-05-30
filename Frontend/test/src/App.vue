@@ -6,37 +6,72 @@
         NeuHospital
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn
               flat
+              v-on="on"
             >
               我的身份
               <v-icon
-                v-on="on"
               >
                 arrow_drop_down
               </v-icon>
             </v-btn>
           </template>
+          <v-list>
+            <v-list-tile
+              v-for="(item, index) in items"
+              :key="index"
+              @click="$router.push(item.id)"
+            >
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
         </v-menu>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn
-              flat
-              icon
-            >
-              <v-icon
+        <v-toolbar-item >
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                flat
+                icon
                 v-on="on"
               >
-                person
-              </v-icon>
-            </v-btn>
-          </template>
-        </v-menu>
+                <v-icon
+                >
+                  settings
+                </v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-container>
+                <v-switch
+                  v-model="dark"
+                  :label="`黑暗模式`"
+                ></v-switch>
+              </v-container>
+            </v-card>
+          </v-menu>
+        </v-toolbar-item>
+        <v-toolbar-item >
+          <v-menu offset-y>
+            <template v-slot:activator="{ on2 }">
+              <v-btn
+                flat
+                icon
+                v-on="on2"
+              >
+                <v-icon
+                >
+                  person
+                </v-icon>
+              </v-btn>
+            </template>
+          </v-menu>
+        </v-toolbar-item>
       </v-toolbar-items>
     </v-toolbar>
     <v-divider />

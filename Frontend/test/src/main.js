@@ -6,8 +6,8 @@ import router from './router'
 import Vuetify from 'vuetify'
 import Vuex from 'vuex'
 import store from './vuex/store'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import 'vuetify/dist/vuetify.min.css'
 import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
@@ -25,7 +25,7 @@ Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)
 Vue.use(Vuetify)
 Vue.use(Vuex)
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 
 /* eslint-disable no-new */
 new Vue({
