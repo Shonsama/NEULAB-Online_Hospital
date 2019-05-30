@@ -36,7 +36,8 @@ public class RegisterService {
         return doctorMapper.getAllDoctors(id);
     }
 
-    public boolean addRegister(Register register){
+
+    public boolean addRegisterAndBill(Register register){
         try {
             registerMapper.addRegister(register);
         }catch (Exception e){

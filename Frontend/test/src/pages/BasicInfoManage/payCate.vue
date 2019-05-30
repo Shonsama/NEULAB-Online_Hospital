@@ -49,10 +49,10 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td >{{ props.item.id }}</td>
-          <td >{{ props.item.name }}</td>
-          <td >{{ props.item.category }}</td>
-          <td class="justify-center layout px-0">
+          <td >{{ props.item.constant_id }}</td>
+          <td >{{ props.item.constant_name }}</td>
+          <td >{{ props.item.constant_type }}</td>
+          <td >
             <v-icon
               small
               class="mr-2"
@@ -86,10 +86,10 @@ export default {
       {
         text: '常量ID',
         align: 'left',
-        value: 'id'
+        value: 'constant_id'
       },
-      { text: '常量名称', value: 'name' },
-      { text: '常量类别', value: 'category' },
+      { text: '常量名称', value: 'constant_name' },
+      { text: '常量类别', value: 'constant_type' },
       { text: '操作', value: 'operation', sortable: false }
     ],
     desserts: [
@@ -100,11 +100,27 @@ export default {
       }
     ]
   }),
+  mounted: function () {
+    this.load()
+  },
   computed: {
   },
   watch: {
   },
   methods: {
+    load: function () {
+      let that = this
+      console.log('load data ~~~~~~~~~')
+      var url = this.HOME + '/constant/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
+        })
+      console.log('load data ~~~~~~~~~')
+      console.log(this.desserts)
+    }
   }
 }
 </script>

@@ -3,6 +3,7 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.model.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +43,7 @@ public class DoctorController {
 
     //提交诊断
     @RequestMapping("/submit-record")
-    public String submitRecord(@RequestParam Record record){
+    public String submitRecord(@RequestBody Record record){
         if(doctorService.submitRecord(record)){
             return "{\"result\":\"success\"}";
         }
@@ -53,7 +54,7 @@ public class DoctorController {
 
     //添加医技项目
     @RequestMapping("/add-medical-skill")
-    public String addMedicalSkill(@RequestParam MedicalSkill medicalSkill){
+    public String addMedicalSkill(@RequestBody MedicalSkill medicalSkill){
         if(doctorService.addMedicalSkill(medicalSkill)){
             return "{\"result\":\"success\"}";
         }
@@ -115,9 +116,68 @@ public class DoctorController {
         }
     }
 
+    //新增处方
     @RequestMapping("/add-prescription")
     public String addPrescription(@RequestParam Prescription prescription){
         if(doctorService.addPrescription(prescription)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+    //删除处方
+    @RequestMapping("/delete-prescription")
+    public String deletePrescription(@RequestParam Integer prescription_id){
+        if(doctorService.deletePrescription(prescription_id)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+
+    //发送处方、作废处方
+    @RequestMapping("/update-prescription")
+    public String updatePrescription(@RequestParam Integer prescripiton_id, @RequestParam String prescription_execute_state){
+        if(doctorService.updatePrescription(prescripiton_id,prescription_execute_state)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+
+    //增加药品
+    @RequestMapping("/add-medicine")
+    public String addMedicine(@RequestBody PrescriptionContent prescriptionContent){
+        if(doctorService.addPrescriptionContent(prescriptionContent)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+    //删除药品
+    @RequestMapping("/delete-medicine")
+    public String deleteMedicine(@RequestParam Integer prescription_id){
+        if(doctorService.deletePrescriptionContent(prescription_id)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+
+    //诊毕
+    @RequestMapping("/finsh")
+    public String finish(@RequestParam Integer register_id){
+        if(doctorService.finish(register_id)){
             return "{\"result\":\"success\"}";
         }
         else {

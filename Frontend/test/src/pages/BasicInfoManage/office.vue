@@ -75,11 +75,13 @@
 </template>
 
 <script>
+import Qs from 'qs'
 export default {
   data: () => ({
     search: '',
     expand: false,
     selected: [],
+    signal: '',
     headers: [
       {
         text: '科室编号',
@@ -104,18 +106,32 @@ export default {
           console.log(response.data)
           that.desserts = response.data
         })
-      console.log('load data ~~~~~~~~~')
-      console.log(this.desserts)
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/department/delete'
-      this.$http.post(url, {
+      let department = Qs.stringify({
+          'department_id': item.department_id,
+          'department_name': item.department_name,
+          'department_cat': item.department_cat,
+          'department_type': item.department_type
       })
+      let data = Qs.stringify({
+        'department': department
+      })
+      // var department = {
+      //   "department_cat": item.department_cat,
+      //   "department_id": item.department_id,
+      //   "department_name": item.department_name,
+      //   "department_type": item.department_type
+      //
+      // }
+      var url = this.HOME + '/department/delete'
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.signal = response.data
         })
+      console.log(this.signal)
     }
 
   },

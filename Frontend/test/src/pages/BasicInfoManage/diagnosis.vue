@@ -49,11 +49,11 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td >{{ props.item.id }}</td>
-          <td >{{ props.item.name }}</td>
-          <td >{{ props.item.ICD }}</td>
-          <td >{{ props.item.category }}</td>
-          <td class="justify-center layout px-0">
+          <td >{{ props.item.disease_id }}</td>
+          <td >{{ props.item.disease_name }}</td>
+          <td >{{ props.item.disease_icd }}</td>
+          <td >{{ props.item.disease_type }}</td>
+          <td >
             <v-icon
               small
               class="mr-2"
@@ -87,27 +87,34 @@ export default {
       {
         text: '疾病编码',
         align: 'left',
-        value: 'id'
+        value: 'disease_id'
       },
-      { text: '疾病名称', value: 'name' },
-      { text: '国际ICD编码', value: 'ICD' },
-      { text: '疾病所属分类', value: 'category' },
+      { text: '疾病名称', value: 'disease_name' },
+      { text: '国际ICD编码', value: 'disease_icd' },
+      { text: '疾病所属分类', value: 'disease_type' },
       { text: '操作', value: 'operation', sortable: false }
     ],
     desserts: [
-      {
-        id: 'BPSZS',
-        name: '包皮伸展术',
-        category: '中医疾病',
-        ICD: '99.951'
-      }
     ]
   }),
+  mounted: function () {
+    this.load()
+  },
   computed: {
   },
   watch: {
   },
   methods: {
+    load: function () {
+      let that = this
+      var url = this.HOME + '/diseaseinfo/getall'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
+        })
+    }
   }
 }
 </script>

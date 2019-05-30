@@ -26,6 +26,9 @@ public class DoctorService {
     @Resource
     private DiagnoseMapper diagnoseMapper;
 
+    @Resource
+    private PrescriptionContentMapper prescriptionContentMapper;
+
 
     //查询一个医生的所有挂号信息
     public List<Register> getAllRegisters(Integer doctor_id){
@@ -158,6 +161,64 @@ public class DoctorService {
         return true;
     }
 
+    //删除处方
+    @Transactional
+    public boolean deletePrescription(Integer prescription_id){
+        try{
+            prescriptionContentMapper.deletePrescriptionContents(prescription_id);
+            prescriptionMapper.deletePrescription(prescription_id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    //发送处方,作废处方
+    public boolean updatePrescription(Integer prescription_id,String prescription_execute_state){
+        try {
+            prescriptionMapper.updatePrescriptionState(prescription_id,prescription_execute_state);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    //给某个处方增加药品
+    public boolean addPrescriptionContent(PrescriptionContent prescriptionContent){
+        try {
+            prescriptionContentMapper.addPrescriptionContent(prescriptionContent);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    //给某个处方删除药品
+    public boolean deletePrescriptionContent(Integer prescriptionid) {
+        try {
+            prescriptionContentMapper.deletePrescriptionContent(prescriptionid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    //诊毕
+    public boolean finish(Integer register_id){
+        try{
+            registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[2]);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
 
 
@@ -177,4 +238,8 @@ public class DoctorService {
 
 
 
-}
+
+
+
+
+    }
