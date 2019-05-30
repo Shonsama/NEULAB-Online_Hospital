@@ -47,7 +47,7 @@
               <td class="text-xs-right">{{ props.item.carbs }}</td>
               <td class="text-xs-right">{{ props.item.protein }}</td>
               <td class="text-xs-right">{{ props.item.iron }}</td>
-              <td class="justify-center layout px-0">
+              <td>
                 <v-icon
                   small
                   class="mr-2"

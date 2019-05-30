@@ -3,21 +3,17 @@ package com.neuedu.lab.controller;
 import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
     @Autowired
-    HttpServletRequest request;
-    @Autowired
     private DepartmentService departmentService;
-
 
     @RequestMapping("/getall")
 //    显示所有科室信息
@@ -28,12 +24,12 @@ public class DepartmentController {
 
     @RequestMapping("/get")
 //    显示查询科室信息
-    public List<Department> getDepartment(@RequestParam String department_id){
+    public List<Department> getDepartment(@RequestBody String department_id){
         return departmentService.getDepartment(department_id);
     }
 
     @RequestMapping("/add")
-    public String addDepartment(@RequestParam Department department){
+    public String addDepartment(@RequestBody Department department){
         if(departmentService.addDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -43,7 +39,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestParam Department department){
+    public String updateConstant(@RequestBody Department department){
         if(departmentService.updateDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -53,9 +49,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestParam Department department){
-        System.out.println(request.getQueryString());
-        System.out.println(request);
+    public String deleteConstant(@RequestBody Department department){
         if(departmentService.deleteDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -63,7 +57,5 @@ public class DepartmentController {
             return "{\"result\":\"fail\"}";
         }
     }
-
-
 
 }

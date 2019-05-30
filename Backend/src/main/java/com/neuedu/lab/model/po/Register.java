@@ -12,7 +12,7 @@ public class Register {
     private Integer register_info_user_id;
     private Doctor doctor;
     private Patient patient;
-    private UserInfo user;
+    private User user;
 
     public Integer getRegister_info_id() {
         return register_info_id;

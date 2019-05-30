@@ -1,10 +1,12 @@
 package com.neuedu.lab.controller;
 
-import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.model.po.Bill;
+import com.neuedu.lab.model.po.Doctor;
+import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.model.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,13 +23,13 @@ public class RegisterController {
     }*/
 
     @RequestMapping("/get-all-doctor")
-    public List<Doctor> getAllDoctor(@RequestParam String department_id){
+    public List<Doctor> getAllDoctor(@RequestBody String department_id){
         return registerService.getAllDoctors(department_id);
     }
 
     @RequestMapping("/submit")
-    public String registerSubmit(@RequestParam Register register){
-        if(registerService.addRegister(register)){
+    public String registerSubmit(@RequestBody Register register){
+        if(registerService.addRegisterAndBill(register)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -36,7 +38,7 @@ public class RegisterController {
     }
 
     @RequestMapping("/print-bill")
-    public String printInvoice(@RequestParam Bill bill){
+    public String printInvoice(@RequestBody Bill bill){
         //打印发票
         if(registerService.addBill(bill)){
             return "{\"result\":\"success\"}";
@@ -48,7 +50,7 @@ public class RegisterController {
 
     //退号操作
     @RequestMapping("/refund")
-    public String registerRefund(@RequestParam Integer register_id){
+    public String registerRefund(@RequestBody Integer register_id){
         if(registerService.refund(register_id)){
             return "{\"result\":\"success\"}";
         }
