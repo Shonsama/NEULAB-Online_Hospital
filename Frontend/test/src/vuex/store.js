@@ -5,7 +5,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     showDrawer: null,
-    doctor: ''
+    doctor: '',
+    authority: []
   },
   getters: {
     getIsShowDrawer: function (state, data) {
