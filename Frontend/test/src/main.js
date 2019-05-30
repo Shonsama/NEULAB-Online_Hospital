@@ -19,7 +19,7 @@ import 'echarts/lib/component/tooltip'
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
 
-// Vue.prototype.HOME = '/api'
+Vue.prototype.HOME = '/api'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)

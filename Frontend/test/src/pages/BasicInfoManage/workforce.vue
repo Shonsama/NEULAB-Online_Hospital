@@ -64,9 +64,23 @@
           label="科室"
         ></v-select>
         </v-flex>
-        <v-btn   @click="show = !show">清空
+        <v-btn
+          icon
+          falt
+          @click="show = !show"
+        >
+          <v-icon>
+            add
+          </v-icon>
         </v-btn>
-        <v-btn   @click="show = !show">新增排班规则
+        <v-btn
+          icon
+          falt
+          @click="expand = !expand"
+        >
+          <v-icon>
+            delete
+          </v-icon>
         </v-btn>
       </v-toolbar>
       <v-data-table
@@ -108,76 +122,7 @@
         </template>
       </v-data-table>
     </v-flex>
-
     <v-divider></v-divider>
-
-    <v-card-actions>
-
-      <v-flex xs2>
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          :return-value.sync="date"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="开始日期"
-              prepend-inner-icon="event"
-              readonly
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-          </v-date-picker>
-        </v-menu>
-      </v-flex>
-      <v-flex xs2>
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          :return-value.sync="date"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="结束日期"
-              readonly
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="date" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-          </v-date-picker>
-        </v-menu>
-      </v-flex>
-      <v-spacer></v-spacer>
-
-      <v-btn
-        depressedf
-      >
-        保存
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -225,7 +170,9 @@ export default {
       },
       {text: '科室名称', value: 'departmentName'},
       {text: '医生名称', value: 'doctorName'},
-      {text: '时间', value: 'time'}
+      {text: '时间', value: 'time'},
+      {text: '操作', value: 'operation'}
+
     ],
     desserts_scheduling: [
       {
