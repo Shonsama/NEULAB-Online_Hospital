@@ -53,8 +53,8 @@ public class DoctorController {
 
     //添加医技项目
     @RequestMapping("/add-medical-skill")
-    public String addNonMedicine(@RequestParam MedicalSkill medicalSkill){
-        if(doctorService.addMedicialSkill(medicalSkill)){
+    public String addMedicalSkill(@RequestParam MedicalSkill medicalSkill){
+        if(doctorService.addMedicalSkill(medicalSkill)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -65,8 +65,8 @@ public class DoctorController {
 
     //删除医技项目
     @RequestMapping("/delete-medical-skill")
-    public String deleteNonMedicine(@RequestParam Integer medical_skill_id){
-        if(doctorService.deleteMedicialSkill(medical_skill_id)){
+    public String deleteMedicalSkill(@RequestParam Integer medical_skill_id){
+        if(doctorService.deleteMedicalSkill(medical_skill_id)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -77,8 +77,8 @@ public class DoctorController {
 
     //开立医技项目
     @RequestMapping("/start-medical-skill")
-    public String startNonMedicine(@RequestParam Integer medical_skill_id){
-        if(doctorService.startMedicialSkill(medical_skill_id)){
+    public String startMedicalSkill(@RequestParam Integer medical_skill_id){
+        if(doctorService.startMedicalSkill(medical_skill_id)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -88,9 +88,9 @@ public class DoctorController {
     }
 
     //作废医技项目
-    @RequestMapping("/start-medical-skill")
-    public String endNonMedicine(@RequestParam Integer medical_skill_id){
-        if(doctorService.endMedicialSkill(medical_skill_id)){
+    @RequestMapping("/end-medical-skill")
+    public String endMedicalSkill(@RequestParam Integer medical_skill_id){
+        if(doctorService.endMedicalSkill(medical_skill_id)){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -114,6 +114,20 @@ public class DoctorController {
             return "{\"result\":\"fail\"}";
         }
     }
+
+    @RequestMapping("/add-prescription")
+    public String addPrescription(@RequestParam Prescription prescription){
+        if(doctorService.addPrescription(prescription)){
+            return "{\"result\":\"success\"}";
+        }
+        else {
+            return "{\"result\":\"fail\"}";
+        }
+    }
+
+
+
+    
 
 
 

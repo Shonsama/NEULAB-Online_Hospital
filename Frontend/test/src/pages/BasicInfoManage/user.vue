@@ -14,8 +14,23 @@
         </v-flex>
 
         <v-spacer></v-spacer>
-        <v-btn   @click="expand = !expand">
-          新增
+        <v-btn
+          icon
+          falt
+          @click="expand = !expand"
+        >
+          <v-icon>
+            add
+          </v-icon>
+        </v-btn>
+        <v-btn
+          icon
+          falt
+          @click="expand = !expand"
+        >
+          <v-icon>
+            delete
+          </v-icon>
         </v-btn>
       </v-toolbar>
       <v-data-table
@@ -58,26 +73,6 @@
     </v-flex>
 
     <v-divider></v-divider>
-
-    <v-card-actions>
-      <v-btn
-        flat
-        @click="tree = []"
-      >
-        Reset
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        class="white--text"
-        color="green darken-1"
-        depressed
-      >
-        Save
-        <v-icon right>mdi-content-save</v-icon>
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
