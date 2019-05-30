@@ -10,7 +10,7 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
-            item-key="name1"
+            item-key="name"
             select-all
             class="elevation-1"
           >
@@ -59,7 +59,9 @@
             v-model="selected"
             :headers="headers"
             :items="desserts"
-            item-key="name12"
+            item-key="fat"
+
+            select-all
             class="elevation-1"
           >
             <template v-slot:items="props">

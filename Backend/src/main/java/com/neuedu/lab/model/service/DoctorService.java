@@ -1,11 +1,9 @@
 package com.neuedu.lab.model.service;
 
 import com.neuedu.lab.ConstantDefinition;
+import com.neuedu.lab.ExceptionHandler;
 import com.neuedu.lab.model.mapper.*;
-import com.neuedu.lab.model.po.Diagnose;
-import com.neuedu.lab.model.po.MedicalSkill;
-import com.neuedu.lab.model.po.Record;
-import com.neuedu.lab.model.po.Register;
+import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +20,8 @@ public class DoctorService {
     private RecordMapper recordMapper;
     @Resource
     private MedicalSkillMapper medicalSkillMapper;
+    @Resource
+    private PrescriptionMapper prescriptionMapper;
 
     @Resource
     private DiagnoseMapper diagnoseMapper;
@@ -78,7 +78,7 @@ public class DoctorService {
 
 
     //新增医技项目
-    public boolean addMedicialSkill(MedicalSkill medicalSkill){
+    public boolean addMedicalSkill(MedicalSkill medicalSkill){
         try{
             medicalSkillMapper.addMedicalSkill(medicalSkill);
             medicalSkill.setMedical_skill_excute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
@@ -90,7 +90,7 @@ public class DoctorService {
     }
 
     //删除医技项目
-    public boolean deleteMedicialSkill(Integer medical_skill_id){
+    public boolean deleteMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.deleteMedicalSkill(medical_skill_id);
         }catch (Exception e){
@@ -101,7 +101,7 @@ public class DoctorService {
     }
 
     //开立医技项目
-    public boolean startMedicialSkill(Integer medical_skill_id){
+    public boolean startMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
         }catch (Exception e){
@@ -112,7 +112,7 @@ public class DoctorService {
     }
 
     //作废医技项目
-    public boolean endMedicialSkill(Integer medical_skill_id){
+    public boolean endMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[2]);
         }catch (Exception e){
@@ -146,6 +146,19 @@ public class DoctorService {
             return false;
         }
     }
+
+    //开立处方
+    public boolean addPrescription(Prescription prescription){
+        try{
+            prescriptionMapper.addPrescription(prescription);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
 
 
 

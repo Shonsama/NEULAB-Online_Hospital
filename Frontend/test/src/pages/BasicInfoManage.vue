@@ -53,7 +53,6 @@ import diagnosis from '@/pages/BasicInfoManage/diagnosis'
 import workforce from '@/pages/BasicInfoManage/workforce'
 
 export default {
-  name: 'BasicInfoManage',
   data () {
     return {
       active: null,

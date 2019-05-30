@@ -1,9 +1,9 @@
 <template>
   <v-layout align-center justify-center>
-    <v-flex xs12 sm8 md4>
-      <v-card class="elevation-12">
-        <v-toolbar color="primary">
-          <v-toolbar-title class="white--text">Login form</v-toolbar-title>
+    <v-flex xs12 sm8 md6>
+      <v-card class="elevation-1">
+        <v-toolbar flat color="primary">
+          <v-toolbar-title flat class="white--text">Login form</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text>
