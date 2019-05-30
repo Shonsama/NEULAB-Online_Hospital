@@ -2,8 +2,10 @@ package com.neuedu.lab;
 
 import com.neuedu.lab.model.po.DiseaseInfo;
 import com.neuedu.lab.model.po.Medicine;
+import com.neuedu.lab.model.po.NonMedicine;
 import com.neuedu.lab.model.service.DiseaseInfoService;
 import com.neuedu.lab.model.service.MedicineService;
+import com.neuedu.lab.model.service.NonMedicineService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class TestAll {
     private DiseaseInfoService diseaseInfoService;
     @Autowired
     private MedicineService medicineService;
+    @Autowired
+    private NonMedicineService nonMedicineService;
     @Test
     public void testAddDiseaseInfo(){
         DiseaseInfo diseaseInfo = new DiseaseInfo();
@@ -59,5 +63,22 @@ public class TestAll {
     public void testDeleteMedicine(){
         Medicine medicine = medicineService.getMedicine("C").get(0);
         assertTrue(medicineService.deleteMedicine(medicine));
+    }
+
+    @Test
+    public void testAddNonMedicine(){
+        NonMedicine nonMedicine = new NonMedicine();
+        nonMedicine.setNon_medicine_id("A");
+        nonMedicine.setNon_medicine_type("B");
+        nonMedicine.setNon_medicine_name("C");
+        nonMedicine.setNon_medicine_unit_price(new BigDecimal(99.8));
+        nonMedicine.setNon_medicine_specification("D");
+        assertTrue(nonMedicineService.addNonMedicine(nonMedicine));
+    }
+
+    @Test
+    public void testDeleteNonMedicine(){
+        NonMedicine nonMedicine = nonMedicineService.getNonMedicine("A").get(0);
+        assertTrue(nonMedicineService.deleteNonMedicine(nonMedicine));
     }
 }
