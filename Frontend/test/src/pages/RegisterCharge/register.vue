@@ -178,6 +178,7 @@
           md2
         >
           <v-select
+            change="load_doctors"
             v-model="department_name"
             :items="departments"
             item-text="department_name"
@@ -281,6 +282,7 @@
 </template>
 
 <script>
+import Qs from 'qs'
 export default {
   name: 'register',
   data: () => ({
@@ -335,9 +337,10 @@ export default {
     get_patient: function (id) {
       var url = this.HOME + '/constant/get'
       var that = this
-      this.$http.post(url, {
-        patient_record_id: that.patient_record_id
+      var data = Qs.stringify({
+        'patient_record_id': that.patient_record_id
       })
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
         })
@@ -345,9 +348,10 @@ export default {
     load_constants: function () {
       let that = this
       var url = this.HOME + '/constant/get'
-      this.$http.post(url, {
-        constant_type: 'payment_type'
+      var data = Qs.stringify({
+        'constant_type': 'payment_type'
       })
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.payCates = response.data
@@ -365,10 +369,11 @@ export default {
     },
     load_doctors: function () {
       let that = this
-      var url = this.HOME + '/register/get-all-doctor'
-      this.$http.post(url, {
-        department_id: that.department_id
+      var data = Qs.stringify({
+        'department_id': that.department_id
       })
+      var url = this.HOME + '/register/get-all-doctor'
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
         })
@@ -376,7 +381,7 @@ export default {
     submit_register: function () {
       let that = this
       var url = this.HOME + '/register/submit'
-      this.$http.post(url, {
+      var data = Qs.stringify({
         'register': {
           'register_info_id': '',
           'register_info_state': '未看诊',
@@ -390,6 +395,7 @@ export default {
           'patient': ''
         }
       })
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
         })
