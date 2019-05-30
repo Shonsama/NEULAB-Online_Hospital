@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.NonMedicineMapper">
+    <!--增加非药品信息-->
+    <insert id="addNonMedicine" parameterType="NonMedicine">
+        insert into non_medicine (non_medicine_id, non_medicine_type, non_medicine_name, non_medicine_unit_price, non_medicine_specification)
+        values(#{non_medicine_id},
+        #{non_medicine_type},
+        #{non_medicine_name},
+        #{non_medicine_unit_price},
+        #{non_medicine_specification}
+    </insert>
+
+    <!--删除非药品信息-->
+    <delete id="deleteNonMedicine" parameterType="NonMedicine">
+        DELETE FROM his.non_medicine
+        where non_medicine_id = #{non_medicine_id}
+    </delete>
+
+    <!--修改非药品信息-->
+    <update id="updateNonMedicine">
+        update non_medicine
+        set non_medicine_type = #{non_medicine_type},
+        non_medicine_name = #{non_medicine_name},
+        non_medicine_unit_price = #{non_medicine_unit_price},
+        non_medicine_specification = #{non_medicine_specification}
+        where non_medicine_id = #{non_medicine_id}
+    </update>
+
+    <!--查询某药品信息-->
+    <select id="getNonMedicine" resultType="NonMedicine">
+        select * from non_medicine
+        where non_medicine_id LIKE concat(concat('%',#{non_medicine_id}),'%')
+    </select>
+
+    <!--显示所有药品信息-->
+    <select id="getAllNonMedicines" resultType="NonMedicine">
+        select * from non_medicine
+    </select>
+
+
+
+</mapper>

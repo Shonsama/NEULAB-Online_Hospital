@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
     @Autowired
+    HttpServletRequest request;
+    @Autowired
     private DepartmentService departmentService;
+
 
     @RequestMapping("/getall")
 //    显示所有科室信息
@@ -50,6 +54,8 @@ public class DepartmentController {
 
     @RequestMapping("/delete")
     public String deleteConstant(@RequestParam Department department){
+        System.out.println(request.getQueryString());
+        System.out.println(request);
         if(departmentService.deleteDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -57,5 +63,7 @@ public class DepartmentController {
             return "{\"result\":\"fail\"}";
         }
     }
+
+
 
 }
