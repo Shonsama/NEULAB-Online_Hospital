@@ -4,24 +4,54 @@
       v-model="show"
     >
     <v-card>
-      <v-toolbar flat>
+      <v-toolbar extended flat>
         <v-toolbar-title>新增排班规则</v-toolbar-title>
-        <v-spacer></v-spacer>
+        <template v-slot:extension>
+          <v-layout>
+          <v-flex xs3>
           <v-select
-            style="width:20px;"
+            v-model="department_rule"
             :items="items_departments"
+            item-text="department_name"
+            item-value="department_name"
             label="科室"
           ></v-select>
+          </v-flex>
+          <v-flex xs3>
           <v-select
-            style="width:20px; margin-left: 10px"
+            style="margin-left: 10px"
             :items="items"
             label="挂号等级"
           ></v-select>
-
+          </v-flex>
+          </v-layout>
+          <v-btn
+            icon
+            flat
+            @click="show = !show">
+            <v-icon>
+              search
+            </v-icon>
+          </v-btn>
+        </template>
         <v-text-field name="rule_name" label="规则名称" type="text" style="width: 30px;margin-left:10px"></v-text-field>
-        <v-btn   @click="show = !show">清空
+
+        <v-btn
+          icon
+          flat
+          @click="show = !show">
+          <v-icon>
+            refresh
+          </v-icon>
         </v-btn>
-        <v-btn   @click="test">新增排班规则
+
+        <v-btn
+          icon
+          flat
+          @click="show = !show">
+          <v-icon>
+            add
+          </v-icon>
         </v-btn>
       </v-toolbar>
         <v-data-table
@@ -41,6 +71,21 @@
               ></v-checkbox>
             </td>
             <td>{{ props.item.doctorName }}</td>
+            <!--<td>{{ props.item.MonM }}</td>-->
+            <!--<td>{{ props.item.MonA }}</td>-->
+            <!--<td>{{ props.item.TueM }}</td>-->
+            <!--<td>{{ props.item.TueA }}</td>-->
+            <!--<td>{{ props.item.WedM }}</td>-->
+            <!--<td>{{ props.item.WedA }}</td>-->
+            <!--<td>{{ props.item.ThuM }}</td>-->
+            <!--<td>{{ props.item.ThuA }}</td>-->
+            <!--<td>{{ props.item.FriM }}</td>-->
+            <!--<td>{{ props.item.FriA }}</td>-->
+            <!--<td>{{ props.item.SatM }}</td>-->
+            <!--<td>{{ props.item.SatA }}</td>-->
+            <!--<td>{{ props.item.SunM }}</td>-->
+            <!--<td>{{ props.item.SunA }}</td>-->
+
             <td v-for="n in 14" v-bind:key = 'n'>
               <v-checkbox
                 v-model="props.item.time[n-1]"
@@ -60,7 +105,9 @@
         <v-flex xs2>
         <v-select
           :items="items_departments"
-          v-model="search"
+          v-model="search_scheduling"
+          item-text="department_name"
+          item-value="department_name"
           label="科室"
         ></v-select>
         </v-flex>
@@ -87,8 +134,8 @@
         v-model="selected_scheduling"
         :headers="headers_scheduling"
         :items="desserts_scheduling"
-        item-key="name"
-        :search="search"
+        item-key="departmentName"
+        :search="search_scheduling"
         select-all
         class="elevation-1"
       >
@@ -132,14 +179,16 @@ export default {
   data: () => ({
     show: false,
     expand: false,
-    search: '',
+    department_rule: '',
+    search_scheduling: '',
     selected_rule: [],
     selected_scheduling: [],
-    items_departments: ['心血管', '口腔'],
+    items_departments: [],
     headers_rule: [
       {
         text: '医生名称',
-        align: 'left'
+        align: 'left',
+        value: 'doctorName'
       },
       { text: '星期一上午' },
       { text: '星期一下午' },
@@ -177,27 +226,36 @@ export default {
     desserts_scheduling: [
       {
         ruleName: 'q1',
-        departmentName: '心血管内科',
+        departmentName: '艾滋病科',
         doctorName: '扁鹊',
         time: 11111111111111
+      },
+      {
+        ruleName: 'q1',
+        departmentName: '病理科',
+        doctorName: '李雨泽',
+        time: 11111111111110
       }
     ]
   }),
-  mounted: {
+  mounted: function () {
+    this.load()
   },
   methods: {
-    test: function () {
-      var that = this
-      console.log(that.desserts_rule[0].time)
-    },
     load: function () {
       let that = this
+      var items_departments
       var url = this.HOME + '/department/getall'
-      this.$http.post(url, {})
+      this.$http.post(url, {
+      })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.items_departments = response.data
         })
+    },
+    department_doctor: function (department) {
+      //返回这个department下的所有doctor
+      //并将doctor的每个属性对应到十四time slot上
     }
   }
 }
