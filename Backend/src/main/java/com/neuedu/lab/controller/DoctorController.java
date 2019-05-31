@@ -18,17 +18,15 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @RequestMapping("/get-all-registers")
-    public List<Register> getAllRegisters(@RequestBody JSONObject doctor_id){
-        Integer getInt = doctor_id.getInteger("doctor_id");
-        return doctorService.getAllRegisters(getInt);
+    public List<Register> getAllRegisters(@RequestBody JSONObject request){
+        return doctorService.getAllRegisters(request.getInteger("doctor_id"));
     }
 
     //接诊
     @RequestMapping("/treat")
-    public String treat( @RequestBody JSONObject register_id){
+    public String treat( @RequestBody JSONObject request){
         //接诊病人
-        Integer getInt = register_id.getInteger("register_id");
-        if(doctorService.treat(getInt)){
+        if(doctorService.treat(request.getInteger("register_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -38,10 +36,8 @@ public class DoctorController {
 
     //医生根据患者姓名查询挂号信息
     @RequestMapping("/get-register")
-    public List<Register> getRegisterByDoctorIdAndPatientName(@RequestBody JSONObject doctor_id, @RequestBody JSONObject patient_name){
-        Integer getInt = doctor_id.getInteger("doctor_id");
-        String getString = patient_name.getString("patient_name");
-        return doctorService.getRegisterByDoctorIdAndPatientName(getInt,getString);
+    public List<Register> getRegisterByDoctorIdAndPatientName(@RequestBody JSONObject request){
+        return doctorService.getRegisterByDoctorIdAndPatientName(request.getInteger("doctor_id"),request.getString("patient_name"));
     }
 
     //提交诊断
@@ -64,7 +60,6 @@ public class DoctorController {
         else {
             return "{\"result\":\"fail\"}";
         }
-
     }
 
     //删除医技项目
@@ -82,9 +77,8 @@ public class DoctorController {
 
     //开立医技项目
     @RequestMapping("/start-medical-skill")
-    public String startMedicalSkill(@RequestBody JSONObject medical_skill_id){
-        Integer getInt =medical_skill_id.getInteger("medical_skill_id");
-        if(doctorService.startMedicalSkill(getInt)){
+    public String startMedicalSkill(@RequestBody JSONObject request){
+        if(doctorService.startMedicalSkill(request.getInteger("medical_skill_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -95,9 +89,8 @@ public class DoctorController {
 
     //作废医技项目
     @RequestMapping("/end-medical-skill")
-    public String endMedicalSkill(@RequestBody JSONObject medical_skill_id){
-        Integer getInt =medical_skill_id.getInteger("medical_skill_id");
-        if(doctorService.endMedicalSkill(getInt)){
+    public String endMedicalSkill(@RequestBody JSONObject request){
+        if(doctorService.endMedicalSkill(request.getInteger("medical_skill_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -107,9 +100,8 @@ public class DoctorController {
 
     //查看初步诊断
     @RequestMapping("/get-record")
-    public Record getRecord(@RequestBody JSONObject record_id){
-        Integer getInt =record_id.getInteger("record_id");
-        return doctorService.getRecord(getInt);
+    public Record getRecord(@RequestBody JSONObject request){
+        return doctorService.getRecord(request.getInteger("record_id"));
     }
 
     //提交最终诊断
@@ -148,11 +140,8 @@ public class DoctorController {
 
     //发送处方、作废处方
     @RequestMapping("/update-prescription")
-    public String updatePrescription(@RequestBody JSONObject prescription_id,
-                                     @RequestBody JSONObject prescription_execute_state){
-        Integer getInt = prescription_id.getInteger("prescription_id");
-        String getString = prescription_execute_state.getString("prescription_execute_state");
-        if(doctorService.updatePrescription(getInt,getString)){
+    public String updatePrescription(@RequestBody JSONObject request){
+       if(doctorService.updatePrescription(request.getInteger("prescriptioin_id"),request.getString("prescription_execute_state"))){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -174,9 +163,8 @@ public class DoctorController {
 
     //删除药品
     @RequestMapping("/delete-medicine")
-    public String deleteMedicine(@RequestBody JSONObject prescription_id){
-        Integer getInt = prescription_id.getInteger("prescription_id");
-        if(doctorService.deletePrescriptionContent(getInt)){
+    public String deleteMedicine(@RequestBody JSONObject request){
+        if(doctorService.deletePrescriptionContent(request.getInteger("prescription_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
@@ -187,9 +175,8 @@ public class DoctorController {
 
     //诊毕
     @RequestMapping("/finsh")
-    public String finish(@RequestBody JSONObject register_id){
-        Integer getInt = register_id.getInteger("register_id");
-        if(doctorService.finish(getInt)){
+    public String finish(@RequestBody JSONObject request){
+        if(doctorService.finish(request.getInteger("register_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
