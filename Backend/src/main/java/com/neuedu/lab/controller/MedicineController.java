@@ -1,5 +1,6 @@
 package com.neuedu.lab.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.Medicine;
 import com.neuedu.lab.model.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class MedicineController {
 
     @RequestMapping("/get")
 //    查询药品信息
-    public List<Medicine> getMedicine(@RequestBody String medicine_id){
-        return medicineService.getMedicine(medicine_id);
+    public List<Medicine> getMedicine(@RequestBody JSONObject medicine_id){
+        String getString = medicine_id.getString("medicine_id");
+        return medicineService.getMedicine(getString);
     }
 
     @RequestMapping("/add")

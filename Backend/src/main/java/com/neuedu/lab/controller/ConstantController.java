@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.neuedu.lab.model.po.Constant;
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.service.ConstantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,9 @@ public class ConstantController {
 
 
     @RequestMapping("/get")
-    public List<Constant> getConstant(@RequestBody String constant_type){
-        return constantService.getConstant(constant_type);
+    public List<Constant> getConstant(@RequestBody JSONObject constant_type){
+        String getString = constant_type.getString("constant_type");
+        return constantService.getConstant(getString);
     }
 
     @RequestMapping("/add")

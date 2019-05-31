@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.NonMedicine;
 import com.neuedu.lab.model.service.NonMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class NonMedicineController {
 
     @RequestMapping("/get")
 //    查询非药品信息
-    public List<NonMedicine> getNonMedicine(@RequestBody String non_medicine_id){
-        return nonMedicineService.getNonMedicine(non_medicine_id);
+    public List<NonMedicine> getNonMedicine(@RequestBody JSONObject non_medicine_id){
+        String getString = non_medicine_id.getString("non_medicine_id");
+        return nonMedicineService.getNonMedicine(getString);
     }
 
     @RequestMapping("/add")

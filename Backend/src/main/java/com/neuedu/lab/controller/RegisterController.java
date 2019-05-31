@@ -23,8 +23,8 @@ public class RegisterController {
     }*/
 
     @RequestMapping("/get-all-doctor")
-    public List<Doctor> getAllDoctor(@RequestBody String department_id){
-        return registerService.getAllDoctors(department_id);
+    public List<Doctor> getAllDoctorsByDepartment(@RequestBody String department_id){
+        return registerService.getAllDoctorsByDepartment(department_id);
     }
 
     @RequestMapping("/submit")

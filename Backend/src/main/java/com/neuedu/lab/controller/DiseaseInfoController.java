@@ -1,5 +1,6 @@
 package com.neuedu.lab.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.DiseaseInfo;
 import com.neuedu.lab.model.service.DiseaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class DiseaseInfoController {
 
     @RequestMapping("/get")
 //    显示查询疾病信息
-    public List<DiseaseInfo> getDisease(@RequestBody String disease_id){
-        return diseaseInfoService.getDisease(disease_id);
+    public List<DiseaseInfo> getDisease(@RequestBody JSONObject disease_id){
+        String getString = disease_id.getString("disease_id");
+        return diseaseInfoService.getDisease(getString);
     }
 
     @RequestMapping("/add")
