@@ -244,7 +244,6 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var items_departments
       var url = this.HOME + '/department/getall'
       this.$http.post(url, {
       })
@@ -254,8 +253,8 @@ export default {
         })
     },
     department_doctor: function (department) {
-      //返回这个department下的所有doctor
-      //并将doctor的每个属性对应到十四time slot上
+      // 返回这个department下的所有doctor
+      // 并将doctor的每个属性对应到十四time slot上
     }
   }
 }

@@ -5,11 +5,17 @@
     <v-toolbar-title >挂号信息</v-toolbar-title>
     <template v-slot:extension>
     <v-flex xs2>
-    <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" ></v-text-field>
+    <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" disabled="disabled" ></v-text-field>
     </v-flex>
     <v-btn
       small
-    >更新发票号
+      icon
+      flat
+      @click="disabled = !disabled"
+    >
+      <v-icon>
+        refresh
+      </v-icon>
     </v-btn>
       <v-spacer></v-spacer>
     </template>
@@ -153,6 +159,8 @@
             v-model="paycate"
             :items="payCates"
             :rules="payRules"
+            item-text="constant_name"
+            item_value="constant_id"
             label="结算类别"
             required
             placeholder="请选择结算类别"
@@ -174,8 +182,8 @@
       </v-layout>
       <v-layout>
         <v-flex
-          xs2
-          md2
+          xs12
+          md3
         >
           <v-select
             change="load_doctors"
@@ -191,8 +199,8 @@
           ></v-select>
         </v-flex>
         <v-flex
-          xs2
-          md2
+          xs12
+          md3
         >
           <v-select
             v-model="doctor_id"
@@ -207,7 +215,7 @@
           ></v-select>
         </v-flex>
 
-        <v-flex xs12 md4>
+        <v-flex xs12 md2>
           <v-checkbox
             v-model="checkbox"
             v-validate="'required'"
@@ -240,8 +248,8 @@
     <v-data-table
       v-model="selected"
       :headers="headers"
-      :items="desserts"
-      item-key="name"
+      :items="register_items"
+      item-key="register_info_id"
       select-all
       class="elevation-1"
     >
@@ -253,13 +261,13 @@
             hide-details
           ></v-checkbox>
         </td>
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
-        <td class="text-xs-right">{{ props.item.iron }}</td>
-        <td class="justify-center layout px-0">
+        <td>{{ props.item.register_info_id }}</td>
+        <td>{{ props.item.register_info_patient_id }}</td>
+        <td>{{ props.item.register_info_state }}</td>
+        <td>{{ props.item.register_info_doctor_id }}</td>
+        <td>{{ props.item.register_info_doctor_id }}</td>
+        <td>{{ props.item.register_info_fee }}</td>
+        <td>
           <v-icon
             small
             class="mr-2"
@@ -286,7 +294,33 @@ import Qs from 'qs'
 export default {
   name: 'register',
   data: () => ({
+    register_items: [{
+      register_info_id: '1',
+      register_info_state: '未看诊',
+      register_info_fee: '1',
+      register_info_pay_type: '1',
+      register_info_doctor_id: '1',
+      register_info_patient_id: '1',
+      register_info_user_id: '1',
+      doctor: '1',
+      user: '1',
+      patient: '1'
+    }],
+    headers: [
+      {
+        text: '挂号ID',
+        align: 'left',
+        value: 'register_info_id'
+      },
+      { text: '患者名称', value: 'register_info_patient_id' },
+      { text: '状态', value: 'register_info_state' },
+      { text: '所属科室', value: 'register_info_doctor_id' },
+      { text: '所属医生', value: 'register_info_doctor_id' },
+      { text: '挂号费', value: 'register_info_fee' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
     valid: false,
+    disabled: true,
     patient_record_id: '',
     patient_gender: '',
     patient_name: '',
@@ -334,6 +368,9 @@ export default {
     this.load_doctors()
   },
   methods: {
+    change: function () {
+      this.disabled = !this.d
+    },
     get_patient: function (id) {
       var url = this.HOME + '/constant/get'
       var that = this
@@ -347,11 +384,11 @@ export default {
     },
     load_constants: function () {
       let that = this
-      var url = this.HOME + '/constant/get'
-      var data = Qs.stringify({
-        'constant_type': 'payment_type'
-      })
-      this.$http.post(url, data)
+      var url = this.HOME + '/constant/get-all'
+      // var data = Qs.stringify({
+      //   constant_type: 'payment_type'
+      // })
+      this.$http.post(url)
         .then(function (response) {
           console.log(response.data)
           that.payCates = response.data
