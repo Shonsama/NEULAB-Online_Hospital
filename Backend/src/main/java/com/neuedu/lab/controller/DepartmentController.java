@@ -1,5 +1,6 @@
 package com.neuedu.lab.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class DepartmentController {
     @RequestMapping("/getall")
 //    显示所有科室信息
     public List<Department> getAllDepartments(){
-        System.out.println("success!!!!!!!!!");
         return departmentService.getAllDepartments();
     }
 
     @RequestMapping("/get")
 //    显示查询科室信息
-    public List<Department> getDepartment(@RequestBody String department_id){
-        return departmentService.getDepartment(department_id);
+    public List<Department> getDepartment(@RequestBody JSONObject department_id){
+        String getString = department_id.getString("department_id");
+        return departmentService.getDepartment(getString);
     }
 
     @RequestMapping("/add")
