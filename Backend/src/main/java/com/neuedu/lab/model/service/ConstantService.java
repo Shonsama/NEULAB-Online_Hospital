@@ -13,7 +13,6 @@ public class ConstantService {
     @Resource
     private ConstantMapper constantMapper;
 
-
     public List<Constant> getConstant(String constant_type){
         return constantMapper.getConstant(constant_type);
     }
@@ -50,7 +49,6 @@ public class ConstantService {
         }
         return true;
     }
-
 
     public List<Constant> getAllConstant() {
         try{

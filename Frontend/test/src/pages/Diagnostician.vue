@@ -6,17 +6,26 @@
         <v-expand-x-transition >
           <div v-show="show" style="white-space: nowrap">
             <v-toolbar flat>
-              <v-text-field  prepend-inner-icon="account_box" name="login" label="选择患者"  type="text" ></v-text-field>
-              <v-spacer></v-spacer>
-              <v-btn flat icon color="primary">
+              <v-flex md6>
+                <v-text-field  prepend-inner-icon="account_box" name="login" label="选择患者"  type="text"></v-text-field>
+              </v-flex>
+              <v-btn
+                flat
+                icon
+                color="primary">
                 <v-icon>cached</v-icon>
               </v-btn>
             </v-toolbar>
             <v-layout>
-            <v-text-field  xs2 prepend-inner-icon="search" name="login" label="查询患者"  type="text" style="margin-left: 10px"></v-text-field>
-              <v-btn small color="primary" style="top: 15px">
-              搜索
-            </v-btn>
+              <v-flex md6>
+                <v-text-field
+                  prepend-inner-icon="search"
+                  name="login"
+                  label="查询患者"
+                  type="text"
+                  style="margin-left: 25px"
+                ></v-text-field>
+              </v-flex>
             </v-layout>
             <v-layout>
               <v-tabs

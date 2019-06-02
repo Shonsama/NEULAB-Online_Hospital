@@ -4,11 +4,11 @@
       <v-toolbar flat dense>
         <v-toolbar-title  >西医</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn   dark color="primary" >
-          新增
+        <v-btn   flat icon color="primary" @click="show = !show">
+          <v-icon> add</v-icon>
         </v-btn>
-        <v-btn   dark color="primary">
-          删除
+        <v-btn   flat icon color="primary" @click="expand = !expand">
+          <v-icon>delete</v-icon>
         </v-btn>
       </v-toolbar>
       <v-data-table

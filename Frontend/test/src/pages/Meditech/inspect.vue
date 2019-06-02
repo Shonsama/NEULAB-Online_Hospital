@@ -15,7 +15,7 @@
                     single-line
                     hide-details
                   ></v-text-field>
-                  <v-btn style="margin-top: 10px">
+                  <v-btn color="primary" style="margin-top: 10px">
                     搜索
                   </v-btn>
                 </v-layout>
@@ -69,11 +69,7 @@
       <v-divider vertical></v-divider>
       <v-flex>
         <v-toolbar flat>
-          <v-toolbar-title>Expandable Table</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn   @click="expand = !expand">
-            {{ expand ? 'Close' : 'Keep' }} other rows
-          </v-btn>
+          <v-toolbar-title>检查项目</v-toolbar-title>
         </v-toolbar>
         <v-data-table
           v-model="selected"

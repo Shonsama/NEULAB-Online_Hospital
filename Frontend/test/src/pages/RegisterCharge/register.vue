@@ -3,20 +3,30 @@
 <v-card>
   <v-toolbar extended flat dense>
     <v-toolbar-title >挂号信息</v-toolbar-title>
-    <template v-slot:extension>
-    <v-flex xs2>
-    <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" disabled="disabled" ></v-text-field>
-    </v-flex>
-    <v-btn
-      small
-      icon
-      flat
-      @click="disabled = !disabled"
-    >
-      <v-icon>
-        refresh
-      </v-icon>
-    </v-btn>
+      <template v-slot:extension>
+      <v-flex xs2>
+        <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text" :disabled="disabled" ></v-text-field>
+      </v-flex>
+      <v-btn
+        small
+        icon
+        flat
+        @click="disabled = !disabled"
+      >
+        <v-icon>
+          refresh
+        </v-icon>
+      </v-btn>
+      <v-btn
+        small
+        icon
+        flat
+        @click="disabled = !disabled"
+      >
+        <v-icon>
+          print
+        </v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
     </template>
   </v-toolbar>
@@ -27,30 +37,28 @@
         <div class="title font-weight-light">患者信息查询</div>
       </v-layout>
       <v-layout>
-      <v-flex
-        xs12
-        md4
-      >
-        <v-text-field
-          v-model="patient_record_id"
-          label="病历号"
-          required
-        ></v-text-field>
+        <v-flex
+          xs12
+          md3
+        >
+          <v-text-field
+            v-model="patient_record_id"
+            label="病历号"
+            required
+          ></v-text-field>
+        </v-flex>
         <v-btn
-          small
-        >查询
+          large
+          color="primary"
+          style="margin-top: 15px"
+        >
+          查询
         </v-btn>
-        <v-btn
-          small
-        >新增
-        </v-btn>
-      </v-flex>
       </v-layout>
       <v-layout>
         <div class="title font-weight-light">患者信息确认</div>
       </v-layout>
       <v-layout>
-
         <v-flex
           xs12
           md2
@@ -235,7 +243,7 @@
             disabled
           ></v-text-field>
         </v-flex>
-        <v-btn small style="margin-top: 25px" @click="submit_register">挂号</v-btn>
+        <v-btn small color="primary" style="margin-top: 25px" @click="submit_register">挂号</v-btn>
       </v-layout>
     </v-container>
   </v-form>
@@ -268,19 +276,13 @@
         <td>{{ props.item.register_info_doctor_id }}</td>
         <td>{{ props.item.register_info_fee }}</td>
         <td>
-          <v-icon
+          <v-btn
+            flat
             small
-            class="mr-2"
-            @click="editItem(props.item)"
+            color="primary"
           >
-            edit
-          </v-icon>
-          <v-icon
-            small
-            @click="deleteItem(props.item)"
-          >
-            delete
-          </v-icon>
+            退号
+          </v-btn>
         </td>
       </template>
     </v-data-table>

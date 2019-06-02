@@ -4,11 +4,10 @@
       v-model="show"
     >
     <v-card>
-      <v-toolbar extended flat>
+      <v-toolbar flat>
         <v-toolbar-title>新增排班规则</v-toolbar-title>
-        <template v-slot:extension>
-          <v-layout>
-          <v-flex xs3>
+        <v-spacer/>
+        <v-flex md2>
           <v-select
             v-model="department_rule"
             :items="items_departments"
@@ -16,41 +15,21 @@
             item-value="department_name"
             label="科室"
           ></v-select>
-          </v-flex>
-          <v-flex xs3>
+        </v-flex>
+        <v-flex md2>
           <v-select
-            style="margin-left: 10px"
+            style="margin-left: 10px; margin-right: 10px"
             :items="items"
             label="挂号等级"
           ></v-select>
-          </v-flex>
-          </v-layout>
-          <v-btn
-            icon
-            flat
-            @click="show = !show">
-            <v-icon>
-              search
-            </v-icon>
-          </v-btn>
-        </template>
-        <v-text-field name="rule_name" label="规则名称" type="text" style="width: 30px;margin-left:10px"></v-text-field>
-
+        </v-flex>
         <v-btn
           icon
           flat
+          color="primary"
           @click="show = !show">
           <v-icon>
             refresh
-          </v-icon>
-        </v-btn>
-
-        <v-btn
-          icon
-          flat
-          @click="show = !show">
-          <v-icon>
-            add
           </v-icon>
         </v-btn>
       </v-toolbar>
@@ -109,11 +88,13 @@
           item-text="department_name"
           item-value="department_name"
           label="科室"
+          style="margin-right: 20px"
         ></v-select>
         </v-flex>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="show = !show"
         >
           <v-icon>
@@ -122,7 +103,8 @@
         </v-btn>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="expand = !expand"
         >
           <v-icon>
