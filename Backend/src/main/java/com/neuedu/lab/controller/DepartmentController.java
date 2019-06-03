@@ -40,7 +40,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestBody Department department){
+    public String updateDepartment(@RequestBody Department department){
         if(departmentService.updateDepartment(department)){
             return "{\"result\":\"success\"}";
         }
@@ -50,7 +50,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestBody Department department){
+    public String deleteDepartment(@RequestBody Department department){
         if(departmentService.deleteDepartment(department)){
             return "{\"result\":\"success\"}";
         }

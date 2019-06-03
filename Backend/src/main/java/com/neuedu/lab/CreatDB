@@ -1,10 +1,11 @@
 drop table  if exists `his`.`daily`;
 drop table if exists `his`.`bill`;
 drop table if exists `his`.`fee_cat`;
-drop table if exists `his`.`diagnose`;
 drop table  if exists `his`.`template`;
 drop table  if exists `his`.`medical_skill`;
+drop table  if exists `his`.`prescription_content`;
 drop table if exists `his`.`prescription`;
+drop table if exists `his`.`diagnose`;
 drop table if exists  `his`.`record`;
 drop table  if exists `his`.`register_info`;
 drop table  if exists `his`.`schedule`;
@@ -14,6 +15,7 @@ drop table if exists  `his`.`usual_diagnose`;
 drop table if exists  `his`.`doctor_info`;
 drop table  if exists  `his`.`register_level`;
 drop table  if exists  `his`.`user_info`;
+
 drop table if exists  `his`.`disease_info`;
 drop table if exists  `his`.`constant`;
 drop table if exists  `his`.`non_medicine`;
@@ -76,6 +78,10 @@ CREATE TABLE `his`.`department_info` (
   `department_name` varchar(45) NOT NULL,
   PRIMARY KEY (`department_id`)
 )default charset=utf8;
+
+
+
+
 
 
 #用户信息
@@ -335,4 +341,4 @@ CREATE TABLE `his`.`daily` (
   FOREIGN KEY (`daily_user_id`) REFERENCES `user_info` (`user_id`)
 )default charset=utf8;
 
-show TABLES ;
+#show TABLES ;

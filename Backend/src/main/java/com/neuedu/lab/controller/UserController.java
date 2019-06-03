@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class UserController {
 
     @RequestMapping("/get")
 //    查询某一用户信息
-    public List<User> getUser(@RequestBody String user_account){
-        return userService.getUser(user_account);
+    public List<User> getUser(@RequestBody JSONObject user_account){
+        String getString = user_account.getString("user_account");
+        return userService.getUser(getString);
     }
 
     @RequestMapping("/checkValid")
