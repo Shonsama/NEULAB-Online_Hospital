@@ -69,34 +69,44 @@
     <!--注册医生-->
     <insert id="addDoctor" parameterType="Doctor"
             useGeneratedKeys="true" keyProperty="doctor_id">
-        INSERT INTO his.doctor_info(user_account, user_password, user_type, user_name)
-        VALUES (#{user_account},
-        #{user_password},
-        #{user_type},
-        #{user_name})
+        INSERT INTO his.doctor_info(doctor_position, doctor_arrange_or_not,
+        doctor_password, doctor_account,doctor_type,doctor_name,doctor_register_level_id
+        ,doctor_department_id)
+        VALUES (#{doctor_position},
+        #{doctor_arrange_or_not},
+        #{doctor_password},
+        #{doctor_account},
+        #{doctor_type},
+        #{doctor_name},
+        #{doctor_register_level_id},
+        #{doctor_department_id})
     </insert>
 
     <!--删除医生-->
-    <delete id="deleteUser" parameterType="User">
-        DELETE FROM his.user_info
-        where user_account = #{user_account}
+    <delete id="deleteDoctor" parameterType="Doctor">
+        DELETE FROM his.doctor_info
+        where doctor_account = #{doctor_account}
     </delete>
 
     <!--更新医生信息-->
-    <update id="updateUser">
-        UPDATE user_info SET
-        user_account= #{user_account},
-        user_password= #{user_password},
-        user_type= #{user_type},
-        user_name= #{user_name}
-        WHERE user_account = #{user_account}
+    <update id="updateDoctor">
+        UPDATE doctor_info SET
+        doctor_position= #{doctor_position},
+        doctor_arrange_or_not= #{doctor_arrange_or_not},
+        doctor_password= #{doctor_password},
+        doctor_account= #{doctor_account},
+        doctor_type= #{doctor_type},
+        doctor_name= #{doctor_name},
+        doctor_register_level_id= #{doctor_register_level_id},
+        doctor_department_id= #{doctor_department_id}
+        WHERE doctor_account = #{doctor_account}
     </update>
 
     <!--更新医生密码-->
-    <update id="updateUserPassword">
-        UPDATE user_info SET
-        user_password= #{user_password}
-        WHERE user_account = #{user_account}
+    <update id="updateDoctorPassword">
+        UPDATE doctor_info SET
+        doctor_password= #{doctor_password}
+        WHERE doctor_account = #{doctor_account}
     </update>
 
 
