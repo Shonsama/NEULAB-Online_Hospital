@@ -233,6 +233,9 @@ CREATE TABLE `his`.`prescription` (
   `prescription_id` int NOT NULL AUTO_INCREMENT,
   `prescription_execute_state` varchar(45) NOT NULL,
   `prescription_type` varchar(45) NOT NULL,
+  `prescription_create_time` DATETIME NULL ,
+  `prescription_pay_time` DATETIME NULL ,
+  `prescription_consume_time` DATETIME NULL ,
   #foreign key
   `prescription_user_id` INT NOT NULL,
   `prescription_doctor_id` INT NOT NULL,
@@ -267,6 +270,9 @@ CREATE TABLE `his`.`medical_skill` (
   `medical_skill_checkpoint` varchar(45) NOT NULL,
   `medical_skill_purpose` varchar(45) NOT NULL,
   `medical_skill_urgent` bool NOT NULL,
+  `medical_skill_create_time` DATETIME NULL ,
+  `medical_skill_pay_time` DATETIME NULL ,
+  `medical_skill_consume_time` DATETIME NULL ,
   #foreign key
   `medical_skill_register_info_id` INT NOT NULL,
   `medical_skill_user_id` INT NOT NULL,
@@ -324,7 +330,7 @@ CREATE TABLE `his`.`bill` (
   FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
   FOREIGN KEY  (`bill_medical_skill_id`)  REFERENCES  `medical_skill` (`medical_skill_id`),
   FOREIGN KEY  (`bill_user_id`)  REFERENCES  `user_info` (`user_id`),
-#   FOREIGN KEY  (`bill_fee_cat_id`)  REFERENCES  `fee_cat` (`fee_cat_id`),
+  #   FOREIGN KEY  (`bill_fee_cat_id`)  REFERENCES  `fee_cat` (`fee_cat_id`),
   PRIMARY KEY (`bill_id`)
 )default charset=utf8;
 
