@@ -180,7 +180,6 @@ export default {
   methods: {
     load: function () {
       let that = this
-      console.log('load data ~~~~~~~~~')
       var url = this.HOME + '/department/getall'
       this.$http.post(url, {
       })
@@ -192,7 +191,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/department/delete'
-      this.$http.post(url, item)
+      this.$http.post(url, {department_id: item.department_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
