@@ -42,7 +42,6 @@
         item-key="name"
         select-all
         class="elevation-1"
-        hide-actions
       >
         <template v-slot:items="props">
           <td>
