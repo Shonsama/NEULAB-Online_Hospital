@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.UserMapper">
+
+    <!--获取某一用户信息-->
+    <select id="getUser" resultType="User">
+        select * from user_info
+        where user_account=#{user_account}
+    </select>
+
+    <!--获取所有用户信息-->
+    <select id="getAllUsers" resultType="com.neuedu.lab.model.po.User">
+        select * from user_info
+    </select>
+
+    <!--注册用户-->
+    <insert id="addUser" parameterType="com.neuedu.lab.model.po.User"
+            useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO his.user_info(user_account, user_password, user_type, user_name)
+        VALUES (#{user_account},
+        #{user_password},
+        #{user_type},
+        #{user_name})
+    </insert>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="com.neuedu.lab.model.po.User">
+        DELETE FROM his.user_info
+        where user_account = #{user_account}
+    </delete>
+
+    <!--更新用户信息-->
+    <update id="updateUser">
+        UPDATE user_info SET
+        user_account= #{user_account},
+        user_password= #{user_password},
+        user_type= #{user_type},
+        user_name= #{user_name}
+        WHERE user_account = #{user_account}
+    </update>
+
+    <!--更新用户密码-->
+    <update id="updateUserPassword">
+        UPDATE user_info SET
+        user_password= #{user_password}
+        WHERE user_account = #{user_account}
+    </update>
+
+</mapper>

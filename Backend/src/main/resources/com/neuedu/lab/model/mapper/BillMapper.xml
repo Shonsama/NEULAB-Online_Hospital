@@ -9,7 +9,6 @@
          VALUES (#{bill_actual_sum}, #{bill_sum}, #{bill_time}, #{bill_type}, #{bill_register_id}, #{bill_prescription_id},
           #{bill_medical_skill_id}, #{bill_user_id})
     </insert>
-
     <select id="getBill" resultType="Bill">
         SELECT * FROM his.bill
         WHERE bill_register_id = #{register_id}

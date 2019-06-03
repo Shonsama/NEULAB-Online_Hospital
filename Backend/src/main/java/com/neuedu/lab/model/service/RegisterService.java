@@ -7,7 +7,6 @@ import com.neuedu.lab.model.mapper.DepartmentMapper;
 import com.neuedu.lab.model.mapper.DoctorMapper;
 import com.neuedu.lab.model.mapper.RegisterMapper;
 import com.neuedu.lab.model.po.Bill;
-import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
 import org.springframework.stereotype.Service;
@@ -32,8 +31,8 @@ public class RegisterService {
         return departmentMapper.getAllDepartments();
     }*/
 
-    public List<Doctor> getAllDoctors(String id){
-        return doctorMapper.getAllDoctors(id);
+    public List<Doctor> getAllDoctorsByDepartment(String id){
+        return doctorMapper.getAllDoctorsByDepartment(id);
     }
 
 

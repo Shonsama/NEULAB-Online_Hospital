@@ -48,7 +48,7 @@
       <v-btn small color="primary" @click="clear">
         清空
       </v-btn>
-      <v-btn smalsl color="primary" @click="refresh">
+      <v-btn small color="primary" @click="refresh">
         刷新
       </v-btn>
     </v-layout>
@@ -131,11 +131,11 @@
              <v-toolbar flat >
                <v-toolbar-title  >西医诊断</v-toolbar-title>
                <v-spacer></v-spacer>
-               <v-btn   dark color="primary" @click="show = !show">
-                 新增
+               <v-btn   flat icon color="primary" @click="show = !show">
+                 <v-icon> add</v-icon>
                </v-btn>
-               <v-btn   dark color="primary" @click="expand = !expand">
-                 删除
+               <v-btn   flat icon color="primary" @click="expand = !expand">
+                 <v-icon>delete</v-icon>
                </v-btn>
              </v-toolbar>
              <v-data-table
@@ -169,11 +169,11 @@
               <v-toolbar flat >
                 <v-toolbar-title  >中医诊断</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn   dark color="primary" @click="show = !show">
-                  新增
+                <v-btn   flat icon color="primary" @click="show = !show">
+                  <v-icon> add</v-icon>
                 </v-btn>
-                <v-btn   dark color="primary" @click="expand = !expand">
-                  删除
+                <v-btn   flat icon color="primary" @click="expand = !expand">
+                  <v-icon>delete</v-icon>
                 </v-btn>
               </v-toolbar>
               <v-data-table

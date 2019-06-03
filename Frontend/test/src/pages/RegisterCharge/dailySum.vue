@@ -2,72 +2,19 @@
   <v-card>
     <v-flex
     >
-      <v-toolbar extended flat dense>
-        <v-toolbar-title>Expandable Table</v-toolbar-title>
+      <v-toolbar flat dense>
+        <v-toolbar-title>日结表</v-toolbar-title>
         <v-spacer></v-spacer>
-        <template v-slot:extension>
-        <v-flex xs2>
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="date"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="date"
-                label="开始日期"
-                prepend-inner-icon="event"
-                readonly
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
-        <v-flex xs2>
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="date"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="date"
-                label="结束日期"
-                readonly
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
-
-        <v-btn   @click="expand = !expand">
-          {{ expand ? 'Close' : 'Keep' }} other rows
+        <v-btn
+          icon
+          flat
+          color="primary"
+          @click="expand = !expand"
+        >
+          <v-icon>
+            add
+          </v-icon>
         </v-btn>
-          </template>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -75,7 +22,6 @@
         :items="desserts"
         item-key="name"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -113,22 +59,24 @@
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-btn
-        flat
-        @click="tree = []"
-      >
-        Reset
-      </v-btn>
-
       <v-spacer></v-spacer>
 
+      <el-date-picker
+        class="elevation-1"
+        v-model="value7"
+        type="datetimerange"
+        align="right"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        :default-time="['12:00:00', '08:00:00']"
+        style="margin-right: 10px"
+      >
+      </el-date-picker>
       <v-btn
         class="white--text"
-        color="green darken-1"
-        depressed
+        color="primary"
       >
-        Save
-        <v-icon right>mdi-content-save</v-icon>
+        保存
       </v-btn>
     </v-card-actions>
   </v-card>

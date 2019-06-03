@@ -1,11 +1,12 @@
 package com.neuedu.lab.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.NonMedicine;
 import com.neuedu.lab.model.service.NonMedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,12 +25,13 @@ public class NonMedicineController {
 
     @RequestMapping("/get")
 //    查询非药品信息
-    public List<NonMedicine> getNonMedicine(@RequestParam String non_medicine_id){
-        return nonMedicineService.getNonMedicine(non_medicine_id);
+    public List<NonMedicine> getNonMedicine(@RequestBody JSONObject non_medicine_id){
+        String getString = non_medicine_id.getString("non_medicine_id");
+        return nonMedicineService.getNonMedicine(getString);
     }
 
     @RequestMapping("/add")
-    public String addNonMedicine(@RequestParam NonMedicine nonMedicine){
+    public String addNonMedicine(@RequestBody NonMedicine nonMedicine){
         if(nonMedicineService.addNonMedicine(nonMedicine)){
             return "{\"result\":\"success\"}";
         }
@@ -39,7 +41,7 @@ public class NonMedicineController {
     }
 
     @RequestMapping("/update")
-    public String updateNonMedicine(@RequestParam NonMedicine nonMedicine){
+    public String updateNonMedicine(@RequestBody NonMedicine nonMedicine){
         if(nonMedicineService.updateNonMedicine(nonMedicine)){
             return "{\"result\":\"success\"}";
         }
@@ -49,7 +51,7 @@ public class NonMedicineController {
     }
 
     @RequestMapping("/delete")
-    public String deleteNonMedicine(@RequestParam NonMedicine nonMedicine){
+    public String deleteNonMedicine(@RequestBody NonMedicine nonMedicine){
         if(nonMedicineService.deleteNonMedicine(nonMedicine)){
             return "{\"result\":\"success\"}";
         }

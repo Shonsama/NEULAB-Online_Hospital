@@ -54,7 +54,9 @@ public class DepartmentTest {
 
     @Test
     public void testDeleteDepartment(){
+
         Department department = departmentService.getDepartment("AAAAAAAB").get(0);
+
         assertTrue(departmentService.deleteDepartment(department));
     }
 }

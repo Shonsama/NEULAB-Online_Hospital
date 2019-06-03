@@ -107,8 +107,13 @@
             <v-flex xs4>
               <v-card-title>
                 <v-layout column>
-                  处方模板
-                  <v-layout>
+                  <v-flex>
+                    处方模板
+                    <v-btn   flat icon color="primary" @click="expand = !expand">
+                      <v-icon>settings</v-icon>
+                    </v-btn>
+                  </v-flex>
+                  <v-flex>
                   <v-text-field
                     v-model="search"
                     append-icon="search"
@@ -116,10 +121,7 @@
                     single-line
                     hide-details
                   ></v-text-field>
-                    <v-btn style="margin-top: 10px">
-                      模板管理
-                    </v-btn>
-                  </v-layout>
+                  </v-flex>
                 </v-layout>
               </v-card-title>
               <v-data-table
@@ -168,7 +170,7 @@
                 <v-layout>
                   模板详情
                   <v-spacer></v-spacer>
-                  <v-btn small>使用</v-btn>
+                  <v-btn small color="primary">使用</v-btn>
                 </v-layout>
               </v-card-title>
               <v-data-table

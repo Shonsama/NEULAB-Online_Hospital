@@ -25,8 +25,10 @@
             </v-flex>
             <v-btn
               large
+              color="primary"
               style="margin-top: 15px"
-            >查询
+            >
+              查询
             </v-btn>
           </v-layout>
         </v-container>
@@ -77,22 +79,6 @@
         </template>
       </v-data-table>
       <v-divider></v-divider>
-      <v-card-actions>
-        <v-btn
-          flat
-          @click="tree = []"
-        >
-          Reset
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="white--text"
-          color="green darken-1"
-          depressed
-        >
-          Save
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </div>
 </template>

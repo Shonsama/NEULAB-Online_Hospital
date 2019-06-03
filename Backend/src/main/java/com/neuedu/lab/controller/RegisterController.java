@@ -1,11 +1,13 @@
 package com.neuedu.lab.controller;
 
-import com.neuedu.lab.model.po.*;
+import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.model.po.Bill;
+import com.neuedu.lab.model.po.Doctor;
+import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.model.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,8 +24,8 @@ public class RegisterController {
     }*/
 
     @RequestMapping("/get-all-doctor")
-    public List<Doctor> getAllDoctor(@RequestParam String department_id){
-        return registerService.getAllDoctors(department_id);
+    public List<Doctor> getAllDoctorsByDepartment(@RequestBody JSONObject request){
+        return registerService.getAllDoctorsByDepartment(request.getString("department_id"));
     }
 
     @RequestMapping("/submit")
@@ -49,8 +51,8 @@ public class RegisterController {
 
     //退号操作
     @RequestMapping("/refund")
-    public String registerRefund(@RequestParam Integer register_id){
-        if(registerService.refund(register_id)){
+    public String registerRefund(@RequestBody JSONObject request){
+        if(registerService.refund(request.getInteger("register_id"))){
             return "{\"result\":\"success\"}";
         }
         else {
