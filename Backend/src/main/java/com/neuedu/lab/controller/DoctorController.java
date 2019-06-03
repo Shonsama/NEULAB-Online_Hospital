@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.model.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,19 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @RequestMapping("/get-all-registers")
-    public List<Register> getAllRegisters(@RequestBody JSONObject request){
-        return doctorService.getAllRegisters(request.getInteger("doctor_id"));
+    public JSONObject getAllRegisters(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess( doctorService.getAllRegisters(request.getInteger("doctor_id")));
     }
 
     //接诊
     @RequestMapping("/treat")
-    public String treat( @RequestBody JSONObject request){
+    public JSONObject treat( @RequestBody JSONObject request){
         //接诊病人
         if(doctorService.treat(request.getInteger("register_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
@@ -42,59 +43,59 @@ public class DoctorController {
 
     //提交诊断
     @RequestMapping("/submit-record")
-    public String submitRecord(@RequestBody Record record){
+    public JSONObject submitRecord(@RequestBody Record record){
         if(doctorService.submitRecord(record)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //添加医技项目
     @RequestMapping("/add-medical-skill")
-    public String addMedicalSkill(@RequestBody MedicalSkill medicalSkill){
+    public JSONObject addMedicalSkill(@RequestBody MedicalSkill medicalSkill){
         if(doctorService.addMedicalSkill(medicalSkill)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //删除医技项目
     @RequestMapping("/delete-medical-skill")
-    public String deleteMedicalSkill(@RequestBody JSONObject medical_skill_id){
+    public JSONObject deleteMedicalSkill(@RequestBody JSONObject medical_skill_id){
         Integer getInt = medical_skill_id.getInteger("medical_skill_id");
         if(doctorService.deleteMedicalSkill(getInt)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
 
     }
 
     //开立医技项目
     @RequestMapping("/start-medical-skill")
-    public String startMedicalSkill(@RequestBody JSONObject request){
+    public JSONObject startMedicalSkill(@RequestBody JSONObject request){
         if(doctorService.startMedicalSkill(request.getInteger("medical_skill_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
 
     }
 
     //作废医技项目
     @RequestMapping("/end-medical-skill")
-    public String endMedicalSkill(@RequestBody JSONObject request){
+    public JSONObject endMedicalSkill(@RequestBody JSONObject request){
         if(doctorService.endMedicalSkill(request.getInteger("medical_skill_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
@@ -106,81 +107,81 @@ public class DoctorController {
 
     //提交最终诊断
     @RequestMapping("/submit-final-diagnose")
-    public String submitFinalDiagnose(@RequestBody List<Diagnose> diagnoses){
+    public JSONObject submitFinalDiagnose(@RequestBody List<Diagnose> diagnoses){
         if(doctorService.submitFinalDiagnose(diagnoses)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //新增处方
     @RequestMapping("/add-prescription")
-    public String addPrescription(@RequestBody Prescription prescription){
+    public JSONObject addPrescription(@RequestBody Prescription prescription){
         if(doctorService.addPrescription(prescription)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //删除处方
     @RequestMapping("/delete-prescription")
-    public String deletePrescription(@RequestBody JSONObject prescription_id){
+    public JSONObject deletePrescription(@RequestBody JSONObject prescription_id){
         Integer getInt = prescription_id.getInteger("prescription_id");
         if(doctorService.deletePrescription(getInt)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //发送处方、作废处方
     @RequestMapping("/update-prescription")
-    public String updatePrescription(@RequestBody JSONObject request){
+    public JSONObject updatePrescription(@RequestBody JSONObject request){
        if(doctorService.updatePrescription(request.getInteger("prescriptioin_id"),request.getString("prescription_execute_state"))){
-            return "{\"result\":\"success\"}";
-        }
-        else {
-            return "{\"result\":\"fail\"}";
-        }
+           return ConstantUtils.responseSuccess(null);
+       }
+       else {
+           return ConstantUtils.responseFail(null);
+       }
     }
 
 
     //增加药品
     @RequestMapping("/add-medicine")
-    public String addMedicine(@RequestBody PrescriptionContent prescriptionContent){
+    public JSONObject addMedicine(@RequestBody PrescriptionContent prescriptionContent){
         if(doctorService.addPrescriptionContent(prescriptionContent)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //删除药品
     @RequestMapping("/delete-medicine")
-    public String deleteMedicine(@RequestBody JSONObject request){
+    public JSONObject deleteMedicine(@RequestBody JSONObject request){
         if(doctorService.deletePrescriptionContent(request.getInteger("prescription_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
 
     //诊毕
     @RequestMapping("/finsh")
-    public String finish(@RequestBody JSONObject request){
+    public JSONObject finish(@RequestBody JSONObject request){
         if(doctorService.finish(request.getInteger("register_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 

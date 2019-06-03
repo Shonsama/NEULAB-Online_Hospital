@@ -1,16 +1,14 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Bill;
-import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.model.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/register")
@@ -24,39 +22,39 @@ public class RegisterController {
     }*/
 
     @RequestMapping("/get-all-doctor")
-    public List<Doctor> getAllDoctorsByDepartment(@RequestBody JSONObject request){
-        return registerService.getAllDoctorsByDepartment(request.getString("department_id"));
+    public JSONObject getAllDoctorsByDepartment(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(registerService.getAllDoctorsByDepartment(request.getString("department_id")));
     }
 
     @RequestMapping("/submit")
-    public String registerSubmit(@RequestBody Register register){
+    public JSONObject registerSubmit(@RequestBody Register register){
         if(registerService.addRegisterAndBill(register)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/print-bill")
-    public String printInvoice(@RequestBody Bill bill){
+    public JSONObject printInvoice(@RequestBody Bill bill){
         //打印发票
         if(registerService.addBill(bill)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     //退号操作
     @RequestMapping("/refund")
-    public String registerRefund(@RequestBody JSONObject request){
+    public JSONObject registerRefund(@RequestBody JSONObject request){
         if(registerService.refund(request.getInteger("register_id"))){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 

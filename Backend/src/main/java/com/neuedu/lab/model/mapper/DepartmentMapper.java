@@ -7,7 +7,7 @@ import java.util.List;
 public interface DepartmentMapper {
     public List<Department> getAllDepartments();
     public void addDepartment(Department department);
-    public void deleteDepartment(Department department);
+    public void deleteDepartment(String department_id);
     public void updateDepartment(Department department);
     public List<Department> getDepartment(String department_id);
 }

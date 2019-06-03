@@ -14,7 +14,7 @@
     </insert>
 
     <!--删除科室信息-->
-    <delete id="deleteDepartment" parameterType="com.neuedu.lab.model.po.Department">
+    <delete id="deleteDepartment" parameterType="Department">
         DELETE FROM his.department_info
         where department_id = #{department_id}
     </delete>

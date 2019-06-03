@@ -26,7 +26,7 @@
     </insert>
 
     <!--删除用户-->
-    <delete id="deleteUser" parameterType="com.neuedu.lab.model.po.User">
+    <delete id="deleteUser" parameterType="User">
         DELETE FROM his.user_info
         where user_account = #{user_account}
     </delete>
@@ -47,5 +47,57 @@
         user_password= #{user_password}
         WHERE user_account = #{user_account}
     </update>
+
+
+
+
+
+
+
+
+    <!--获取某一医生信息-->
+    <select id="getDoctor" resultType="Doctor">
+        select * from doctor_info
+        where doctor_account=#{doctor_account}
+    </select>
+
+    <!--获取所有医生信息-->
+    <select id="getAllDoctors" resultType="Doctor">
+        select * from doctor_info
+    </select>
+
+    <!--注册医生-->
+    <insert id="addDoctor" parameterType="Doctor"
+            useGeneratedKeys="true" keyProperty="doctor_id">
+        INSERT INTO his.doctor_info(user_account, user_password, user_type, user_name)
+        VALUES (#{user_account},
+        #{user_password},
+        #{user_type},
+        #{user_name})
+    </insert>
+
+    <!--删除医生-->
+    <delete id="deleteUser" parameterType="User">
+        DELETE FROM his.user_info
+        where user_account = #{user_account}
+    </delete>
+
+    <!--更新医生信息-->
+    <update id="updateUser">
+        UPDATE user_info SET
+        user_account= #{user_account},
+        user_password= #{user_password},
+        user_type= #{user_type},
+        user_name= #{user_name}
+        WHERE user_account = #{user_account}
+    </update>
+
+    <!--更新医生密码-->
+    <update id="updateUserPassword">
+        UPDATE user_info SET
+        user_password= #{user_password}
+        WHERE user_account = #{user_account}
+    </update>
+
 
 </mapper>

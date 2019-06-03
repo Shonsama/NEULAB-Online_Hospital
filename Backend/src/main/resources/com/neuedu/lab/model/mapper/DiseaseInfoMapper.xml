@@ -5,7 +5,7 @@
 <mapper namespace="com.neuedu.lab.model.mapper.DiseaseInfoMapper">
 
     <!--增加疾病信息-->
-    <insert id="addDisease" parameterType="com.neuedu.lab.model.po.DiseaseInfo">
+    <insert id="addDisease" parameterType="DiseaseInfo">
         insert into disease_info (disease_id, disease_type, disease_name, disease_icd)
         values(#{disease_id},
         #{disease_type},
@@ -14,7 +14,7 @@
     </insert>
 
     <!--删除疾病信息-->
-    <delete id="deleteDisease" parameterType="com.neuedu.lab.model.po.DiseaseInfo">
+    <delete id="deleteDisease" parameterType="DiseaseInfo">
         DELETE FROM his.disease_info
         where disease_id = #{disease_id}
     </delete>

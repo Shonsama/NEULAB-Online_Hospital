@@ -6,7 +6,7 @@ import java.util.List;
 public interface MedicineMapper {
     public List<Medicine> getAllMedicines();
     public void addMedicine(Medicine medicine);
-    public void deleteMedicine(Medicine medicine);
+    public void deleteMedicine(String medicine_id);
     public void updateMedicine(Medicine medicine);
     public List<Medicine> getMedicine(String medicine_id);
 
