@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app id="sandbox" :dark="dark">
-    <v-toolbar app  absolute  dense>
+    <v-toolbar app dark absolute  dense color="primary">
       <v-toolbar-title>
         <v-icon>local_hospital</v-icon>
         NeuHospital

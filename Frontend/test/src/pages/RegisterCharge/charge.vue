@@ -5,11 +5,27 @@
         <v-toolbar-title >收费信息</v-toolbar-title>
         <template v-slot:extension>
           <v-flex xs2>
-            <v-text-field  prepend-inner-icon="assignment" name="login" label="发票号" type="text" ></v-text-field>
+            <v-text-field  prepend-inner-icon="assignment" name="login" label="发票号" type="text" :disabled = "disabled"></v-text-field>
           </v-flex>
           <v-btn
             small
-          >更新发票号
+            icon
+            flat
+            @click="disabled = !disabled"
+          >
+            <v-icon>
+              refresh
+            </v-icon>
+          </v-btn>
+          <v-btn
+            small
+            icon
+            flat
+            @click="disabled = !disabled"
+          >
+            <v-icon>
+              print
+            </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
         </template>
@@ -23,7 +39,7 @@
           <v-layout>
             <v-flex
               xs12
-              md4
+              md3
             >
               <v-text-field
                 v-model="firstname"
@@ -36,25 +52,25 @@
             </v-flex>
             <v-btn
               large
+              color="primary"
               style="margin-top: 15px"
-            >查询
+            >
+              查询
             </v-btn>
           </v-layout>
           <v-layout>
             <div class="title font-weight-light">患者信息确认</div>
           </v-layout>
           <v-layout>
-
             <v-flex
               xs12
               md2
             >
               <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                :counter="10"
+                v-model="patient_name"
                 label="姓名"
                 required
+                disabled
               ></v-text-field>
             </v-flex>
 
@@ -63,9 +79,11 @@
               md2
             >
               <v-select
-                :items="items"
+                v-model="patient_gender"
+                :items="genders"
                 label="性别"
                 required
+                disabled
               ></v-select>
             </v-flex>
 
@@ -73,24 +91,23 @@
               xs12
               md4
             >
-              <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                :counter="10"
+              <v-textarea
+                v-model="patient_address"
                 label="家庭住址"
-                required
-              ></v-text-field>
+                disabled
+                rows="1"
+              ></v-textarea>
             </v-flex>
 
             <v-flex
               xs12
-              md4
+              md3
             >
               <v-text-field
-                v-model="firstname"
-                :rules="nameRules"
-                :counter="10"
+                v-model="patient_credit_id"
+                :counter="18"
                 label="身份证号"
+                disabled
                 required
               ></v-text-field>
             </v-flex>
@@ -105,7 +122,7 @@
                 v-model="menu"
                 :close-on-content-click="false"
                 :nudge-right="40"
-                :return-value.sync="date"
+                :return-value.sync="patient_birthDate"
                 lazy
                 transition="scale-transition"
                 offset-y
@@ -114,16 +131,18 @@
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="date"
+                    v-model="patient_birthDate"
                     label="出生日期"
+                    required
                     readonly
+                    disabled
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" no-title scrollable>
+                <v-date-picker v-model="patient_birthDate" no-title scrollable>
                   <v-spacer></v-spacer>
                   <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                  <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">OK</v-btn>
                 </v-date-picker>
               </v-menu>
             </v-flex>
@@ -133,10 +152,9 @@
               md2
             >
               <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                :counter="10"
+                v-model="patient_age"
                 label="年龄"
+                disabled
                 required
               ></v-text-field>
             </v-flex>
@@ -214,7 +232,14 @@
 export default {
   data () {
     return {
-
+      patient_record_id: '',
+      patient_gender: '',
+      patient_name: '',
+      patient_credit_id: '',
+      patient_birthDate: '',
+      patient_address: '',
+      patient_age: '',
+      disabled: true
     }
   }
 }
