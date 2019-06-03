@@ -92,7 +92,9 @@ CREATE TABLE `his`.`user_info` (
   `user_account` VARCHAR(45)NOT NULL,#登录名
   `user_type` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,#真实姓名
-  PRIMARY KEY (`user_id`)
+  `user_department_id` varchar(45) not null,
+  PRIMARY KEY (`user_id`),
+  foreign key(`user_department_id`) references `department_info` (`department_id`)
 )default charset=utf8;
 
 #挂号级别表
