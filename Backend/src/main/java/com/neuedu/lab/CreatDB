@@ -93,8 +93,7 @@ CREATE TABLE `his`.`user_info` (
   `user_type` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,#真实姓名
   `user_department_id` varchar(45) null,
-  PRIMARY KEY (`user_id`),
-  foreign key(`user_department_id`) references `department_info` (`department_id`)
+  PRIMARY KEY (`user_id`)
 )default charset=utf8;
 
 #挂号级别表
@@ -122,8 +121,6 @@ CREATE TABLE `his`.`doctor_info` (
   #foreign key
   `doctor_register_level_id` int NULL,
   `doctor_department_id` varchar(45) null,
-  FOREIGN KEY  (`doctor_department_id`)  REFERENCES  `department_info` (`department_id`),
-  foreign key(`doctor_register_level_id`) references `register_level` (`register_level_id`),
   PRIMARY KEY (`doctor_id`)
 )default charset=utf8;
 
@@ -178,7 +175,7 @@ CREATE TABLE `his`.`schedule` (
 drop table  if exists `his`.`register_info`;
 CREATE TABLE `his`.`register_info` (
   `register_info_id` INT NOT NULL AUTO_INCREMENT,
-  `register_info_state` bool NOT NULL,
+  `register_info_state` varchar(45) NOT NULL,
   `register_info_records_book` boolean NOT NULL,
   `register_info_fee` decimal(8,2) unsigned NOT NULL,
   `register_info_pay_type` varchar(45) NOT NULL,
@@ -229,6 +226,9 @@ CREATE TABLE `his`.`prescription` (
   `prescription_user_id` INT NULL,
   `prescription_doctor_id` INT NULL,
   `prescription_register_info_id` INT NOT NULL,
+  `prescription_create_time` DATETIME NULL, #开立时间
+  `prescription_pay_time` DATETIME NULL ,
+  `prescription_consume_time` DATETIME NULL ,
   PRIMARY KEY (`prescription_id`),
   FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
@@ -256,6 +256,9 @@ CREATE TABLE `his`.`medical_skill` (
   `medical_skill_checkpoint` varchar(45) NOT NULL,
   `medical_skill_purpose` varchar(45) NOT NULL,
   `medical_skill_urgent` bool NOT NULL,
+  `medical_skill_create_time` DATETIME NULL, #开立时间
+  `medical_skill_pay_time` DATETIME NULL ,
+  `medical_skill_consume_time` DATETIME NULL ,
   #foreign key
   `medical_skill_register_info_id` INT NOT NULL,
   `medical_skill_user_id` INT NULL,
@@ -296,7 +299,7 @@ CREATE TABLE `his`.`bill` (
   `bill_id` int not null auto_increment,
   `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
   `bill_sum` decimal(8,2) unsigned NOT NULL,
-  `bill_time` DATETIME  NOT NULL,
+  `bill_time` DATETIME  NOT NULL DEFAULT current_timestamp,
   `bill_type` varchar(45) NOT NULL,
   #foreign key
   `bill_fee_cat_id` VARCHAR(45) null,
@@ -318,7 +321,7 @@ CREATE TABLE `his`.`daily` (
   `daily_start` DATETIME NOT NULL,
   `daily_end` DATETIME NOT NULL,
   `daily_user_id` INT NULL ,
-  `daily_operate_time` DATETIME NOT NULL ,
+  `daily_operate_time` DATETIME NOT NULL DEFAULT current_timestamp,
   `daily_pass` BOOLEAN NULL ,
   PRIMARY KEY (`daily_id`)
 )default charset=utf8;
