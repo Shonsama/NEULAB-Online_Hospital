@@ -227,6 +227,9 @@ CREATE TABLE `his`.`prescription` (
   `prescription_user_id` INT NULL,
   `prescription_doctor_id` INT NULL,
   `prescription_register_info_id` INT NOT NULL,
+  `prescription_create_time` DATETIME NULL, #开立时间
+  `prescription_pay_time` DATETIME NULL ,
+  `prescription_consume_time` DATETIME NULL ,
   PRIMARY KEY (`prescription_id`),
   FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
@@ -240,9 +243,6 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_frequency` varchar(45) NOT NULL, #频度
   `prescription_num` int NOT NULL, #数量
   `prescription_day` int NOT NULL, #天数
-  `prescription_create_time` DATETIME NULL, #开立时间
-  `prescription_pay_time` DATETIME NULL ,
-  `prescription_consume_time` DATETIME NULL ,
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
   PRIMARY KEY (`prescription_id`)
 )default charset=utf8;
