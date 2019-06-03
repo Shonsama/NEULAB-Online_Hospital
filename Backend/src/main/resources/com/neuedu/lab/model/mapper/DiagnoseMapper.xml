@@ -7,6 +7,4 @@
         INSERT INTO diagnose (diagnose_record_id, diagnose_type, diagnose_disease_id, diagnose_disease_name)
         VALUES (#{diagnose_record_id}, #{diagnose_type},#{diagnose_disease_id},#{diagnose_disease_name})
     </insert>
-
-
 </mapper>

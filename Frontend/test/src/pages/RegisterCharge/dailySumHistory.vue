@@ -3,7 +3,7 @@
     <v-flex
     >
       <v-toolbar dense extended flat>
-        <v-toolbar-title>Expandable Table</v-toolbar-title>
+        <v-toolbar-title>日结历史</v-toolbar-title>
         <template v-slot:extension>
           <v-flex xs2>
             <v-menu
@@ -63,8 +63,8 @@
             </v-menu>
           </v-flex>
 
-          <v-btn   @click="expand = !expand">
-            {{ expand ? 'Close' : 'Keep' }} other rows
+          <v-btn   color="primary" @click="expand = !expand" style="margin-bottom: 15px">
+            搜索
           </v-btn>
         </template>
       </v-toolbar>
@@ -108,28 +108,6 @@
         </template>
       </v-data-table>
     </v-flex>
-
-    <v-divider></v-divider>
-
-    <v-card-actions>
-      <v-btn
-        flat
-        @click="tree = []"
-      >
-        Reset
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        class="white--text"
-        color="green darken-1"
-        depressed
-      >
-        Save
-        <v-icon right>mdi-content-save</v-icon>
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 

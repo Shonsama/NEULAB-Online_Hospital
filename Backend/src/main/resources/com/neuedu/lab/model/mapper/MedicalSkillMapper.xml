@@ -10,15 +10,16 @@
           #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_non_medical_id});
     </insert>
 
-    <delete id="deleteMedicialSkill">
-        DELETE FROM medical_skill WHERE medical_skill_id = #{medical_skill_id}
+    <delete id="deleteMedicalSkill" parameterType="MedicalSkill">
+        delete from bill where bill_medical_skill_id = #{medical_skill_id};
+        DELETE FROM medical_skill WHERE medical_skill_id = #{medical_skill_id};
     </delete>
 
-    <update id="startMedicialSkill">
+    <update id="startMedicalSkill">
         UPDATE medical_skill SET medical_skill_execute_state = #{medical_skill_execute_state}
     </update>
 
-    <select id="getMedicialSkill" resultType="MedicalSkill">
+    <select id="getMedicalSkill" resultType="MedicalSkill">
         SELECT * FROM medical_skill
         WHERE medical_skill_id = #{medical_skill_id}
     </select>

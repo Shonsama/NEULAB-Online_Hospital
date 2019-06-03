@@ -1,5 +1,79 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
+    <v-dialog
+      v-model="show"
+      width="300"
+    >
+          <v-layout justify-center>
+            <v-flex xs12>
+              <v-card ref="form">
+                <v-card-text>
+                  <v-text-field
+                    ref="name"
+                    v-model="department_id"
+                    :error-messages="errorMessages"
+                    label="科室编号"
+                    placeholder="请输入科室编号"
+                    :disabled="!mode"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    ref="address"
+                    v-model="department_name"
+                    label="科室名称"
+                    placeholder="请输入科室名称"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    ref="city"
+                    v-model="department_cat"
+                    label="科室分类"
+                    placeholder="请输入科室分类"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    ref="country"
+                    v-model="department_type"
+                    label="科室类型"
+                    placeholder="请输入科室类型"
+                    required
+                  ></v-text-field>
+                </v-card-text>
+                <!--<v-divider class="mt-5"></v-divider>-->
+                <v-card-actions>
+                  <v-btn flat @click="show =!show">Cancel</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-slide-x-reverse-transition>
+                    <v-tooltip
+                      v-if="formHasErrors"
+                      left
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          icon
+                          class="my-0"
+                          @click="resetForm"
+                          v-on="on"
+                        >
+                          <v-icon>refresh</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Refresh form</span>
+                    </v-tooltip>
+                  </v-slide-x-reverse-transition>
+                  <div v-if="mode">
+                    <v-btn color="primary" flat @click="addItem">add</v-btn>
+                  </div>
+                  <div v-else>
+                    <v-btn color="primary" flat @click="updateItem">update</v-btn>
+                  </div>
+
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+    </v-dialog>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -16,7 +90,7 @@
         <v-btn
           icon
           falt
-          @click="expand = !expand"
+          @click="show = !show , mode = true"
         >
           <v-icon>
             add
@@ -50,14 +124,14 @@
             ></v-checkbox>
           </td>
           <td>{{ props.item.department_id }}</td>
-          <td >{{ props.item.department_name }}</td>
-          <td >{{ props.item.department_cat }}</td>
-          <td >{{ props.item.department_type }}</td>
-          <td >
+          <td>{{ props.item.department_name }}</td>
+          <td>{{ props.item.department_cat }}</td>
+          <td>{{ props.item.department_type }}</td>
+          <td>
             <v-icon
               small
               class="mr-2"
-              @click="editItem(props.item)"
+              @click="show =!show , mode = false , fillForm(props.item)"
             >
               edit
             </v-icon>
@@ -75,9 +149,14 @@
 </template>
 
 <script>
-import Qs from 'qs'
 export default {
   data: () => ({
+    mode: true,
+    department_id: '',
+    department_name: '',
+    department_cat: '',
+    department_type: '',
+    show: false,
     search: '',
     expand: false,
     selected: [],
@@ -109,29 +188,69 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      let department = Qs.stringify({
-        'department_id': item.department_id,
-        'department_name': item.department_name,
-        'department_cat': item.department_cat,
-        'department_type': item.department_type
-      })
-      let data = Qs.stringify({
-        'department': department
-      })
-      // var department = {
-      //   "department_cat": item.department_cat,
-      //   "department_id": item.department_id,
-      //   "department_name": item.department_name,
-      //   "department_type": item.department_type
-      //
-      // }
       var url = this.HOME + '/department/delete'
-      this.$http.post(url, data)
+      this.$http.post(url, item)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+          }
         })
       console.log(this.signal)
+    },
+    addItem: function () {
+      var department = {
+        department_id: this.department_id,
+        department_name: this.department_name,
+        department_cat: this.department_cat,
+        department_type: this.department_type
+      }
+      let that = this
+      var url = this.HOME + '/department/add'
+      this.$http.post(url, department)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+          }
+        })
+      console.log(this.signal)
+    },
+    updateItem: function () {
+      var department = {
+        department_id: this.department_id,
+        department_name: this.department_name,
+        department_cat: this.department_cat,
+        department_type: this.department_type
+      }
+      let that = this
+      var url = this.HOME + '/department/update'
+      this.$http.post(url, department)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+            that.eraseForm()
+          }
+        })
+      console.log(this.signal)
+    },
+    fillForm: function (item) {
+      this.department_id = item.department_id
+      this.department_name = item.department_name
+      this.department_cat = item.department_cat
+      this.department_type = item.department_type
+    },
+    eraseForm: function () {
+      this.department_id = ''
+      this.department_name = ''
+      this.department_cat = ''
+      this.department_type = ''
     }
 
   },
@@ -141,6 +260,11 @@ export default {
   computed: {
   },
   watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
+      }
+    }
   }
 }
 </script>

@@ -15,7 +15,8 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="expand = !expand"
         >
           <v-icon>
@@ -24,7 +25,8 @@
         </v-btn>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="expand = !expand"
         >
           <v-icon>
@@ -40,7 +42,6 @@
         item-key="name"
         select-all
         class="elevation-1"
-        hide-actions
       >
         <template v-slot:items="props">
           <td>

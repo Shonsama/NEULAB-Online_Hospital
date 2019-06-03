@@ -1,0 +1,63 @@
+
+insert into disease_info values('disease_id','disease_type','disease_name','disease_icd');
+#select * from disease_info;
+insert into constant values(1,'constant_name','constant_type');
+#select * from constant;
+insert into non_medicine values('non_medicine_id','non_medicine_type','non_medicine_name',8.6,'non_medicine_specification');
+#select * from non_medicine;
+insert into medicine values('medicine_id','medicine_usage','medicine_name','medicine_specifications','medicine_unit','medicine_factory','medicine_formulation','medicine_type',1.1,'medicine_pinyin');
+#select * from medicine;
+insert into department_info values('department_id','department_type','department_cat','department_name');
+#select * from department_info;
+
+insert into user_info values(1,'user_password','user_account','user_type','user_name');
+#select * from user_info;
+
+insert into register_level values(1,1,'register_level_level',10000, 90.6);
+#select * from register_level;
+
+insert into doctor_info values('doctor_password',false,1,'doctor_password','doctor_account','doctor_type','doctor_name',1,'department_id');
+#select * from doctor_info;
+
+insert into usual_diagnose values(1,'usual_diagnose_disease_name','usual_diagnose_result',1);
+#select * from usual_diagnose;
+
+insert into patient_info values(1,true,'patient_name','patient_credit_id','patient_address','1998-07-16',18);
+#select * from patient_info;
+
+insert into rule values(1,'rule_name','rule_work_time',1);
+#select * from rule;
+
+insert into schedule values('2019-10-11','2019-12-11',1,1);
+#select * from his.schedule;
+
+insert into register_info values(1,true,true, 6.9,'register_info_pay_type',1,1,1);
+#select * from register_info;
+
+insert into record values(1,1,1,'record_syndrome','record_health_check','record_xianbingshi','record_jiwangshi','record_cure_situation','record_allergy_his');
+#select * from record;
+
+insert into diagnose values(1,1,'diagnose_type','disease_id','diagnose_disease_name','2019-06-02');
+#select * from diagnose;
+
+insert into prescription values(1,'prescription_execute_state','prescription_type',1,1,1);
+#select * from prescription;
+
+insert into prescription_content values(1, 1,'prescription_consumption','medicine_id','prescription_frequency',1,1);
+#select * from prescription_content;
+
+insert into medical_skill values(1, 'medical_skill_execute_state','medical_skill_result','medical_skill_type','medical_skill_name'
+,'medical_skill_checkpoint','medical_skill_purpose',false,1,1,1,'non_medicine_id');
+#select * from medical_skill;
+
+insert into template values(1,'template_type','template_name','template_range','2017-11-19',1,'non_medicine_id','medicine_id');
+#select * from template;
+
+insert into fee_cat values('fee_cat_id','fee_cat_name');
+#select * from fee_cat;
+
+insert into bill values('bill_id',122.69,899,'1998-07-05',bill_type,'fee_cat_id',1,1,1,1);
+#select * from bill;
+
+insert into daily values(1,'2018-05-06','2018-12-21',1,'2018-04-15',true);
+#select * from daily;
