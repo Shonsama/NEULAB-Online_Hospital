@@ -13,7 +13,8 @@ public class ConstantDefinition {
     public static final String FAIL_MESSAGE = "FAIL";
 
     public static final Integer SUCCESS_CODE = 200;
-    public static final Integer FAIL_CODE = 400;
+    public static final Integer FAIL_CODE = 500;
 
 
+    public static final String[] BILL_TYPE = {"挂号费","检查费","检验费","处方费"} ;
 }

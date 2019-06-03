@@ -2,7 +2,7 @@ package com.neuedu.lab.model.po;
 
 public class MedicalSkill {
     private Integer medical_skill_id;
-    private String medical_skill_excute_state;
+    private String medical_skill_execute_state;
     private String medical_skill_result;
     private String medical_skill_type;
     private String medical_skill_name;
@@ -14,6 +14,7 @@ public class MedicalSkill {
     private Integer medical_skill_doctor_id;
     private String medical_skill_non_medical_id;
 
+
     public Integer getMedical_skill_id() {
         return medical_skill_id;
     }
@@ -23,11 +24,11 @@ public class MedicalSkill {
     }
 
     public String getMedical_skill_excute_state() {
-        return medical_skill_excute_state;
+        return medical_skill_execute_state;
     }
 
     public void setMedical_skill_excute_state(String medical_skill_excute_state) {
-        this.medical_skill_excute_state = medical_skill_excute_state;
+        this.medical_skill_execute_state = medical_skill_excute_state;
     }
 
     public String getMedical_skill_result() {

@@ -6,7 +6,15 @@ public class Prescription {
     private String prescription_type;
     private Integer prescription_doctor_id;
     private Integer prescription_register_info_id;
-    private Integer prescription_medicine_id;
+    private Integer prescription_user_id;
+
+    public Integer getPrescription_user_id() {
+        return prescription_user_id;
+    }
+
+    public void setPrescription_user_id(Integer prescription_user_id) {
+        this.prescription_user_id = prescription_user_id;
+    }
 
     public Integer getPrescription_id() {
         return prescription_id;
@@ -46,14 +54,6 @@ public class Prescription {
 
     public void setPrescription_register_info_id(Integer prescription_register_info_id) {
         this.prescription_register_info_id = prescription_register_info_id;
-    }
-
-    public Integer getPrescription_medicine_id() {
-        return prescription_medicine_id;
-    }
-
-    public void setPrescription_medicine_id(Integer prescription_medicine_id) {
-        this.prescription_medicine_id = prescription_medicine_id;
     }
 
 

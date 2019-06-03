@@ -109,7 +109,7 @@
                 <v-layout column>
                   <v-flex>
                     处方模板
-                    <v-btn   flat icon color="primary" @click="expand = !expand">
+                    <v-btn  color="primary"  flat icon  @click="expand = !expand">
                       <v-icon>settings</v-icon>
                     </v-btn>
                   </v-flex>

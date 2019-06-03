@@ -140,15 +140,25 @@ public class DoctorController {
     }
 
     //发送处方、作废处方
-    @RequestMapping("/update-prescription")
-    public JSONObject updatePrescription(@RequestBody JSONObject request){
-       if(doctorService.updatePrescription(request.getInteger("prescriptioin_id"),request.getString("prescription_execute_state"))){
+        @RequestMapping("/send-prescription")
+    public JSONObject sendPrescription(@RequestBody JSONObject request){
+       if(doctorService.sendPrescription(request.getInteger("prescriptioin_id"))){
            return ConstantUtils.responseSuccess(null);
        }
        else {
            return ConstantUtils.responseFail(null);
        }
     }
+    @RequestMapping("/end-prescription")
+    public JSONObject endPrescription(@RequestBody JSONObject request){
+        if(doctorService.endPrescription(request.getInteger("prescriptioin_id"))){
+            return ConstantUtils.responseSuccess(null);
+        }
+        else {
+            return ConstantUtils.responseFail(null);
+        }
+    }
+
 
 
     //增加药品

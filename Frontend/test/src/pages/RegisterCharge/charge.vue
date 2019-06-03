@@ -11,6 +11,7 @@
             small
             icon
             flat
+            color="primary"
             @click="disabled = !disabled"
           >
             <v-icon>
@@ -20,6 +21,7 @@
           <v-btn
             small
             icon
+            color="primary"
             flat
             @click="disabled = !disabled"
           >
@@ -42,20 +44,21 @@
               md3
             >
               <v-text-field
-                v-model="firstname"
+                v-model="patient_record_id"
                 :rules="nameRules"
-                :counter="10"
                 label="病历号"
                 required
               ></v-text-field>
 
             </v-flex>
             <v-btn
-              large
+              @click="get_patient"
               color="primary"
-              style="margin-top: 15px"
+              flat
+              icon
+              style="margin-top: 20px"
             >
-              查询
+              <v-icon>search</v-icon>
             </v-btn>
           </v-layout>
           <v-layout>
@@ -164,14 +167,13 @@
     </v-card>
     <v-card>
       <v-toolbar flat dense>
-        <v-toolbar-title >患者收费列表</v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-toolbar-title >患者交费</v-toolbar-title>
       </v-toolbar>
       <v-data-table
         v-model="selected"
         :headers="headers"
         :items="desserts"
-        item-key="name"
+        item-key="code"
         select-all
         class="elevation-1"
       >
@@ -183,48 +185,74 @@
               hide-details
             ></v-checkbox>
           </td>
+          <td>{{ props.item.code }}</td>
           <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
-          <td class="justify-center layout px-0">
-            <v-icon
+          <td>{{ props.item.state }}</td>
+          <td>{{ props.item.type }}</td>
+          <td>{{ props.item.number }}</td>
+          <td>
+            <v-btn
               small
-              class="mr-2"
-              @click="editItem(props.item)"
+              right
+              color="primary"
             >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
+              收费
+            </v-btn>
           </td>
         </template>
       </v-data-table>
-      <v-divider></v-divider>
-      <v-card-actions>
-        <v-btn
-          flat
-          @click="tree = []"
-        >
-          Reset
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="white--text"
-          color="green darken-1"
-          depressed
-        >
-          Save
-        </v-btn>
-      </v-card-actions>
     </v-card>
-
+    <v-card>
+      <v-toolbar extended flat dense>
+        <v-toolbar-title >患者收费信息</v-toolbar-title>
+        <template v-slot:extension>
+          <el-date-picker
+            v-model="date"
+            type="datetimerange"
+            align="right"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :default-time="['12:00:00', '08:00:00']"
+            style="margin-right: 10px;margin-bottom: 10px"
+          >
+          </el-date-picker>
+        </template>
+      </v-toolbar>
+      <v-data-table
+        v-model="selected1"
+        :headers="headers1"
+        :items="desserts1"
+        item-key="code"
+        select-all
+        class="elevation-1"
+      >
+        <template v-slot:items="props">
+          <td>
+            <v-checkbox
+              v-model="props.selected"
+              primary
+              hide-details
+            ></v-checkbox>
+          </td>
+          <td>{{ props.item.code }}</td>
+          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.state }}</td>
+          <td>{{ props.item.type }}</td>
+          <td>{{ props.item.number }}</td>
+          <td>{{ props.item.time }}</td>
+          <td>
+            <v-btn
+              small
+              right
+              color="primary"
+              @click="filter"
+            >
+              退费
+            </v-btn>
+          </td>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
@@ -232,6 +260,9 @@
 export default {
   data () {
     return {
+      date: '',
+      selected: [],
+      selected1: [],
       patient_record_id: '',
       patient_gender: '',
       patient_name: '',
@@ -239,7 +270,91 @@ export default {
       patient_birthDate: '',
       patient_address: '',
       patient_age: '',
-      disabled: true
+      disabled: true,
+      desserts: [{
+        code: '1',
+        name: '11',
+        state: '1',
+        type: '1',
+        number: '1'
+      },
+      {
+        code: '11',
+        name: '111',
+        state: '11',
+        type: '11',
+        number: '1'
+
+      }],
+      desserts1: [{
+        code: '1',
+        name: '11',
+        state: '1',
+        type: '1',
+        number: '1',
+        time: '1'
+      }],
+      headers: [
+        {
+          text: '挂号ID',
+          align: 'left',
+          value: 'code'
+        },
+        {text: '名称', value: 'name'},
+        {text: '状态', value: 'state'},
+        {text: '类型', value: 'type'},
+        {text: '数量', value: 'number'},
+        {text: '操作', value: 'operation', sortable: false}
+      ],
+      headers1: [
+        {
+          text: '挂号ID',
+          align: 'left',
+          value: 'code'
+        },
+        {text: '名称', value: 'name'},
+        {text: '状态', value: 'state'},
+        {text: '类型', value: 'type'},
+        {text: '数量', value: 'number'},
+        {text: '收费时间', value: 'time'},
+        {text: '操作', value: 'operation', sortable: false}
+      ]
+    }
+  },
+  mounted: function () {
+  },
+  methods: {
+    filter: function () {
+      console.log(this.date)
+    },
+    get_patient_register: function () {
+      var url = this.HOME + '/constant/get'
+      var that = this
+      var data = {
+        'patient_record_id': that.patient_record_id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+        })
+    },
+    get_patient: function () {
+      var url = this.HOME + '/constant/get'
+      var that = this
+      var data = {
+        'patient_record_id': that.patient_record_id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.patient_gender = data.patient_gender
+          that.patient_name = data.patient_name
+          that.patient_credit_id = data.patient_credit_id
+          that.patient_birthDate = data.patient_birthDate
+          that.patient_address = data.patient_address
+          that.patient_age = data.patient_age
+          that.get_patient_register()
+        })
     }
   }
 }

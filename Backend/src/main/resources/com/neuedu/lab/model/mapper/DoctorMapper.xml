@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.DoctorMapper">
 
-   <select id="getAllDoctorsByDepartment" parameterType="String">
+   <select id="getAllDoctorsByDepartment" parameterType="String" resultType="Doctor">
        select * from his.doctor_info
        WHERE doctor_department_id = #{department_id};
    </select>
 
     <update id="treat">
         UPDATE his.register_info SET register_info_state = #{state}
-        WHERE register_info_doctor_id = #{register_id}
+        WHERE register_info_id = #{register_id}
     </update>
 
 </mapper>

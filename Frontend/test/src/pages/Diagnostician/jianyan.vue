@@ -51,7 +51,7 @@
         <v-toolbar flat dense>
           <v-toolbar-title  >常用模板</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn   flat icon color="primary" @click="expand = !expand">
+          <v-btn   flat icon  color="primary"  @click="expand = !expand">
             <v-icon>settings</v-icon>
           </v-btn>
         </v-toolbar>
