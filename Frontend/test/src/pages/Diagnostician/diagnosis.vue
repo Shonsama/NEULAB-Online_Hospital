@@ -4,7 +4,7 @@
       <v-toolbar flat dense>
         <v-toolbar-title  >西医</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn   flat icon color="primary" @click="show = !show">
+        <v-btn   flat icon color="primary"  @click="show = !show">
           <v-icon> add</v-icon>
         </v-btn>
         <v-btn   flat icon color="primary" @click="expand = !expand">

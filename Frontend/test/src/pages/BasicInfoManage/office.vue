@@ -89,7 +89,9 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
+
           @click="show = !show , mode = true"
         >
           <v-icon>
@@ -98,7 +100,8 @@
         </v-btn>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="expand = !expand"
         >
           <v-icon>

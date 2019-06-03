@@ -11,13 +11,14 @@
               </v-flex>
               <v-btn
                 flat
+                color="primary"
                 icon
-                color="primary">
+              >
                 <v-icon>cached</v-icon>
               </v-btn>
             </v-toolbar>
             <v-layout>
-              <v-flex md6>
+              <v-flex md10>
                 <v-text-field
                   prepend-inner-icon="search"
                   name="login"

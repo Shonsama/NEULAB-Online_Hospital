@@ -39,6 +39,7 @@ import register from '@/pages/RegisterCharge/register'
 import charge from '@/pages/RegisterCharge/charge'
 import dailySum from '@/pages/RegisterCharge/dailySum'
 import dailySumHistory from '@/pages/RegisterCharge/dailySumHistory'
+
 export default {
   name: 'RegisterCharge',
   components: {
