@@ -1,5 +1,6 @@
 package com.neuedu.lab.controller;
 
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Constant;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.service.ConstantService;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/constant")
 public class ConstantController {
@@ -17,35 +16,32 @@ public class ConstantController {
     private ConstantService constantService;
 
     @RequestMapping("/get-all")
-    public List<Constant> getAllConstant(){
-        System.out.println("all constant");
-        return constantService.getAllConstant();
+    public JSONObject getAllConstant(){
+        return ConstantUtils.responseSuccess(constantService.getAllConstant());
     }
 
 
     @RequestMapping("/get")
-    public List<Constant> getConstant(@RequestBody JSONObject constant_type){
-        String getString = constant_type.getString("constant_type");
-        return constantService.getConstant(getString);
+    public Object getConstant(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(constantService.getConstant(request.getString("constant_type")));
     }
 
     @RequestMapping("/add")
-    public String addConstant(@RequestBody Constant constant){
+    public JSONObject addConstant(@RequestBody Constant constant){
         if(constantService.addConstant(constant)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestBody Constant constant){
+    public JSONObject updateConstant(@RequestBody Constant constant){
         if(constantService.updateConstant(constant)){
-            return "{\"result\":\"success\"}";
-        }
+            return ConstantUtils.responseSuccess(null);        }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 

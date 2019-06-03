@@ -1,7 +1,7 @@
 package com.neuedu.lab.model.service;
 
-import com.neuedu.lab.ConstantDefinition;
-import com.neuedu.lab.ConstantUtils;
+import com.neuedu.lab.Utils.ConstantDefinition;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.BillMapper;
 import com.neuedu.lab.model.mapper.DepartmentMapper;
 import com.neuedu.lab.model.mapper.DoctorMapper;
