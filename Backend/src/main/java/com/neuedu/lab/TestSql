@@ -10,13 +10,16 @@ insert into medicine values('medicine_id','medicine_usage','medicine_name','medi
 insert into department_info values('department_id','department_type','department_cat','department_name');
 select * from department_info;
 
+
+
 insert into user_info values(1,'user_password','user_account','user_type','user_name','department_id');
 select * from user_info;
 
-insert into register_level values(1,1,'register_level_level',10000, 90.6);
+insert into register_level values(1,'register_level_name',10000, 90.6);
 #select * from register_level;
 
-insert into doctor_info values('doctor_password',false,1,'doctor_password','doctor_account','doctor_type','doctor_name',1,'department_id');
+insert into doctor_info values('doctor_position',false,1,'doctor_password','doctor_account',
+'doctor_type','doctor_name',1,'department_id');
 select * from doctor_info;
 
 insert into usual_diagnose values(1,'usual_diagnose_disease_name','usual_diagnose_result',1);
@@ -28,10 +31,10 @@ insert into patient_info values(1,true,'patient_name','patient_credit_id','patie
 insert into rule values(1,'rule_name','rule_work_time',1);
 #select * from rule;
 
-insert into schedule values('2019-10-11','2019-12-11',1,1);
+insert into schedule values('rule_name','2019-12-11','2019-12-21',1);
 #select * from his.schedule;
 
-insert into register_info values(1,true,true, 6.9,'register_info_pay_type',1,1,1);
+insert into register_info values(1,'register_info_state',true, 6.9,'register_info_pay_type',1,1,1);
 #select * from register_info;
 
 insert into record values(1,1,1,'record_syndrome','record_health_check','record_xianbingshi','record_jiwangshi','record_cure_situation','record_allergy_his');
@@ -40,14 +43,14 @@ insert into record values(1,1,1,'record_syndrome','record_health_check','record_
 insert into diagnose values(1,1,'diagnose_type','disease_id','diagnose_disease_name','2019-06-02');
 #select * from diagnose;
 
-insert into prescription values(1,'prescription_execute_state','prescription_type',1,1,1);
+insert into prescription values(1,'prescription_execute_state','prescription_type',1,1,1,'2018-11-11','2018-11-11','2018-11-11');
 #select * from prescription;
 
 insert into prescription_content values(1, 1,'prescription_consumption','medicine_id','prescription_frequency',1,1);
 #select * from prescription_content;
 
 insert into medical_skill values(1, 'medical_skill_execute_state','medical_skill_result','medical_skill_type','medical_skill_name'
-,'medical_skill_checkpoint','medical_skill_purpose',false,1,1,1,'non_medicine_id');
+,'medical_skill_checkpoint','medical_skill_purpose',false,'2018-11-11','2018-11-11','2018-11-11',1,1,1,'non_medicine_id');
 select * from medical_skill;
 
 insert into template values(1,'template_type','template_name','template_range','2017-11-19',1,'non_medicine_id','medicine_id');
@@ -56,32 +59,8 @@ insert into template values(1,'template_type','template_name','template_range','
 insert into fee_cat values('fee_cat_id','fee_cat_name');
 #select * from fee_cat;
 
-insert into bill values('bill_id',122.69,899,'1998-07-05',bill_type,'fee_cat_id',1,1,1,1);
-select * from bill;
+insert into bill values(1,122.69,899,'1998-07-05','bill_type','fee_cat_id','fee_cat_name',1,1,1,1);
+#select * from bill;
 
 insert into daily values(1,'2018-05-06','2018-12-21',1,'2018-04-15',true);
-select * from daily;
-
-drop table  if exists `his`.`daily`;
-drop table if exists `his`.`bill`;
-drop table if exists `his`.`fee_cat`;
-drop table  if exists `his`.`template`;
-drop table  if exists `his`.`medical_skill`;
-drop table  if exists `his`.`prescription_content`;
-drop table if exists `his`.`prescription`;
-drop table if exists `his`.`diagnose`;
-drop table if exists  `his`.`record`;
-drop table  if exists `his`.`register_info`;
-drop table  if exists `his`.`schedule`;
-drop table  if exists `his`.`rule`;
-drop table if exists  `his`.`patient_info`;
-drop table if exists  `his`.`usual_diagnose`;
-drop table if exists  `his`.`doctor_info`;
-drop table  if exists  `his`.`register_level`;
-drop table  if exists  `his`.`user_info`;
-
-drop table if exists  `his`.`disease_info`;
-drop table if exists  `his`.`constant`;
-drop table if exists  `his`.`non_medicine`;
-drop table  if exists `his`.`medicine`;
-drop table  if exists `his`.`department_info`;
+#select * from daily;

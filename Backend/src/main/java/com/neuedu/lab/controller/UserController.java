@@ -2,6 +2,8 @@ package com.neuedu.lab.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,56 +26,91 @@ public class UserController {
     }
 
     @RequestMapping("/get")
-//    查询某一用户信息
-    public List<User> getUser(@RequestBody JSONObject user_account){
-        String getString = user_account.getString("user_account");
-        return userService.getUser(getString);
+//    查询某一用户/医生信息
+    public JSONObject getUser(@RequestBody JSONObject request){
+        if(userService.getUser(request.getString("user_account")).size() != 0){
+            return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_account")));
+        }else{
+            return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_account")));
+        }
     }
 
     @RequestMapping("/check-valid")
     //检验登录
-    public String checkValid(@RequestBody String user_account, @RequestBody String user_password){
-        return userService.checkValid(user_account,user_password);
+    public JSONObject checkValid(@RequestBody JSONObject request){
+        if(userService.getUser(request.getString("user_account")).size() != 0){
+            return ConstantUtils.responseSuccess(userService.checkUserIfExist("user_account"));
+        }
+        else{
+            return ConstantUtils.responseSuccess(userService.checkDoctorIfExist("doctor_account"));
+        }
     }
 
-    @RequestMapping("/add")
-    public String addUser(@RequestBody User user){
+    @RequestMapping("/add-user")
+    public JSONObject addUser(@RequestBody User user){
         if(userService.addUser(user)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
+        }
+    }
+
+    @RequestMapping("/add-doctor")
+    public JSONObject addDoctor(@RequestBody Doctor doctor){
+        if(userService.addDoctor(doctor)){
+            return ConstantUtils.responseSuccess(null);
+        }else{
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/delete")
-    public String deleteUser(@RequestBody JSONObject user_account){
-        String getString = user_account.getString("user_account");
-        if(userService.deleteUser(getString)){
-            return "{\"result\":\"success\"}";
-        }
-        else {
-            return "{\"result\":\"fail\"}";
+    public JSONObject deleteUser(@RequestBody JSONObject request){
+        if(userService.getUser(request.getString("user_account")).size() != 0){
+            return ConstantUtils.responseSuccess(userService.deleteUser(request.getString("user_account")));
+        }else{
+            return ConstantUtils.responseSuccess(userService.deleteDoctor(request.getString("doctor_account")));
         }
     }
 
-    @RequestMapping("/update")
-    public String updateUser(@RequestBody User user){
+    @RequestMapping("/update-user")
+    public JSONObject updateUser(@RequestBody User user){
         if(userService.updateUser(user)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
-    @RequestMapping("/update-password")
-    public String updateUserPassword(@RequestBody User user){
+    @RequestMapping("/update-user-password")
+    public JSONObject updateUserPassword(@RequestBody User user){
         if(userService.updateUserPassword(user)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
+        }
+    }
+
+    @RequestMapping("/update-doctor")
+    public JSONObject updateDoctor(@RequestBody User user){
+        if(userService.updateUser(user)){
+            return ConstantUtils.responseSuccess(null);
+        }
+        else {
+            return ConstantUtils.responseFail(null);
+        }
+    }
+
+    @RequestMapping("/update-doctor-password")
+    public JSONObject updateDoctorPassword(@RequestBody Doctor doctor){
+        if(userService.updateDoctorPassword(doctor)){
+            return ConstantUtils.responseSuccess(null);
+        }
+        else {
+            return ConstantUtils.responseFail(null);
         }
     }
 }
