@@ -370,10 +370,11 @@ export default {
     ]
   }),
   watch: {
-    patient_birthDate: function (newState, oldState) {
+    patient_birthDate: function (newState) {
       var date = new Date()
       console.log(newState)
-      this.patient_age = date.getFullYear() - newState.getFullYear()
+      var date1 = new Date(newState.replace(/-/, '/'))
+      this.patient_age = date.getFullYear() - date1.getFullYear()
     }
   },
   mounted: function () {
