@@ -11,6 +11,7 @@
         small
         icon
         flat
+        color="primary"
         @click="disabled = !disabled"
       >
         <v-icon>
@@ -21,6 +22,7 @@
         small
         icon
         flat
+        color="primary"
         @click="disabled = !disabled"
       >
         <v-icon>
@@ -48,11 +50,13 @@
           ></v-text-field>
         </v-flex>
         <v-btn
-          large
+          @click="get_patient"
           color="primary"
-          style="margin-top: 15px"
+          flat
+          icon
+          style="margin-top: 20px"
         >
-          查询
+          <v-icon>search</v-icon>
         </v-btn>
       </v-layout>
       <v-layout>
@@ -194,8 +198,8 @@
           md3
         >
           <v-select
-            change="load_doctors"
-            v-model="department_name"
+            :change="load_doctors(department_id)"
+            v-model="departmentId"
             :items="departments"
             item-text="department_name"
             item_value="department_id"
@@ -213,8 +217,8 @@
           <v-select
             v-model="doctor_id"
             :items="doctors"
-            item-text="doctor_name"
-            item-value="doctor_id"
+            :item-text="doctor_name"
+            :item-value="doctor_id"
             :rules="doctorRules"
             label="看诊医生"
             return-object
@@ -277,9 +281,11 @@
         <td>{{ props.item.register_info_fee }}</td>
         <td>
           <v-btn
-            flat
             small
+            right
+            :disabled="props.item.register_info_state"
             color="primary"
+            @click="refund(props.item.register_info_id)"
           >
             退号
           </v-btn>
@@ -294,7 +300,6 @@
 <script>
 import Qs from 'qs'
 export default {
-  name: 'register',
   data: () => ({
     register_items: [{
       register_info_id: '1',
@@ -334,7 +339,7 @@ export default {
     doctor_id: '',
     doctor_name: '',
     department_name: '',
-    department_id: '',
+    departmentId: '',
     genders: ['男', '女'],
     registers: [],
     payCates: [],
@@ -364,33 +369,52 @@ export default {
       v => !!v || '结算方式是必须的'
     ]
   }),
+  watch: {
+    patient_birthDate: function (newState) {
+      var date = new Date()
+      console.log(newState)
+      var date1 = new Date(newState.replace(/-/, '/'))
+      this.patient_age = date.getFullYear() - date1.getFullYear()
+    }
+  },
   mounted: function () {
     this.load_constants()
     this.load_departs()
-    this.load_doctors()
   },
   methods: {
     change: function () {
-      this.disabled = !this.d
+      this.disabled = !this.disabled
     },
-    get_patient: function (id) {
+    get_patient_register: function () {
       var url = this.HOME + '/constant/get'
       var that = this
-      var data = Qs.stringify({
+      var data = {
         'patient_record_id': that.patient_record_id
-      })
+      }
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
         })
     },
+    get_patient: function () {
+      var url = this.HOME + '/constant/get'
+      var that = this
+      var data = {
+        'patient_record_id': that.patient_record_id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.get_patient_register()
+        })
+    },
     load_constants: function () {
       let that = this
-      var url = this.HOME + '/constant/get-all'
-      // var data = Qs.stringify({
-      //   constant_type: 'payment_type'
-      // })
-      this.$http.post(url)
+      var url = this.HOME + '/constant/get'
+      var data = {
+        constant_type: 'payment_type_test'
+      }
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.payCates = response.data
@@ -408,10 +432,22 @@ export default {
     },
     load_doctors: function () {
       let that = this
-      var data = Qs.stringify({
-        'department_id': that.department_id
-      })
+      console.log(that.departmentId)
+      var data = {
+        'department_id': that.departmentId.department_id
+      }
       var url = this.HOME + '/register/get-all-doctor'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+        })
+    },
+    refund: function (id) {
+      // let that = this
+      var data = {
+        'register_id': id
+      }
+      var url = this.HOME + '/register/refund'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)

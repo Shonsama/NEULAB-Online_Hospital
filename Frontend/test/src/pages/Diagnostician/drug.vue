@@ -109,7 +109,7 @@
               <v-layout column>
                 <v-flex>
                   处方模板
-                  <v-btn   flat icon color="primary" @click="expand = !expand">
+                  <v-btn   flat  color="primary" icon @click="expand = !expand">
                     <v-icon>settings</v-icon>
                   </v-btn>
                 </v-flex>
@@ -129,7 +129,6 @@
               :headers="headers"
               :items="desserts"
               item-key="fat1"
-
               class="elevation-1"
             >
               <template v-slot:items="props">
