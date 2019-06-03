@@ -16,7 +16,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @RequestMapping("/getall")
+    @RequestMapping("/get-all")
 //    显示所有科室信息
     public List<Department> getAllDepartments(){
         return departmentService.getAllDepartments();
@@ -50,8 +50,9 @@ public class DepartmentController {
     }
 
     @RequestMapping("/delete")
-    public String deleteDepartment(@RequestBody Department department){
-        if(departmentService.deleteDepartment(department)){
+    public String deleteDepartment(@RequestBody JSONObject department_id){
+        String getString = department_id.getString("department_id");
+        if(departmentService.deleteDepartment(getString)){
             return "{\"result\":\"success\"}";
         }
         else {

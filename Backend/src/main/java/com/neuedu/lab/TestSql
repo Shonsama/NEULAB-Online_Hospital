@@ -4,20 +4,20 @@ insert into disease_info values('disease_id','disease_type','disease_name','dise
 insert into constant values(1,'constant_name','constant_type');
 #select * from constant;
 insert into non_medicine values('non_medicine_id','non_medicine_type','non_medicine_name',8.6,'non_medicine_specification');
-#select * from non_medicine;
+select * from non_medicine;
 insert into medicine values('medicine_id','medicine_usage','medicine_name','medicine_specifications','medicine_unit','medicine_factory','medicine_formulation','medicine_type',1.1,'medicine_pinyin');
 #select * from medicine;
 insert into department_info values('department_id','department_type','department_cat','department_name');
-#select * from department_info;
+select * from department_info;
 
-insert into user_info values(1,'user_password','user_account','user_type','user_name');
-#select * from user_info;
+insert into user_info values(1,'user_password','user_account','user_type','user_name','department_id');
+select * from user_info;
 
 insert into register_level values(1,1,'register_level_level',10000, 90.6);
 #select * from register_level;
 
 insert into doctor_info values('doctor_password',false,1,'doctor_password','doctor_account','doctor_type','doctor_name',1,'department_id');
-#select * from doctor_info;
+select * from doctor_info;
 
 insert into usual_diagnose values(1,'usual_diagnose_disease_name','usual_diagnose_result',1);
 #select * from usual_diagnose;
@@ -48,7 +48,7 @@ insert into prescription_content values(1, 1,'prescription_consumption','medicin
 
 insert into medical_skill values(1, 'medical_skill_execute_state','medical_skill_result','medical_skill_type','medical_skill_name'
 ,'medical_skill_checkpoint','medical_skill_purpose',false,1,1,1,'non_medicine_id');
-#select * from medical_skill;
+select * from medical_skill;
 
 insert into template values(1,'template_type','template_name','template_range','2017-11-19',1,'non_medicine_id','medicine_id');
 #select * from template;
@@ -57,7 +57,31 @@ insert into fee_cat values('fee_cat_id','fee_cat_name');
 #select * from fee_cat;
 
 insert into bill values('bill_id',122.69,899,'1998-07-05',bill_type,'fee_cat_id',1,1,1,1);
-#select * from bill;
+select * from bill;
 
 insert into daily values(1,'2018-05-06','2018-12-21',1,'2018-04-15',true);
-#select * from daily;
+select * from daily;
+
+drop table  if exists `his`.`daily`;
+drop table if exists `his`.`bill`;
+drop table if exists `his`.`fee_cat`;
+drop table  if exists `his`.`template`;
+drop table  if exists `his`.`medical_skill`;
+drop table  if exists `his`.`prescription_content`;
+drop table if exists `his`.`prescription`;
+drop table if exists `his`.`diagnose`;
+drop table if exists  `his`.`record`;
+drop table  if exists `his`.`register_info`;
+drop table  if exists `his`.`schedule`;
+drop table  if exists `his`.`rule`;
+drop table if exists  `his`.`patient_info`;
+drop table if exists  `his`.`usual_diagnose`;
+drop table if exists  `his`.`doctor_info`;
+drop table  if exists  `his`.`register_level`;
+drop table  if exists  `his`.`user_info`;
+
+drop table if exists  `his`.`disease_info`;
+drop table if exists  `his`.`constant`;
+drop table if exists  `his`.`non_medicine`;
+drop table  if exists `his`.`medicine`;
+drop table  if exists `his`.`department_info`;

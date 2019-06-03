@@ -16,7 +16,7 @@ public class MedicineController {
     @Autowired
     private MedicineService medicineService;
 
-    @RequestMapping("/getall")
+    @RequestMapping("/get-all")
 //    返回所有药品信息
     public List<Medicine> getAllMedicines(){
         return medicineService.getAllMedicines();
@@ -50,8 +50,9 @@ public class MedicineController {
     }
 
     @RequestMapping("/delete")
-    public String deleteMedicine(@RequestBody Medicine medicine){
-        if(medicineService.deleteMedicine(medicine)){
+    public String deleteMedicine(@RequestBody JSONObject medicine_id){
+        String getString = medicine_id.getString("medicine_id");
+        if(medicineService.deleteMedicine(getString)){
             return "{\"result\":\"success\"}";
         }
         else {

@@ -31,9 +31,9 @@ public class DiseaseInfoService {
         return true;
     }
 
-    public boolean deleteDisease(DiseaseInfo diseaseInfo){
+    public boolean deleteDisease(String disease_id){
         try {
-            diseaseInfoMapper.deleteDisease(diseaseInfo);
+            diseaseInfoMapper.deleteDisease(disease_id);
         }
         catch (Exception e){
             e.printStackTrace();

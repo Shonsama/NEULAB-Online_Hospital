@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/diseaseinfo")
+@RequestMapping("/diseaseInfo")
 public class DiseaseInfoController {
     @Autowired
     private DiseaseInfoService diseaseInfoService;
 
-    @RequestMapping("/getall")
+    @RequestMapping("/get-all")
 //    显示所有疾病信息
     public List<DiseaseInfo> getAllDiseases(){
         return diseaseInfoService.getAllDiseases();
@@ -50,8 +50,9 @@ public class DiseaseInfoController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestBody DiseaseInfo diseaseInfo){
-        if(diseaseInfoService.deleteDisease(diseaseInfo)){
+    public String deleteConstant(@RequestBody JSONObject disease_id){
+        String getString = disease_id.getString("disease_id");
+        if(diseaseInfoService.deleteDisease(getString)){
             return "{\"result\":\"success\"}";
         }
         else {

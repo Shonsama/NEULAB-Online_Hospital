@@ -22,10 +22,13 @@ public class UserService {
     }
 
     public boolean checkIfExist(String user_account){
-        if(userMapper.getUser(user_account) == null){//没有该用户
+        if(userMapper.getUser(user_account).size() == 0){//没有该用户
+            System.out.println("没有该用户");
             return false;
-        }else
+        }else {
+            System.out.println("有该用户");
             return true;
+        }
     }
 
     /*检验登录*/
@@ -49,34 +52,40 @@ public class UserService {
             userMapper.addUser(user);
             return true;
         }
-        else
-            return false;//存在该用户
+        else{
+            return false;//存在相同account的用户，不允许
+        }
+
     }
 
-    public boolean deleteUser(User user){
-        String user_account = user.getUser_account();
-        if(checkIfExist(user_account) == false){
-            userMapper.deleteUser(user);
-            return true;
-        }else
+    public boolean deleteUser(String user_account){
+        if(checkIfExist(user_account) == false){//没有该用户
             return false;
+        }else{
+            userMapper.deleteUser(user_account);
+            return true;
+        }
+
     }
 
     public boolean updateUser(User user){
         String user_account = user.getUser_account();
-        if(checkIfExist(user_account) == false){
+        if(checkIfExist(user_account) == false){//没有该用户
+            return false;
+        }else{
             userMapper.updateUser(user);
             return true;
-        }else
-            return false;
+        }
+
     }
 
     public boolean updateUserPassword(User user){
         String user_account = user.getUser_account();
-        if(checkIfExist(user_account) == false){
+        if(checkIfExist(user_account) == false){//没有该用户
+            return false;
+        }else{
             userMapper.updateUserPassword(user);
             return true;
-        }else
-            return false;
+        }
     }
 }

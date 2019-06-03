@@ -33,9 +33,9 @@ public class NonMedicineService {
         return true;
     }
 
-    public boolean deleteNonMedicine(NonMedicine nonMedicine){
+    public boolean deleteNonMedicine(String non_medicine_id){
         try {
-            nonMedicineMapper.deleteNonMedicine(nonMedicine);
+            nonMedicineMapper.deleteNonMedicine(non_medicine_id);
         }
         catch (Exception e){
             e.printStackTrace();
