@@ -10,9 +10,35 @@ public class Bill {
     private Date bill_time;
     private String bill_type;
     private Integer bill_register_id;
-    private Integer bill_perscription_id;
+    private Integer bill_prescription_id;
     private Integer bill_medical_skill_id;
     private Integer bill_user_id;
+    private String bill_fee_cat_id;
+    private String bill_fee_cat_name;
+
+    public Integer getBill_prescription_id() {
+        return bill_prescription_id;
+    }
+
+    public void setBill_prescription_id(Integer bill_prescription_id) {
+        this.bill_prescription_id = bill_prescription_id;
+    }
+
+    public String getBill_fee_cat_id() {
+        return bill_fee_cat_id;
+    }
+
+    public void setBill_fee_cat_id(String bill_fee_cat_id) {
+        this.bill_fee_cat_id = bill_fee_cat_id;
+    }
+
+    public String getBill_fee_cat_name() {
+        return bill_fee_cat_name;
+    }
+
+    public void setBill_fee_cat_name(String bill_fee_cat_name) {
+        this.bill_fee_cat_name = bill_fee_cat_name;
+    }
 
     public String getBill_id() {
         return bill_id;
@@ -63,11 +89,11 @@ public class Bill {
     }
 
     public Integer getBill_perscription_id() {
-        return bill_perscription_id;
+        return bill_prescription_id;
     }
 
     public void setBill_perscription_id(Integer bill_perscription_id) {
-        this.bill_perscription_id = bill_perscription_id;
+        this.bill_prescription_id = bill_perscription_id;
     }
 
     public Integer getBill_medical_skill_id() {

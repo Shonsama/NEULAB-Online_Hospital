@@ -36,8 +36,9 @@ public class RegisterService {
     }
 
 
-    public boolean addRegisterAndBill(Register register){
+    public boolean addRegister(Register register){
         try {
+            register.setRegister_info_state(ConstantDefinition.REGISTER_STATE[0]);
             registerMapper.addRegister(register);
         }catch (Exception e){
             e.printStackTrace();
@@ -48,6 +49,7 @@ public class RegisterService {
 
     public boolean addBill(Bill bill){
         try {
+            bill.setBill_type(ConstantDefinition.BILL_TYPE[0]);
             billMapper.addBill(bill);
         }catch (Exception e){
             e.printStackTrace();
@@ -60,12 +62,13 @@ public class RegisterService {
     public boolean refund(Integer register_id) {
         Register register = registerMapper.getRegister(register_id);
         if(!register.getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])){
+            System.out.println(register.getRegister_info_state());
+            System.out.println("不满足退号条件");
             return false;
         }
         else {
-            register.setRegister_info_fee(register.getRegister_info_fee().multiply(new BigDecimal(-1)));
             try{
-                registerMapper.addRegister(register);
+                registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[3]);
                 Bill bill = billMapper.getBill(register_id);
                 bill.setBill_actual_sum(ConstantUtils.convertToNegtive(bill.getBill_actual_sum()));
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));

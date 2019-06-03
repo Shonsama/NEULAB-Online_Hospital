@@ -4,15 +4,52 @@ import java.math.BigDecimal;
 
 public class Register {
     private Integer register_info_id;
-    private Integer register_info_state;
+    private String register_info_state;
     private BigDecimal register_info_fee;
     private String register_info_pay_type;
     private Integer register_info_doctor_id;
     private Integer register_info_patient_id;
     private Integer register_info_user_id;
+
+
+    private Boolean register_info_records_book;
     private Doctor doctor;
     private Patient patient;
     private User user;
+
+
+    public Boolean getRegister_info_records_book() {
+        return register_info_records_book;
+    }
+
+    public void setRegister_info_records_book(Boolean register_info_records_book) {
+        this.register_info_records_book = register_info_records_book;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public Integer getRegister_info_id() {
         return register_info_id;
@@ -22,11 +59,11 @@ public class Register {
         this.register_info_id = register_info_id;
     }
 
-    public Integer getRegister_info_state() {
+    public String getRegister_info_state() {
         return register_info_state;
     }
 
-    public void setRegister_info_state(Integer register_info_state) {
+    public void setRegister_info_state(String register_info_state) {
         this.register_info_state = register_info_state;
     }
 
