@@ -96,9 +96,9 @@ export default {
     ],
     desserts: [
       {
-        id: 'XNH',
-        name: '新农合',
-        category: '结算类别'
+        constant_id: 'XNH',
+        constant_name: '新农合',
+        constant_type: '结算类别'
       }
     ]
   }),
