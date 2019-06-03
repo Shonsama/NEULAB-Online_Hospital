@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getall")
+    @RequestMapping("/get-all")
 //    显示所有用户信息
     public List<User> getAllUsers(){
         return userService.getAllUsers();
@@ -30,7 +30,7 @@ public class UserController {
         return userService.getUser(getString);
     }
 
-    @RequestMapping("/checkValid")
+    @RequestMapping("/check-valid")
     //检验登录
     public String checkValid(@RequestBody String user_account, @RequestBody String user_password){
         return userService.checkValid(user_account,user_password);
@@ -67,7 +67,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/updatePassword")
+    @RequestMapping("/update-password")
     public String updateUserPassword(@RequestBody User user){
         if(userService.updateUserPassword(user)){
             return "{\"result\":\"success\"}";

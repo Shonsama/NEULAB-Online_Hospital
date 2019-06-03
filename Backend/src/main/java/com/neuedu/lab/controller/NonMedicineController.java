@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/nonmedicine")
+@RequestMapping("/non-medicine")
 public class NonMedicineController {
     @Autowired
     private NonMedicineService nonMedicineService;
 
-    @RequestMapping("/getall")
+    @RequestMapping("/get-all")
 //    返回所有非药品信息
     public List<NonMedicine> getAllNonMedicines(){
         return nonMedicineService.getAllNonMedicines();
@@ -51,8 +51,9 @@ public class NonMedicineController {
     }
 
     @RequestMapping("/delete")
-    public String deleteNonMedicine(@RequestBody NonMedicine nonMedicine){
-        if(nonMedicineService.deleteNonMedicine(nonMedicine)){
+    public String deleteNonMedicine(@RequestBody JSONObject non_medicine_id){
+        String getString = non_medicine_id.getString("non_medicine_id");
+        if(nonMedicineService.deleteNonMedicine(getString)){
             return "{\"result\":\"success\"}";
         }
         else {

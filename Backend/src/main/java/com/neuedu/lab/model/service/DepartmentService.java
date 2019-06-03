@@ -1,9 +1,6 @@
 package com.neuedu.lab.model.service;
 
-import com.neuedu.lab.ConstantDefinition;
 import com.neuedu.lab.model.mapper.DepartmentMapper;
-import com.neuedu.lab.model.po.Constant;
-import com.neuedu.lab.model.mapper.ConstantMapper;
 import com.neuedu.lab.model.po.Department;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +32,9 @@ public class DepartmentService {
         return true;
     }
 
-    public boolean deleteDepartment(Department department){
+    public boolean deleteDepartment(String depatment_id){
         try {
-            departmentMapper.deleteDepartment(department);
+            departmentMapper.deleteDepartment(depatment_id);
         }
         catch (Exception e){
             e.printStackTrace();
