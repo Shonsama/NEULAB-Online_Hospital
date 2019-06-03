@@ -176,7 +176,7 @@ CREATE TABLE `his`.`schedule` (
 drop table  if exists `his`.`register_info`;
 CREATE TABLE `his`.`register_info` (
   `register_info_id` INT NOT NULL AUTO_INCREMENT,
-  `register_info_state` bool NOT NULL,
+  `register_info_state` varchar(45) NOT NULL,
   `register_info_records_book` boolean NOT NULL,
   `register_info_fee` decimal(8,2) unsigned NOT NULL,
   `register_info_pay_type` varchar(45) NOT NULL,
