@@ -18,7 +18,6 @@ public class ConstantController {
 
     @RequestMapping("/get-all")
     public List<Constant> getAllConstant(){
-        System.out.println("all constant");
         return constantService.getAllConstant();
     }
 

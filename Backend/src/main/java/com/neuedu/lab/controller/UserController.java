@@ -47,8 +47,9 @@ public class UserController {
     }
 
     @RequestMapping("/delete")
-    public String deleteUser(@RequestBody User user){
-        if(userService.deleteUser(user)){
+    public String deleteUser(@RequestBody JSONObject user_account){
+        String getString = user_account.getString("user_account");
+        if(userService.deleteUser(getString)){
             return "{\"result\":\"success\"}";
         }
         else {
