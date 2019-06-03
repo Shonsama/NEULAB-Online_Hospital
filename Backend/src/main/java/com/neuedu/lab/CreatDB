@@ -92,7 +92,7 @@ CREATE TABLE `his`.`user_info` (
   `user_account` VARCHAR(45)NOT NULL,#登录名
   `user_type` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,#真实姓名
-  `user_department_id` varchar(45) not null,
+  `user_department_id` varchar(45) null,
   PRIMARY KEY (`user_id`),
   foreign key(`user_department_id`) references `department_info` (`department_id`)
 )default charset=utf8;
@@ -101,8 +101,7 @@ CREATE TABLE `his`.`user_info` (
 drop table  if exists  `his`.`register_level`;
 CREATE TABLE `his`.`register_level` (
   `register_level_id` int NOT NULL AUTO_INCREMENT,
-  `register_level_seq_num` int NULL,
-  `register_level_level` VARCHAR(45) NULL,
+  `register_level_name` VARCHAR(45) not NULL,
   `register_level_max` int not NULL,
   `register_level_fee` decimal(8,2) unsigned not null,
   PRIMARY KEY (`register_level_id`)
@@ -121,8 +120,8 @@ CREATE TABLE `his`.`doctor_info` (
   `doctor_type` VARCHAR(45) NOT NULL,#对于医生而言，只有门诊和医技
   `doctor_name` VARCHAR(45) NOT NULL,#真实姓名
   #foreign key
-  `doctor_register_level_id` int NOT NULL,
-  `doctor_department_id` varchar(45) not null,
+  `doctor_register_level_id` int NULL,
+  `doctor_department_id` varchar(45) null,
   FOREIGN KEY  (`doctor_department_id`)  REFERENCES  `department_info` (`department_id`),
   foreign key(`doctor_register_level_id`) references `register_level` (`register_level_id`),
   PRIMARY KEY (`doctor_id`)
@@ -135,7 +134,7 @@ CREATE TABLE `his`.`usual_diagnose` (
   `usual_diagnose_disease_name` VARCHAR(45) NOT NULL,
   `usual_diagnose_result` VARCHAR(400) not NULL,
   #foreign key
-  `usual_diagnose_doctor_id` INT not null,
+  `usual_diagnose_doctor_id` INT null,
   foreign key(`usual_diagnose_doctor_id`) references `doctor_info` (`doctor_id`),
   PRIMARY KEY (`usual_diagnose_id`)
 )default charset=utf8;
@@ -160,7 +159,7 @@ CREATE TABLE `his`.`rule` (
   `rule_name` varchar(45) NOT NULL,
   `rule_work_time` varchar(45) NOT NULL,
   #foreign key
-  `rule_doctor_id` INT NOT NULL,
+  `rule_doctor_id` INT NULL,
   primary key(`rule_id`),
   foreign key(`rule_doctor_id`) references `doctor_info` (`doctor_id`)
 )default charset=utf8;
@@ -168,13 +167,11 @@ CREATE TABLE `his`.`rule` (
 #排班表
 drop table  if exists `his`.`schedule`;
 CREATE TABLE `his`.`schedule` (
+  `schedule_rule_name` varchar(45) NOT NULL,
   `schedule_start_date` date NOT NULL,
   `schedule_end_date` date NOT NULL,
-  #foreign key
   `schedule_id` int not null,
-  `schedule_doctor_id` INT not null,
-  foreign key(`schedule_id`) references `rule` (`rule_id`),
-  foreign key(`schedule_doctor_id`) references `doctor_info` (`doctor_id`)
+  primary key(`schedule_id`)
 )default charset=utf8;
 
 #挂号表
@@ -188,10 +185,7 @@ CREATE TABLE `his`.`register_info` (
   `register_info_doctor_id` INT NOT NULL,
   `register_info_patient_id` INT NOT NULL,
   `register_info_user_id` INT not null,
-  PRIMARY KEY (`register_info_id`),
-  foreign key(`register_info_doctor_id`) references `doctor_info` (`doctor_id`),
-  foreign key(`register_info_patient_id`) references `patient_info` (`patient_record_id`),
-  foreign key(`register_info_user_id`) references `user_info` (`user_id`)
+  PRIMARY KEY (`register_info_id`)
 )default charset=utf8;
 
 #病历
@@ -199,7 +193,7 @@ drop table if exists  `his`.`record`;
 CREATE TABLE `his`.`record` (
   #连外键
   `record_patient_id` INT NOT NULL,
-  `record_doctor_id` INT NOT NULL,
+  `record_doctor_id` INT NULL,
   `record_id` int not null,
   #内在属性
   `record_syndrome` VARCHAR(400) NOT NULL,
@@ -209,7 +203,6 @@ CREATE TABLE `his`.`record` (
   `record_cure_situation` VARCHAR(400) NULL,
   `record_allergy_his` VARCHAR(400) NULL,
   FOREIGN KEY  (`record_patient_id`)  REFERENCES  `patient_info` (`patient_record_id`),
-  FOREIGN KEY  (`record_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
   FOREIGN KEY  (`record_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
 
@@ -219,11 +212,10 @@ CREATE TABLE `his`.`diagnose` (
   `diagnose_id` INT NOT NULL AUTO_INCREMENT,
   `diagnose_record_id` INT NOT NULL,
   `diagnose_type` VARCHAR(45) NOT NULL,  #最终诊断 还是 初步诊断
-  `diagnose_disease_id` VARCHAR(45) NOT NULL,
-  `diagnose_disease_name` VARCHAR(45) NOT NULL ,
+  `diagnose_disease_id` VARCHAR(45) NULL,
+  `diagnose_disease_name` varchar(45) null,
   `diagnose_time` DATETIME NOT NULL DEFAULT current_timestamp,
   FOREIGN KEY  (`diagnose_record_id`)  REFERENCES  `record` (`record_id`),
-  FOREIGN KEY  (`diagnose_disease_id`)  REFERENCES  `disease_info` (`disease_id`),
   PRIMARY KEY (`diagnose_id`)
 )default charset=utf8;
 
@@ -234,12 +226,10 @@ CREATE TABLE `his`.`prescription` (
   `prescription_execute_state` varchar(45) NOT NULL,
   `prescription_type` varchar(45) NOT NULL,
   #foreign key
-  `prescription_user_id` INT NOT NULL,
-  `prescription_doctor_id` INT NOT NULL,
+  `prescription_user_id` INT NULL,
+  `prescription_doctor_id` INT NULL,
   `prescription_register_info_id` INT NOT NULL,
   PRIMARY KEY (`prescription_id`),
-  FOREIGN KEY  (`prescription_user_id`)  REFERENCES  `user_info` (`user_id`),
-  FOREIGN KEY  (`prescription_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
   FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
 
@@ -248,12 +238,11 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_id` INT NOT NULL AUTO_INCREMENT,
   `prescription_content_id` int NOT NULL ,
   `prescription_consumption` varchar(45) NOT NULL, #用量
-  `prescription_medicine_id` VARCHAR(45) NOT NULL, #药物ID
+  `prescription_medicine_id` VARCHAR(45) NULL, #药物ID
   `prescription_frequency` varchar(45) NOT NULL, #频度
   `prescription_num` int NOT NULL, #数量
   `prescription_day` int NOT NULL, #天数
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
-  FOREIGN KEY  (`prescription_medicine_id`)  REFERENCES  `medicine` (`medicine_id`),
   PRIMARY KEY (`prescription_id`)
 )default charset=utf8;
 #医技项目记录
@@ -269,13 +258,10 @@ CREATE TABLE `his`.`medical_skill` (
   `medical_skill_urgent` bool NOT NULL,
   #foreign key
   `medical_skill_register_info_id` INT NOT NULL,
-  `medical_skill_user_id` INT NOT NULL,
-  `medical_skill_doctor_id` INT NOT NULL,
-  `medical_skill_non_medical_id` varchar(45) NOT NULL,
+  `medical_skill_user_id` INT NULL,
+  `medical_skill_doctor_id` INT NULL,
+  `medical_skill_non_medical_id` varchar(45) NULL,
   FOREIGN KEY  (`medical_skill_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
-  FOREIGN KEY  (`medical_skill_user_id`)  REFERENCES  `user_info` (`user_id`),
-  FOREIGN KEY  (`medical_skill_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-  FOREIGN KEY  (`medical_skill_non_medical_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
   PRIMARY KEY (`medical_skill_id`)
 )default charset=utf8;
 
@@ -289,12 +275,10 @@ CREATE TABLE `his`.`template` (
   `template_init_date` date NOT NULL,
   #foreign key
   `template_doctor_id` INT NOT NULL,
-  `template_non_medicine_id` varchar(45) NOT NULL,
-  `template_medicine_id` varchar(45) NOT NULL,
+  `template_non_medicine_id` varchar(45) NULL,
+  `template_medicine_id` varchar(45) NULL,
   PRIMARY KEY (`template_id`),
-  FOREIGN KEY  (`template_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`),
-  FOREIGN KEY  (`template_non_medicine_id`)  REFERENCES  `non_medicine` (`non_medicine_id`),
-  FOREIGN KEY  (`template_medicine_id`)  REFERENCES  `medicine` (`medicine_id`)
+  FOREIGN KEY  (`template_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`)
 )default charset=utf8;
 
 
@@ -309,26 +293,23 @@ create table `his`.`fee_cat`(
 #发票
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
-  `bill_id` varchar(45) NOT NULL,
+  `bill_id` int not null auto_increment,
   `bill_actual_sum` decimal(8,2) unsigned NOT NULL,
   `bill_sum` decimal(8,2) unsigned NOT NULL,
   `bill_time` DATETIME  NOT NULL,
   `bill_type` varchar(45) NOT NULL,
   #foreign key
-  `bill_fee_cat_id` VARCHAR(45) not null,
+  `bill_fee_cat_id` VARCHAR(45) null,
+  `bill_fee_cat_name`varchar(45) null,
   `bill_register_id` INT NOT NULL,
   `bill_prescription_id` INT NULL,
   `bill_medical_skill_id` INT NULL,
-  `bill_user_id` INT NOT NULL,
+  `bill_user_id` INT NULL,
   FOREIGN KEY  (`bill_register_id`)  REFERENCES  `register_info` (`register_info_id`),
   FOREIGN KEY  (`bill_prescription_id`)  REFERENCES  `prescription` (`prescription_id`),
   FOREIGN KEY  (`bill_medical_skill_id`)  REFERENCES  `medical_skill` (`medical_skill_id`),
-  FOREIGN KEY  (`bill_user_id`)  REFERENCES  `user_info` (`user_id`),
-#   FOREIGN KEY  (`bill_fee_cat_id`)  REFERENCES  `fee_cat` (`fee_cat_id`),
   PRIMARY KEY (`bill_id`)
 )default charset=utf8;
-
-
 
 #日结表
 drop table  if exists `his`.`daily`;
@@ -336,11 +317,10 @@ CREATE TABLE `his`.`daily` (
   `daily_id` INT NOT NULL AUTO_INCREMENT,
   `daily_start` DATETIME NOT NULL,
   `daily_end` DATETIME NOT NULL,
-  `daily_user_id` INT NOT NULL ,
+  `daily_user_id` INT NULL ,
   `daily_operate_time` DATETIME NOT NULL ,
   `daily_pass` BOOLEAN NULL ,
-  PRIMARY KEY (`daily_id`),
-  FOREIGN KEY (`daily_user_id`) REFERENCES `user_info` (`user_id`)
+  PRIMARY KEY (`daily_id`)
 )default charset=utf8;
 
 #show TABLES ;
