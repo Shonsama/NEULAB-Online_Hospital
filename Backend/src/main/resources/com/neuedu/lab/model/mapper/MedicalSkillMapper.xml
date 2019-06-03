@@ -15,8 +15,9 @@
         DELETE FROM medical_skill WHERE medical_skill_id = #{medical_skill_id};
     </delete>
 
-    <update id="startMedicalSkill">
+    <update id="updateMedicalSkillState">
         UPDATE medical_skill SET medical_skill_execute_state = #{medical_skill_execute_state}
+        WHERE medical_skill_id = #{medical_skill_id}
     </update>
 
     <select id="getMedicalSkill" resultType="MedicalSkill">
