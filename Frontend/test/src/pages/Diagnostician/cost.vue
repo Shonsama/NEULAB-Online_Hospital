@@ -25,10 +25,12 @@
             </v-flex>
             <v-btn
               large
+              icon
+              flat
               color="primary"
               style="margin-top: 15px"
             >
-              查询
+              <v-icon>search</v-icon>
             </v-btn>
           </v-layout>
         </v-container>
@@ -64,6 +66,7 @@
           <td class="justify-center layout px-0">
             <v-icon
               small
+              color="primary"
               class="mr-2"
               @click="editItem(props.item)"
             >
@@ -71,6 +74,7 @@
             </v-icon>
             <v-icon
               small
+              color="primary"
               @click="deleteItem(props.item)"
             >
               delete

@@ -5,22 +5,29 @@
       <v-toolbar flat dense>
         <v-toolbar-title>日结表</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn
-          icon
-          flat
-          color="primary"
-          @click="expand = !expand"
+        <el-date-picker
+          v-model="date"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          style="margin-right: 10px"
         >
-          <v-icon>
-            add
-          </v-icon>
+        </el-date-picker>
+        <v-btn
+          class="white--text"
+          color="primary"
+          flat
+          icon
+        >
+          <v-icon>search</v-icon>
         </v-btn>
       </v-toolbar>
       <v-data-table
         v-model="selected"
         :headers="headers"
         :items="desserts"
-        item-key="name"
+        item-key="code"
         select-all
       >
         <template v-slot:items="props">
@@ -31,12 +38,10 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
+          <td>{{ props.item.code }}</td>
+          <td class="text-xs-right">{{ props.item.time }}</td>
+          <td class="text-xs-right">{{ props.item.type }}</td>
+          <td class="text-xs-right">{{ props.item.cost }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               small
@@ -55,28 +60,14 @@
         </template>
       </v-data-table>
     </v-flex>
-
     <v-divider></v-divider>
-
     <v-card-actions>
       <v-spacer></v-spacer>
-
-      <el-date-picker
-        class="elevation-1"
-        v-model="value7"
-        type="datetimerange"
-        align="right"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        :default-time="['12:00:00', '08:00:00']"
-        style="margin-right: 10px"
-      >
-      </el-date-picker>
       <v-btn
         class="white--text"
         color="primary"
       >
-        保存
+        结算
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -84,7 +75,46 @@
 
 <script>
 export default {
-  name: 'dailySum'
+  data () {
+    return {
+      date: ['', ''],
+      desserts: [{
+        code: '1',
+        cost: '11',
+        state: '1',
+        type: '1',
+        time: '1'
+      },
+      {
+        code: '11',
+        cost: '111',
+        state: '11',
+        type: '11',
+        time: '1'
+      }],
+      headers: [{
+        text: '发票号',
+        align: 'left',
+        value: 'code'
+      },
+      {text: '结算类型', value: 'type'},
+      {text: '收费时间', value: 'time'},
+      {text: '收费金额', value: 'cost'},
+      {text: '操作', value: 'operation', sortable: false}],
+      selected: ''
+    }
+  },
+  created: function () {
+    this.getDate()
+  },
+  mounted: function () {
+  },
+  methods: {
+    getDate: function () {
+      this.date[0] = new Date(2019, 5, 1, 10, 10)
+      this.date[1] = new Date()
+    }
+  }
 }
 </script>
 
