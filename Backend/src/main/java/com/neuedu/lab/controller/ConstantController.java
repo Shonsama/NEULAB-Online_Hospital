@@ -46,12 +46,11 @@ public class ConstantController {
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestBody Constant constant){
+    public JSONObject deleteConstant(@RequestBody Constant constant){
         if(constantService.deleteConstant(constant)){
-            return "{\"result\":\"success\"}";
-        }
+            return ConstantUtils.responseSuccess(null);        }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
