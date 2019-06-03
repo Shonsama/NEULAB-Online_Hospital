@@ -1,4 +1,4 @@
-package com.neuedu.lab;
+package com.neuedu.lab.Utils;
 
 public class ExceptionHandler {
     public static void soutError(String s){

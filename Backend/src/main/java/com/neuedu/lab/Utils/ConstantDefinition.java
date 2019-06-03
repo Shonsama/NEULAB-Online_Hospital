@@ -1,4 +1,4 @@
-package com.neuedu.lab;
+package com.neuedu.lab.Utils;
 
 public class ConstantDefinition {
     public static final boolean DEBUG_MODE = true;
@@ -8,4 +8,12 @@ public class ConstantDefinition {
     public static final String[] PRESCRIPTION_EXECUTE_STATE = {"已暂存","已发送","已作废","已缴费","已领药","已退费"};
     //只有暂存状态下的处方是可以修改或删除的,其他状态不可以
     //开立之后的处方是不能被删除的，可以点击“作废”，作废处方。作废处方是指收款人员页面看不到处方信息，也不能进行划价收款。
+
+    public static final String SUCCESS_MESSAGE = "SUCCESS";
+    public static final String FAIL_MESSAGE = "FAIL";
+
+    public static final Integer SUCCESS_CODE = 200;
+    public static final Integer FAIL_CODE = 400;
+
+
 }
