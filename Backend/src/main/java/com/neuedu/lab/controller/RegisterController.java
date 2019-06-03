@@ -28,7 +28,7 @@ public class RegisterController {
 
     @RequestMapping("/submit")
     public JSONObject registerSubmit(@RequestBody Register register){
-        if(registerService.addRegisterAndBill(register)){
+        if(registerService.addRegister(register)){
             return ConstantUtils.responseSuccess(null);
         }
         else {

@@ -10,10 +10,23 @@
         #{register_info_pay_type}, #{register_info_doctor_id}, #{register_info_patient_id}, #{register_info_user_id})
     </insert>
 
-    <select id="getRegister" parameterType="Integer">
+    <select id="getRegister" parameterType="Integer" resultType="Register">
         SELECT * FROM his.register_info
         WHERE register_info_id = #{register_id}
     </select>
+
+    <select id="getRegisterByDoctorId" parameterType="Integer" resultType="Register">
+        SELECT * FROM his.register_info
+        WHERE register_info_doctor_id = #{doctor_id}
+    </select>
+
+    <select id="getRegisterByDoctorIdAndPatientName" resultType="Register">
+        SELECT * FROM his.register_info, his.patient_info
+        WHERE register_info_doctor_id = #{doctor_id}
+        AND register_info.register_info_patient_id = patient_info.patient_record_id
+        AND patient_name = #{patient_name}
+    </select>
+
 
     <update id="updateRegisterState">
         UPDATE register_info SET register_info_state = #{register_info_state}
