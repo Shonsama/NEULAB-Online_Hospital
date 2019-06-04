@@ -209,7 +209,7 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      var non_medicine = {
+      var data = {
         non_medicine_id: this.non_medicine_id,
         non_medicine_name: this.non_medicine_name,
         non_medicine_type: this.non_medicine_type,
@@ -218,7 +218,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/non_medicine/add'
-      this.$http.post(url, non_medicine)
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
@@ -230,7 +230,7 @@ export default {
       console.log(this.signal)
     },
     updateItem: function () {
-      var non_medicine = {
+      var data = {
         non_medicine_id: this.non_medicine_id,
         non_medicine_name: this.non_medicine_name,
         non_medicine_type: this.non_medicine_type,
@@ -239,7 +239,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/non_medicine/update'
-      this.$http.post(url, non_medicine)
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data

@@ -209,7 +209,7 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      var register_level = {
+      var data = {
         register_level_id: this.register_level_id,
         register_level_seq_num: this.register_level_seq_num,
         register_level_level: this.register_level_level,
@@ -218,7 +218,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/RegisterLevel/add'
-      this.$http.post(url, register_level)
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
@@ -230,7 +230,7 @@ export default {
       console.log(this.signal)
     },
     updateItem: function () {
-      var register_level = {
+      var data = {
         register_level_id: this.register_level_id,
         register_level_seq_num: this.register_level_seq_num,
         register_level_level: this.register_level_level,
@@ -239,7 +239,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/RegisterLevel/update'
-      this.$http.post(url, register_level)
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
