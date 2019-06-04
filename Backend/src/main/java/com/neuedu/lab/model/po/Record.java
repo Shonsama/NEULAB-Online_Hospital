@@ -12,6 +12,15 @@ public class Record {
     private String record_jiwangshi;
     private String record_cure_situation;
     private String record_allergy_his;
+    private boolean record_final_submit;
+
+    public boolean getRecord_final_submit() {
+        return record_final_submit;
+    }
+
+    public void setRecord_final_submit(boolean record_final_submit) {
+        this.record_final_submit = record_final_submit;
+    }
 
     public List<Diagnose> getDiagnoses() {
         return diagnoses;

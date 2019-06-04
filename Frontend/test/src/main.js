@@ -27,7 +27,7 @@ import 'echarts-gl'
 // })
 //
 // Vue.use(axios, instance)
-// Vue.prototype.HOME = '/api'
+Vue.prototype.HOME = 'http://www.wangpeng.pub'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)

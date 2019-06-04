@@ -58,10 +58,13 @@ public class DoctorService {
             Boolean record_final_sumbit = recordMapper.getRecordFinalSubmitById(record.getRecord_id());
             if(record_final_sumbit== null){
                 recordMapper.addRecord(record);
+
                 List<Diagnose> diagnoses = record.getDiagnoses();
-                for(int i = 0; i<diagnoses.size(); i++){
-                    diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
-                    diagnoseMapper.addDiagnose(diagnoses.get(i));
+                if(diagnoses!=null){ //如果有初步诊断病
+                    for(int i = 0; i<diagnoses.size(); i++){
+                        diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
+                        diagnoseMapper.addDiagnose(diagnoses.get(i));
+                    }
                 }
                 return true;
             }
@@ -82,8 +85,8 @@ public class DoctorService {
     //新增医技项目
     public boolean addMedicalSkill(MedicalSkill medicalSkill){
         try{
-            medicalSkillMapper.addMedicalSkill(medicalSkill);
             medicalSkill.setMedical_skill_excute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
+            medicalSkillMapper.addMedicalSkill(medicalSkill);
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -152,6 +155,7 @@ public class DoctorService {
     //开立处方
     public boolean addPrescription(Prescription prescription){
         try{
+            prescription.setPrescription_execute_state(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[0]);
             prescriptionMapper.addPrescription(prescription);
         }catch (Exception e){
             e.printStackTrace();
@@ -174,9 +178,19 @@ public class DoctorService {
     }
 
     //发送处方,作废处方
-    public boolean updatePrescription(Integer prescription_id,String prescription_execute_state){
+    public boolean sendPrescription(Integer prescription_id) {
         try {
-            prescriptionMapper.updatePrescriptionState(prescription_id,prescription_execute_state);
+            prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1]);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean endPrescription(Integer prescription_id) {
+        try {
+            prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[2]);
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -221,24 +235,4 @@ public class DoctorService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+}
