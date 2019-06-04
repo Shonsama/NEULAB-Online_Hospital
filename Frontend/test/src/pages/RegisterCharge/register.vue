@@ -198,7 +198,6 @@
           md3
         >
           <v-select
-            :change="load_doctors(department_id)"
             v-model="departmentId"
             :items="departments"
             item-text="department_name"
@@ -217,8 +216,8 @@
           <v-select
             v-model="doctor_id"
             :items="doctors"
-            :item-text="doctor_name"
-            :item-value="doctor_id"
+            item-text="doctor_name"
+            item-value="doctor_id"
             :rules="doctorRules"
             label="看诊医生"
             return-object
@@ -226,7 +225,6 @@
             placeholder="请选择看诊医生"
           ></v-select>
         </v-flex>
-
         <v-flex xs12 md2>
           <v-checkbox
             v-model="checkbox"
@@ -375,6 +373,9 @@ export default {
       console.log(newState)
       var date1 = new Date(newState.replace(/-/, '/'))
       this.patient_age = date.getFullYear() - date1.getFullYear()
+    },
+    departmentId: function (newState) {
+      this.load_doctors(newState.department_id)
     }
   },
   mounted: function () {
@@ -422,7 +423,7 @@ export default {
     },
     load_departs: function () {
       var that = this
-      var url = this.HOME + '/department/getall'
+      var url = this.HOME + '/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -440,6 +441,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.doctors = response.data.data
         })
     },
     refund: function (id) {

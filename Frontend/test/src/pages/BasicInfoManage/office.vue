@@ -195,7 +195,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
-          if (that.signal.result === 'success') {
+          if (that.signal.msg === 'SUCCESS') {
             that.load()
           }
         })
@@ -214,7 +214,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
-          if (that.signal.result === 'success') {
+          if (that.signal.msg === 'SUCCESS') {
             that.load()
             that.show = !that.show
           }
@@ -234,7 +234,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
-          if (that.signal.result === 'success') {
+          if (that.signal.msg === 'SUCCESS') {
             that.load()
             that.show = !that.show
             that.eraseForm()

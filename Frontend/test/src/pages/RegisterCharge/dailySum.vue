@@ -39,24 +39,9 @@
             ></v-checkbox>
           </td>
           <td>{{ props.item.code }}</td>
-          <td class="text-xs-right">{{ props.item.time }}</td>
-          <td class="text-xs-right">{{ props.item.type }}</td>
-          <td class="text-xs-right">{{ props.item.cost }}</td>
-          <td class="justify-center layout px-0">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
-          </td>
+          <td>{{ props.item.type }}</td>
+          <td>{{ props.item.time }}</td>
+          <td>{{ props.item.cost }}</td>
         </template>
       </v-data-table>
     </v-flex>
@@ -99,13 +84,14 @@ export default {
       },
       {text: '结算类型', value: 'type'},
       {text: '收费时间', value: 'time'},
-      {text: '收费金额', value: 'cost'},
-      {text: '操作', value: 'operation', sortable: false}],
+      {text: '收费金额', value: 'cost'}],
       selected: ''
     }
   },
   created: function () {
     this.getDate()
+  },
+  computed: {
   },
   mounted: function () {
   },

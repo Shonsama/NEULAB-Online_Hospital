@@ -14,7 +14,7 @@
                 :error-messages="errorMessages"
                 label="挂号级别ID"
                 placeholder="请输入科室编号"
-                :disabled="!mode"
+                :disabled="true"
                 required
               ></v-text-field>
               <v-text-field
@@ -210,7 +210,6 @@ export default {
     },
     addItem: function () {
       var data = {
-        register_level_id: this.register_level_id,
         register_level_seq_num: this.register_level_seq_num,
         register_level_level: this.register_level_level,
         register_level_max: this.register_level_max,

@@ -177,7 +177,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/disease/get-all'
+      var url = this.HOME + '/diseaseInfo/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -187,7 +187,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/disease/delete'
+      var url = this.HOME + '/diseaseInfo/delete'
       this.$http.post(url, {disease_id: item.disease_id})
         .then(function (response) {
           console.log(response.data)
@@ -206,7 +206,7 @@ export default {
         disease_type: this.disease_type
       }
       let that = this
-      var url = this.HOME + '/disease/add'
+      var url = this.HOME + '/diseaseInfo/add'
       this.$http.post(url, disease)
         .then(function (response) {
           console.log(response.data)
@@ -226,7 +226,7 @@ export default {
         disease_type: this.disease_type
       }
       let that = this
-      var url = this.HOME + '/disease/update'
+      var url = this.HOME + '/diseaseInfo/update'
       this.$http.post(url, disease)
         .then(function (response) {
           console.log(response.data)

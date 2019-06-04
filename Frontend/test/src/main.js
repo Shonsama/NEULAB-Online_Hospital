@@ -28,6 +28,8 @@ import 'echarts-gl'
 //
 // Vue.use(axios, instance)
 Vue.prototype.HOME = 'http://www.wangpeng.pub'
+// Vue.prototype.HOME = 'http://lcoalhost:80/'
+
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)
