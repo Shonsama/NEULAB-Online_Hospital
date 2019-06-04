@@ -1,12 +1,21 @@
 package com.neuedu.lab.model.po;
 
 public class PrescriptionContent {
+    private Integer prescription_content_id;
     private Integer prescription_id;
     private String prescription_consumption;
     private String prescription_medicine_id;
     private String prescription_frequency;
     private Integer prescription_num;
     private Integer prescription_day;
+
+    public Integer getPrescription_content_id() {
+        return prescription_content_id;
+    }
+
+    public void setPrescription_content_id(Integer prescription_content_id) {
+        this.prescription_content_id = prescription_content_id;
+    }
 
     public Integer getPrescription_id() {
         return prescription_id;

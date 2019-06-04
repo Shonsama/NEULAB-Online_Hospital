@@ -175,7 +175,7 @@ public class DoctorController {
     //删除药品
     @RequestMapping("/delete-medicine")
     public JSONObject deleteMedicine(@RequestBody JSONObject request){
-        if(doctorService.deletePrescriptionContent(request.getInteger("prescription_id"))){
+        if(doctorService.deletePrescriptionContent(request.getInteger("prescription_content_id"))){
             return ConstantUtils.responseSuccess(null);
         }
         else {
@@ -185,7 +185,7 @@ public class DoctorController {
 
 
     //诊毕
-    @RequestMapping("/finsh")
+    @RequestMapping("/finish")
     public JSONObject finish(@RequestBody JSONObject request){
         if(doctorService.finish(request.getInteger("register_id"))){
             return ConstantUtils.responseSuccess(null);

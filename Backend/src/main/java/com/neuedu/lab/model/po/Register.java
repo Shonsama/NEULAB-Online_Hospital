@@ -10,8 +10,6 @@ public class Register {
     private Integer register_info_doctor_id;
     private Integer register_info_patient_id;
     private Integer register_info_user_id;
-
-
     private Boolean register_info_records_book;
     private Doctor doctor;
     private Patient patient;

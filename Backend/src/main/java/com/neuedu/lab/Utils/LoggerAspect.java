@@ -23,11 +23,11 @@ public class LoggerAspect {
 
     @Before(value = "executeService()")
     public void doBefore(JoinPoint joinPoint){
-        System.out.println("before");
+        System.out.println("[A request start]");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        printInfo("[URL] : " + request.getRequestURL().toString());
-        printInfo("[HTTP_METHOD] : " + request.getMethod());
+        printInfo("URL : " + request.getRequestURL().toString());
+        printInfo("HTTP_METHOD : " + request.getMethod());
         printInfo("IP : " + request.getRemoteAddr());
         printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         printInfo("ARGS : " + Arrays.toString(joinPoint.getArgs()));
@@ -38,6 +38,13 @@ public class LoggerAspect {
 //        printInfo("[CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         printInfo("RESPONSE : " + response);
     }
+
+    @After(value = "executeService()")
+    public void doAfter(JoinPoint joinPoint){
+        printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        System.out.println("[A request end]");
+    }
+
 
 
     public void printInfo(String s){
