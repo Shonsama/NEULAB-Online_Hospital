@@ -44,4 +44,8 @@ public class ConstantUtils {
         result.put("msg",msg);
         return result;
     }
+
+    public static void printInfo(String s){
+        System.out.println("[INFO]"+s);
+    }
 }

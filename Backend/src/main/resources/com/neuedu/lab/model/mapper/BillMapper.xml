@@ -13,4 +13,9 @@
         SELECT * FROM his.bill
         WHERE bill_register_id = #{register_id}
     </select>
+
+    <select id="getBillForOneRecord" resultType="Bill">
+        SELECT * FROM bill
+        WHERE bill_register_id = #{register_id}
+    </select>
 </mapper>

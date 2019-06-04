@@ -32,6 +32,9 @@
             UPDATE register_info SET register_info_state = #{register_info_state}
         WHERE register_info_id = #{register_id}
     </update>
-
+    <select id="getRegistersByPatientId" resultType="Register">
+        SELECT * FROM register_info
+        WHERE register_info_patient_id = #{register_info_patient_id}
+    </select>
 
 </mapper>

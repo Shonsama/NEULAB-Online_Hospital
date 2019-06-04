@@ -34,21 +34,21 @@ public class UserController {
     @RequestMapping("/get")
 //    查询某一用户/医生信息
     public JSONObject getUser(@RequestBody JSONObject request){
-        if(userService.getUser(request.getString("user_account")).size() != 0){
-            return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_account")));
+        if(userService.getUser(request.getString("user_id")) != null){
+            return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_id")));
         }else{
-            return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_account")));
+            return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_id")));
         }
     }
 
     @RequestMapping("/check-valid")
     //检验登录
     public JSONObject checkValid(@RequestBody JSONObject request){
-        if(userService.getUser(request.getString("user_account")).size() != 0){
-            return ConstantUtils.responseSuccess(userService.checkUserIfExist("user_account"));
+        if(request.getString("user_account") != null){
+            return userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
         }
         else{
-            return ConstantUtils.responseSuccess(userService.checkDoctorIfExist("doctor_account"));
+            return userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));
         }
     }
 
@@ -71,13 +71,15 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("/delete-user")
     public JSONObject deleteUser(@RequestBody JSONObject request){
-        if(userService.getUser(request.getString("user_account")).size() != 0){
-            return ConstantUtils.responseSuccess(userService.deleteUser(request.getString("user_account")));
-        }else{
-            return ConstantUtils.responseSuccess(userService.deleteDoctor(request.getString("doctor_account")));
-        }
+        return ConstantUtils.responseSuccess(userService.deleteUser(request.getString("user_account")));
+
+    }
+
+    @RequestMapping("/delete-doctor")
+    public JSONObject deleteDoctor(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(userService.deleteDoctor(request.getString("doctor_account")));
     }
 
     @RequestMapping("/update-user")
@@ -101,8 +103,8 @@ public class UserController {
     }
 
     @RequestMapping("/update-doctor")
-    public JSONObject updateDoctor(@RequestBody User user){
-        if(userService.updateUser(user)){
+    public JSONObject updateDoctor(@RequestBody Doctor doctor){
+        if(userService.updateDoctor(doctor)){
             return ConstantUtils.responseSuccess(null);
         }
         else {
