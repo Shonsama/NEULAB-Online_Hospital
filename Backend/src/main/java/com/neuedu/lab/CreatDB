@@ -237,8 +237,8 @@ CREATE TABLE `his`.`prescription` (
 
 drop table if exists `his`.`prescription_content`;
 CREATE TABLE `his`.`prescription_content` (
-  `prescription_id` INT NOT NULL AUTO_INCREMENT,
-  `prescription_content_id` int NOT NULL ,
+  `prescription_content_id` int NOT NULL AUTO_INCREMENT ,
+  `prescription_id` INT NOT NULL ,
   `prescription_consumption` varchar(45) NOT NULL, #用量
   `prescription_medicine_id` VARCHAR(45) NULL, #药物ID
   `prescription_frequency` varchar(45) NOT NULL, #频度
@@ -252,7 +252,7 @@ drop table  if exists `his`.`medical_skill`;
 CREATE TABLE `his`.`medical_skill` (
   `medical_skill_id` int NOT NULL AUTO_INCREMENT,
   `medical_skill_execute_state` varchar(45) not null,
-  `medical_skill_result` varchar(400) NOT NULL,
+  `medical_skill_result` varchar(400) NULL,
   `medical_skill_type` varchar(45) NOT NULL,
   `medical_skill_name` varchar(45) NOT NULL,
   `medical_skill_checkpoint` varchar(45) NOT NULL,
