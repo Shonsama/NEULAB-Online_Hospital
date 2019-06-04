@@ -244,7 +244,7 @@ export default {
     load: function () {
       let that = this
       // that.users = []
-      var url = this.HOME + '/user/getall'
+      var url = this.HOME + '/user/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -279,13 +279,13 @@ export default {
           //   }
           //   that.user.append(userTemp)
           // }
-          url = this.HOME + '/doctor/getall'
-          this.$http.post(url, {
-          })
-            .then(function (response) {
-              console.log(response.data)
-              that.doctors = response.data
-            })
+        })
+      url = this.HOME + '/user/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.doctors = response.data
           for (let i = 0; i < that.doctors.length; i++) {
             // let doctor = that.temUser[i]
             var tempDoctor = {

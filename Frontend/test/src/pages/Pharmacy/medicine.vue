@@ -118,9 +118,8 @@
 </template>
 
 <script>
-  export default {
-    name: 'check'
-  }
+export default {
+}
 </script>
 
 <style scoped>

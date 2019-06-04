@@ -180,7 +180,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/department/getall'
+      var url = this.HOME + '/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

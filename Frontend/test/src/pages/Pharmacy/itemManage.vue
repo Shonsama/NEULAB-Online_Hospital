@@ -199,159 +199,159 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      mode: true,
-      medicine_id: '',
-      medicine_name: '',
-      medicine_usage: '',
-      medicine_specifications: '',
-      medicine_unit: '',
-      medicine_factory: '',
-      medicine_formulation: '',
-      medicine_type: '',
-      medicine_unit_price: '',
-      medicine_pinyin: '',
-      show: false,
-      search: '',
-      expand: false,
-      selected: [],
-      signal: '',
-      headers: [
-        {
-          text: '药品编号',
-          align: 'left',
-          value: 'medicine_id'
-        },
-        { text: '药品名称', value: 'medicine_name' },
-        { text: '药品用法', value: 'medicine_usage' },
-        { text: '药品规格', value: 'medicine_specifications' },
-        { text: '药品单位', value: 'medicine_unit' },
-        { text: '药品厂家', value: 'medicine_factory' },
-        { text: '药品剂型', value: 'medicine_formulation' },
-        { text: '药品类型', value: 'medicine_type' },
-        { text: '药品单价', value: 'medicine_unit_price' },
-        { text: '药品拼音码', value: 'medicine_pinyin' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: []
-    }),
-    methods: {
-      load: function () {
-        let that = this
-        var url = this.HOME + '/medicine/getall'
-        this.$http.post(url, {
+export default {
+  data: () => ({
+    mode: true,
+    medicine_id: '',
+    medicine_name: '',
+    medicine_usage: '',
+    medicine_specifications: '',
+    medicine_unit: '',
+    medicine_factory: '',
+    medicine_formulation: '',
+    medicine_type: '',
+    medicine_unit_price: '',
+    medicine_pinyin: '',
+    show: false,
+    search: '',
+    expand: false,
+    selected: [],
+    signal: '',
+    headers: [
+      {
+        text: '药品编号',
+        align: 'left',
+        value: 'medicine_id'
+      },
+      { text: '药品名称', value: 'medicine_name' },
+      { text: '药品用法', value: 'medicine_usage' },
+      { text: '药品规格', value: 'medicine_specifications' },
+      { text: '药品单位', value: 'medicine_unit' },
+      { text: '药品厂家', value: 'medicine_factory' },
+      { text: '药品剂型', value: 'medicine_formulation' },
+      { text: '药品类型', value: 'medicine_type' },
+      { text: '药品单价', value: 'medicine_unit_price' },
+      { text: '药品拼音码', value: 'medicine_pinyin' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: []
+  }),
+  methods: {
+    load: function () {
+      let that = this
+      var url = this.HOME + '/medicine/getall'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
         })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts = response.data
-          })
-      },
-      deleteItem: function (item) {
-        let that = this
-        var url = this.HOME + '/medicine/delete'
-        this.$http.post(url, {medicine_id: item.medicine_id})
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-            }
-          })
-        console.log(this.signal)
-      },
-      addItem: function () {
-        var medicine = {
-          medicine_id: this.medicine_id,
-          medicine_name: this.medicine_name,
-          medicine_usage: this.medicine_usage,
-          medicine_specifications: this.medicine_specifications,
-          medicine_unit: this.medicine_unit,
-          medicine_factory: this.medicine_factory,
-          medicine_formulation: this.medicine_formulation,
-          medicine_type: this.medicine_type,
-          medicine_unit_price: this.medicine_unit_price,
-          medicine_pinyin: this.medicine_pinyin
-        }
-        let that = this
-        var url = this.HOME + '/medicine/add'
-        this.$http.post(url, medicine)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-              that.show = !that.show
-            }
-          })
-        console.log(this.signal)
-      },
-      updateItem: function () {
-        var medicine = {
-          medicine_id: this.medicine_id,
-          medicine_name: this.medicine_name,
-          medicine_usage: this.medicine_usage,
-          medicine_specifications: this.medicine_specifications,
-          medicine_unit: this.medicine_unit,
-          medicine_factory: this.medicine_factory,
-          medicine_formulation: this.medicine_formulation,
-          medicine_type: this.medicine_type,
-          medicine_unit_price: this.medicine_unit_price,
-          medicine_pinyin: this.medicine_pinyin
-        }
-        let that = this
-        var url = this.HOME + '/medicine/update'
-        this.$http.post(url, medicine)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-              that.show = !that.show
-              that.eraseForm()
-            }
-          })
-        console.log(this.signal)
-      },
-      fillForm: function (item) {
-        this.medicine_id = item.medicine_id
-        this.medicine_name = item.medicine_name
-        this.medicine_usage = item.medicine_usage
-        this.medicine_specifications = item.medicine_specifications
-        this.medicine_unit = item.medicine_unit
-        this.medicine_factory = item.medicine_factory
-        this.medicine_formulation = item.medicine_formulation
-        this.medicine_type = item.medicine_type
-        this.medicine_unit_price = item.medicine_unit_price
-        this.medicine_pinyin = item.medicine_pinyin
-      },
-      eraseForm: function () {
-        this.medicine_id = ''
-        this.medicine_name = ''
-        this.medicine_usage = ''
-        this.medicine_specifications = ''
-        this.medicine_unit = ''
-        this.medicine_factory = ''
-        this.medicine_formulation = ''
-        this.medicine_type = ''
-        this.medicine_unit_price = ''
-        this.medicine_pinyin = ''
+    },
+    deleteItem: function (item) {
+      let that = this
+      var url = this.HOME + '/medicine/delete'
+      this.$http.post(url, {medicine_id: item.medicine_id})
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+          }
+        })
+      console.log(this.signal)
+    },
+    addItem: function () {
+      var medicine = {
+        medicine_id: this.medicine_id,
+        medicine_name: this.medicine_name,
+        medicine_usage: this.medicine_usage,
+        medicine_specifications: this.medicine_specifications,
+        medicine_unit: this.medicine_unit,
+        medicine_factory: this.medicine_factory,
+        medicine_formulation: this.medicine_formulation,
+        medicine_type: this.medicine_type,
+        medicine_unit_price: this.medicine_unit_price,
+        medicine_pinyin: this.medicine_pinyin
       }
+      let that = this
+      var url = this.HOME + '/medicine/add'
+      this.$http.post(url, medicine)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+          }
+        })
+      console.log(this.signal)
+    },
+    updateItem: function () {
+      var medicine = {
+        medicine_id: this.medicine_id,
+        medicine_name: this.medicine_name,
+        medicine_usage: this.medicine_usage,
+        medicine_specifications: this.medicine_specifications,
+        medicine_unit: this.medicine_unit,
+        medicine_factory: this.medicine_factory,
+        medicine_formulation: this.medicine_formulation,
+        medicine_type: this.medicine_type,
+        medicine_unit_price: this.medicine_unit_price,
+        medicine_pinyin: this.medicine_pinyin
+      }
+      let that = this
+      var url = this.HOME + '/medicine/update'
+      this.$http.post(url, medicine)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+            that.eraseForm()
+          }
+        })
+      console.log(this.signal)
+    },
+    fillForm: function (item) {
+      this.medicine_id = item.medicine_id
+      this.medicine_name = item.medicine_name
+      this.medicine_usage = item.medicine_usage
+      this.medicine_specifications = item.medicine_specifications
+      this.medicine_unit = item.medicine_unit
+      this.medicine_factory = item.medicine_factory
+      this.medicine_formulation = item.medicine_formulation
+      this.medicine_type = item.medicine_type
+      this.medicine_unit_price = item.medicine_unit_price
+      this.medicine_pinyin = item.medicine_pinyin
+    },
+    eraseForm: function () {
+      this.medicine_id = ''
+      this.medicine_name = ''
+      this.medicine_usage = ''
+      this.medicine_specifications = ''
+      this.medicine_unit = ''
+      this.medicine_factory = ''
+      this.medicine_formulation = ''
+      this.medicine_type = ''
+      this.medicine_unit_price = ''
+      this.medicine_pinyin = ''
+    }
 
-    },
-    mounted: function () {
-      this.load()
-    },
-    computed: {
-    },
-    watch: {
-      show: function (newState, oldState) {
-        if (newState === false) {
-          this.eraseForm()
-        }
+  },
+  mounted: function () {
+    this.load()
+  },
+  computed: {
+  },
+  watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
       }
     }
   }
+}
 </script>
 
 <style scoped>

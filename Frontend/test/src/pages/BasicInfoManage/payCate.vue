@@ -167,17 +167,17 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/constant/getall'
+      var url = this.HOME + '/constant/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.desserts = response.data.data
         })
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/Constant/delete'
+      var url = this.HOME + '/constant/delete'
       this.$http.post(url, {constant_id: item.constant_id})
         .then(function (response) {
           console.log(response.data)
