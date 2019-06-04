@@ -11,6 +11,8 @@ public interface RegisterMapper {
 
     public Register getRegister(Integer register_id);
 
+    public List<Register> getRegistersByPatientId(Integer register_info_patient_id);
+
     public List<Register> getRegisterByDoctorId(Integer doctor_id);
 
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name);

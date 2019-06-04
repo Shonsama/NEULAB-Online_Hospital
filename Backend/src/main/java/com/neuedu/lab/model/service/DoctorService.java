@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -21,6 +24,8 @@ public class DoctorService {
     private MedicalSkillMapper medicalSkillMapper;
     @Resource
     private PrescriptionMapper prescriptionMapper;
+    @Resource
+    private BillMapper billMapper;
 
     @Resource
     private DiagnoseMapper diagnoseMapper;
@@ -234,5 +239,12 @@ public class DoctorService {
     }
 
 
-
+    public JSONArray getFeeRecords(Integer patient_record_id) {
+        JSONArray data = new JSONArray();
+        List<Register> registers = registerMapper.getRegistersByPatientId(patient_record_id);
+        for(int i = 0; i<registers.size();i++){
+            data.add(billMapper.getBillForOneRecord(registers.get(i).getRegister_info_id()));
+        }
+        return data;
+    }
 }

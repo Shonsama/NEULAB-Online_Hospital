@@ -195,4 +195,10 @@ public class DoctorController {
         }
     }
 
+    //查询患者本次看病
+    @RequestMapping("/get-fee-records")
+    public JSONObject fee(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.getFeeRecords(request.getInteger("patient_record_id")));
+    }
+
 }
