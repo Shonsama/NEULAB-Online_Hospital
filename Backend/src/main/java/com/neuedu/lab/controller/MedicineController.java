@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/medicine")
 public class MedicineController {
@@ -19,8 +17,8 @@ public class MedicineController {
 
     @RequestMapping("/get-all")
 //    返回所有药品信息
-    public List<Medicine> getAllMedicines(){
-        return medicineService.getAllMedicines();
+    public JSONObject getAllMedicines(){
+        return ConstantUtils.responseSuccess(medicineService.getAllMedicines());
     }
 
     @RequestMapping("/get")

@@ -16,10 +16,6 @@ public class RegisterController {
     @Autowired
     private RegisterService registerService;
 
-/*    @RequestMapping("/get-all-department")
-    public List<Department> getAllDepartment(){
-        return registerService.getAllDepartments();
-    }*/
 
     @RequestMapping("/get-all-doctor")
     public JSONObject getAllDoctorsByDepartment(@RequestBody JSONObject request){
