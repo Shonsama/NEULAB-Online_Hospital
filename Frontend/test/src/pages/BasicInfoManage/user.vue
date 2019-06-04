@@ -244,7 +244,7 @@ export default {
     load: function () {
       let that = this
       // that.users = []
-      var url = 'http://www.wangpeng.pub/user/get-all'
+      var url = this.HOME + '/user/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -280,7 +280,7 @@ export default {
           //   that.user.append(userTemp)
           // }
         })
-      url = 'http://www.wangpeng.pub/doctor/get-all'
+      url = this.HOME + '/user/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

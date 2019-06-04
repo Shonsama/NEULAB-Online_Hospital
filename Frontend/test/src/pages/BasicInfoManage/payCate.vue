@@ -167,7 +167,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = 'http://www.wangpeng.pub/constant/get-all'
+      var url = this.HOME + '/constant/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -177,7 +177,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/Constant/delete'
+      var url = this.HOME + '/constant/delete'
       this.$http.post(url, {constant_id: item.constant_id})
         .then(function (response) {
           console.log(response.data)

@@ -187,7 +187,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = 'http://www.wangpeng.pub/non_medicine/get-all'
+      var url = this.HOME + '/non_medicine/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

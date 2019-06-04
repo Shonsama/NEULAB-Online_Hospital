@@ -180,7 +180,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = 'http://www.wangpeng.pub/department/get-all'
+      var url = this.HOME + '/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

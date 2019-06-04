@@ -187,7 +187,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = 'http://www.wangpeng.pub/RegisterLevel/get-all'
+      var url = this.HOME + '/RegisterLevel/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
