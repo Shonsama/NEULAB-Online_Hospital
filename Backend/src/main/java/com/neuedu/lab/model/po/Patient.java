@@ -3,7 +3,7 @@ package com.neuedu.lab.model.po;
 import java.util.Date;
 
 public class Patient {
-    private String patient_record_id;
+    private Integer patient_record_id;
     private boolean patient_gender;
     private String patient_name;
     private String patient_credit_id;
@@ -11,11 +11,11 @@ public class Patient {
     private String patient_address;
     private Integer patient_age;
 
-    public String getPatient_record_id() {
+    public Integer getPatient_record_id() {
         return patient_record_id;
     }
 
-    public void setPatient_record_id(String patient_record_id) {
+    public void setPatient_record_id(Integer patient_record_id) {
         this.patient_record_id = patient_record_id;
     }
 

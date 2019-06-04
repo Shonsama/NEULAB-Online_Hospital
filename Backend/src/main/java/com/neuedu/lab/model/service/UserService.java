@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.UserMapper;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
@@ -14,157 +16,127 @@ public class UserService {
     private UserMapper userMapper;
 
     /*获取所有用户信息*/
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userMapper.getAllUsers();
     }
 
-    public List<User> getUser(String user_account){
-        return userMapper.getUser(user_account);
-    }
-
-    public boolean checkUserIfExist(String user_account){
-        if(userMapper.getUser(user_account).size() == 0){//没有该用户
-            System.out.println("没有该用户");
-            return false;
-        }else {
-            System.out.println("有该用户");
-            return true;
-        }
+    public User getUser(String user_id) {
+        return userMapper.getUser(user_id);
     }
 
     /*检验登录*/
-    public String checkUserValid(String user_account, String user_password){
-        if(checkUserIfExist(user_account) == false){//没有该用户
-            return "noUser";
-        }else{
-            User user = userMapper.getUser(user_account).get(0);
-            if(user.getUser_password().equals(user_password)){
-                return "success";
-            }
-            else{
-                return "wrongPassword";
-            }
+    public JSONObject checkUserValid(String user_account, String user_password) {
+        User user = userMapper.getUserByAccount(user_account);
+        if (user.getUser_password().equals(user_password)) {
+            return ConstantUtils.responseSuccess("success", null);
+        } else {
+            return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
-    public boolean addUser(User user){
-        String user_account = user.getUser_account();
-        if(checkUserIfExist(user_account) == false){
+    public boolean addUser(User user) {
+        try{
             userMapper.addUser(user);
-            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
-        else{
-            return false;//存在相同account的用户，不允许
-        }
-
+        return true;
     }
 
-    public boolean deleteUser(String user_account){
-        if(checkUserIfExist(user_account) == false){//没有该用户
-            return false;
-        }else{
+    public boolean deleteUser(String user_account) {
+        try{
             userMapper.deleteUser(user_account);
-            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
-
+            return true;
     }
 
-    public boolean updateUser(User user){
-        String user_account = user.getUser_account();
-        if(checkUserIfExist(user_account) == false){//没有该用户
-            return false;
-        }else{
+    public boolean updateUser(User user) {
+        try{
             userMapper.updateUser(user);
-            return true;
         }
-
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    public boolean updateUserPassword(User user){
-        String user_account = user.getUser_account();
-        if(checkUserIfExist(user_account) == false){//没有该用户
-            return false;
-        }else{
+    public boolean updateUserPassword(User user) {
+        try{
             userMapper.updateUserPassword(user);
-            return true;
         }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+            return true;
     }
 
     /*获取所有医生信息*/
-    public List<Doctor> getAllDoctors(){
+    public List<Doctor> getAllDoctors() {
         return userMapper.getAllDoctors();
     }
 
-    public List<Doctor> getDoctor(String doctor_account){
-        return userMapper.getDoctor(doctor_account);
+    public Doctor getDoctor(String doctor_id) {
+        return userMapper.getDoctor(doctor_id);
     }
 
-    public boolean checkDoctorIfExist(String doctor_account){
-        if(userMapper.getDoctor(doctor_account).size() == 0){//没有该用户
-            System.out.println("没有该医生");
-            return false;
-        }else {
-            System.out.println("有该医生");
-            return true;
-        }
-    }
 
     /*检验医生登录*/
-    public String checkDoctorValid(String doctor_account, String doctor_password){
-        if(checkDoctorIfExist(doctor_account) == false){//没有该用户
-            return "noDoctor";
-        }else{
-            Doctor doctor = userMapper.getDoctor(doctor_account).get(0);
-            if(doctor.getDoctor_password() == doctor_password){
-                return "success";
-            }
-            else{
-                return "wrongPassword";
-            }
+    public JSONObject checkDoctorValid(String doctor_account, String doctor_password) {
+        Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
+        if (doctor.getDoctor_password().equals(doctor_password)) {
+            return ConstantUtils.responseSuccess("success", null);
+        } else {
+            return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
-    public boolean addDoctor(Doctor doctor){
-        String doctor_account = doctor.getDoctor_account();
-        if(checkDoctorIfExist(doctor_account) == false){
+    public boolean addDoctor(Doctor doctor) {
+        try{
             userMapper.addDoctor(doctor);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
             return true;
-        }
-        else{
-            return false;//存在相同account的用户，不允许
-        }
     }
 
-    public boolean deleteDoctor(String doctor_account){
-        if(checkDoctorIfExist(doctor_account) == false){//没有该用户
-            return false;
-        }else{
+    public boolean deleteDoctor(String doctor_account) {
+        try{
             userMapper.deleteDoctor(doctor_account);
-            return true;
         }
-
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    public boolean updateDoctor(Doctor doctor){
-        String doctor_account = doctor.getDoctor_account();
-        if(checkDoctorIfExist(doctor_account) == false){//没有该用户
-            return false;
-        }else{
+    public boolean updateDoctor(Doctor doctor) {
+        try{
             userMapper.updateDoctor(doctor);
-            return true;
         }
-
-    }
-
-    public boolean updateDoctorPassword(Doctor doctor){
-        String doctor_account = doctor.getDoctor_account();
-        if(checkUserIfExist(doctor_account) == false){//没有该用户
+        catch (Exception e){
+            e.printStackTrace();
             return false;
-        }else{
-            userMapper.updateDoctorPassword(doctor);
-            return true;
         }
+            return true;
     }
 
-
+    public boolean updateDoctorPassword(Doctor doctor) {
+        try{
+            userMapper.updateDoctorPassword(doctor);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+            return true;
+    }
 }

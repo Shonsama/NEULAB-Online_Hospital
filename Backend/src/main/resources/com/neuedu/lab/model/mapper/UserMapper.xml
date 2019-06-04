@@ -7,22 +7,28 @@
     <!--获取某一用户信息-->
     <select id="getUser" resultType="User">
         select * from user_info
+        where user_id=#{user_id}
+    </select>
+
+    <select id="getUserByAccount" resultType="User">
+        select * from user_info
         where user_account=#{user_account}
     </select>
 
     <!--获取所有用户信息-->
-    <select id="getAllUsers" resultType="com.neuedu.lab.model.po.User">
+    <select id="getAllUsers" resultType="User">
         select * from user_info
     </select>
 
     <!--注册用户-->
-    <insert id="addUser" parameterType="com.neuedu.lab.model.po.User"
+    <insert id="addUser" parameterType="User"
             useGeneratedKeys="true" keyProperty="user_id">
-        INSERT INTO his.user_info(user_account, user_password, user_type, user_name)
+        INSERT INTO his.user_info(user_account, user_password, user_type, user_name,user_department_id)
         VALUES (#{user_account},
         #{user_password},
         #{user_type},
-        #{user_name})
+        #{user_name},
+        #{user_department_id})
     </insert>
 
     <!--删除用户-->
@@ -37,15 +43,16 @@
         user_account= #{user_account},
         user_password= #{user_password},
         user_type= #{user_type},
-        user_name= #{user_name}
-        WHERE user_account = #{user_account}
+        user_name= #{user_name},
+        user_department_id = #{user_department_id}
+        WHERE user_id = #{user_id}
     </update>
 
     <!--更新用户密码-->
     <update id="updateUserPassword">
         UPDATE user_info SET
         user_password= #{user_password}
-        WHERE user_account = #{user_account}
+        WHERE user_id = #{user_id}
     </update>
 
 
@@ -58,8 +65,15 @@
     <!--获取某一医生信息-->
     <select id="getDoctor" resultType="Doctor">
         select * from doctor_info
+        where doctor_id=#{doctor_id}
+    </select>
+
+
+    <select id="getDoctorByAccount" resultType="Doctor">
+        select * from doctor_info
         where doctor_account=#{doctor_account}
     </select>
+
 
     <!--获取所有医生信息-->
     <select id="getAllDoctors" resultType="Doctor">
@@ -99,14 +113,14 @@
         doctor_name= #{doctor_name},
         doctor_register_level_id= #{doctor_register_level_id},
         doctor_department_id= #{doctor_department_id}
-        WHERE doctor_account = #{doctor_account}
+        WHERE doctor_id = #{doctor_id}
     </update>
 
     <!--更新医生密码-->
     <update id="updateDoctorPassword">
         UPDATE doctor_info SET
         doctor_password= #{doctor_password}
-        WHERE doctor_account = #{doctor_account}
+        WHERE doctor_id = #{doctor_id}
     </update>
 
 

@@ -6,6 +6,15 @@ public class User {
     private String user_account;
     private String user_type;
     private String user_name;
+    private String user_department_id;
+
+    public String getUser_department_id() {
+        return user_department_id;
+    }
+
+    public void setUser_department_id(String user_department_id) {
+        this.user_department_id = user_department_id;
+    }
 
     public Integer getUser_id() {
         return user_id;
