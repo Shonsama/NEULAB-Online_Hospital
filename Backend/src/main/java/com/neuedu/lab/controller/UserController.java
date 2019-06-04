@@ -19,10 +19,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/get-all")
+    @RequestMapping("/get-all-user")
 //    显示所有用户信息
     public List<User> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @RequestMapping("/get-all-doctor")
+//    显示所有医生信息
+    public List<Doctor> getAllDoctors(){
+        return userService.getAllDoctors();
     }
 
     @RequestMapping("/get")
