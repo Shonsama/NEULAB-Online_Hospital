@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-card>
+  <v-card >
     <v-dialog
       v-model="show"
     >
@@ -80,7 +80,7 @@
         </v-data-table>
       <v-divider/>
         <v-card-actions>
-          <v-layout align-center justify-center row fill-height>
+          <v-spacer/>
           <v-flex xs2>
             <v-text-field
               v-model="rule_name"
@@ -88,16 +88,16 @@
               required
             ></v-text-field>
           </v-flex>
-          <v-btn color="primary" style="margin-left:20px;margin-right:10px">保存</v-btn>
-          </v-layout>
+          <v-btn small color="primary" style="margin-left:20px;margin-right:10px" >
+            保存
+          </v-btn>
         </v-card-actions>
     </v-card>
     </v-dialog>
-    <v-flex>
-      <v-toolbar flat>
-        <v-toolbar-title>排班规则列表</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-flex xs2>
+    <v-toolbar flat>
+      <v-toolbar-title>排班规则列表</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-flex xs2>
         <v-select
           :items="items_departments"
           v-model="department_scheduling"
@@ -106,28 +106,30 @@
           label="科室"
           style="margin-right: 20px"
         ></v-select>
-        </v-flex>
-        <v-btn
-          icon
-          flat
-          color="primary"
-          @click="show = !show"
-        >
-          <v-icon>
-            add
-          </v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          flat
-          color="primary"
-          @click="expand = !expand"
-        >
-          <v-icon>
-            delete
-          </v-icon>
-        </v-btn>
-      </v-toolbar>
+      </v-flex>
+      <v-btn
+        icon
+        flat
+        color="primary"
+        @click="show = !show"
+      >
+        <v-icon>
+          add
+        </v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        flat
+        color="primary"
+        @click="expand = !expand"
+      >
+        <v-icon>
+          delete
+        </v-icon>
+      </v-btn>
+    </v-toolbar>
+
+    <v-card class="elevation-1">
       <v-data-table
         v-model="selected_scheduling"
         :headers="headers_scheduling"
@@ -165,8 +167,6 @@
           </td>
         </template>
       </v-data-table>
-
-    </v-flex>
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer/>
@@ -181,6 +181,7 @@
         </el-date-picker>
         <v-btn color="primary">保存</v-btn>
     </v-card-actions>
+    </v-card>
   </v-card>
 </template>
 
@@ -254,7 +255,7 @@ export default {
     ]
   }),
   mounted: function () {
-     this.load()
+    this.load()
   },
   methods: {
     load: function () {
