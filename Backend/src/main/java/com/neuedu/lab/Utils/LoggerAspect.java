@@ -16,14 +16,14 @@ import java.util.Arrays;
 public class LoggerAspect {
 
 
-//    @Pointcut("execution (* com.neuedu.lab.controller..*.*(..))")
-//    public void executeService(){
-//
-//    }
+    @Pointcut("execution (* com.neuedu.lab.controller..*.*(..))")
+    public void executeService(){
 
-    @Before(value = "execution (* com.neuedu.lab.controller..*.*(..))")
+    }
+
+    @Before(value = "executeService()")
     public void doBefore(JoinPoint joinPoint){
-        System.out.println("before");
+        System.out.println("[A request start]");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         printInfo("URL : " + request.getRequestURL().toString());
@@ -33,10 +33,18 @@ public class LoggerAspect {
         printInfo("ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
 
-    @AfterReturning(value = "execution (* com.neuedu.lab.controller..*.*(..))",returning = "response")
+    @AfterReturning(value = "executeService()",returning = "response")
     public void doAfterReturning(JSONObject response){
+//        printInfo("[CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         printInfo("RESPONSE : " + response);
     }
+
+//    @After(value = "executeService()")
+//    public void doAfter(JoinPoint joinPoint){
+//        printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+//        System.out.println("[A request end]");
+//    }
+
 
 
     public void printInfo(String s){

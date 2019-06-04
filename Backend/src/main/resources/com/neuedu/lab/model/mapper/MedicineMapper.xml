@@ -45,7 +45,7 @@
     <!--查询某药品信息-->
     <select id="getMedicine" resultType="Medicine">
         select * from medicine
-        where medicine_id LIKE concat(concat('%',#{medicine_id}),'%')
+        where medicine_id = #{medicine_id}
     </select>
 
     <!--显示所有药品信息-->

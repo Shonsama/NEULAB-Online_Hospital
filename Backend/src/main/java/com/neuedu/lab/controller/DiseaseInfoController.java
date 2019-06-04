@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.DiseaseInfo;
 import com.neuedu.lab.model.service.DiseaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,39 +25,38 @@ public class DiseaseInfoController {
 
     @RequestMapping("/get")
 //    显示查询疾病信息
-    public List<DiseaseInfo> getDisease(@RequestBody JSONObject disease_id){
-        String getString = disease_id.getString("disease_id");
-        return diseaseInfoService.getDisease(getString);
+    public JSONObject getDisease(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(diseaseInfoService.getDisease(request.getString("disease_id")));
     }
 
     @RequestMapping("/add")
-    public String addDisease(@RequestBody DiseaseInfo diseaseInfo){
+    public JSONObject addDisease(@RequestBody DiseaseInfo diseaseInfo){
         if(diseaseInfoService.addDisease(diseaseInfo)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/update")
-    public String updateConstant(@RequestBody DiseaseInfo diseaseInfo){
+    public JSONObject updateConstant(@RequestBody DiseaseInfo diseaseInfo){
         if(diseaseInfoService.updateDisease(diseaseInfo)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/delete")
-    public String deleteConstant(@RequestBody JSONObject disease_id){
+    public JSONObject deleteConstant(@RequestBody JSONObject disease_id){
         String getString = disease_id.getString("disease_id");
         if(diseaseInfoService.deleteDisease(getString)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 }

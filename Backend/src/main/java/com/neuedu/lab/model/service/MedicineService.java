@@ -16,7 +16,7 @@ public class MedicineService {
         return medicineMapper.getAllMedicines();
     }
 
-    public List<Medicine> getMedicine(String medicine_id){
+    public Medicine getMedicine(String medicine_id){
         return medicineMapper.getMedicine(medicine_id);
     }
 

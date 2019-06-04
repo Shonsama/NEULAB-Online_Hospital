@@ -32,7 +32,7 @@
     <!--查询某药品信息-->
     <select id="getNonMedicine" resultType="NonMedicine">
         select * from non_medicine
-        where non_medicine_id LIKE concat(concat('%',#{non_medicine_id}),'%')
+        where non_medicine_id = #{non_medicine_id}
     </select>
 
     <!--显示所有药品信息-->

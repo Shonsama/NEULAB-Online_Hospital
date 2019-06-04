@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Register;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,6 @@ public interface RegisterMapper {
 
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name);
 
-    public void updateRegisterState(Integer register_id, String register_info_state);
-
+    public void updateRegisterState(@Param("register_id") Integer register_id, @Param("register_info_state") String register_info_state);
 
 }

@@ -29,7 +29,7 @@
 
 
     <update id="updateRegisterState">
-        UPDATE register_info SET register_info_state = #{register_info_state}
+            UPDATE register_info SET register_info_state = #{register_info_state}
         WHERE register_info_id = #{register_id}
     </update>
 
