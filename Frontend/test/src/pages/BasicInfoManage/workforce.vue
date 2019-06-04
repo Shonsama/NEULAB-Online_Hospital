@@ -18,16 +18,19 @@
         </v-flex>
         <v-flex md2>
           <v-select
-            style="margin-left: 10px; margin-right: 10px"
-            :items="items"
+            style="margin-left:10px;margin-right:10px"
+            v-model="register_level_rule"
+            :items="items_register_level"
+            item-text="register_level_level"
+            item-value="register_level_level"
             label="挂号等级"
           ></v-select>
-        </v-flex>
+          </v-flex>
         <v-btn
           icon
           flat
           color="primary"
-          @click="show = !show">
+          @click="show = !show , department_level_doctor">
           <v-icon>
             refresh
           </v-icon>
@@ -39,7 +42,8 @@
           :items="desserts_rule"
           item-key="name"
           select-all
-          class="elevation-1 scroll-y"
+          class="scroll-y"
+          hide-actions
         >
           <template v-slot:items="props">
             <td>
@@ -74,17 +78,29 @@
             </td>
           </template>
         </v-data-table>
+      <v-divider/>
+        <v-card-actions>
+          <v-layout align-center justify-center row fill-height>
+          <v-flex xs2>
+            <v-text-field
+              v-model="rule_name"
+              label="规则名称"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-btn color="primary" style="margin-left:20px;margin-right:10px">保存</v-btn>
+          </v-layout>
+        </v-card-actions>
     </v-card>
     </v-dialog>
-    <v-flex
-    >
+    <v-flex>
       <v-toolbar flat>
         <v-toolbar-title>排班规则列表</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-flex xs2>
         <v-select
           :items="items_departments"
-          v-model="search_scheduling"
+          v-model="department_scheduling"
           item-text="department_name"
           item-value="department_name"
           label="科室"
@@ -119,7 +135,6 @@
         item-key="departmentName"
         :search="search_scheduling"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -150,8 +165,22 @@
           </td>
         </template>
       </v-data-table>
+
     </v-flex>
     <v-divider></v-divider>
+    <v-card-actions>
+      <v-spacer/>
+        <el-date-picker
+          v-model="date"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          style="margin-right: 10px"
+        >
+        </el-date-picker>
+        <v-btn color="primary">保存</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -159,13 +188,17 @@
 export default {
   name: 'workforce',
   data: () => ({
+    date: ['', ''],
     show: false,
     expand: false,
     department_rule: '',
+    register_level_rule: '',
+    department_scheduling: '',
     search_scheduling: '',
     selected_rule: [],
     selected_scheduling: [],
     items_departments: [],
+    items_register_level: [],
     headers_rule: [
       {
         text: '医生名称',
@@ -221,12 +254,12 @@ export default {
     ]
   }),
   mounted: function () {
-    // this.load()
+     this.load()
   },
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/department/getall'
+      var url = this.HOME + '/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -234,9 +267,10 @@ export default {
           that.items_departments = response.data
         })
     },
-    department_doctor: function (department) {
+    department_level_doctor: function () {
       // 返回这个department下的所有doctor
       // 并将doctor的每个属性对应到十四time slot上
+
     }
   }
 }

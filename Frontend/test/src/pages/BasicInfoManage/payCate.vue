@@ -14,7 +14,7 @@
                 :error-messages="errorMessages"
                 label="常数编号"
                 placeholder="请输入常数编号"
-                :disabled="!mode"
+                :disabled="true"
                 required
               ></v-text-field>
               <v-text-field
@@ -189,14 +189,13 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      var department = {
-        constant_id: this.constant_id,
+      var constant = {
         constant_name: this.constant_name,
         constant_type: this.constant_type
       }
       let that = this
       var url = this.HOME + '/constant/add'
-      this.$http.post(url, department)
+      this.$http.post(url, constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
@@ -208,14 +207,14 @@ export default {
       console.log(this.signal)
     },
     updateItem: function () {
-      var department = {
+      var constant = {
         constant_id: this.constant_id,
         constant_name: this.constant_name,
         constant_type: this.constant_type
       }
       let that = this
       var url = this.HOME + '/constant/update'
-      this.$http.post(url, department)
+      this.$http.post(url, constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data

@@ -14,7 +14,7 @@
                 :error-messages="errorMessages"
                 label="用户ID"
                 placeholder="请输入用户ID"
-                :disabled="!mode"
+                :disabled="true"
                 required
               ></v-text-field>
               <v-text-field
@@ -46,13 +46,20 @@
                 placeholder="请输入用户姓名"
                 required
               ></v-text-field>
-              <v-text-field
-                ref="country"
+              <v-select
                 v-model="user_department_id"
-                label="用户科室"
-                placeholder="请输入用户科室"
-                required
-              ></v-text-field>
+                :items="items_departments"
+                item-text="department_name"
+                item-value="department_id"
+                label="科室"
+              ></v-select>
+              <!--<v-text-field-->
+                <!--ref="country"-->
+                <!--v-model="user_department_id"-->
+                <!--label="用户科室"-->
+                <!--placeholder="请输入用户科室"-->
+                <!--required-->
+              <!--&gt;</v-text-field>-->
               <div v-if="isDoctor">
                 <v-text-field
                   ref="country"
@@ -235,23 +242,24 @@ export default {
     ],
     users: [],
     temUser: [],
-    doctors: []
+    doctors: [],
+    items_departments: []
   }),
   mounted: function () {
     this.load()
+    this.load_items_departments()
   },
   methods: {
     load: function () {
       let that = this
       // that.users = []
-      var url = this.HOME + '/user/get-all'
+      var url = this.HOME + '/user/get-all-user'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
           that.temUser = response.data
           for (let i = 0; i < that.temUser.length; i++) {
-            // let user = that.temUser[i]
             var userTemp = {
               user_id: that.temUser[i].user_id,
               user_account: that.temUser[i].user_account,
@@ -265,22 +273,8 @@ export default {
             }
             that.users.push(userTemp)
           }
-          // for (user in temUser){
-          //   var userTemp = {
-          //     user_id: user.user_id,
-          //     user_account: user.user_account,
-          //     user_password: user.user_password,
-          //     user_type: user.user_type,
-          //     user_name: user.user_name,
-          //     user_department: user.user_department,
-          //     doctor_register_level_id: '无',
-          //     doctor_position: '无',
-          //     doctor_arrange_or_not: '无'
-          //   }
-          //   that.user.append(userTemp)
-          // }
         })
-      url = this.HOME + '/user/get-all'
+      url = this.HOME + '/user/get-all-doctor'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -302,17 +296,16 @@ export default {
             that.users.append(tempDoctor)
           }
         })
-      console.log(1)
     },
     deleteItem: function (item) {
       let that = this
       var url = ''
-      if (item.type === 'doctor') {
-        url = this.HOME + '/doctor/delete'
+      if (item.user_type === '门诊医生' || item.user_type === '医技医生') {
+        url = this.HOME + '/user/delete-doctor'
       } else {
-        url = this.HOME + '/user/delete'
+        url = this.HOME + '/user/delete-user'
       }
-      this.$http.post(url, item.user_id)
+      this.$http.post(url, item.user_account)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data
@@ -326,9 +319,8 @@ export default {
       let that = this
       var url
       var user
-      if (this.user_type === 'doctor') {
+      if (this.user_type === '门诊医生' || this.user_type === '医技医生') {
         user = {
-          doctor_id: this.user_id,
           doctor_account: this.user_account,
           doctor_password: this.user_password,
           doctor_type: this.user_type,
@@ -338,17 +330,16 @@ export default {
           doctor_position: this.doctor_position,
           doctor_arrange_or_not: this.doctor_arrange_or_not
         }
-        url = this.HOME + '/doctor/add'
+        url = this.HOME + '/user/add-doctor'
       } else {
         user = {
-          user_id: this.user_id,
           user_account: this.user_account,
           user_password: this.user_password,
           user_type: this.user_type,
           user_name: this.user_name,
           user_department_id: this.user_department_id
         }
-        url = this.HOME + '/user/add'
+        url = this.HOME + '/user/add-user'
       }
       this.$http.post(url, user)
         .then(function (response) {
@@ -360,12 +351,14 @@ export default {
           }
         })
       console.log(this.signal)
+      // console.log('This is the departmentid')
+      // console.log(this.user_department_id)
     },
     updateItem: function () {
       let that = this
       var url = ''
       var user
-      if (this.user_type === 'doctor') {
+      if (this.user_type === '门诊医生' || this.user_type === '医技医生') {
         user = {
           doctor_id: this.user_id,
           doctor_account: this.user_account,
@@ -377,7 +370,7 @@ export default {
           doctor_position: this.doctor_position,
           doctor_arrange_or_not: this.doctor_arrange_or_not
         }
-        url = this.HOME + '/doctor/update'
+        url = this.HOME + '/user/update-doctor'
       } else {
         user = {
           user_id: this.user_id,
@@ -387,7 +380,7 @@ export default {
           user_name: this.user_name,
           user_department_id: this.user_department_id
         }
-        url = this.HOME + '/user/update'
+        url = this.HOME + '/user/update-user'
       }
       this.$http.post(url, user)
         .then(function (response) {
@@ -421,8 +414,17 @@ export default {
       this.doctor_register_level_id = ''
       this.doctor_position = ''
       this.doctor_arrange_or_not = ''
+    },
+    load_items_departments: function () {
+      let that = this
+      var url = this.HOME + '/department/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.items_departments = response.data
+        })
     }
-
   },
   computed: {
   },
