@@ -5,18 +5,18 @@
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionContentMapper">
     <insert id="addPrescriptionContent" parameterType="PrescriptionContent">
         INSERT INTO prescription_content (prescription_id, prescription_consumption, prescription_medicine_id, prescription_frequency, prescription_num, prescription_day)
-        VALUES (#{prescription_content_id}, #{prescription_consumption}, #{prescription_medicine_id},
+        VALUES (#{prescription_id}, #{prescription_consumption}, #{prescription_medicine_id},
          #{prescription_frequency}, #{prescription_num}, #{prescription_day})
     </insert>
 
     <delete id="deletePrescriptionContents" >
         DELETE FROM prescription_content
-        WHERE prescription_id = #{prescription_content_id}
+        WHERE prescription_id = #{prescription_id}
     </delete>
 
     <delete id="deletePrescriptionContent" >
         DELETE FROM prescription_content
-        WHERE prescription_content_id = #{prescription_id}
+        WHERE prescription_content_id = #{prescription_content_id}
     </delete>
 
 </mapper>
