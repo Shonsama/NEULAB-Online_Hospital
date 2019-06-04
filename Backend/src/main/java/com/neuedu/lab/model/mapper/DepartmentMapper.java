@@ -9,5 +9,5 @@ public interface DepartmentMapper {
     public void addDepartment(Department department);
     public void deleteDepartment(String department_id);
     public void updateDepartment(Department department);
-    public List<Department> getDepartment(String department_id);
+    public Department getDepartment(String department_id);
 }

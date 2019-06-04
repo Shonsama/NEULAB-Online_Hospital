@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Department;
 import com.neuedu.lab.model.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,40 +25,38 @@ public class DepartmentController {
 
     @RequestMapping("/get")
 //    显示查询科室信息
-    public List<Department> getDepartment(@RequestBody JSONObject department_id){
-        String getString = department_id.getString("department_id");
-        return departmentService.getDepartment(getString);
+    public JSONObject getDepartment(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(departmentService.getDepartment(request.getString("department_id")));
     }
 
     @RequestMapping("/add")
-    public String addDepartment(@RequestBody Department department){
+    public JSONObject addDepartment(@RequestBody Department department){
         if(departmentService.addDepartment(department)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/update")
-    public String updateDepartment(@RequestBody Department department){
+    public JSONObject updateDepartment(@RequestBody Department department){
         if(departmentService.updateDepartment(department)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/delete")
-    public String deleteDepartment(@RequestBody JSONObject department_id){
+    public JSONObject deleteDepartment(@RequestBody JSONObject department_id){
         String getString = department_id.getString("department_id");
         if(departmentService.deleteDepartment(getString)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
-
 }

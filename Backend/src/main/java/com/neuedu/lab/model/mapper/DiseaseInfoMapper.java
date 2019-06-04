@@ -9,5 +9,5 @@ public interface DiseaseInfoMapper {
     public void addDisease(DiseaseInfo diseaseInfo);
     public void deleteDisease(String disease_id);
     public void updateDisease(DiseaseInfo diseaseInfo);
-    public List<DiseaseInfo> getDisease(String disease_id);
+    public DiseaseInfo getDisease(String disease_id);
 }

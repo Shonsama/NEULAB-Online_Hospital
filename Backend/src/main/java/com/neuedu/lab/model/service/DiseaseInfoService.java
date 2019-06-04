@@ -16,7 +16,7 @@ public class DiseaseInfoService {
         return diseaseInfoMapper.getAllDiseases();
     }
 
-    public List<DiseaseInfo> getDisease(String disease_id){
+    public DiseaseInfo getDisease(String disease_id){
         return diseaseInfoMapper.getDisease(disease_id);
     }
 

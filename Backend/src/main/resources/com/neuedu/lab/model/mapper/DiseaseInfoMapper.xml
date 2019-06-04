@@ -31,7 +31,7 @@
     <!--查询某疾病信息-->
     <select id="getDisease" resultType="DiseaseInfo">
         select * from disease_info
-        where disease_id LIKE concat(concat('%',#{disease_id}),'%')
+        where disease_id  = #{disease_id}
     </select>
 
     <!--显示所有疾病信息-->

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class RegisterLevel {
     private Integer register_level_id;
     private Integer register_level_seq_num;
-    private String register_level_level;
+    private String register_level_name;
     private Integer register_level_max;
     private BigDecimal register_level_fee;
 
@@ -25,12 +25,12 @@ public class RegisterLevel {
         this.register_level_seq_num = register_level_seq_num;
     }
 
-    public String getRegister_level_level() {
-        return register_level_level;
+    public String getRegister_level_name() {
+        return register_level_name;
     }
 
-    public void setRegister_level_level(String register_level_level) {
-        this.register_level_level = register_level_level;
+    public void setRegister_level_name(String register_level_name) {
+        this.register_level_name = register_level_name;
     }
 
     public Integer getRegister_level_max() {
