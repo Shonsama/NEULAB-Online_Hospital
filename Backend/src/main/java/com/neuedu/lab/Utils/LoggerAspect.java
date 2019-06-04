@@ -39,11 +39,11 @@ public class LoggerAspect {
         printInfo("RESPONSE : " + response);
     }
 
-    @After(value = "executeService()")
-    public void doAfter(JoinPoint joinPoint){
-        printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        System.out.println("[A request end]");
-    }
+//    @After(value = "executeService()")
+//    public void doAfter(JoinPoint joinPoint){
+//        printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+//        System.out.println("[A request end]");
+//    }
 
 
 
