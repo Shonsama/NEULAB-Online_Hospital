@@ -8,7 +8,7 @@ public interface MedicineMapper {
     public void addMedicine(Medicine medicine);
     public void deleteMedicine(String medicine_id);
     public void updateMedicine(Medicine medicine);
-    public List<Medicine> getMedicine(String medicine_id);
+    public Medicine getMedicine(String medicine_id);
 
 
 }

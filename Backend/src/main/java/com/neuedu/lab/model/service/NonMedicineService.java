@@ -18,7 +18,7 @@ public class NonMedicineService {
         return nonMedicineMapper.getAllNonMedicines();
     }
 
-    public List<NonMedicine> getNonMedicine(String non_medicine_id){
+    public NonMedicine getNonMedicine(String non_medicine_id){
         return nonMedicineMapper.getNonMedicine(non_medicine_id);
     }
 

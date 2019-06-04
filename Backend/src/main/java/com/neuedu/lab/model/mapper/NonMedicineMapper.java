@@ -9,6 +9,6 @@ public interface NonMedicineMapper {
     public void addNonMedicine(NonMedicine nonMedicine);
     public void deleteNonMedicine(String non_medicine_id);
     public void updateNonMedicine(NonMedicine nonMedicine);
-    public List<NonMedicine> getNonMedicine(String non_medicine_id);
+    public NonMedicine getNonMedicine(String non_medicine_id);
 
 }

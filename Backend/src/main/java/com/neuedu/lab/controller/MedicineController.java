@@ -1,6 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Medicine;
 import com.neuedu.lab.model.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,39 +25,39 @@ public class MedicineController {
 
     @RequestMapping("/get")
 //    查询药品信息
-    public List<Medicine> getMedicine(@RequestBody JSONObject medicine_id){
+    public JSONObject getMedicine(@RequestBody JSONObject medicine_id){
         String getString = medicine_id.getString("medicine_id");
-        return medicineService.getMedicine(getString);
+        return ConstantUtils.responseSuccess(medicineService.getMedicine(getString));
     }
 
     @RequestMapping("/add")
-    public String addMedicine(@RequestBody Medicine medicine){
+    public JSONObject addMedicine(@RequestBody Medicine medicine){
         if(medicineService.addMedicine(medicine)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/update")
-    public String updateMedicine(@RequestBody Medicine medicine){
+    public JSONObject updateMedicine(@RequestBody Medicine medicine){
         if(medicineService.updateMedicine(medicine)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 
     @RequestMapping("/delete")
-    public String deleteMedicine(@RequestBody JSONObject medicine_id){
+    public JSONObject deleteMedicine(@RequestBody JSONObject medicine_id){
         String getString = medicine_id.getString("medicine_id");
         if(medicineService.deleteMedicine(getString)){
-            return "{\"result\":\"success\"}";
+            return ConstantUtils.responseSuccess(null);
         }
         else {
-            return "{\"result\":\"fail\"}";
+            return ConstantUtils.responseFail(null);
         }
     }
 }
