@@ -3,25 +3,22 @@
     <v-layout>
       <v-flex xs4>
         <v-card flat>
-          <v-form v-model="valid">
-            <v-card-title>
-              <v-layout column>
-                患者查询
-                <v-layout>
-                  <v-text-field
-                    v-model="search"
-                    append-icon="search"
-                    label="病历号"
-                    single-line
-                    hide-details
-                  ></v-text-field>
-                  <v-btn color="primary" style="margin-top: 10px">
-                    搜索
-                  </v-btn>
-                </v-layout>
-              </v-layout>
-            </v-card-title>
-          </v-form>
+          <v-toolbar flat dense>
+            <v-toolbar-title>患者查询</v-toolbar-title>
+          </v-toolbar>
+          <v-layout>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="病历号"
+              single-line
+              hide-details
+              style="margin-left: 10px"
+            ></v-text-field>
+            <v-btn color="primary" style="margin-top: 10px">
+              搜索
+            </v-btn>
+          </v-layout>
         </v-card>
         <v-card flat>
           <v-card-title >患者收费列表</v-card-title>
@@ -68,7 +65,7 @@
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex>
-        <v-toolbar flat>
+        <v-toolbar flat dense>
           <v-toolbar-title>处方列表</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>

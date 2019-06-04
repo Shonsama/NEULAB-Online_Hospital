@@ -221,7 +221,7 @@
       <v-data-table
         v-model="selected1"
         :headers="headers1"
-        :items="desserts1"
+        :items="filterDesserts"
         item-key="code"
         select-all
         class="elevation-1"
@@ -260,7 +260,7 @@
 export default {
   data () {
     return {
-      date: '',
+      date: ['', ''],
       selected: [],
       selected1: [],
       patient_record_id: '',
@@ -321,11 +321,16 @@ export default {
       ]
     }
   },
+  computed: {
+    filterDesserts () {
+      return this.desserts1.filter(this.filterDate)
+    }
+  },
   mounted: function () {
   },
   methods: {
-    filter: function () {
-      console.log(this.date)
+    filterDate: function (value) {
+      return (this.date[0] <= value.time && this.date[1] >= value.time) || this.date[0] === '' || this.date[1] === ''
     },
     get_patient_register: function () {
       var url = this.HOME + '/constant/get'

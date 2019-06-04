@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.RegisterLevelMapper">
+
+    <!--增加挂号级别信息-->
+    <insert id="addRegisterLevel" parameterType="com.neuedu.lab.model.po.RegisterLevel">
+        insert into register_level (register_level_id, register_level_name, register_level_max, register_level_fee,register_level_seq_num)
+        values(#{register_level_id},
+        #{register_level_name},
+        #{register_level_max},
+        #{register_level_fee},
+        #{register_level_seq_num})
+    </insert>
+
+    <!--删除挂号级别信息-->
+    <delete id="deleteRegisterLevel" parameterType="RegisterLevel">
+        DELETE FROM his.register_level
+        where register_level_id = #{register_level_id}
+    </delete>
+
+    <!--修改挂号级别信息-->
+    <update id="updateRegisterLevel">
+        update register_level
+        set register_level_name = #{register_level_name},
+         register_level_max = #{register_level_max},
+         register_level_fee = #{register_level_fee},
+         register_level_seq_num = #{register_level_seq_num}
+        where register_level_id = #{register_level_id}
+    </update>
+
+    <!--查询某挂号级别信息-->
+    <select id="getRegisterLevel" resultType="RegisterLevel">
+        select * from register_level
+        where register_level_id  = #{register_level_id}
+    </select>
+
+    <!--查询所有挂号级别信息-->
+    <select id="getAllRegisterLevels" resultType="RegisterLevel">
+        select * from register_level
+    </select>
+
+</mapper>
