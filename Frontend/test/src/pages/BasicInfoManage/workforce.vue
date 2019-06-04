@@ -221,7 +221,7 @@ export default {
     ]
   }),
   mounted: function () {
-    this.load()
+    // this.load()
   },
   methods: {
     load: function () {

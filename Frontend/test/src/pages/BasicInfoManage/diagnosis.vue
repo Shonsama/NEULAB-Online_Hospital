@@ -177,7 +177,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/disease/getall'
+      var url = 'http://www.wangpeng.pub/disease/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

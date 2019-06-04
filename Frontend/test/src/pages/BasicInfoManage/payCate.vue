@@ -167,12 +167,12 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/constant/getall'
+      var url = 'http://www.wangpeng.pub/constant/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.desserts = response.data.data
         })
     },
     deleteItem: function (item) {
