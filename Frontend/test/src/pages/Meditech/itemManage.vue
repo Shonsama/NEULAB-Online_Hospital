@@ -157,129 +157,129 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      mode: true,
-      non_medicine_id: '',
-      non_medicine_type: '',
-      non_medicine_name: '',
-      non_medicine_specification: '',
-      non_medicine_unit_price: '',
-      show: false,
-      search: '',
-      expand: false,
-      selected: [],
-      signal: '',
-      headers: [
-        {
-          text: '非药品编号',
-          align: 'left',
-          value: 'non_medicine_id'
-        },
-        { text: '非药品类型', value: 'non_medicine_type' },
-        { text: '非药品名称', value: 'non_medicine_name' },
-        { text: '非药品规格', value: 'non_medicine_specification' },
-        { text: '非药品单价', value: 'non_medicine_unit_price' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: []
-    }),
-    methods: {
-      load: function () {
-        let that = this
-        var url = this.HOME + '/non_medicine/getall'
-        this.$http.post(url, {
+export default {
+  data: () => ({
+    mode: true,
+    non_medicine_id: '',
+    non_medicine_type: '',
+    non_medicine_name: '',
+    non_medicine_specification: '',
+    non_medicine_unit_price: '',
+    show: false,
+    search: '',
+    expand: false,
+    selected: [],
+    signal: '',
+    headers: [
+      {
+        text: '非药品编号',
+        align: 'left',
+        value: 'non_medicine_id'
+      },
+      { text: '非药品类型', value: 'non_medicine_type' },
+      { text: '非药品名称', value: 'non_medicine_name' },
+      { text: '非药品规格', value: 'non_medicine_specification' },
+      { text: '非药品单价', value: 'non_medicine_unit_price' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: []
+  }),
+  methods: {
+    load: function () {
+      let that = this
+      var url = this.HOME + '/non_medicine/getall'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data
         })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts = response.data
-          })
-      },
-      deleteItem: function (item) {
-        let that = this
-        var url = this.HOME + '/non_medicine/delete'
-        this.$http.post(url, {non_medicine_id: item.non_medicine_id})
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-            }
-          })
-        console.log(this.signal)
-      },
-      addItem: function () {
-        var non_medicine = {
-          non_medicine_id: this.non_medicine_id,
-          non_medicine_type: this.non_medicine_type,
-          non_medicine_name: this.non_medicine_name,
-          non_medicine_specification: this.non_medicine_specification,
-          non_medicine_unit_price: this.non_medicine_unit_price
-        }
-        let that = this
-        var url = this.HOME + '/non_medicine/add'
-        this.$http.post(url, non_medicine)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-              that.show = !that.show
-            }
-          })
-        console.log(this.signal)
-      },
-      updateItem: function () {
-        var non_medicine = {
-          non_medicine_id: this.non_medicine_id,
-          non_medicine_type: this.non_medicine_type,
-          non_medicine_name: this.non_medicine_name,
-          non_medicine_specification: this.non_medicine_specification,
-          non_medicine_unit_price: this.non_medicine_unit_price
-        }
-        let that = this
-        var url = this.HOME + '/non_medicine/update'
-        this.$http.post(url, non_medicine)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data
-            if (that.signal.result === 'success') {
-              that.load()
-              that.show = !that.show
-              that.eraseForm()
-            }
-          })
-        console.log(this.signal)
-      },
-      fillForm: function (item) {
-        this.non_medicine_id = item.non_medicine_id
-        this.non_medicine_type = item.non_medicine_type
-        this.non_medicine_name = item.non_medicine_name
-        this.non_medicine_specification = item.non_medicine_specification
-        this.non_medicine_unit_price = item.non_medicine_unit_price
-      },
-      eraseForm: function () {
-        this.non_medicine_id = ''
-        this.non_medicine_type = ''
-        this.non_medicine_name = ''
-        this.non_medicine_specification = ''
-        this.non_medicine_unit_price = ''
+    },
+    deleteItem: function (item) {
+      let that = this
+      var url = this.HOME + '/non_medicine/delete'
+      this.$http.post(url, {non_medicine_id: item.non_medicine_id})
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+          }
+        })
+      console.log(this.signal)
+    },
+    addItem: function () {
+      var nonedicine = {
+        non_medicine_id: this.non_medicine_id,
+        non_medicine_type: this.non_medicine_type,
+        non_medicine_name: this.non_medicine_name,
+        non_medicine_specification: this.non_medicine_specification,
+        non_medicine_unit_price: this.non_medicine_unit_price
       }
+      let that = this
+      var url = this.HOME + '/non_medicine/add'
+      this.$http.poMst(url, nonedicine)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+          }
+        })
+      console.log(this.signal)
+    },
+    updateItem: function () {
+      var nonMedicine = {
+        non_medicine_id: this.non_medicine_id,
+        non_medicine_type: this.non_medicine_type,
+        non_medicine_name: this.non_medicine_name,
+        non_medicine_specification: this.non_medicine_specification,
+        non_medicine_unit_price: this.non_medicine_unit_price
+      }
+      let that = this
+      var url = this.HOME + '/non_medicine/update'
+      this.$http.post(url, nonMedicine)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data
+          if (that.signal.result === 'success') {
+            that.load()
+            that.show = !that.show
+            that.eraseForm()
+          }
+        })
+      console.log(this.signal)
+    },
+    fillForm: function (item) {
+      this.non_medicine_id = item.non_medicine_id
+      this.non_medicine_type = item.non_medicine_type
+      this.non_medicine_name = item.non_medicine_name
+      this.non_medicine_specification = item.non_medicine_specification
+      this.non_medicine_unit_price = item.non_medicine_unit_price
+    },
+    eraseForm: function () {
+      this.non_medicine_id = ''
+      this.non_medicine_type = ''
+      this.non_medicine_name = ''
+      this.non_medicine_specification = ''
+      this.non_medicine_unit_price = ''
+    }
 
-    },
-    mounted: function () {
-      this.load()
-    },
-    computed: {
-    },
-    watch: {
-      show: function (newState, oldState) {
-        if (newState === false) {
-          this.eraseForm()
-        }
+  },
+  mounted: function () {
+    this.load()
+  },
+  computed: {
+  },
+  watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
       }
     }
   }
+}
 </script>
 
 <style scoped>
