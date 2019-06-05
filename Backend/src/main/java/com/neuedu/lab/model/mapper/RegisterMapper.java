@@ -15,6 +15,8 @@ public interface RegisterMapper {
 
     public List<Register> getRegisterByDoctorId(Integer doctor_id);
 
+    public List<Register> getRegisterByDepartmentId(Integer department_id);
+
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name);
 
     public void updateRegisterState(@Param("register_id") Integer register_id, @Param("register_info_state") String register_info_state);

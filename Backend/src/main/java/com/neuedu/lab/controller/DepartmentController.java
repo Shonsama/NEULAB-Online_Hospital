@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
@@ -19,8 +17,8 @@ public class DepartmentController {
 
     @RequestMapping("/get-all")
 //    显示所有科室信息
-    public List<Department> getAllDepartments(){
-        return departmentService.getAllDepartments();
+    public JSONObject getAllDepartments(){
+        return ConstantUtils.responseSuccess(departmentService.getAllDepartments());
     }
 
     @RequestMapping("/get")

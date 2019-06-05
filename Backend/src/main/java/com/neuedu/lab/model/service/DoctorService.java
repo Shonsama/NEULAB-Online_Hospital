@@ -39,6 +39,11 @@ public class DoctorService {
         return registerMapper.getRegisterByDoctorId(doctor_id);
     }
 
+    //查询一个科室的所有挂号信息
+    public List<Register> getAllDepartmentRegisters(Integer department_id) {
+        return registerMapper.getRegisterByDepartmentId(department_id);
+    }
+
     //根据患者姓名和医生ID查询挂号信息
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name){
         return registerMapper.getRegisterByDoctorIdAndPatientName(doctor_id,patient_name);
@@ -247,4 +252,6 @@ public class DoctorService {
         }
         return data;
     }
+
+
 }

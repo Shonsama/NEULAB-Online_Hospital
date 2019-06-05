@@ -39,6 +39,7 @@
     <!--查询所有挂号级别信息-->
     <select id="getAllRegisterLevels" resultType="RegisterLevel">
         select * from register_level
+        ORDER BY register_level_seq_num DESC
     </select>
 
 </mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.TemplateMapper">
+    <!--增加模板-->
+    <insert id="addTemplate" parameterType="Template" useGeneratedKeys="true" keyProperty="template_id">
+        insert into template (template_type,template_name,template_range,template_init_date,template_doctor_id)
+        values(#{template_type},
+        #{template_name},
+        #{template_range},
+        CURDATE(),
+        #{template_doctor_id})
+    </insert>
+
+    <!--删除模板-->
+    <delete id="deleteTemplate" parameterType="Template">
+            DELETE FROM template
+            where template_id = #{template_id}
+        </delete>
+
+    <!--修改模板信息-->
+    <update id="updateTemplate">
+            update template
+            set template_type = #{template_type},
+            template_name = #{template_name},
+            template_range = #{template_range},
+            template_init_date = #{template_init_date},
+            template_doctor_id = #{template_doctor_id}
+            where template_id = #{template_id}
+    </update>
+
+    <!--查询某模板信息,根据模板name-->
+    <select id="getTemplateByName" resultType="Template">
+        select * from template
+        where template_name = #{template_name}
+    </select>
+
+    <!--查询某药品信息,根据range-->
+    <select id="getTemplateByRange" resultType="Template">
+        select * from template
+        where template_range = #{template_range}
+    </select>
+
+    <!--查询某药品信息,根据type-->
+    <select id="getTemplateByType" resultType="Template">
+        select * from template
+        where template_type = #{template_type}
+    </select>
+</mapper>

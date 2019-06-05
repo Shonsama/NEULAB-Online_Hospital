@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -21,23 +19,32 @@ public class UserController {
 
     @RequestMapping("/get-all-user")
 //    显示所有用户信息
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public JSONObject getAllUsers(){
+        return ConstantUtils.responseSuccess(userService.getAllUsers());
     }
 
     @RequestMapping("/get-all-doctor")
 //    显示所有医生信息
-    public List<Doctor> getAllDoctors(){
-        return userService.getAllDoctors();
+    public JSONObject getAllDoctors(){
+        return ConstantUtils.responseSuccess(userService.getAllDoctors());
     }
 
     @RequestMapping("/get")
 //    查询某一用户/医生信息
     public JSONObject getUser(@RequestBody JSONObject request){
-        if(userService.getUser(request.getString("user_id")) != null){
-            return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_id")));
+        if(request.getString("user_id") != null){
+            if(userService.getUser(request.getString("user_id")) != null){
+                return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_id")));
+            }else{
+                return ConstantUtils.responseFail(null);
+            }
         }else{
-            return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_id")));
+            if(userService.getDoctor(request.getString("doctor_id")) != null){
+                return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_id")));
+            }else{
+                return ConstantUtils.responseFail(null);
+            }
+
         }
     }
 

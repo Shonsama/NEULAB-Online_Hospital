@@ -27,9 +27,9 @@ public class ConstantService {
         return true;
     }
 
-    public boolean deleteConstant(Constant constant){
+    public boolean deleteConstant(Integer constant_id){
         try {
-            constantMapper.deleteConstant(constant);
+            constantMapper.deleteConstant(constant_id);
         }
         catch (Exception e){
             e.printStackTrace();

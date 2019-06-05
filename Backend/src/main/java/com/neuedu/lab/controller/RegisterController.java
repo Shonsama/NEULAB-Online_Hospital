@@ -16,24 +16,16 @@ public class RegisterController {
     @Autowired
     private RegisterService registerService;
 
-/*    @RequestMapping("/get-all-department")
-    public List<Department> getAllDepartment(){
-        return registerService.getAllDepartments();
-    }*/
 
     @RequestMapping("/get-all-doctor")
     public JSONObject getAllDoctorsByDepartment(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(registerService.getAllDoctorsByDepartment(request.getString("department_id")));
+        return registerService.getAllDoctorsByDepartment(
+                request.getString("department_id"),request.getInteger("register_level_id"));
     }
 
     @RequestMapping("/submit")
     public JSONObject registerSubmit(@RequestBody Register register){
-        if(registerService.addRegister(register)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return registerService.addRegister(register);
     }
 
     @RequestMapping("/print-bill")

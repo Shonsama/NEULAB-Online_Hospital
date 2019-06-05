@@ -45,7 +45,7 @@ public class ConstantTest {
     public void testDeleteConstant(){
         Constant constant = constantService.getConstant("payment_type_test").get(0);
 
-        assertTrue(constantService.deleteConstant(constant));
+        assertTrue(constantService.deleteConstant(1));
     }
 
 
