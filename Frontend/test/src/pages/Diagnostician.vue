@@ -4,7 +4,7 @@
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
-          <div v-show="show" style="white-space: nowrap">
+          <div v-show="show" style="white-space: nowrap; width:350px">
             <v-toolbar flat>
               <v-flex md6>
                 <v-text-field  prepend-inner-icon="account_box" name="login" label="选择患者"  type="text"></v-text-field>
@@ -31,6 +31,7 @@
             <v-layout>
               <v-tabs
                 v-model="active"
+                style="width: 350px"
               >
                 <v-tab
                   v-for="item in items1"
@@ -43,14 +44,15 @@
                   v-for="item in items1"
                   :key="item"
                 >
-                  <v-card flat >
+                  <div v-if="item.id == 'desserts_per'">
+                    <v-card flat >
                     <v-toolbar flat dense>
                       <v-toolbar-title>已诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
                       v-model="selected"
                       :headers="headers"
-                      :items="desserts"
+                      :items="desserts_per.off"
                       select-all
                       class="elevation-1"
                     >
@@ -86,14 +88,14 @@
                       </template>
                     </v-data-table>
                   </v-card>
-                  <v-card flat >
+                    <v-card flat >
                     <v-toolbar flat dense>
                       <v-toolbar-title>未诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
                       v-model="selected"
                       :headers="headers"
-                      :items="desserts"
+                      :items="desserts_per.off"
                       select-all
                       class="elevation-1"
                     >
@@ -129,6 +131,95 @@
                       </template>
                     </v-data-table>
                   </v-card>
+                  </div>
+                  <div v-if="item.id == 'desserts_depart'">
+                    <v-card flat >
+                      <v-toolbar flat dense>
+                        <v-toolbar-title>已诊断</v-toolbar-title>
+                      </v-toolbar>
+                      <v-data-table
+                        v-model="selected"
+                        :headers="headers"
+                        :items="desserts_depart.off"
+                        select-all
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                          <td>
+                            <v-checkbox
+                              v-model="props.selected"
+                              primary
+                              hide-details
+                            ></v-checkbox>
+                          </td>
+                          <td>{{ props.item.name }}</td>
+                          <td class="text-xs-right">{{ props.item.calories }}</td>
+                          <td class="text-xs-right">{{ props.item.fat }}</td>
+                          <td class="text-xs-right">{{ props.item.carbs }}</td>
+                          <td class="text-xs-right">{{ props.item.protein }}</td>
+                          <td class="text-xs-right">{{ props.item.iron }}</td>
+                          <td class="justify-center layout px-0">
+                            <v-icon
+                              small
+                              class="mr-2"
+                              @click="editItem(props.item)"
+                            >
+                              edit
+                            </v-icon>
+                            <v-icon
+                              small
+                              @click="deleteItem(props.item)"
+                            >
+                              delete
+                            </v-icon>
+                          </td>
+                        </template>
+                      </v-data-table>
+                    </v-card>
+                    <v-card flat >
+                      <v-toolbar flat dense>
+                        <v-toolbar-title>未诊断</v-toolbar-title>
+                      </v-toolbar>
+                      <v-data-table
+                        v-model="selected"
+                        :headers="headers"
+                        :items="desserts_depart.off"
+                        select-all
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                          <td>
+                            <v-checkbox
+                              v-model="props.selected"
+                              primary
+                              hide-details
+                            ></v-checkbox>
+                          </td>
+                          <td>{{ props.item.name }}</td>
+                          <td class="text-xs-right">{{ props.item.calories }}</td>
+                          <td class="text-xs-right">{{ props.item.fat }}</td>
+                          <td class="text-xs-right">{{ props.item.carbs }}</td>
+                          <td class="text-xs-right">{{ props.item.protein }}</td>
+                          <td class="text-xs-right">{{ props.item.iron }}</td>
+                          <td class="justify-center layout px-0">
+                            <v-icon
+                              small
+                              class="mr-2"
+                              @click="editItem(props.item)"
+                            >
+                              edit
+                            </v-icon>
+                            <v-icon
+                              small
+                              @click="deleteItem(props.item)"
+                            >
+                              delete
+                            </v-icon>
+                          </td>
+                        </template>
+                      </v-data-table>
+                    </v-card>
+                  </div>
                 </v-tab-item>
               </v-tabs>
             </v-layout>
@@ -219,17 +310,41 @@ export default {
   data () {
     return {
       e1: 1,
+      headers: [
+        {
+          text: '病历号',
+          align: 'left',
+          value: 'register_info_id'
+        },
+        { text: '患者名称', value: 'register_info_patient_id' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
       active: '1',
       active1: '1',
       show: true,
+      patient_record_id: '',
+      patient_gender: '',
+      patient_name: '',
+      patient_credit_id: '',
+      patient_birthDate: '',
+      patient_address: '',
+      patient_age: '',
+      desserts_per: {
+        on: [],
+        off: []
+      },
+      desserts_depart: {
+        on: [],
+        off: []
+      },
       steps: 8,
       items1: [{
         name: '本人',
-        id: 'self'
+        id: 'desserts_per'
       },
       {
         name: '科室',
-        id: 'department'
+        id: 'desserts_depart'
       }],
       items: [{
         name: '病例首页',
@@ -263,6 +378,13 @@ export default {
         name: '费用查询',
         id: 'cost'
       }]
+    }
+  },
+  mounted: function () {
+  },
+  methods: {
+    load_patient: function () {
+
     }
   }
 }

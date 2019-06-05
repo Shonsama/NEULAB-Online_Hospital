@@ -81,13 +81,12 @@
               xs12
               md2
             >
-              <v-select
+              <v-text-field
                 v-model="patient_gender"
-                :items="genders"
                 label="性别"
                 required
                 disabled
-              ></v-select>
+              ></v-text-field>
             </v-flex>
 
             <v-flex
@@ -344,7 +343,7 @@ export default {
         })
     },
     get_patient: function () {
-      var url = this.HOME + '/constant/get'
+      var url = this.HOME + '/patient/get-by-patient-id'
       var that = this
       var data = {
         'patient_record_id': that.patient_record_id
@@ -352,13 +351,17 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.patient_gender = data.patient_gender
-          that.patient_name = data.patient_name
-          that.patient_credit_id = data.patient_credit_id
-          that.patient_birthDate = data.patient_birthDate
-          that.patient_address = data.patient_address
-          that.patient_age = data.patient_age
-          that.get_patient_register()
+          if (response.data.data.patient_gender) {
+            that.patient_gender = '男'
+          } else {
+            that.patient_gender = '女'
+          }
+          that.patient_name = response.data.data.patient_name
+          that.patient_credit_id = response.data.data.patient_credit_id
+          that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
+          that.patient_age = response.data.data.patient_age
+          that.patient_address = response.data.data.patient_address
+          // that.get_patient_register()
         })
     }
   }
