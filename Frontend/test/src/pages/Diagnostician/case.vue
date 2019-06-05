@@ -65,38 +65,45 @@
           </div>
         </v-card-title>
         <v-textarea
-          v-model="form.appeal"
+          v-model="form.record_syndrome"
           box
           label="主诉"
           placeholder="请输入主诉"
           rows="1"
         ></v-textarea>
         <v-textarea
-          v-model="form.now"
+          v-model="form.record_xianbingshi"
           box
           label="现病史"
           placeholder="请输入现病史"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.nowTreat"
+          v-model="form.record_cure_situation"
           box
           label="现病治疗情况"
           placeholder="请输入现病治疗情况"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.history"
+          v-model="form.record_jiwangshi"
           box
           label="既往史"
           placeholder="请输入既往史"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.allergy"
+          v-model="form.record_allergy_his"
           box
           label="过敏史"
           placeholder="请输入过敏史"
+          rows="2"
+        ></v-textarea>
+        <v-textarea
+          v-model="form.record_health_check"
+          box
+          label="体格检查"
+          placeholder="请输入体格检查"
           rows="2"
         ></v-textarea>
         <v-layout >
@@ -265,16 +272,16 @@ export default {
         time: '2'
       }],
       form: {
-        appeal: '',
-        now: '',
-        history: '',
-        nowTreat: '',
-        allergy: '',
+        record_syndrome: '',
+        record_health_check: '',
+        record_xianbingshi: '',
+        record_jiwangshi: '',
+        record_cure_situation: '',
         diagnosis: {
           cate: '',
           content: []
         },
-        advise: '',
+        record_allergy_his: '',
         notice: ''
       }
     }
@@ -292,7 +299,7 @@ export default {
     },
     submit () {
       let that = this
-      var url = this.HOME + ''
+      var url = this.HOME + '/doctor/submit-record'
       this.$http.post(url, this.form)
         .then(response => {
           that.desserts = response.data
