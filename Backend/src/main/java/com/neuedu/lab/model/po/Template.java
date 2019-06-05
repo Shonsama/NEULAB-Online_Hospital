@@ -8,8 +8,6 @@ public class Template {
     private String template_range;
     private Date template_init_date;
     private Integer template_doctor_id;
-    private String template_non_medicine_id;
-    private String template_medicine_id;
 
     public Integer getTemplate_id() {
         return template_id;
@@ -59,19 +57,4 @@ public class Template {
         this.template_doctor_id = template_doctor_id;
     }
 
-    public String getTemplate_non_medicine_id() {
-        return template_non_medicine_id;
-    }
-
-    public void setTemplate_non_medicine_id(String template_non_medicine_id) {
-        this.template_non_medicine_id = template_non_medicine_id;
-    }
-
-    public String getTemplate_medicine_id() {
-        return template_medicine_id;
-    }
-
-    public void setTemplate_medicine_id(String template_medicine_id) {
-        this.template_medicine_id = template_medicine_id;
-    }
 }
