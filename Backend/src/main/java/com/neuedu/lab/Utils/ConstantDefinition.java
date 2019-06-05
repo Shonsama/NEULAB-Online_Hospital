@@ -1,5 +1,7 @@
 package com.neuedu.lab.Utils;
 
+import java.util.Date;
+
 public class ConstantDefinition {
 
     public static final String URL_BASE_FRONT = "http://";
@@ -12,7 +14,13 @@ public class ConstantDefinition {
     //开立之后的处方是不能被删除的，可以点击“作废”，作废处方。作废处方是指收款人员页面看不到处方信息，也不能进行划价收款。
 
     public static final String SUCCESS_MESSAGE = "SUCCESS";
+
+
+
     public static final String FAIL_MESSAGE = "FAIL";
+    public static final String FAIL_INSERT_MESSAGE = "插入失败";
+
+
 
     public static final Integer SUCCESS_CODE = 200;
     public static final Integer FAIL_CODE = 500;

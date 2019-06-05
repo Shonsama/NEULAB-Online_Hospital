@@ -18,4 +18,9 @@
         SELECT * FROM bill
         WHERE bill_register_id = #{register_id}
     </select>
+
+    <select id="getBillByUserIdAndTime" resultType="Bill">
+        SELECT * FROM bill
+        WHERE bill_user_id = #{bill_user_id} AND bill_time BETWEEN #{start_time} AND #{end_time}
+    </select>
 </mapper>

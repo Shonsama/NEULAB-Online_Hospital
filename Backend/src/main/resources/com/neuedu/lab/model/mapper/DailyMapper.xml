@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.DailyMapper">
+    <select id="getDailyByUserId" resultType="Daily">
+        SELECT * FROM daily
+        WHERE daily_user_id = #{user_id}
+        ORDER BY daily_end DESC
+        LIMIT 0,1;
+    </select>
+
+    <insert id="addDaily" parameterType="Daily" useGeneratedKeys="true" keyProperty="daily_id">
+        INSERT INTO daily ( daily_start, daily_end, daily_user_id, daily_operate_time, daily_pass)
+                VALUES (#{daily_start}, #{daily_end}, #{daily_user_id}, #{daily_operate_time}, #{daily_pass})
+    </insert>
+
+    <update id="updateDailyPass">
+        UPDATE daily SET daily_pass = #{daily_pass}
+        WHERE daily_id = #{daily_id}
+    </update>
+
+
+
+</mapper>

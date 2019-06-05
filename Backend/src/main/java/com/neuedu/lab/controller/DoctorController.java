@@ -23,6 +23,11 @@ public class DoctorController {
         return ConstantUtils.responseSuccess( doctorService.getAllRegisters(request.getInteger("doctor_id")));
     }
 
+    @RequestMapping("/get-department-registers")
+    public JSONObject getDepartmentRegisters(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess( doctorService.getAllDepartmentRegisters(request.getInteger("department_id")));
+    }
+
     //接诊
     @RequestMapping("/treat")
     public JSONObject treat( @RequestBody JSONObject request){

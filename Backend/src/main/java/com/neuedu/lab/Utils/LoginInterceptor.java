@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     private final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        logger.info("request请求地址path[{}] uri[{}]", request.getServletPath(),request.getRequestURI());
+        logger.info("request 请求地址 path[{}] uri[{}]", request.getServletPath(),request.getRequestURI());
         //request.getHeader(String) 从请求头中获取数据
         //从请求头中获取用户token（登陆凭证根据业务而定）
         String token= request.getParameter("token");

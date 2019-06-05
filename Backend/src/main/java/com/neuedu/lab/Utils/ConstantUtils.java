@@ -7,6 +7,8 @@ import com.neuedu.lab.Token.Tokenizer;
 
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +64,13 @@ public class ConstantUtils {
         JSONObject token = new JSONObject();
         token.put("token",Tokenizer.createToken(payload));
         return token;
+    }
+
+    //获取系统初始时间
+    public static Date getSystemInitializeTime() throws ParseException {
+        String date = "2019-06-01 00:00:00";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return new Date(String.valueOf(format.parse(date)));
     }
 
     public static void printInfo(String s){
