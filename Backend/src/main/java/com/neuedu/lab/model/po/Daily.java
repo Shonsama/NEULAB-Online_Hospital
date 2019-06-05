@@ -1,11 +1,19 @@
 package com.neuedu.lab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Daily {
     private Integer daily_id;
     private Date daily_start;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date daily_end;
+
+
     private Date daily_operate_time;
     private Integer daily_user_id;
     private boolean daily_pass; //是否审核通过

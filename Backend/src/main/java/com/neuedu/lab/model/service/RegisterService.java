@@ -1,14 +1,15 @@
 package com.neuedu.lab.model.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
-import com.neuedu.lab.model.mapper.BillMapper;
-import com.neuedu.lab.model.mapper.DepartmentMapper;
-import com.neuedu.lab.model.mapper.DoctorMapper;
-import com.neuedu.lab.model.mapper.RegisterMapper;
+import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
+import com.neuedu.lab.model.po.RegisterLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,25 +27,41 @@ public class RegisterService {
     private RegisterMapper registerMapper;
     @Resource
     private BillMapper billMapper;
+    @Resource
+    private RegisterLevelMapper registerLevelMapper;
 
 /*    public List<Department> getAllDepartments(){
         return departmentMapper.getAllDepartments();
     }*/
 
-    public List<Doctor> getAllDoctorsByDepartment(String id){
-        return doctorMapper.getAllDoctorsByDepartment(id);
+//    public JSONArray getAllDoctorsByDepartment(String id){
+//        List<RegisterLevel> levelList = registerLevelMapper.getAllRegisterLevels();
+//        JSONArray result = new JSONArray();
+//        for(RegisterLevel registerLevel:levelList){
+//            JSONObject doctorRegisterLevel  = new JSONObject();
+//            doctorRegisterLevel.put("register_level",registerLevel);
+//            doctorRegisterLevel.put("doctor",doctorMapper.getAllDoctorsByDepartment(id,registerLevel.getRegister_level_id()));
+//            result.add(doctorRegisterLevel);
+//        }
+//        return result;
+//    }
+    public JSONObject getAllDoctorsByDepartment(String id,Integer register_level_id){
+        try{
+            return ConstantUtils.responseSuccess(doctorMapper.getAllDoctorsByDepartment(id,register_level_id));
+        }catch (Exception e){
+            return ConstantUtils.responseFail(null);
+        }
     }
 
-
-    public boolean addRegister(Register register){
+    public JSONObject addRegister(Register register){
         try {
             register.setRegister_info_state(ConstantDefinition.REGISTER_STATE[0]);
             registerMapper.addRegister(register);
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return ConstantUtils.responseFail(ConstantDefinition.FAIL_INSERT_MESSAGE,null);
         }
-        return true;
+        return ConstantUtils.responseSuccess(register);
     }
 
     public boolean addBill(Bill bill){

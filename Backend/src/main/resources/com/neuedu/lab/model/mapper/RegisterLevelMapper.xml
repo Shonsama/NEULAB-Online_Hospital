@@ -5,10 +5,9 @@
 <mapper namespace="com.neuedu.lab.model.mapper.RegisterLevelMapper">
 
     <!--增加挂号级别信息-->
-    <insert id="addRegisterLevel" parameterType="com.neuedu.lab.model.po.RegisterLevel">
-        insert into register_level (register_level_id, register_level_name, register_level_max, register_level_fee,register_level_seq_num)
-        values(#{register_level_id},
-        #{register_level_name},
+    <insert id="addRegisterLevel" parameterType="RegisterLevel" useGeneratedKeys="true" keyProperty="register_level_id">
+        insert into register_level (register_level_name, register_level_max, register_level_fee,register_level_seq_num)
+        values(#{register_level_name},
         #{register_level_max},
         #{register_level_fee},
         #{register_level_seq_num})
@@ -39,6 +38,7 @@
     <!--查询所有挂号级别信息-->
     <select id="getAllRegisterLevels" resultType="RegisterLevel">
         select * from register_level
+        ORDER BY register_level_seq_num DESC
     </select>
 
 </mapper>

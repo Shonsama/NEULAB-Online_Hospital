@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/non-medicine")
 public class NonMedicineController {
@@ -20,8 +18,8 @@ public class NonMedicineController {
 
     @RequestMapping("/get-all")
 //    返回所有非药品信息
-    public List<NonMedicine> getAllNonMedicines(){
-        return nonMedicineService.getAllNonMedicines();
+    public JSONObject getAllNonMedicines(){
+        return ConstantUtils.responseSuccess(nonMedicineService.getAllNonMedicines());
     }
 
     @RequestMapping("/get")

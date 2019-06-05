@@ -23,6 +23,11 @@ public class DoctorController {
         return ConstantUtils.responseSuccess( doctorService.getAllRegisters(request.getInteger("doctor_id")));
     }
 
+    @RequestMapping("/get-department-registers")
+    public JSONObject getDepartmentRegisters(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess( doctorService.getAllDepartmentRegisters(request.getInteger("department_id")));
+    }
+
     //接诊
     @RequestMapping("/treat")
     public JSONObject treat( @RequestBody JSONObject request){
@@ -37,8 +42,8 @@ public class DoctorController {
 
     //医生根据患者姓名查询挂号信息
     @RequestMapping("/get-register")
-    public List<Register> getRegisterByDoctorIdAndPatientName(@RequestBody JSONObject request){
-        return doctorService.getRegisterByDoctorIdAndPatientName(request.getInteger("doctor_id"),request.getString("patient_name"));
+    public JSONObject getRegisterByDoctorIdAndPatientName(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.getRegisterByDoctorIdAndPatientName(request.getInteger("doctor_id"),request.getString("patient_name")));
     }
 
     //提交诊断

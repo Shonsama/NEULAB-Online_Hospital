@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.TemplateMapper">
+    <!--增加模板-->
+    <insert id="addTemplate" parameterType="Template" useGeneratedKeys="true" keyProperty="template_id">
+        insert into template (template_type,template_name,template_range,template_init_date,template_doctor_id)
+        values(#{template_type},
+        #{template_name},
+        #{template_range},
+        NOW(),
+        #{template_doctor_id})
+    </insert>
+
+    <!--删除模板-->
+    <delete id="deleteTemplate" parameterType="Template">
+            delete from template_content
+            where template_connect_id = #{template_id};
+            DELETE FROM template
+            where template_id = #{template_id}
+    </delete>
+
+    <!--修改模板信息-->
+    <update id="updateTemplate">
+            update template
+            set template_type = #{template_type},
+            template_name = #{template_name},
+            template_range = #{template_range},
+            template_init_date = #{template_init_date}
+            where template_id = #{template_id}
+    </update>
+
+    <!--查询某模板信息,根据模板name-->
+    <select id="getAllTemplates" resultType="Template">
+        select * from template
+    </select>
+
+    <!--查询某药品信息,根据range-->
+    <select id="getTemplatesByDoctor" resultType="Template">
+        select * from template
+        where template_doctor_id = #{doctor_id}
+    </select>
+
+    <!--查询某药品信息,根据type-->
+    <select id="getTemplatesByDepartment" resultType="Template">
+        select template.* from template,doctor_info
+        where template.template_doctor_id = doctor_info.doctor_id
+        and doctor_info.doctor_department_id = #{department_id};
+    </select>
+
+<!--获取医技/药品-->
+<!--    <select id="getTemplateById" resultType="Template">
+        select * from template
+        where template_id = #{template_id}
+    </select>-->
+
+
+    <!--项目-->
+    <!--    增加项目,医技-->
+    <insert id="addTemplateContentNonMedicine" parameterType="TemplateContent" useGeneratedKeys="true"
+            keyProperty="template_content_id">
+        insert into template_content (template_connect_id,template_non_medicine_id,
+        template_non_medicine_name,template_non_medicine_specification,template_non_medicine_checkpoint)
+        values(#{template_connect_id},
+        #{template_non_medicine_id},
+        #{template_non_medicine_name},
+        #{template_non_medicine_specification},
+        #{template_non_medicine_checkpoint})
+    </insert>
+
+    <!--    增加项目,药品-->
+    <insert id="addTemplateContentMedicine" parameterType="TemplateContent" useGeneratedKeys="true"
+            keyProperty="template_content_id">
+        insert into template_content (template_connect_id,template_medicine_name,
+        template_medicine_specification,template_medicine_unit,template_medicine_usage,
+        template_medicine_consumption,template_medicine_frequency)
+        values(#{template_connect_id},
+        #{template_medicine_name},
+        #{template_medicine_specification},
+        #{template_medicine_unit},
+        #{template_medicine_usage},
+        #{template_medicine_consumption},
+        #{template_medicine_frequency})
+    </insert>
+
+
+    <!--删除项目-->
+    <delete id="deleteTemplateContent" parameterType="TemplateContent">
+        DELETE FROM template_content
+        where template_content_id = #{template_content_id}
+    </delete>
+
+
+    <!--查询项目内容,医技-->
+    <select id="getTemplateContentNonMedicine" resultType="TemplateContent">
+        select template_non_medicine_id,template_non_medicine_name,
+         template_non_medicine_specification,template_non_medicine_checkpoint
+         from template_content where
+        template_content.template_connect_id = #{template_connect_id};
+    </select>
+
+    <!--查询项目内容,根据模板id,药品-->
+    <select id="getTemplateContentMedicine" resultType="TemplateContent">
+        select template_content.template_medicine_name,template_medicine_specification,
+         template_medicine_unit,template_medicine_usage,
+         template_medicine_consumption,template_medicine_frequency
+         from template_content
+        where template_content.template_connect_id = #{template_id};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.PatientMapper">
+    <!--增加病人信息-->
+    <insert id="addPatient" parameterType="Patient" useGeneratedKeys="true" keyProperty="patient_record_id">
+        insert into patient_info (patient_gender,patient_name,patient_credit_id,patient_address,patient_birthDate,
+        patient_age)
+        values(#{patient_gender},
+        #{patient_name},
+        #{patient_credit_id},
+        #{patient_address},
+        #{patient_birthDate},
+        #{patient_age})
+    </insert>
+
+    <!--删除病人信息-->
+<!--    <delete id="deletePatient" parameterType="Patient">
+        DELETE FROM patient_info
+        where non_medicine_id = #{non_medicine_id}
+    </delete>-->
+
+    <!--修改非药品信息-->
+<!--    <update id="updatePatient">
+        update patient_info
+        set non_medicine_type = #{non_medicine_type},
+        non_medicine_name = #{non_medicine_name},
+        non_medicine_unit_price = #{non_medicine_unit_price},
+        non_medicine_specification = #{non_medicine_specification}
+        where non_medicine_id = #{non_medicine_id}
+    </update>-->
+
+    <!--显示所有病人信息-->
+    <select id="getAllPatients" resultType="Patient">
+        select * from patient_info
+    </select>
+
+    <!--查询某药品信息,根据患者病历号-->
+    <select id="getPatientByRecordId" resultType="Patient">
+        select * from patient_info
+        where patient_record_id = #{patient_record_id}
+    </select>
+
+    <!--查询某药品信息,根据医生id-->
+    <select id="getPatientByDoctorId" resultType="Patient">
+        select patient_info.* from patient_info,register_info
+        where patient_info.patient_record_id = register_info.register_info_patient_id
+        and register_info.register_info_doctor_id = #{register_info_doctor_id};
+    </select>
+
+    <!--查询某药品信息,根据科室id-->
+    <select id="getPatientByDepartmentId" resultType="Patient">
+        select patient_info.* from patient_info,register_info,doctor_info
+        where patient_info.patient_record_id = register_info.register_info_patient_id
+        and register_info.register_info_doctor_id = doctor_info.doctor_id
+        and doctor_info.doctor_department_id = #{doctor_department_id};
+    </select>
+</mapper>
