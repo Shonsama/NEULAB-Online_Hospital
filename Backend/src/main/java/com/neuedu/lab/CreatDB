@@ -1,7 +1,7 @@
 drop table  if exists `his`.`daily`;
 drop table if exists `his`.`bill`;
 drop table if exists `his`.`fee_cat`;
-drop table`template_content`;
+drop table if exists `template_content`;
 drop table  if exists `his`.`template`;
 drop table  if exists `his`.`medical_skill`;
 drop table  if exists `his`.`prescription_content`;
@@ -165,7 +165,7 @@ CREATE TABLE `his`.`rule` (
 #排班表
 drop table  if exists `his`.`schedule`;
 CREATE TABLE `his`.`schedule` (
-  `schedule_rule_id` INT NOT NULL,
+  `schedule_rule_id` int NOT NULL,
   `schedule_start_date` date NOT NULL,
   `schedule_end_date` date NOT NULL,
   `schedule_id` int not null,
@@ -276,18 +276,29 @@ CREATE TABLE `his`.`template` (
   `template_type` varchar(45) NOT NULL,#模板类型：检查，检验，处置
   `template_name` varchar(45) NOT NULL,#模板名称
   `template_range` varchar(45) NOT NULL,#适用范围：全院，科室，个人
-  `template_init_date` date NOT NULL,#创建时间
+  `template_init_date` datetime NOT NULL,#创建时间
   #foreign key
   `template_doctor_id` INT NOT NULL,#创建医生
   PRIMARY KEY (`template_id`),
   FOREIGN KEY  (`template_doctor_id`)  REFERENCES  `doctor_info` (`doctor_id`)
 )default charset=utf8;
 
-drop table`template_content`;
+drop table if exists `template_content`;
 create table `his`.`template_content`(
 	`template_content_id` int not null auto_increment,
     `template_connect_id` int not null,
-    `template_xiangmu_id` varchar(45) null,
+    #非药品
+    `template_non_medicine_id` varchar(45) null,
+    `template_non_medicine_name` varchar(45) null,
+    `template_non_medicine_specification` varchar(45) null,
+    `template_non_medicine_checkpoint` varchar(45) null,
+    #药品
+    `template_medicine_name` varchar(45) null,
+    `template_medicine_specification` varchar(45) null,
+    `template_medicine_unit` varchar(45) null,
+    `template_medicine_usage` varchar(45) null,
+    `template_medicine_consumption` varchar(45) null,
+    `template_medicine_frequency` varchar(45) null,
     primary key(`template_content_id`),
     foreign key(`template_connect_id`) references `template`(`template_id`)
 )default charset=utf8;
