@@ -32,10 +32,19 @@ public class UserController {
     @RequestMapping("/get")
 //    查询某一用户/医生信息
     public JSONObject getUser(@RequestBody JSONObject request){
-        if(userService.getUser(request.getString("user_id")) != null){
-            return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_id")));
+        if(request.getString("user_id") != null){
+            if(userService.getUser(request.getString("user_id")) != null){
+                return ConstantUtils.responseSuccess(userService.getUser(request.getString("user_id")));
+            }else{
+                return ConstantUtils.responseFail(null);
+            }
         }else{
-            return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_id")));
+            if(userService.getDoctor(request.getString("doctor_id")) != null){
+                return ConstantUtils.responseSuccess(userService.getDoctor(request.getString("doctor_id")));
+            }else{
+                return ConstantUtils.responseFail(null);
+            }
+
         }
     }
 
