@@ -166,7 +166,7 @@ CREATE TABLE `his`.`rule` (
 #排班表
 drop table  if exists `his`.`schedule`;
 CREATE TABLE `his`.`schedule` (
-  `schedule_rule_name` varchar(45) NOT NULL,
+  `schedule_rule_id` INT NOT NULL,
   `schedule_start_date` date NOT NULL,
   `schedule_end_date` date NOT NULL,
   `schedule_id` int not null,
