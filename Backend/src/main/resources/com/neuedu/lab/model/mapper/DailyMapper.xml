@@ -5,14 +5,34 @@
 <mapper namespace="com.neuedu.lab.model.mapper.DailyMapper">
     <select id="getDailyByUserId" resultType="Daily">
         SELECT * FROM daily
-        WHERE daily_user_id = #{user_id}
+        WHERE daily_user_id = #{daily_user_id}
         ORDER BY daily_end DESC
         LIMIT 0,1;
     </select>
 
+    <select id="getDaily" parameterType="Daily" resultType="Daily">
+        SELECT * FROM daily
+        <where>
+            <if test="daily_user_id != null">
+                AND daily_user_id = #{daily_user_id}
+            </if>
+            <if test="daily_pass != null">
+                AND daily_pass = #{daily_pass}
+            </if>
+        </where>
+    </select>
+
     <insert id="addDaily" parameterType="Daily" useGeneratedKeys="true" keyProperty="daily_id">
-        INSERT INTO daily ( daily_start, daily_end, daily_user_id, daily_operate_time, daily_pass)
-                VALUES (#{daily_start}, #{daily_end}, #{daily_user_id}, #{daily_operate_time}, #{daily_pass})
+        <if test="daily_end == null">
+            INSERT INTO daily ( daily_start, daily_user_id, daily_pass)
+            VALUES (#{daily_start}, #{daily_user_id}, #{daily_pass})
+        </if>
+
+        <if test="daily_end != null">
+            INSERT INTO daily ( daily_start, daily_end, daily_user_id, daily_pass)
+            VALUES (#{daily_start}, #{daily_end}, #{daily_user_id}, #{daily_pass})
+        </if>
+
     </insert>
 
     <update id="updateDailyPass">

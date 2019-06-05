@@ -164,6 +164,8 @@ public class UserService {
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
         daily.setDaily_pass(false);  //默认审核未通过
         dailyMapper.addDaily(daily); //将记录插入到日结表
+        System.out.println(daily.getDaily_start());
+        System.out.println(daily.getDaily_end());
         return billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
     }
 
@@ -176,5 +178,16 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    //获取日结信息
+    public JSONObject dailyGet(Daily daily){
+
+        try{
+            return ConstantUtils.responseSuccess(dailyMapper.getDaily(daily)) ;
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
     }
 }
