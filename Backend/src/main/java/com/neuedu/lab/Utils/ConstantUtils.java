@@ -1,10 +1,15 @@
 package com.neuedu.lab.Utils;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Token.Tokenizer;
 
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConstantUtils {
     public static BigDecimal convertToNegtive(BigDecimal source){
@@ -43,6 +48,20 @@ public class ConstantUtils {
         result.put("data", data);
         result.put("msg",msg);
         return result;
+    }
+
+    public static JSONObject generateToken(Integer id,String user_type) {
+        String userId = user_type+id;
+        //生成 token
+        Map<String, Object> payload = new HashMap<>();
+        Date date = new Date();
+        payload.put("userID", userId);// user ID 植入token
+        payload.put("startTime", date.getTime());//生成时间
+        payload.put("expiryTime", date.getTime() + ConstantDefinition.EXPIRY_TIME);//过期时间1小时
+
+        JSONObject token = new JSONObject();
+        token.put("token",Tokenizer.createToken(payload));
+        return token;
     }
 
     public static void printInfo(String s){
