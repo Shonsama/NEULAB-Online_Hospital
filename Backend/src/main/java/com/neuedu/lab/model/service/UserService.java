@@ -1,5 +1,6 @@
 package com.neuedu.lab.model.service;
 
+import ch.qos.logback.core.util.ContextUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
@@ -14,6 +15,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.function.Consumer;
 
 @Service
 public class UserService {
@@ -191,6 +194,50 @@ public class UserService {
             return ConstantUtils.responseFail(null);
         }
     }
+
+    //缴费部分
+
+
+    //获取该挂号ID下所有缴费项目
+    public JSONObject getMedicalSkillFee(Integer register_id){
+        List<MedicalSkill> medicalSkills;
+        try{
+            medicalSkills = medicalSkillMapper.getMedicalSkillByRegisterId(register_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail("获取失败",null);
+        }
+        return ConstantUtils.responseSuccess(medicalSkills);
+    }
+
+    //收费
+    @Transactional
+    public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids){
+        try{
+            for(Integer medical_skill_id: medical_skill_ids){
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail("收费失败",null);
+        }
+        return ConstantUtils.responseSuccess(null);
+    }
+
+    //打印发票
+    public JSONObject printBill(List<Bill> billList){
+        try{
+            for(Bill bill:billList){
+                billMapper.addBill(bill);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseSuccess(null);
+        }
+        return  ConstantUtils.responseSuccess(null);
+    }
+
+
 
 
     //医技项目退费

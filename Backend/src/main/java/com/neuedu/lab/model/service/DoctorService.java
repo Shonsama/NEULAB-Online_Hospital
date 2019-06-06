@@ -3,6 +3,7 @@ package com.neuedu.lab.model.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.Condition;
+import java.util.function.Consumer;
 
 @Service
 public class DoctorService {
@@ -45,41 +49,54 @@ public class DoctorService {
     }
 
     //根据患者姓名和医生ID查询挂号信息
-    public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name){
-        return registerMapper.getRegisterByDoctorIdAndPatientName(doctor_id,patient_name);
+    public JSONObject getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name){
+        List<Register> registers;
+        try{
+            registers = registerMapper.getRegisterByDoctorIdAndPatientName(doctor_id,patient_name);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
+        return ConstantUtils.responseSuccess(registers);
     }
 
 
     //接诊
-    public boolean treat(Integer register_id){
+    public JSONObject treat(Integer register_id){
         try{
             doctorMapper.treat(register_id, ConstantDefinition.REGISTER_STATE[1]);
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+           return ConstantUtils.responseFail("接诊失败",null);
         }
-        return true;
+        return ConstantUtils.responseSuccess(registerMapper.getRegister(register_id));
     }
 
     //填写门诊病历首页
     @Transactional
-    public boolean submitRecord(Record record){
+    public JSONObject submitRecord(Record record){
         try {
-            Boolean record_final_sumbit = recordMapper.getRecordFinalSubmitById(record.getRecord_id());
-            if(record_final_sumbit == null){
+            String record_state = recordMapper.getRecordStateById(record.getRecord_id());
+            if(record_state == null){
                 recordMapper.addRecord(record);
-                return true;
+                return ConstantUtils.responseSuccess(record);
             }
-            if(record_final_sumbit){
-                return false;
+            if(record_state.equals(ConstantDefinition.RECORD_STATE[0])){
+                recordMapper.updateRecord(record);
+                return ConstantUtils.responseSuccess("更新成功",recordMapper.getRecordById(record.getRecord_id()));
+            }
+            else if(record_state.equals(ConstantDefinition.RECORD_STATE[1])){
+                return ConstantUtils.responseFail("已提交最终诊断，不能再次添加诊断",null);
+            }
+            else if(record_state.equals(ConstantDefinition.RECORD_STATE[2])){
+                return ConstantUtils.responseFail("已提交初步诊断，不能更改",null);
             }
             else {
-                recordMapper.updateRecord(record);
-                return true;
+                return ConstantUtils.responseFail("已提交最终诊断，不能更改",null);
             }
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return ConstantUtils.responseFail("提交出错",null);
         }
     }
 
@@ -103,7 +120,7 @@ public class DoctorService {
     //新增医技项目
     public boolean addMedicalSkill(MedicalSkill medicalSkill){
         try{
-            medicalSkill.setMedical_skill_excute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
+            medicalSkill.setMedical_skill_execute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
             medicalSkillMapper.addMedicalSkill(medicalSkill);
         }catch (Exception e){
             e.printStackTrace();
@@ -259,6 +276,32 @@ public class DoctorService {
             data.add(billMapper.getBillForOneRecord(registers.get(i).getRegister_info_id()));
         }
         return data;
+    }
+
+    public JSONObject addMedicalSkillResult(MedicalSkill medicalSkill){
+        MedicalSkill medicalSkillBefore;
+        try{
+            medicalSkillBefore= medicalSkillMapper.getMedicalSkill(medicalSkill.getMedical_skill_id());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail("获取医技项目失败",null);
+        }
+        if(medicalSkillBefore == null){
+            return ConstantUtils.responseFail("无此医技项目",null);
+        }
+
+        medicalSkillBefore.setMedical_skill_execute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[4]);
+        medicalSkillBefore.setMedical_skill_result(medicalSkill.getMedical_skill_result());
+
+        try{
+            medicalSkillMapper.updateMedicalSkillResult(medicalSkillBefore);
+        }catch (Exception e){
+            return ConstantUtils.responseFail("结果添加失败",null);
+        }
+
+        return ConstantUtils.responseSuccess(medicalSkillBefore);
+
     }
 
 

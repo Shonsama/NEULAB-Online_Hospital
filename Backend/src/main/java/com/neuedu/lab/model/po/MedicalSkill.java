@@ -16,6 +16,15 @@ public class MedicalSkill {
     private Integer medical_skill_doctor_id;
     private String medical_skill_non_medical_id;
     private BigDecimal medical_skill_fee;
+    private NonMedicine nonMedicine;
+
+    public NonMedicine getNonMedicine() {
+        return nonMedicine;
+    }
+
+    public void setNonMedicine(NonMedicine nonMedicine) {
+        this.nonMedicine = nonMedicine;
+    }
 
     public String getMedical_skill_execute_state() {
         return medical_skill_execute_state;
@@ -41,13 +50,6 @@ public class MedicalSkill {
         this.medical_skill_id = medical_skill_id;
     }
 
-    public String getMedical_skill_excute_state() {
-        return medical_skill_execute_state;
-    }
-
-    public void setMedical_skill_excute_state(String medical_skill_excute_state) {
-        this.medical_skill_execute_state = medical_skill_excute_state;
-    }
 
     public String getMedical_skill_result() {
         return medical_skill_result;
