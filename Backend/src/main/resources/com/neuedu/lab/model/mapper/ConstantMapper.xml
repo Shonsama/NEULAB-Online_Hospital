@@ -16,14 +16,7 @@
 
     <delete id="deleteConstant" parameterType="com.neuedu.lab.model.po.Constant">
         DELETE FROM his.constant
-        <where>
-            <if test="constant_id != null">
-                AND  his.constant.constant_id= #{constant_id}
-            </if>
-            <if test="constant_id == null">
-                AND  constant_type = #{constant_type} AND constant_name = #{constant_name}
-            </if>
-        </where>
+        WHERE constant_id =#{constant_id}
     </delete>
 
     <update id="updateConstant">

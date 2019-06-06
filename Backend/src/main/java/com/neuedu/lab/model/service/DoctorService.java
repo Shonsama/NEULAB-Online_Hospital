@@ -66,16 +66,8 @@ public class DoctorService {
     public boolean submitRecord(Record record){
         try {
             Boolean record_final_sumbit = recordMapper.getRecordFinalSubmitById(record.getRecord_id());
-            if(record_final_sumbit== null){
+            if(record_final_sumbit == null){
                 recordMapper.addRecord(record);
-
-                List<Diagnose> diagnoses = record.getDiagnoses();
-                if(diagnoses!=null){ //如果有初步诊断病
-                    for(int i = 0; i<diagnoses.size(); i++){
-                        diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
-                        diagnoseMapper.addDiagnose(diagnoses.get(i));
-                    }
-                }
                 return true;
             }
             if(record_final_sumbit){
@@ -90,6 +82,22 @@ public class DoctorService {
             return false;
         }
     }
+
+    //提交最终确诊结果
+    @Transactional
+    public boolean submitFirstDiagnose(List<Diagnose> diagnoses){
+        try {
+            for(int i = 0; i<diagnoses.size(); i++){
+                diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
+                diagnoseMapper.addDiagnose(diagnoses.get(i));
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
     //新增医技项目

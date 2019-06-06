@@ -19,4 +19,16 @@
         WHERE prescription_content_id = #{prescription_content_id}
     </delete>
 
+    <select id="getPrescriptionContents" resultType="PrescriptionContent">
+        SELECT prescription_id, sum(prescription_num), prescription_unit_price AS prescription_num FROM prescription_content
+        WHERE prescription_id = #{prescription_id}
+        GROUP BY prescription_id, prescription_medicine_id
+    </select>
+
+    <select id="getPrescriptionContent" resultType="PrescriptionContent">
+        SELECT prescription_id, sum(prescription_num), prescription_unit_price AS prescription_num FROM prescription_content
+        WHERE prescription_id = #{prescription_id}
+        GROUP BY prescription_id, prescription_medicine_id
+    </select>
+
 </mapper>

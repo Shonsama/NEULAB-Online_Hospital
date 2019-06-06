@@ -15,6 +15,15 @@ public class Bill {
     private Integer bill_user_id;
     private String bill_fee_cat_id;
     private String bill_fee_cat_name;
+    private Integer bill_num;
+
+    public Integer getBill_num() {
+        return bill_num;
+    }
+
+    public void setBill_num(Integer bill_num) {
+        this.bill_num = bill_num;
+    }
 
     public Integer getBill_prescription_id() {
         return bill_prescription_id;

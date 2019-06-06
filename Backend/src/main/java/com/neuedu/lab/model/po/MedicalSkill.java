@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class MedicalSkill {
     private Integer medical_skill_id;
     private String medical_skill_execute_state;
@@ -13,7 +15,23 @@ public class MedicalSkill {
     private Integer medical_skill_user_id;
     private Integer medical_skill_doctor_id;
     private String medical_skill_non_medical_id;
+    private BigDecimal medical_skill_fee;
 
+    public String getMedical_skill_execute_state() {
+        return medical_skill_execute_state;
+    }
+
+    public void setMedical_skill_execute_state(String medical_skill_execute_state) {
+        this.medical_skill_execute_state = medical_skill_execute_state;
+    }
+
+    public BigDecimal getMedical_skill_fee() {
+        return medical_skill_fee;
+    }
+
+    public void setMedical_skill_fee(BigDecimal medical_skill_fee) {
+        this.medical_skill_fee = medical_skill_fee;
+    }
 
     public Integer getMedical_skill_id() {
         return medical_skill_id;

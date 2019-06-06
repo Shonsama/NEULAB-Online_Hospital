@@ -10,6 +10,7 @@ public class Diagnose {
     private String diagnose_disease_name;
     private Date diagnose_time;
 
+
     public Integer getDiagnose_id() {
         return diagnose_id;
     }
