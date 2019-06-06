@@ -1,6 +1,5 @@
 package com.neuedu.lab.model.service;
 
-import ch.qos.logback.core.util.ContextUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
@@ -13,10 +12,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
-
 import java.util.List;
-import java.util.concurrent.locks.Condition;
-import java.util.function.Consumer;
 
 @Service
 public class UserService {
@@ -210,19 +206,6 @@ public class UserService {
         return ConstantUtils.responseSuccess(medicalSkills);
     }
 
-    //收费
-    @Transactional
-    public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids){
-        try{
-            for(Integer medical_skill_id: medical_skill_ids){
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("收费失败",null);
-        }
-        return ConstantUtils.responseSuccess(null);
-    }
 
     //打印发票
     public JSONObject printBill(List<Bill> billList){

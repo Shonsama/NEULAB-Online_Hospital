@@ -10,4 +10,6 @@ public interface PrescriptionMapper {
 
     void updatePrescriptionState(Integer prescription_id,String prescription_execute_state);
 
+    Prescription getPrescription(Integer prescription_id);
+
 }

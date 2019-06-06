@@ -2,7 +2,6 @@ package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantUtils;
-import com.neuedu.lab.model.mapper.BillMapper;
 import com.neuedu.lab.model.po.Daily;
 import com.neuedu.lab.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +31,6 @@ public class UserServiceController {
     public JSONObject dailyPass(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(userService.dailyPass(request.getInteger("daily_id")));
     }
-
-    //缴费部分
-    @RequestMapping("/pay/medical-skill")
-    public JSONObject payMedicalSkill(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(null);
-    }
-
-
-
-
-
-
-
 
 
     //退费部分

@@ -10,11 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.locks.Condition;
-import java.util.function.Consumer;
 
 @Service
 public class DoctorService {
@@ -269,6 +265,7 @@ public class DoctorService {
     }
 
 
+    //获取病人所有收费项目
     public JSONArray getFeeRecords(Integer patient_record_id) {
         JSONArray data = new JSONArray();
         List<Register> registers = registerMapper.getRegistersByPatientId(patient_record_id);
