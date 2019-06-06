@@ -28,7 +28,7 @@ public class PatientService {
         return true;
     }
 
-    public Patient getPatientByRecordId(String patient_id){
+    public Patient getPatientByRecordId(Integer patient_id){
         return patientMapper.getPatientByRecordId(patient_id);
     }
 

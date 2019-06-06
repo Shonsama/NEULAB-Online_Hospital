@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
-import com.neuedu.lab.model.po.Bill;
-import com.neuedu.lab.model.po.Doctor;
-import com.neuedu.lab.model.po.Register;
-import com.neuedu.lab.model.po.RegisterLevel;
+import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +26,8 @@ public class RegisterService {
     private BillMapper billMapper;
     @Resource
     private RegisterLevelMapper registerLevelMapper;
+    @Resource
+    private PatientMapper patientMapper;
 
 /*    public List<Department> getAllDepartments(){
         return departmentMapper.getAllDepartments();
@@ -61,6 +60,7 @@ public class RegisterService {
             e.printStackTrace();
             return ConstantUtils.responseFail(ConstantDefinition.FAIL_INSERT_MESSAGE,null);
         }
+        register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
         return ConstantUtils.responseSuccess(register);
     }
 

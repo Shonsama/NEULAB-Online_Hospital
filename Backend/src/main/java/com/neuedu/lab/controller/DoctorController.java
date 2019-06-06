@@ -32,12 +32,7 @@ public class DoctorController {
     @RequestMapping("/treat")
     public JSONObject treat( @RequestBody JSONObject request){
         //接诊病人
-        if(doctorService.treat(request.getInteger("register_id"))){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.treat(request.getInteger("register_id"));
     }
 
     //医生根据患者姓名查询挂号信息
@@ -48,8 +43,14 @@ public class DoctorController {
 
     //提交诊断
     @RequestMapping("/submit-record")
-    public JSONObject submitRecord(@RequestBody Record record){
-        if(doctorService.submitRecord(record)){
+    public JSONObject submitRecord(@RequestBody Record record) {
+        return doctorService.submitRecord(record);
+    }
+
+    //提交最终诊断
+    @RequestMapping("/submit-first-diagnose")
+    public JSONObject submitFirstDiagnose(@RequestBody List<Diagnose> diagnoses){
+        if(doctorService.submitFirstDiagnose(diagnoses)){
             return ConstantUtils.responseSuccess(null);
         }
         else {
@@ -104,10 +105,15 @@ public class DoctorController {
         }
     }
 
+    @RequestMapping("/check-result")
+    public JSONObject checkResult(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.checkResult(request.getInteger("medical_skill_id")));
+    }
+
     //查看初步诊断
     @RequestMapping("/get-record")
-    public Record getRecord(@RequestBody JSONObject request){
-        return doctorService.getRecord(request.getInteger("record_id"));
+    public JSONObject getRecord(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.getRecord(request.getInteger("record_id")));
     }
 
     //提交最终诊断
@@ -204,6 +210,14 @@ public class DoctorController {
     @RequestMapping("/get-fee-records")
     public JSONObject fee(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(doctorService.getFeeRecords(request.getInteger("patient_record_id")));
+    }
+
+
+    //添加医技项目结果
+    @RequestMapping("/medical-skill/add-result")
+    public JSONObject addMedicalSkillResult(@RequestBody MedicalSkill medicalSkill){
+        //只用传入medical_skill_id 和 medical_skill_result
+        return doctorService.addMedicalSkillResult(medicalSkill);
     }
 
 }

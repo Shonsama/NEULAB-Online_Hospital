@@ -25,5 +25,18 @@
         WHERE medical_skill_id = #{medical_skill_id}
     </select>
 
+    <update id="updateMedicalSkillResult">
+        UPDATE medical_skill
+        SET medical_skill_execute_state = #{medical_skill_execute_state},
+            medical_skill_result = #{medical_skill_result}
+        WHERE medical_skill_id = #{medical_skill_id}
+    </update>
+
+    <select id="getMedicalSkillByRegisterId" resultType="MedicalSkill">
+        SELECT * FROM medical_skill
+        WHERE medical_skill_register_info_id = #{medical_skill_register_info_id}
+              AND medical_skill_execute_state = #{medical_skill_execute_state}
+    </select>
+
 
 </mapper>

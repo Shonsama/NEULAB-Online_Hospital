@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class Prescription {
     private Integer prescription_id;
     private String prescription_execute_state;
@@ -7,6 +9,15 @@ public class Prescription {
     private Integer prescription_doctor_id;
     private Integer prescription_register_info_id;
     private Integer prescription_user_id;
+    private BigDecimal prescription_fee;
+
+    public BigDecimal getPrescription_fee() {
+        return prescription_fee;
+    }
+
+    public void setPrescription_fee(BigDecimal prescription_fee) {
+        this.prescription_fee = prescription_fee;
+    }
 
     public Integer getPrescription_user_id() {
         return prescription_user_id;
