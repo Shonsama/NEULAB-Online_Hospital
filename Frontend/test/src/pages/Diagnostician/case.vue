@@ -208,14 +208,14 @@
           </div>
         </v-expand-transition>
         <v-textarea
-          v-model="form.advise"
+          v-model="form.record_suggestion"
           box
           label="检查建议"
           placeholder="请输入检查建议"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.notice"
+          v-model="form.record_attention"
           box
           label="注意事项"
           placeholder="请输入注意事项"
@@ -229,6 +229,7 @@
 
 <script>
 export default {
+  props: ['msgfromfa'],
   data () {
     return {
       selected: [],
@@ -284,7 +285,8 @@ export default {
           cate: '',
           content: []
         },
-        notice: ''
+        record_suggestion: '',
+        record_attention: '',
       }
     }
   },
@@ -333,7 +335,8 @@ export default {
           cate: '',
           content: []
         },
-        notice: ''
+        record_suggestion: '',
+        record_attention: ''
       }
       this.desserts = []
     },
@@ -341,14 +344,19 @@ export default {
       let that = this
       var url = this.HOME + ''
       var data = {
-        record_syndrome: '',
-        record_health_check: '',
-        record_xianbingshi: '',
-        record_jiwangshi: '',
-        record_cure_situation: '',
-        record_allergy_his: '',
+        record_syndrome: that.form.record_syndrome,
+        record_health_check: that.form.record_health_check,
+        record_xianbingshi: that.form.record_xianbingshi,
+        record_jiwangshi: that.form.record_jiwangshi,
+        record_cure_situation: that.form.record_cure_situation,
+        record_allergy_his: that.form.record_allergy_his,
         diagnosis: [],
-        notice: ''
+        record_suggestion: that.form.record_suggestion,
+        record_attention: that.form.record_attention,
+        record_state: '',
+        record_patient_id: '',
+        record_doctor_id: '',
+        record_id: ''
       }
       this.$http.post(url, data)
         .then(response => {

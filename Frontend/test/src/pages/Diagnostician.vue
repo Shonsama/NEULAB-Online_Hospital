@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <v-card >
+    <v-card>
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
@@ -63,12 +63,11 @@
                       :search="search"
                       :headers="headers1"
                       :items="desserts_per.off"
-                      item-key="register_info_patient_id"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
-                        <td>{{ props.item.register_info_patient_id }}</td>
-                        <td>{{ props.item.register_info_patient_id }}</td>
+                        <td>{{ props.item.patient.patient_record_id }}</td>
+                        <td>{{ props.item.patient.patient_name }}</td>
                       </template>
                     </v-data-table>
                   </v-card>
@@ -81,12 +80,11 @@
                       :search="search"
                       :headers="headers"
                       :items="desserts_per.on"
-                      item-key="register_info_patient_id"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
-                        <td>{{ props.item.register_info_patient_id }}</td>
-                        <td>{{ props.item.register_info_patient_id }}</td>
+                        <td>{{ props.item.patient.patient_record_id }}</td>
+                        <td>{{ props.item.patient.patient_name }}</td>
                         <td>
                           <v-btn
                             color="primary"
@@ -112,12 +110,11 @@
                         :search="search"
                         :headers="headers1"
                         :items="desserts_depart.off"
-                        item-key="register_info_patient_id"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
-                          <td>{{ props.item.register_info_patient_id }}</td>
-                          <td>{{ props.item.register_info_patient_id }}</td>
+                          <td>{{ props.item.patient.patient_record_id }}</td>
+                          <td>{{ props.item.patient.patient_name }}</td>
                         </template>
                       </v-data-table>
                     </v-card>
@@ -130,12 +127,11 @@
                         :search="search"
                         :headers="headers1"
                         :items="desserts_depart.on"
-                        item-key="register_info_patient_id"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
-                          <td>{{ props.item.register_info_patient_id }}</td>
-                          <td>{{ props.item.register_info_patient_id }}</td>
+                          <td>{{ props.item.patient.patient_record_id }}</td>
+                          <td>{{ props.item.patient.patient_name }}</td>
                         </template>
                       </v-data-table>
                     </v-card>
@@ -154,7 +150,7 @@
           <v-toolbar-side-icon
             @click.stop="show = !show"
           ></v-toolbar-side-icon>
-          <v-toolbar-title>患者:{{patient_name}}</v-toolbar-title>
+          <v-toolbar-title>患者:{{patient.patient_name}}</v-toolbar-title>
           <v-spacer/>
           <v-btn
             color="primary"
@@ -259,20 +255,42 @@ export default {
       active: '1',
       active1: '1',
       show: true,
-      patient_record_id: '',
-      patient_gender: '',
-      patient_name: '',
-      patient_credit_id: '',
-      patient_birthDate: '',
-      patient_address: '',
-      patient_age: '',
+      patient: {
+        patient_record_id: '',
+        patient_gender: '',
+        patient_name: '',
+        patient_credit_id: '',
+        patient_birthDate: '',
+        patient_address: '',
+        patient_age: ''
+      },
       desserts_per: {
-        on: [],
-        off: []
+        on: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }],
+        off: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }]
       },
       desserts_depart: {
-        on: [],
-        off: []
+        on: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }],
+        off: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }]
       },
       steps: 8,
       items1: [{
@@ -334,10 +352,10 @@ export default {
           let i
           for (i = 0; i < response.data.data.length; i++) {
             if (response.data.data[i].register_info_state === '已挂号') {
-              that.desserts_per.on.push(response.data.data[i])
+              that.desserts_per.on.append(response.data.data[i])
             }
             if (response.data.data[i].register_info_state === '诊毕') {
-              that.desserts_per.off.push(response.data.data[i])
+              that.desserts_per.off.append(response.data.data[i])
             }
           }
         })
@@ -370,17 +388,20 @@ export default {
       var data = {
         'register_id': '1'
       }
+      console.log(value)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.patient_name = value
+          that.patient.patient_name = value
+          this.load_patient_self()
+          this.load_patient_depart()
         })
     },
     finish: function () {
       var url = this.HOME + '/doctor/finish'
       // var that = this
       var data = {
-        'register_id': '1'
+        'register_id': '5'
       }
       this.$http.post(url, data)
         .then(function (response) {

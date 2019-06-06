@@ -330,8 +330,7 @@ export default {
       }
       if (this.count === this.length){
         this.notice_success()
-      }
-      else {
+      } else {
         this.notice_error()
       }
     }
