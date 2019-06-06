@@ -19,6 +19,15 @@ public class MedicalSkill {
     private Integer medical_skill_register_info_id;
     private Integer medical_skill_user_id;
     private Integer medical_skill_doctor_id;
+    private String medical_skill_content_id;
+
+    public String getMedical_skill_content_id() {
+        return medical_skill_content_id;
+    }
+
+    public void setMedical_skill_content_id(String medical_skill_content_id) {
+        this.medical_skill_content_id = medical_skill_content_id;
+    }
 
     public Date getMedical_skill_create_time() {
         return medical_skill_create_time;

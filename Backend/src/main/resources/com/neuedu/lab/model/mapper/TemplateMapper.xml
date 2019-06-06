@@ -60,13 +60,13 @@
     <!--    增加项目,医技-->
     <insert id="addTemplateContentNonMedicine" parameterType="TemplateContent" useGeneratedKeys="true"
             keyProperty="template_content_id">
-        insert into template_content (template_connect_id,template_non_medicine_id,
-        template_non_medicine_name,template_non_medicine_specification,template_non_medicine_checkpoint)
+        insert into template_content (template_connect_id,template_medical_skill_content_id,
+        template_medical_skill_content_name,template_medical_skill_content_specification,template_medical_skill_content_checkpoint)
         values(#{template_connect_id},
-        #{template_non_medicine_id},
-        #{template_non_medicine_name},
-        #{template_non_medicine_specification},
-        #{template_non_medicine_checkpoint})
+        #{template_medical_skill_content_id},
+        #{template_medical_skill_content_name},
+        #{template_medical_skill_content_specification},
+        #{template_medical_skill_content_checkpoint})
     </insert>
 
     <!--    增加项目,药品-->
@@ -94,8 +94,8 @@
 
     <!--查询项目内容,医技-->
     <select id="getTemplateContentNonMedicine" resultType="TemplateContent">
-        select template_non_medicine_id,template_non_medicine_name,
-         template_non_medicine_specification,template_non_medicine_checkpoint
+        select template_medical_skill_content_id,template_medical_skill_content_name,
+         template_medical_skill_content_specification,template_medical_skill_content_checkpoint
          from template_content where
         template_content.template_connect_id = #{template_connect_id};
     </select>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.MedicalSkillContentMapper">
+
+    <insert id="addMedicalSkillContent" parameterType="MedicalSkillContent">
+        insert into medical_skill_content (medical_skill_content_id, medical_skill_content_name,
+         medical_skill_content_detail, medical_skill_content_father,
+         medical_skill_content_extra,medical_skill_content_unit,
+         medical_skill_content_price,medical_skill_content_explain)
+        values(#{medical_skill_content_id},
+        #{medical_skill_content_name},
+        #{medical_skill_content_detail},
+        #{medical_skill_content_father},
+        #{medical_skill_content_extra},
+        #{medical_skill_content_unit},
+        #{medical_skill_content_price},
+        #{medical_skill_content_explain})
+    </insert>
+
+    <delete id="deleteMedicalSkillContent" parameterType="MedicalSkillContent">
+        DELETE FROM his.medical_skill_content
+        where medical_skill_content_id = #{medical_skill_content_id}
+    </delete>
+
+    <update id="updateMedicalSkillContent">
+        update medical_skill_content
+        set medical_skill_content_name = #{medical_skill_content_name},
+        medical_skill_content_detail = #{medical_skill_content_detail},
+        medical_skill_content_father = #{medical_skill_content_father},
+        medical_skill_content_extra = #{medical_skill_content_extra},
+        medical_skill_content_unit = #{medical_skill_content_unit},
+        medical_skill_content_price = #{medical_skill_content_price},
+        medical_skill_content_explain = #{medical_skill_content_explain}
+        where medical_skill_content_id = #{medical_skill_content_id}
+    </update>
+
+    <select id="getMedicalSkillContent" resultType="MedicalSkillContent">
+        select * from medical_skill_content
+        where medical_skill_content_id  = #{medical_skill_content_id}
+    </select>
+
+    <select id="getAllMedicalSkillContents" resultType="MedicalSkillContent">
+        select * from medical_skill_content
+    </select>
+
+</mapper>

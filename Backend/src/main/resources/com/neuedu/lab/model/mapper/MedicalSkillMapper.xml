@@ -5,9 +5,9 @@
 <mapper namespace="com.neuedu.lab.model.mapper.MedicalSkillMapper">
     <insert id="addMedicalSkill" parameterType="MedicalSkill" useGeneratedKeys="true" keyProperty="medical_skill_id">
         insert into medical_skill (medical_skill_execute_state, medical_skill_result, medical_skill_type, medical_skill_name, medical_skill_checkpoint, medical_skill_purpose, medical_skill_urgent, medical_skill_register_info_id,
-         medical_skill_user_id, medical_skill_doctor_id, medical_skill_non_medical_id)
+         medical_skill_user_id, medical_skill_doctor_id, medical_skill_content_id)
          values (#{medical_skill_execute_state}, #{medical_skill_result}, #{medical_skill_type}, #{medical_skill_name}, #{medical_skill_checkpoint}, #{medical_skill_purpose}, #{medical_skill_urgent}, #{medical_skill_register_info_id},
-          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_non_medical_id});
+          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_content_id});
     </insert>
 
     <delete id="deleteMedicalSkill" parameterType="MedicalSkill">
