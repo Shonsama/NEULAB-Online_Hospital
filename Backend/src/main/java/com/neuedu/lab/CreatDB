@@ -141,7 +141,7 @@ CREATE TABLE `his`.`usual_diagnose` (
 #患者信息
 drop table if exists  `his`.`patient_info`;
 CREATE TABLE `his`.`patient_info` (
-  `patient_record_id`INT NOT NULL AUTO_INCREMENT,
+  `patient_id`INT NOT NULL AUTO_INCREMENT,
   `patient_gender` bool not NULL,#男1女0
   `patient_name` VARCHAR(45)  NOT NULL,
   `patient_credit_id` VARCHAR(45) NOT NULL,
@@ -203,7 +203,8 @@ CREATE TABLE `his`.`record` (
   `record_allergy_his` VARCHAR(400) NULL,
   `record_suggestion` VARCHAR(400) NULL,
   `record_attention` VARCHAR(400) NULL,
-  `record_final_submit` BOOLEAN NOT NULL DEFAULT FALSE ,
+  `record_doctor_type` VARCHAR(45) NOT NULL ,
+  `record_state` VARCHAR(45) NOT NULL ,
   FOREIGN KEY  (`record_patient_id`)  REFERENCES  `patient_info` (`patient_record_id`),
   FOREIGN KEY  (`record_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
