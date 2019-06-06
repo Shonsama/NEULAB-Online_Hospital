@@ -12,7 +12,7 @@
             v-model="department_rule"
             :items="items_departments"
             item-text="department_name"
-            item-value="department_name"
+            item-value="department_id"
             label="科室"
           ></v-select>
         </v-flex>
@@ -21,8 +21,8 @@
             style="margin-left:10px;margin-right:10px"
             v-model="register_level_rule"
             :items="items_register_level"
-            item-text="register_level_level"
-            item-value="register_level_level"
+            item-text="register_level_name"
+            item-value="register_level_id"
             label="挂号等级"
           ></v-select>
           </v-flex>
@@ -100,6 +100,24 @@
         </v-card-actions>
     </v-card>
     </v-dialog>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
 
     <!--这个是编辑时候出现的对话框-->
     <v-dialog
@@ -209,7 +227,7 @@
           icon
           flat
           color="primary"
-          @click="expand = !expand"
+          @click="delete_selected"
         >
           <v-icon>
             delete
@@ -220,14 +238,14 @@
         v-model="selected_scheduling"
         :headers="headers_scheduling"
         :items="desserts_scheduling"
-        item-key="department_name"
-        :search="search_scheduling"
+        item-key="rule_id"
+        :search="department_scheduling"
         select-all
       >
         <template v-slot:items="props">
           <td>
             <v-checkbox
-              v-model="props.selected_scheduling"
+              v-model="props.selected"
               primary
               hide-details
             ></v-checkbox>
@@ -277,6 +295,9 @@
 export default {
   name: 'workforce',
   data: () => ({
+    alert_success: false,
+    alert_error: false,
+    signal: '',
     date: ['', ''],
     show: false,
     edit_show: false,
@@ -295,14 +316,19 @@ export default {
     // 上面搜索的部门
     department_scheduling: '',
     // 搜索
-    search_scheduling: '',
-    selected_rule: [],
-    selected_scheduling: [],
     items_departments: [],
     items_register_level: [],
+    // 添加rule里面的dessert
     desserts_rule: [],
     doctor_rule: [],
+    selected_rule: [],
+    // schedule
+    search_scheduling: '',
+    selected_scheduling: [],
+    rule_schedule: [],
     desserts_scheduling: [],
+    doctor: [],
+    doctors: [],
     headers_rule: [
       {
         text: '医生ID',
@@ -329,13 +355,6 @@ export default {
       { text: '星期日上午' },
       { text: '星期日下午' }
     ],
-    // desserts_rule: [
-    //   {
-    //     doctor_id: '1',
-    //     doctor_name: '扁鹊',
-    //     time: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-    //   }
-    // ],
     headers_scheduling: [
       {
         text: '规则ID',
@@ -348,66 +367,68 @@ export default {
       {text: '时间', value: 'rule_work_time'},
       {text: '操作', value: 'operation'}
 
-    ],
-    desserts_scheduling: [
-      {
-        rule_id: 1,
-        rule_name: 'q1',
-        department_name: '艾滋病科',
-        doctor_name: '扁鹊',
-        rule_work_time: 11111111111111
-      },
-      {
-        rule_id: 2,
-        rule_name: 'q1',
-        department_name: '病理科',
-        doctor_name: '李雨泽',
-        rule_work_time: 11111111111110
-      }
     ]
   }),
   mounted: function () {
-     this.load()
+    this.load()
+    this.load_rule()
+    this.load_doctor()
   },
   methods: {
+    load_rule: function(){
+      let that = this
+      that.desserts_scheduling = []
+      var url = this.HOME + '/rule/get-all-names'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_scheduling = response.data.data
+        })
+    },
     load: function () {
+      this.items_departments = []
+      this.items_register_level = []
       let that = this
       var url = this.HOME + '/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
-          that.items_departments = response.data
+          that.items_departments = response.data.data
+        })
+      url = this.HOME + '/registerLevel/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.items_register_level = response.data.data
         })
     },
     department_level_doctor: function () {
-      // 返回这个department下的所有doctor
-      // 并将doctor的每个属性对应到十四time slot上
-      // let that = this
-      // var url = this.HOME + '/rule/get-department_level_doctor'
-      // var data = {
-      //   department: that.department_rule,
-      //   level: that.level
-      // }
-      // this.$http.post(url, data)
-      //   .then(function (response) {
-      //     console.log(response.data)
-      //     that.doctor_rule = response.data
-      //     for (let i = 0; i < that.doctor_rule.length; i++) {
-      //       var tempRule = {
-      //         doctor_id: that.doctor_rule[i].doctor_id,
-      //         doctor_name: that.doctor_rule[i].doctor_name,
-      //         time: ['0','0','0','0','0','0','0','0','0','0','0','0','0','0',]
-      //       }
-      //     }
-      //     that.desserts_rule.push(tempRule)
-      //   })
-      var tempRule = {
-                  doctor_id: 1,
-                  doctor_name: 'lala',
-                  time: [false, false, false, false, true, true, true, true, true, true, true, true, true, true]
-                }
-      this.desserts_rule.push(tempRule)
+      this.desserts_rule = []
+      this.doctor_rule = []
+      let that = this
+      var url = this.HOME + '/rule/get-department_level_doctor'
+      var data = {
+        department_id: that.department_rule,
+        register_level_id: that.register_level_rule
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.doctor_rule = response.data.data
+          console.log('This is the doctor length')
+          console.log(that.doctor_rule.length)
+          for (let i = 0; i < that.doctor_rule.length; i++) {
+            var tempRule = {
+              doctor_id: that.doctor_rule[i].doctor_id,
+              doctor_name: that.doctor_rule[i].doctor_name,
+              time: [false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+            }
+            that.desserts_rule.push(tempRule)
+          }
+        })
     },
     add_Rule: function () {
       //从selected_rule里面建立，三个属性
@@ -428,15 +449,17 @@ export default {
         rule_work_time: time_string,
         rule_name: that.rule_name_create,
       }
-      console.log('This is gonna be the rule')
-      console.log(data)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.doctor_rule = response.data
-          if (that.signal.msg === 'SUCCESS') {
-            that.load()
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load_rule()
             that.show = !that.show
+            that.notice_success()
+          }
+          else{
+            that.notice_error()
           }
         })
     },
@@ -451,29 +474,37 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
-            that.load()
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load_rule()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
 
     },
+
     updateItem: function () {
       var rule = {
-        rule_id: this.department_id,
-        rule_name: this.department_name,
-        rule_work_time: this.department_type
+        rule_id: this.rule_id,
+        rule_name: this.rule_name,
+        rule_work_time: this.rule_work_time
       }
       let that = this
       var url = this.HOME + '/rule/update'
       this.$http.post(url, rule)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
-            that.load()
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load_rule()
             that.edit_show = !that.edit_show
+            that.notice_success()
+          }
+          else{
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -484,9 +515,12 @@ export default {
       this.$http.post(url, {rule_id: item.rule_id})
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
-            that.load()
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load_rule()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -504,12 +538,63 @@ export default {
       this.department_name = ''
       this.doctor_name = ''
       this.rule_work_time = ''
+    },
+    eraseForm_add: function() {
+      this.desserts_rule = []
+      this.department_rule = ''
+      this.register_level_rule = ''
+      this.rule_name_create = ''
+    },
+    notice_success: function () {
+      this.change_success()
+      var timeout_1 = window.setTimeout( this.change_success, 1500)
+    },
+    change_success: function () {
+      this.alert_success =! this.alert_success
+    },
+    notice_error: function () {
+      this.change_error()
+      var timeout_2 = window.setTimeout( this.change_error, 1500)
+    },
+    change_error: function () {
+      this.alert_error =! this.alert_error
+    },
+    delete_selected: function () {
+      var count = 0
+      var length = this.selected_scheduling.length
+      for (let i = 0; i < this.selected_scheduling.length; i++) {
+        var item ={
+          rule_id: this.selected_scheduling[i].rule_id
+        }
+        let that = this
+        var url = this.HOME + '/rule/delete'
+        this.$http.post(url, {rule_id: item.rule_id})
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load_rule()
+              count = count + 1
+            }
+          })
+      }
+      if (this.count === this.length){
+        this.notice_success()
+      }
+      else {
+        this.notice_error()
+      }
     }
   },
   watch: {
     edit_show: function (newState, oldState) {
       if (newState === false) {
         this.eraseForm()
+      }
+    },
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm_add()
       }
     }
   }

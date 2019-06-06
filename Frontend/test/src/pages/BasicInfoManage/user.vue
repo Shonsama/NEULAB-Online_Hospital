@@ -190,19 +190,24 @@
           <td>{{ props.item.doctor_position }}</td>
           <td>{{ props.item.doctor_arrange_or_not }}</td>
           <td>
-            <v-icon
-              small
-              class="mr-2"
-              @click="show =!show , mode = false , fillForm(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
+            <layout row>
+              <div>
+                <v-icon
+                  small
+                  @click="show =!show , mode = false , fillForm(props.item)"
+                >
+                  edit
+                </v-icon>
+              </div>
+              <div>
+                <v-icon
+                  small
+                  @click="deleteItem(props.item)"
+                >
+                  delete
+                </v-icon>
+              </div>
+            </layout>
           </td>
         </template>
       </v-data-table>
@@ -273,6 +278,8 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.temUser = response.data.data
+          console.log('This is all the user')
+          console.log(that.temUser.length)
           for (let i = 0; i < that.temUser.length; i++) {
             var userTemp = {
               user_id: that.temUser[i].user_id,
@@ -294,6 +301,8 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.doctors = response.data.data
+          console.log('This is all the doctors')
+          console.log(that.doctors.length)
           for (let i = 0; i < that.doctors.length; i++) {
             // let doctor = that.temUser[i]
             var tempDoctor = {
@@ -310,6 +319,8 @@ export default {
             that.users.push(tempDoctor)
           }
         })
+      console.log('This is total the user')
+      console.log(that.users.length)
     },
     deleteItem: function (item) {
       let that = this
