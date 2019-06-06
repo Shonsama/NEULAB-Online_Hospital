@@ -1,5 +1,6 @@
 package com.neuedu.lab.model.service;
 
+
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
@@ -7,12 +8,14 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.reflect.misc.ConstructorUtil;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
 
 @Service
 public class UserService {
@@ -49,9 +52,9 @@ public class UserService {
     }
 
     public boolean addUser(User user) {
-        try{
+        try {
             userMapper.addUser(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -59,20 +62,19 @@ public class UserService {
     }
 
     public boolean deleteUser(String user_account) {
-        try{
+        try {
             userMapper.deleteUser(user_account);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     public boolean updateUser(User user) {
-        try{
+        try {
             userMapper.updateUser(user);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -80,14 +82,13 @@ public class UserService {
     }
 
     public boolean updateUserPassword(User user) {
-        try{
+        try {
             userMapper.updateUserPassword(user);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     /*获取所有医生信息*/
@@ -104,28 +105,26 @@ public class UserService {
     public JSONObject checkDoctorValid(String doctor_account, String doctor_password) {
         Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
         if (doctor.getDoctor_password().equals(doctor_password)) {
-            return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(doctor.getDoctor_id(),ConstantDefinition.USER_TYPE[1]));
+            return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(doctor.getDoctor_id(), ConstantDefinition.USER_TYPE[1]));
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
     public boolean addDoctor(Doctor doctor) {
-        try{
+        try {
             userMapper.addDoctor(doctor);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     public boolean deleteDoctor(String doctor_account) {
-        try{
+        try {
             userMapper.deleteDoctor(doctor_account);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -133,25 +132,23 @@ public class UserService {
     }
 
     public boolean updateDoctor(Doctor doctor) {
-        try{
+        try {
             userMapper.updateDoctor(doctor);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     public boolean updateDoctorPassword(Doctor doctor) {
-        try{
+        try {
             userMapper.updateDoctorPassword(doctor);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-            return true;
+        return true;
     }
 
     //用户服务
@@ -160,7 +157,7 @@ public class UserService {
     @Transactional
     public List<Bill> dailyClear(Daily daily) throws ParseException {
         Daily dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id()); //取出最后一次日结记录
-        Date end_time = dailyRecent==null? ConstantUtils.getSystemInitializeTime():dailyRecent.getDaily_end(); //若无记录，则按系统初始时间作为上次结束时间
+        Date end_time = dailyRecent == null ? ConstantUtils.getSystemInitializeTime() : dailyRecent.getDaily_end(); //若无记录，则按系统初始时间作为上次结束时间
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
         daily.setDaily_pass(false);  //默认审核未通过
         dailyMapper.addDaily(daily); //将记录插入到日结表
@@ -170,10 +167,10 @@ public class UserService {
     }
 
     //日结确认
-    public boolean dailyPass(Integer daily_id){
-        try{
-            dailyMapper.updateDailyPass(daily_id,true);
-        }catch (Exception e){
+    public boolean dailyPass(Integer daily_id) {
+        try {
+            dailyMapper.updateDailyPass(daily_id, true);
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -181,11 +178,11 @@ public class UserService {
     }
 
     //获取日结信息
-    public JSONObject dailyGet(Daily daily){
+    public JSONObject dailyGet(Daily daily) {
 
-        try{
-            return ConstantUtils.responseSuccess(dailyMapper.getDaily(daily)) ;
-        }catch (Exception e){
+        try {
+            return ConstantUtils.responseSuccess(dailyMapper.getDaily(daily));
+        } catch (Exception e) {
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
@@ -195,160 +192,177 @@ public class UserService {
 
 
     //获取该挂号ID下所有缴费项目
-    public JSONObject getMedicalSkillFee(Integer register_id){
+    public JSONObject getMedicalSkillFee(Integer register_id) {
         List<MedicalSkill> medicalSkills;
-        try{
+        try {
             medicalSkills = medicalSkillMapper.getMedicalSkillByRegisterId(register_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("获取失败",null);
+            return ConstantUtils.responseFail("获取失败", null);
         }
         return ConstantUtils.responseSuccess(medicalSkills);
     }
 
+    //收费
+    @Transactional
+    public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids) {
+        try {
+            for (Integer medical_skill_id : medical_skill_ids) {
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ConstantUtils.responseFail("收费失败", null);
+        }
+        return ConstantUtils.responseSuccess(null);
+    }
 
     //打印发票
-    public JSONObject printBill(List<Bill> billList){
-        try{
-            for(Bill bill:billList){
+    public JSONObject printBill(List<Bill> billList) {
+        try {
+            for (Bill bill : billList) {
                 billMapper.addBill(bill);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ConstantUtils.responseSuccess(null);
         }
-        return  ConstantUtils.responseSuccess(null);
+        return ConstantUtils.responseSuccess(null);
     }
 
 
-
-
     //医技项目退费
-    @Transactional
-    public JSONObject refundMedicalSkill(Integer medical_skill_id){
+    @Transactional(rollbackFor = Exception.class)
+    public JSONObject refundMedicalSkill(Integer medical_skill_id) {
         try {
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5]);
-        }catch (Exception e){
+            MedicalSkill medicalSkilBefore = medicalSkillMapper.getMedicalSkill(medical_skill_id);
+            //如果医技项目不是已缴费状态，不能退费
+            if (!medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3])) {
+                return ConstantUtils.responseFail("当前医技项目状态为["
+                        + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
+            } else {
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5]);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("更新项目状态过程出错",null);
+            return ConstantUtils.responseFail("更新项目状态过程出错", null);
         }
         //获取原发票
         Bill bill;
         try {
-            bill = billMapper.getBillByMedicalSkillId(medical_skill_id);
-            if(bill==null){
-                return ConstantUtils.responseFail("无对应项目发票",null);
+            List<Bill> bills = billMapper.getBillByMedicalSkillId(medical_skill_id);
+            if (bills.size() == 0) {
+                return ConstantUtils.responseFail("无对应项目发票", null);
+            } else if (bills.size() > 1) {
+                return ConstantUtils.responseFail("项目发票不唯一，可能已拥有退费发票", null);
+            } else {
+                bill = bills.get(0);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("获取原发票过程出错",null);
+            return ConstantUtils.responseFail("获取原发票过程出错", null);
         }
-
-
         //增加对冲发票
         bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
         bill.setBill_actual_sum(ConstantUtils.convertToNegtive(bill.getBill_actual_sum()));
-        try{
+        try {
             billMapper.addBill(bill);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("增加对冲发票过程出错",null);
+            return ConstantUtils.responseFail("增加对冲发票过程出错", null);
         }
         return ConstantUtils.responseSuccess(bill);
     }
 
-
-    //处方所有药物全部退费
+    // 退药
     @Transactional
-    public JSONObject refundPrescription(Integer prescription_id){
-        List<PrescriptionContent> contentList;
-        try {
-            contentList = prescriptionContentMapper.getPrescriptionContents(prescription_id);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("获取处方药品记录失败",null);
+    public JSONObject returnMedicine(Integer prescription_id, String prescription_medicine_id, Integer prescription_num){
+        PrescriptionContent prescriptionContent = new PrescriptionContent();
+        prescriptionContent.setPrescription_id(prescription_id);
+        prescriptionContent.setPrescription_medicine_id(prescription_medicine_id);
+        prescriptionContent.setPrescription_num(prescription_num);
+
+        //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
+        Integer prescriptionContentNum = prescriptionContentMapper.getPrescriptionContentNum(prescriptionContent);
+
+        //查看药品数量是否满足
+        if(prescriptionContentNum == null || prescriptionContentNum < prescriptionContent.getPrescription_num()){
+            return ConstantUtils.responseFail("药品数量大于可退费数量",null);
         }
-        try{
-            for(PrescriptionContent content: contentList){ //对一个处方的每种药 分别统计其数量并加入数量相反的药品记录
-                content.setPrescription_num(ConstantUtils.convertToNegtive(content.getPrescription_num()));
-                content.setPrescription_content_fee(ConstantUtils.convertToNegtive(content.getPrescription_unit_price().multiply(new BigDecimal(content.getPrescription_num()))));
-                prescriptionContentMapper.addPrescriptionContent(content);
-                }
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("插入退费记录失败",null);
+        else {
+            //获取最初的药品记录
+            PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
+
+            //改变数量、支付时间
+            prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
+
+            prescriptionContentToAdd.setPrescription_create_time(null);
+            prescriptionContentToAdd.setPrescription_pay_time(null);
+            prescriptionContentToAdd.setPrescription_consume_time(null);
+
+            //增加退药的数量为负的药品记录
+            prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
+            return ConstantUtils.responseSuccess(prescriptionContentToAdd);
         }
+    }
+
+
+    //根据退药记录退钱
+    @Transactional
+    public JSONObject refundPrescription(Integer prescription_id) {
+        //首先检测处方已经处于退药状态
+        Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
+        if (prescription == null) {
+            return ConstantUtils.responseFail("不存在该处方", null);
+        } else if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[5])) {
+            return ConstantUtils.responseFail("该处方状态为["
+                    + prescription.getPrescription_execute_state() + "],不可退费", null);
+        }
+
+        //在处方表中新插入一条记录，并将原来的药复制绑定到新建的处方id下
+        Prescription prescriptionToAdd = prescriptionMapper.getPrescription(prescription_id);
+        prescriptionMapper.addPrescription(prescriptionToAdd);
 
         //插入发票对冲记录
         Bill billBefore;
-        try{
+        try {
             billBefore = billMapper.getBillByPrescriptionId(prescription_id);
             billBefore.setBill_actual_sum(ConstantUtils.convertToNegtive(billBefore.getBill_actual_sum()));
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billMapper.addBill(billBefore);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("插入发票对冲记录出错",null);
+            return ConstantUtils.responseFail("插入发票对冲记录出错", null);
         }
+        //将所有药品绑定到新创建的处方ID下
+        List<PrescriptionContent> contentList;
+        BigDecimal sum = new BigDecimal(0);
+        try {
+            contentList = prescriptionContentMapper.getPrescriptionContentsNew(prescription_id);
+            for (PrescriptionContent content : contentList) {
+                content.setPrescription_id(prescriptionToAdd.getPrescription_id());
+                content.setPrescription_content_fee(content.getPrescription_unit_price().multiply(new BigDecimal(content.getPrescription_num())));
+                sum = sum.add(content.getPrescription_content_fee());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ConstantUtils.responseFail("获取处方药品记录失败", null);
+        }
+
+        //更改新发票的金额
+        prescriptionToAdd.setPrescription_fee(sum);
+        prescriptionMapper.updatePrescriptionFee(prescriptionToAdd);
+
+        //插入新的处方发票记录
+        billBefore.setBill_prescription_id(prescriptionToAdd.getPrescription_id());
+        billBefore.setBill_actual_sum(prescriptionToAdd.getPrescription_fee());
+        billBefore.setBill_sum(prescriptionToAdd.getPrescription_fee());
+        billMapper.addBill(billBefore);
+
         return ConstantUtils.responseSuccess(billBefore);
     }
 
-    //退一定数量的处方的某种药
-    @Transactional
-    public JSONObject refundPrescriptionContent(Integer prescription_id,Integer prescription_medicine_id, Integer prescription_num){
-        PrescriptionContent content;
-        //获取处方药品记录
-        try {
-            content = prescriptionContentMapper.getPrescriptionContent(prescription_id,prescription_medicine_id);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("获取处方药品记录失败",null);
-        }
 
-        if(content.getPrescription_num()<prescription_num){
-            return  ConstantUtils.responseFail("退药数量不能大于原购买数量",null);
-        }
-
-        //增加一条对冲记录
-
-        //将此条记录的数量变负， 总费用也相应变负
-        content.setPrescription_num(ConstantUtils.convertToNegtive(prescription_num));
-
-        content.setPrescription_content_fee(content.getPrescription_unit_price().multiply(new BigDecimal(prescription_num)));
-
-        try{
-            prescriptionContentMapper.addPrescriptionContent(content);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("插入药品对冲记录出错",null);
-        }
-
-        //插入发票对冲记录
-
-        Bill bill;
-        try{
-            Bill billBefore = billMapper.getBillByPrescriptionId(prescription_id);
-            bill = billMapper.getBillByPrescriptionId(prescription_id);
-            billBefore.setBill_actual_sum(ConstantUtils.convertToNegtive(billBefore.getBill_actual_sum()));
-            billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
-            billMapper.addBill(billBefore);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("插入发票对冲记录出错",null);
-        }
-
-
-        //插入新发票记录
-        try {
-            bill.setBill_sum(bill.getBill_sum().add(content.getPrescription_content_fee()));
-            bill.setBill_actual_sum(bill.getBill_actual_sum().add(content.getPrescription_content_unit_actual_price().multiply(new BigDecimal(prescription_num))));
-            billMapper.addBill(bill);
-        }catch (Exception e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("插入新发票记录出错",null);
-        }
-        return ConstantUtils.responseSuccess(bill);
-    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.MedicalSkill;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface MedicalSkillMapper {
 
     public void deleteMedicalSkill(Integer medical_skill_id);
 
-    void updateMedicalSkillState(Integer medical_skill_id,String medical_skill_execute_state);
+    void updateMedicalSkillState(@Param("medical_skill_id") Integer medical_skill_id,@Param("medical_skill_execute_state") String medical_skill_execute_state);
 
     MedicalSkill getMedicalSkill(Integer medical_skill_id);
 

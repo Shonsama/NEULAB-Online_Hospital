@@ -5,9 +5,9 @@
 <mapper namespace="com.neuedu.lab.model.mapper.BillMapper">
     <insert id="addBill" parameterType="Bill" useGeneratedKeys="true" keyProperty="bill_id">
         INSERT INTO his.bill (bill_actual_sum, bill_sum, bill_type, bill_register_id, bill_prescription_id,
-         bill_medical_skill_id, bill_user_id)
+         bill_medical_skill_id, bill_user_id,bill_num)
          VALUES (#{bill_actual_sum}, #{bill_sum},  #{bill_type}, #{bill_register_id}, #{bill_prescription_id},
-          #{bill_medical_skill_id}, #{bill_user_id})
+          #{bill_medical_skill_id}, #{bill_user_id},#{bill_num})
     </insert>
 
     <select id="getBill" resultType="Bill">
