@@ -2,13 +2,16 @@
 insert into disease_info values('disease_id','disease_type','disease_name','disease_icd');
 #select * from disease_info;
 insert into constant values(1,'constant_name','constant_type');
-#select * from constant;
+select * from constant;
 insert into non_medicine values('non_medicine_id','non_medicine_type','non_medicine_name',8.6,'non_medicine_specification');
 select * from non_medicine;
 insert into medicine values('medicine_id','medicine_usage','medicine_name','medicine_specifications','medicine_unit','medicine_factory','medicine_formulation','medicine_type',1.1,'medicine_pinyin');
 select * from medicine;
 insert into department_info values('department_id','department_type','department_cat','department_name');
 select * from department_info;
+
+insert into medical_skill_content values('medical_skill_content_id','medical_skill_content_name','medical_skill_content_detail','medical_skill_content_father',
+'medical_skill_content_extra','medical_skill_content_unit',88.6,'medical_skill_content_explain');
 
 
 
@@ -51,7 +54,7 @@ insert into prescription_content values(1, 1,'prescription_consumption','medicin
 #select * from prescription_content;
 
 insert into medical_skill values(1, 'medical_skill_execute_state','medical_skill_result','medical_skill_type','medical_skill_name'
-,'medical_skill_checkpoint','medical_skill_purpose',false,'2018-11-11','2018-11-11','2018-11-11',55.9,1,1,1,'non_medicine_id');
+,'medical_skill_checkpoint','medical_skill_purpose',false,'2018-11-11','2018-11-11','2018-11-11',55.9,1,1,1,'medical_skill_content_id');
 select * from medical_skill;
 
 insert into template values(1,'template_type1','template_name1','template_range1',NOW(),1);
@@ -62,7 +65,7 @@ insert into template_content values(1,1,'non_medicine_id','non_medicine_name','n
 select * from template_content;
 
 insert into fee_cat values('fee_cat_id','fee_cat_name');
-#select * from fee_cat;
+select * from fee_cat;
 
 insert into bill values(1,1,122.69,899,'1998-07-05','bill_type','fee_cat_id','fee_cat_name',1,1,1,1);
 #select * from bill;
