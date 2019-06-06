@@ -356,3 +356,26 @@ CREATE TABLE `his`.`daily` (
 )default charset=utf8;
 
 #show TABLES ;
+ALTER TABLE bill engine=InnoDB;
+ALTER TABLE constant engine=InnoDB;
+ALTER TABLE daily engine=InnoDB;
+ALTER TABLE department_info engine=InnoDB;
+ALTER TABLE diagnose engine=InnoDB;
+ALTER TABLE disease_info engine=InnoDB;
+ALTER TABLE doctor_info engine=InnoDB;
+ALTER TABLE fee_cat engine=InnoDB;
+ALTER TABLE medical_skill engine=InnoDB;
+ALTER TABLE medicine engine=InnoDB;
+ALTER TABLE non_medicine engine=InnoDB;
+ALTER TABLE medicine engine=InnoDB;
+ALTER TABLE patient_info engine=InnoDB;
+ALTER TABLE prescription engine=InnoDB;
+ALTER TABLE prescription_content engine=InnoDB;
+ALTER TABLE record engine=InnoDB;
+ALTER TABLE register_info engine=InnoDB;
+ALTER TABLE register_level engine=InnoDB;
+ALTER TABLE rule engine=InnoDB;
+ALTER TABLE schedule engine=InnoDB;
+ALTER TABLE template engine=InnoDB;
+ALTER TABLE user_info engine=InnoDB;
+ALTER TABLE usual_diagnose engine=InnoDB;
