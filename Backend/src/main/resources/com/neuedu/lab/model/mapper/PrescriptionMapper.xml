@@ -20,8 +20,13 @@
     </update>
 
     <select id="getPrescription" resultType="Prescription">
-        select * from prescription
-        where prescription_id = #{prescription_id}
+        SELECT * FROM prescription
+        WHERE prescription_id = #{prescription_id};
     </select>
+
+    <update id="updatePrescriptionFee" parameterType="Prescription">
+        UPDATE prescription SET prescription_fee = #{prescription_fee}
+        WHERE prescription_id = #{prescription_id}
+    </update>
 
 </mapper>

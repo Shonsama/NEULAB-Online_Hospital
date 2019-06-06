@@ -1,26 +1,35 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <v-card >
+    <v-card>
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
-          <div v-show="show" style="white-space: nowrap">
+          <div v-show="show" style="white-space: nowrap; width:300px">
             <v-toolbar flat>
-              <v-flex md6>
-                <v-text-field  prepend-inner-icon="account_box" name="login" label="选择患者"  type="text"></v-text-field>
+              <v-flex md9 xs9>
+                <v-text-field
+                  v-model="patient_name"
+                  prepend-inner-icon="account_box"
+                  name="login"
+                  label="选择患者"
+                  type="text"
+                  disabled>
+                </v-text-field>
               </v-flex>
               <v-btn
                 flat
                 color="primary"
                 icon
+                @click="refresh"
               >
                 <v-icon>cached</v-icon>
               </v-btn>
             </v-toolbar>
             <v-layout>
-              <v-flex md10>
+              <v-flex md10 xs10>
                 <v-text-field
                   prepend-inner-icon="search"
+                  v-model="search"
                   name="login"
                   label="查询患者"
                   type="text"
@@ -31,6 +40,7 @@
             <v-layout>
               <v-tabs
                 v-model="active"
+                style="width: 300px"
               >
                 <v-tab
                   v-for="item in items1"
@@ -43,92 +53,89 @@
                   v-for="item in items1"
                   :key="item"
                 >
-                  <v-card flat >
+                  <div v-if="item.id == 'desserts_per'">
+                    <v-card flat >
                     <v-toolbar flat dense>
                       <v-toolbar-title>已诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
                       v-model="selected"
-                      :headers="headers"
-                      :items="desserts"
-                      select-all
+                      :search="search"
+                      :headers="headers1"
+                      :items="desserts_per.off"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
-                        <td>
-                          <v-checkbox
-                            v-model="props.selected"
-                            primary
-                            hide-details
-                          ></v-checkbox>
-                        </td>
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="text-xs-right">{{ props.item.iron }}</td>
-                        <td class="justify-center layout px-0">
-                          <v-icon
-                            small
-                            class="mr-2"
-                            @click="editItem(props.item)"
-                          >
-                            edit
-                          </v-icon>
-                          <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                          >
-                            delete
-                          </v-icon>
-                        </td>
+                        <td>{{ props.item.patient.patient_record_id }}</td>
+                        <td>{{ props.item.patient.patient_name }}</td>
                       </template>
                     </v-data-table>
                   </v-card>
-                  <v-card flat >
+                    <v-card flat >
                     <v-toolbar flat dense>
                       <v-toolbar-title>未诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
                       v-model="selected"
+                      :search="search"
                       :headers="headers"
-                      :items="desserts"
-                      select-all
+                      :items="desserts_per.on"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
+                        <td>{{ props.item.patient.patient_record_id }}</td>
+                        <td>{{ props.item.patient.patient_name }}</td>
                         <td>
-                          <v-checkbox
-                            v-model="props.selected"
-                            primary
-                            hide-details
-                          ></v-checkbox>
-                        </td>
-                        <td>{{ props.item.name }}</td>
-                        <td class="text-xs-right">{{ props.item.calories }}</td>
-                        <td class="text-xs-right">{{ props.item.fat }}</td>
-                        <td class="text-xs-right">{{ props.item.carbs }}</td>
-                        <td class="text-xs-right">{{ props.item.protein }}</td>
-                        <td class="text-xs-right">{{ props.item.iron }}</td>
-                        <td class="justify-center layout px-0">
-                          <v-icon
+                          <v-btn
+                            color="primary"
                             small
-                            class="mr-2"
-                            @click="editItem(props.item)"
+                            :disabled = "disable"
+                            append-icon="search"
+                            @click="treat(props.item.register_info_patient_id)"
                           >
-                            edit
-                          </v-icon>
-                          <v-icon
-                            small
-                            @click="deleteItem(props.item)"
-                          >
-                            delete
-                          </v-icon>
+                            接诊
+                          </v-btn>
                         </td>
                       </template>
                     </v-data-table>
                   </v-card>
+                  </div>
+                  <div v-if="item.id == 'desserts_depart'">
+                    <v-card flat >
+                      <v-toolbar flat dense>
+                        <v-toolbar-title>已诊断</v-toolbar-title>
+                      </v-toolbar>
+                      <v-data-table
+                        v-model="selected"
+                        :search="search"
+                        :headers="headers1"
+                        :items="desserts_depart.off"
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                          <td>{{ props.item.patient.patient_record_id }}</td>
+                          <td>{{ props.item.patient.patient_name }}</td>
+                        </template>
+                      </v-data-table>
+                    </v-card>
+                    <v-card flat >
+                      <v-toolbar flat dense>
+                        <v-toolbar-title>未诊断</v-toolbar-title>
+                      </v-toolbar>
+                      <v-data-table
+                        v-model="selected"
+                        :search="search"
+                        :headers="headers1"
+                        :items="desserts_depart.on"
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                          <td>{{ props.item.patient.patient_record_id }}</td>
+                          <td>{{ props.item.patient.patient_name }}</td>
+                        </template>
+                      </v-data-table>
+                    </v-card>
+                  </div>
                 </v-tab-item>
               </v-tabs>
             </v-layout>
@@ -143,9 +150,16 @@
           <v-toolbar-side-icon
             @click.stop="show = !show"
           ></v-toolbar-side-icon>
-          <v-toolbar-title  >请选择患者</v-toolbar-title>
+          <v-toolbar-title>患者:{{patient.patient_name}}</v-toolbar-title>
+          <v-spacer/>
+          <v-btn
+            color="primary"
+            small
+            @click="finish"
+          >
+            诊毕
+          </v-btn>
         </v-toolbar>
-
         <v-tabs
           v-model="active1"
         >
@@ -162,28 +176,28 @@
           >
             <v-card flat>
               <div v-if="item.id == 'caseHistory'">
-                <caseHistory></caseHistory>
+                <caseHistory :msgfromfa="patient_record_id"></caseHistory>
               </div>
               <div v-if="item.id == 'inspect'">
-                <inspect></inspect>
+                <inspect :msgfromfa="patient_record_id"></inspect>
               </div>
               <div v-if="item.id == 'jianyan'">
-                <jianyan></jianyan>
+                <jianyan :msgfromfa="patient_record_id"></jianyan>
               </div>
               <div v-if="item.id == 'diagnosis'">
-                <diagnosis></diagnosis>
+                <diagnosis :msgfromfa="patient_record_id"></diagnosis>
               </div>
               <div v-if="item.id == 'dispose'">
-                <dispose></dispose>
+                <dispose :msgfromfa="patient_record_id"></dispose>
               </div>
               <div v-if="item.id == 'medicine'">
-                <medicine></medicine>
+                <medicine :msgfromfa="patient_record_id"></medicine>
               </div>
               <div v-if="item.id == 'drug'">
-                <drug></drug>
+                <drug :msgfromfa="patient_record_id"></drug>
               </div>
               <div v-if="item.id == 'cost'">
-                <cost></cost>
+                <cost :msgfromfa="patient_record_id"></cost>
               </div>
               <!--<router-view name="office"></router-view name="office">-->
             </v-card>
@@ -219,17 +233,73 @@ export default {
   data () {
     return {
       e1: 1,
+      disable: false,
+      search: '',
+      headers: [
+        {
+          text: '病历号',
+          align: 'left',
+          value: 'register_info_id'
+        },
+        { text: '患者名称', value: 'register_info_patient_id' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
+      headers1: [
+        {
+          text: '病历号',
+          align: 'left',
+          value: 'register_info_id'
+        },
+        { text: '患者名称', value: 'register_info_patient_id' }
+      ],
       active: '1',
       active1: '1',
       show: true,
+      patient: {
+        patient_record_id: '',
+        patient_gender: '',
+        patient_name: '',
+        patient_credit_id: '',
+        patient_birthDate: '',
+        patient_address: '',
+        patient_age: ''
+      },
+      desserts_per: {
+        on: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }],
+        off: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }]
+      },
+      desserts_depart: {
+        on: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }],
+        off: [{
+          patient: {
+            patient_record_id: '1',
+            patient_name: '1'
+          }
+        }]
+      },
       steps: 8,
       items1: [{
         name: '本人',
-        id: 'self'
+        id: 'desserts_per'
       },
       {
         name: '科室',
-        id: 'department'
+        id: 'desserts_depart'
       }],
       items: [{
         name: '病例首页',
@@ -263,6 +333,83 @@ export default {
         name: '费用查询',
         id: 'cost'
       }]
+    }
+  },
+  mounted: function () {
+    this.load_patient_self()
+    this.load_patient_depart()
+  },
+  methods: {
+    load_patient_self: function () {
+      var url = this.HOME + '/doctor/get-all-registers'
+      var that = this
+      var data = {
+        'doctor_id': '1'
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          let i
+          for (i = 0; i < response.data.data.length; i++) {
+            if (response.data.data[i].register_info_state === '已挂号') {
+              that.desserts_per.on.append(response.data.data[i])
+            }
+            if (response.data.data[i].register_info_state === '诊毕') {
+              that.desserts_per.off.append(response.data.data[i])
+            }
+          }
+        })
+      console.log(this.desserts_per)
+    },
+    load_patient_depart: function () {
+      var url = this.HOME + '/doctor/get-department-registers'
+      var that = this
+      var data = {
+        'department_id': '1'
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          let i
+          for (i = 0; i < response.data.data.length; i++) {
+            if (response.data.data[i].register_info_state === '已挂号') {
+              that.desserts_depart.on.push(response.data.data[i])
+            }
+            if (response.data.data[i].register_info_state === '诊毕') {
+              that.desserts_depart.off.push(response.data.data[i])
+            }
+          }
+        })
+      console.log(this.desserts_depart)
+    },
+    treat: function (value) {
+      var url = this.HOME + '/doctor/treat'
+      var that = this
+      var data = {
+        'register_id': '1'
+      }
+      console.log(value)
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.patient.patient_name = value
+          this.load_patient_self()
+          this.load_patient_depart()
+        })
+    },
+    finish: function () {
+      var url = this.HOME + '/doctor/finish'
+      // var that = this
+      var data = {
+        'register_id': '5'
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+        })
+    },
+    refresh: function () {
+      this.patient_name = ''
     }
   }
 }

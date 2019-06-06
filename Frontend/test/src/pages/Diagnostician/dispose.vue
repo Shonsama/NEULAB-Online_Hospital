@@ -104,7 +104,12 @@
 
 <script>
 export default {
-  name: 'dispose'
+  props: ['msgfromfa'],
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

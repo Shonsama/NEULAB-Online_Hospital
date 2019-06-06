@@ -20,15 +20,35 @@
     </delete>
 
     <select id="getPrescriptionContents" resultType="PrescriptionContent">
-        SELECT prescription_id, sum(prescription_num), prescription_unit_price AS prescription_num FROM prescription_content
+        SELECT prescription_id, sum(prescription_num) AS prescription_num, prescription_unit_price  FROM prescription_content
         WHERE prescription_id = #{prescription_id}
-        GROUP BY prescription_id, prescription_medicine_id
+        GROUP BY prescription_id, prescription_medicine_id,prescription_unit_price
     </select>
 
     <select id="getPrescriptionContent" resultType="PrescriptionContent">
-        SELECT prescription_id, sum(prescription_num), prescription_unit_price AS prescription_num FROM prescription_content
+        SELECT prescription_id, sum(prescription_num) AS prescription_num, prescription_unit_price FROM prescription_content
         WHERE prescription_id = #{prescription_id}
-        GROUP BY prescription_id, prescription_medicine_id
+        GROUP BY prescription_id, prescription_medicine_id,prescription_unit_price
+    </select>
+
+
+    <select id="getPrescriptionContentsNew" resultType="PrescriptionContent">
+        SELECT prescription_id, prescription_consumption, prescription_medicine_id,
+            prescription_frequency,prescription_day, prescription_content_actual_unit_price,prescription_unit_price,
+            sum(prescription_num) AS prescription_num  FROM prescription_content
+        WHERE prescription_id = #{prescription_id}
+        GROUP BY prescription_id, prescription_consumption, prescription_medicine_id,
+            prescription_frequency,prescription_day, prescription_content_actual_unit_price,prescription_unit_price
+    </select>
+
+    <select id="getPrescriptionContentNum" resultType="Integer">
+        SELECT sum(prescription_num) FROM prescription_content
+        WHERE prescription_id = #{prescription_id} AND prescription_medicine_id = #{prescription_medicine_id}
+    </select>
+
+    <select id="getPrescriptionContentPositive" resultType="PrescriptionContent">
+        SELECT * FROM prescription_content
+        WHERE prescription_id = #{prescription_id} AND prescription_medicine_id = #{prescription_medicine_id} AND prescription_num>0
     </select>
 
 </mapper>

@@ -20,12 +20,12 @@ public class DoctorController {
 
     @RequestMapping("/get-all-registers")
     public JSONObject getAllRegisters(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess( doctorService.getAllRegisters(request.getInteger("doctor_id")));
+        return doctorService.getAllRegisters(request.getInteger("doctor_id"));
     }
 
     @RequestMapping("/get-department-registers")
     public JSONObject getDepartmentRegisters(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess( doctorService.getAllDepartmentRegisters(request.getInteger("department_id")));
+        return doctorService.getAllDepartmentRegisters(request.getInteger("department_id"));
     }
 
     //接诊
@@ -213,11 +213,6 @@ public class DoctorController {
     }
 
 
-    //添加医技项目结果
-    @RequestMapping("/medical-skill/add-result")
-    public JSONObject addMedicalSkillResult(@RequestBody MedicalSkill medicalSkill){
-        //只用传入medical_skill_id 和 medical_skill_result
-        return doctorService.addMedicalSkillResult(medicalSkill);
-    }
+
 
 }

@@ -8,7 +8,7 @@
         <v-toolbar flat dense>
           <v-toolbar-title  >诊断目录</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn   flat icon dark color="primary" @click="show = !show">
+          <v-btn   flat icon dark color="primary" @click="addItem">
             <v-icon>
               add
             </v-icon>
@@ -17,10 +17,9 @@
         <v-data-table
           v-model="selected_dia"
           :headers="headers_dia"
-          :items="desserts"
-          item-key="code"
+          :items="desserts_dia"
+          item-key="disease_icd"
           select-all
-          hide-actions
         >
           <template v-slot:items="props">
             <td>
@@ -30,9 +29,9 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.code }}</td>
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.cate }}</td>
+            <td>{{ props.item.disease_icd }}</td>
+            <td>{{ props.item.disease_name }}</td>
+            <td>{{ props.item.disease_type }}</td>
           </template>
         </v-data-table>
       </v-card>
@@ -65,38 +64,45 @@
           </div>
         </v-card-title>
         <v-textarea
-          v-model="form.appeal"
+          v-model="form.record_syndrome"
           box
           label="主诉"
           placeholder="请输入主诉"
           rows="1"
         ></v-textarea>
         <v-textarea
-          v-model="form.now"
+          v-model="form.record_xianbingshi"
           box
           label="现病史"
           placeholder="请输入现病史"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.nowTreat"
+          v-model="form.record_cure_situation"
           box
           label="现病治疗情况"
           placeholder="请输入现病治疗情况"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.history"
+          v-model="form.record_jiwangshi"
           box
           label="既往史"
           placeholder="请输入既往史"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.allergy"
+          v-model="form.record_allergy_his"
           box
           label="过敏史"
           placeholder="请输入过敏史"
+          rows="2"
+        ></v-textarea>
+        <v-textarea
+          v-model="form.record_health_check"
+          box
+          label="体格检查"
+          placeholder="请输入体格检查"
           rows="2"
         ></v-textarea>
         <v-layout >
@@ -141,8 +147,8 @@
              <v-data-table
                v-model="selected"
                :headers="headers"
-               :items="content"
-               item-key="code_1"
+               :items="desserts"
+               item-key="diagnose_id"
                select-all
                class="elevation-1"
                style="margin-bottom: 20px"
@@ -155,9 +161,9 @@
                      hide-details
                    ></v-checkbox>
                  </td>
-                 <td>{{ props.item.code }}</td>
-                 <td class="text-xs-right">{{ props.item.name }}</td>
-                 <td class="text-xs-right">{{ props.item.time }}</td>
+                 <td>{{ props.item.diagnose_id }}</td>
+                 <td>{{ props.item.diagnose_disease_name }}</td>
+                 <td>{{ props.item.diagnose_time }}</td>
                </template>
              </v-data-table>
            </v-card>
@@ -179,8 +185,8 @@
               <v-data-table
                 v-model="selected"
                 :headers="headers"
-                :items="content"
-                item-key="code_2"
+                :items="desserts"
+                item-key="diagnose_id"
                 select-all
                 class="elevation-1"
                 style="margin-bottom: 20px"
@@ -193,23 +199,23 @@
                       hide-details
                     ></v-checkbox>
                   </td>
-                  <td>{{ props.item.name }}</td>
-                  <td>{{ props.item.code }}</td>
-                  <td>{{ props.item.time }}</td>
+                  <td>{{ props.item.diagnose_id }}</td>
+                  <td>{{ props.item.diagnose_disease_name }}</td>
+                  <td>{{ props.item.diagnose_time }}</td>
                 </template>
               </v-data-table>
             </v-card>
           </div>
         </v-expand-transition>
         <v-textarea
-          v-model="form.advise"
+          v-model="form.record_suggestion"
           box
           label="检查建议"
           placeholder="请输入检查建议"
           rows="2"
         ></v-textarea>
         <v-textarea
-          v-model="form.notice"
+          v-model="form.record_attention"
           box
           label="注意事项"
           placeholder="请输入注意事项"
@@ -223,7 +229,7 @@
 
 <script>
 export default {
-  name: 'case',
+  props: ['msgfromfa'],
   data () {
     return {
       selected: [],
@@ -232,55 +238,60 @@ export default {
       expand: false,
       expand_CH: false,
       expand_WE: false,
-      desserts: [{
-        code: '1',
-        name: '1',
-        cate: '1'
-      }, {
-        code: '1',
-        name: '1',
-        cate: '1'
-      }],
       headers: [{
         text: '编码',
         align: 'left',
-        value: 'code'
+        value: 'diagnose_id'
       },
-      { text: '名称', value: 'name' },
-      { text: '发病时间', value: 'time' }],
+      {
+        text: '名称',
+        value: 'diagnose_disease_name'
+      },
+      {
+        text: '发病时间',
+        value: 'diagnose_time'
+      }],
+      desserts: [{
+        diagnose_id: '1',
+        diagnose_disease_name: '1',
+        diagnose_time: '1'
+      }, {
+        diagnose_id: '1',
+        diagnose_disease_name: '1',
+        diagnose_time: '1'
+      }],
       headers_dia: [{
         text: '编码',
         align: 'left',
-        value: 'code'
+        value: 'disease_icd'
       },
-      { text: '名称', value: 'name' },
-      { text: '分类', value: 'cate' }],
-      content: [{
-        code: '1',
-        name: '1',
-        time: '1'
-      }, {
-        code: '2',
-        name: '2',
-        time: '2'
+      {
+        text: '名称',
+        value: 'disease_name'
+      },
+      {
+        text: '分类',
+        value: 'disease_type'
       }],
+      desserts_dia: [],
       form: {
-        appeal: '',
-        now: '',
-        history: '',
-        nowTreat: '',
-        allergy: '',
+        record_syndrome: '',
+        record_health_check: '',
+        record_xianbingshi: '',
+        record_jiwangshi: '',
+        record_cure_situation: '',
+        record_allergy_his: '',
         diagnosis: {
           cate: '',
           content: []
         },
-        advise: '',
-        notice: ''
+        record_suggestion: '',
+        record_attention: '',
       }
     }
   },
-  mounted: {
-
+  mounted: function () {
+    this.load_diagnosis()
   },
   methods: {
     getItem () {
@@ -290,9 +301,23 @@ export default {
         that.desserts = response.data
       })
     },
+    addItem () {
+      this.show = !this.show
+      console.log(this.selected_dia)
+      var n
+      this.desserts = []
+      for (n = 0; n < this.selected_dia.length; n++) {
+        var data = {
+          diagnose_disease_id: this.selected_dia[n].disease_icd,
+          diagnose_disease_name: this.selected_dia[n].disease_name,
+          diagnose_type: this.selected_dia[n].disease_type
+        }
+        this.desserts.push(data)
+      }
+    },
     submit () {
       let that = this
-      var url = this.HOME + ''
+      var url = this.HOME + '/doctor/submit-record'
       this.$http.post(url, this.form)
         .then(response => {
           that.desserts = response.data
@@ -300,27 +325,50 @@ export default {
     },
     clear () {
       this.form = {
-        appeal: '',
-        now: '',
-        history: '',
-        nowTreat: '',
-        allergy: '',
+        record_syndrome: '',
+        record_health_check: '',
+        record_xianbingshi: '',
+        record_jiwangshi: '',
+        record_cure_situation: '',
+        record_allergy_his: '',
         diagnosis: {
           cate: '',
           content: []
         },
-        advise: '',
-        notice: ''
+        record_suggestion: '',
+        record_attention: ''
       }
-      this.content = []
+      this.desserts = []
     },
     save () {
       let that = this
       var url = this.HOME + ''
-      this.form.diagnosis.content = this.content
-      this.$http.post(url, this.form)
+      var data = {
+        record_syndrome: that.form.record_syndrome,
+        record_health_check: that.form.record_health_check,
+        record_xianbingshi: that.form.record_xianbingshi,
+        record_jiwangshi: that.form.record_jiwangshi,
+        record_cure_situation: that.form.record_cure_situation,
+        record_allergy_his: that.form.record_allergy_his,
+        diagnosis: [],
+        record_suggestion: that.form.record_suggestion,
+        record_attention: that.form.record_attention,
+        record_state: '',
+        record_patient_id: '',
+        record_doctor_id: '',
+        record_id: ''
+      }
+      this.$http.post(url, data)
         .then(response => {
           that.desserts = response.data
+        })
+    },
+    load_diagnosis () {
+      let that = this
+      var url = this.HOME + '/diseaseInfo/get-all'
+      this.$http.post(url)
+        .then(response => {
+          that.desserts_dia = response.data.data
         })
     },
     refresh () {

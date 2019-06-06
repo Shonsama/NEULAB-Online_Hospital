@@ -1,19 +1,41 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <v-card >
       <v-layout>
-        <v-flex xs9 md9>
+        <v-flex  lg9>
           <v-toolbar flat dense>
-            <v-toolbar-title  >合计金额</v-toolbar-title>
+            <v-toolbar-title  >合计:</v-toolbar-title>
+            <v-spacer/>
+            <v-btn
+              small
+              color="primary"
+            >
+              新增
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              删除
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              开立
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              作废
+            </v-btn>
           </v-toolbar>
           <v-data-table
             v-model="selected"
             :headers="headers"
             :items="desserts"
             item-key="name"
-
             select-all
-            class="elevation-1"
           >
             <template v-slot:items="props">
               <td>
@@ -46,24 +68,26 @@
               </td>
             </template>
           </v-data-table>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="white--text"
+              color="primary"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
         </v-flex>
         <v-divider vertical></v-divider>
-        <v-flex  xs3 md3>
+        <v-flex  xs3>
           <v-toolbar flat dense>
-            <v-toolbar-title  >常用模板</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn   flat icon  color="primary" @click="expand = !expand">
-              <v-icon>settings</v-icon>
-            </v-btn>
+            <v-toolbar-title >常用模板</v-toolbar-title>
           </v-toolbar>
           <v-data-table
             v-model="selected"
-            :headers="headers"
+            :headers="headers_tem"
             :items="desserts"
             item-key="name1"
-
-            select-all
-            class="elevation-1"
           >
             <template v-slot:items="props">
               <td>
@@ -98,14 +122,37 @@
           </v-data-table>
         </v-flex>
       </v-layout>
-    </v-card>
   </div>
 
 </template>
 
 <script>
 export default {
-  name: 'inspect'
+  props: ['msgfromfa'],
+  data () {
+    return {
+      headers: [
+        {
+          text: '申请名称',
+          align: 'left',
+          value: 'non_medicine_id'
+        },
+        { text: '项目名称', value: 'non_medicine_name' },
+        { text: '执行科室', value: 'non_medicine_type' },
+        { text: '执行状态', value: 'medical_skill_execute_state' },
+        { text: '单价', value: 'non_medicine_unit_price' },
+        { text: '检查结果', value: 'operation', sortable: false }
+      ],
+      headers_tem: [
+        {
+          text: '模板名称',
+          align: 'left',
+          value: 'non_medicine_id'
+        },
+        { text: '检查结果', value: 'operation', sortable: false }
+      ]
+    }
+  }
 }
 </script>
 

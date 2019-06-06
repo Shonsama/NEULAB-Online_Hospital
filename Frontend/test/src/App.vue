@@ -77,7 +77,7 @@
     <v-divider />
     <v-content>
       <v-container>
-      <router-view></router-view>
+        <router-view></router-view>
       </v-container>
     </v-content>
     <v-footer :inset="footer.inset" app>

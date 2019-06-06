@@ -33,15 +33,41 @@ public class DoctorService {
     @Resource
     private PrescriptionContentMapper prescriptionContentMapper;
 
+    @Resource
+    private PatientMapper patientMapper;
+
 
     //查询一个医生的所有挂号信息
-    public List<Register> getAllRegisters(Integer doctor_id){
-        return registerMapper.getRegisterByDoctorId(doctor_id);
+    public JSONObject getAllRegisters(Integer doctor_id){
+        List<Register> registers;
+        try{
+            registers  = registerMapper.getRegisterByDoctorId(doctor_id);
+            for(Register register: registers){
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
+
+        return ConstantUtils.responseSuccess(registers);
+
     }
 
     //查询一个科室的所有挂号信息
-    public List<Register> getAllDepartmentRegisters(Integer department_id) {
-        return registerMapper.getRegisterByDepartmentId(department_id);
+    public JSONObject getAllDepartmentRegisters(Integer department_id) {
+        List<Register> registers;
+        try{
+            registers  = registerMapper.getRegisterByDepartmentId(department_id);
+            for(Register register: registers){
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
+
+        return ConstantUtils.responseSuccess(registers);
     }
 
     //根据患者姓名和医生ID查询挂号信息

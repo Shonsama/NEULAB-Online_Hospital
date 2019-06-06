@@ -15,7 +15,7 @@ public interface BillMapper {
     List<Bill> getBillByUserIdAndTime(Integer bill_user_id, Date start_time, Date end_time);
 
     //供退费使用
-    Bill getBillByMedicalSkillId(Integer bill_medical_skill_id);
+    List<Bill> getBillByMedicalSkillId(Integer bill_medical_skill_id);
 
     Bill getBillByPrescriptionId(Integer bill_prescription_id);
 

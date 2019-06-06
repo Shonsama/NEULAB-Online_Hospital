@@ -186,6 +186,9 @@
           <v-select
             :items="registers"
             :rules="registerRules"
+            item-text="register_level_name"
+            item_value="register_level_id"
+            return-object
             label="挂号级别"
             required
             placeholder="请选择挂号级别"
@@ -296,7 +299,6 @@
 </template>
 
 <script>
-import Qs from 'qs'
 export default {
   data: () => ({
     register_items: [{
@@ -326,6 +328,7 @@ export default {
     ],
     valid: false,
     disabled: true,
+    register_info_id: '1',
     patient_record_id: '',
     patient_gender: '',
     patient_name: '',
@@ -333,6 +336,7 @@ export default {
     patient_birthDate: '',
     patient_address: '',
     patient_age: '',
+    checkbox: '',
     bill_sum: '',
     doctor_id: '',
     doctor_name: '',
@@ -342,6 +346,7 @@ export default {
     registers: [],
     payCates: [],
     paycate: '',
+    registerLevel: '',
     departments: [],
     doctors: [],
     creditRules: [
@@ -368,6 +373,13 @@ export default {
     ]
   }),
   watch: {
+    checkbox: function (newState) {
+      if (newState) {
+        this.bill_sum++
+      } else {
+        this.bill_sum--
+      }
+    },
     patient_birthDate: function (newState) {
       var date = new Date()
       console.log(newState)
@@ -381,13 +393,18 @@ export default {
   mounted: function () {
     this.load_constants()
     this.load_departs()
+    this.load_registerLevels()
+    this.load_register_fee()
   },
   methods: {
     change: function () {
       this.disabled = !this.disabled
     },
+    load_register_fee: function () {
+      this.bill_sum = 32
+    },
     get_patient_register: function () {
-      var url = this.HOME + '/constant/get'
+      var url = this.HOME + '/patient/get'
       var that = this
       var data = {
         'patient_record_id': that.patient_record_id
@@ -398,7 +415,7 @@ export default {
         })
     },
     get_patient: function () {
-      var url = this.HOME + '/constant/get'
+      var url = this.HOME + '/patient/get-by-patient-id'
       var that = this
       var data = {
         'patient_record_id': that.patient_record_id
@@ -406,19 +423,37 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.get_patient_register()
+          if (response.data.data.patient_gender) {
+            that.patient_gender = '男'
+          } else {
+            that.patient_gender = '女'
+          }
+          that.patient_name = response.data.data.patient_name
+          that.patient_credit_id = response.data.data.patient_credit_id
+          that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
+          that.patient_address = response.data.data.patient_address
+          // that.get_patient_register()
         })
     },
     load_constants: function () {
       let that = this
       var url = this.HOME + '/constant/get'
       var data = {
-        constant_type: 'payment_type_test'
+        constant_type: 'payment_type'
       }
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.payCates = response.data
+          that.payCates = response.data.data
+        })
+    },
+    load_registerLevels: function () {
+      let that = this
+      var url = this.HOME + '/registerLevel/get-all'
+      this.$http.post(url)
+        .then(function (response) {
+          console.log(response.data)
+          that.registers = response.data.data
         })
     },
     load_departs: function () {
@@ -428,7 +463,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.departments = response.data
+          that.departments = response.data.data
         })
     },
     load_doctors: function () {
@@ -455,23 +490,42 @@ export default {
           console.log(response.data)
         })
     },
+    print_bill: function () {
+      let that = this
+      var url = this.HOME + '/register/print_bill'
+      var data = {
+        'bill_actual_sum': that.bill_sum,
+        'bill_sum': that.bill_sum,
+        'bill_time': new Date(),
+        'bill_type': '挂号费',
+        'bill_register_id': that.register_info_id,
+        'bill_user_id': '1'
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+        })
+    },
     submit_register: function () {
       let that = this
       var url = this.HOME + '/register/submit'
-      var data = Qs.stringify({
-        'register': {
-          'register_info_id': '',
-          'register_info_state': '未看诊',
-          'register_info_fee': that.bill_sum,
-          'register_info_pay_type': that.paycate,
-          'register_info_doctor_id': that.doctor_id,
-          'register_info_patient_id': that.patient_record_id,
-          'register_info_user_id': '',
-          'doctor': '',
-          'user': '',
-          'patient': ''
-        }
-      })
+      var checkbox
+      if (that.checkbox) {
+        checkbox = 'true'
+      } else {
+        checkbox = 'false'
+      }
+      var data = {
+        'register_info_id': '',
+        'register_info_state': '未看诊',
+        'register_info_fee': that.bill_sum,
+        'register_info_pay_type': that.paycate,
+        'register_info_doctor_id': that.doctor_id.doctor_id,
+        'register_info_patient_id': that.patient_record_id,
+        'register_info_user_id': '1',
+        'register_info_records_book': checkbox
+      }
+      console.log(data)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
