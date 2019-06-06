@@ -19,4 +19,9 @@
         WHERE prescription_id = #{prescription_id}
     </update>
 
+    <select id="getPrescription" resultType="Prescription">
+        select * from prescription
+        where prescription_id = #{prescription_id}
+    </select>
+
 </mapper>

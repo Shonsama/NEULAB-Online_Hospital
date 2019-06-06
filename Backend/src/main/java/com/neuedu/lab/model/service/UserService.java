@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
-
 import java.util.List;
 
 @Service
@@ -191,6 +190,37 @@ public class UserService {
             return ConstantUtils.responseFail(null);
         }
     }
+
+    //缴费部分
+
+
+    //获取该挂号ID下所有缴费项目
+    public JSONObject getMedicalSkillFee(Integer register_id){
+        List<MedicalSkill> medicalSkills;
+        try{
+            medicalSkills = medicalSkillMapper.getMedicalSkillByRegisterId(register_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail("获取失败",null);
+        }
+        return ConstantUtils.responseSuccess(medicalSkills);
+    }
+
+
+    //打印发票
+    public JSONObject printBill(List<Bill> billList){
+        try{
+            for(Bill bill:billList){
+                billMapper.addBill(bill);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ConstantUtils.responseSuccess(null);
+        }
+        return  ConstantUtils.responseSuccess(null);
+    }
+
+
 
 
     //医技项目退费

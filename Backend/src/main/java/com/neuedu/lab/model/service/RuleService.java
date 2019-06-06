@@ -1,7 +1,9 @@
 package com.neuedu.lab.model.service;
 
-import com.neuedu.lab.model.mapper.DepartmentMapper;
-import com.neuedu.lab.model.po.Department;
+import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.model.mapper.RuleMapper;
+import com.neuedu.lab.model.po.Doctor;
+import com.neuedu.lab.model.po.Rule;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -10,20 +12,28 @@ import java.util.List;
 @Service
 public class RuleService {
     @Resource
-    private DepartmentMapper departmentMapper;
+    private RuleMapper ruleMapper;
 
 
-    public List<Department> getAllDepartments(){
-        return departmentMapper.getAllDepartments();
+    public List<Rule> getAllRules(){
+        return ruleMapper.getAllRules();
     }
 
-    public Department getDepartment(String department_id){
-        return departmentMapper.getDepartment(department_id);
+    public Rule getRule(String rule_id){
+        return ruleMapper.getRule(rule_id);
     }
 
-    public boolean addDepartment(Department department){
+    public List<JSONObject> getNames() {
+        return ruleMapper.getNames();
+    }
+
+    public List<Doctor> getDoctors(String department_id,String register_level_id){
+        return ruleMapper.getDoctors(department_id,register_level_id);
+    }
+
+    public boolean addRule(Rule rule){
         try {
-            departmentMapper.addDepartment(department);
+            ruleMapper.addRule(rule);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -32,9 +42,9 @@ public class RuleService {
         return true;
     }
 
-    public boolean deleteDepartment(String depatment_id){
+    public boolean deleteRule(Integer rule_id){
         try {
-            departmentMapper.deleteDepartment(depatment_id);
+            ruleMapper.deleteRule(rule_id);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -43,9 +53,9 @@ public class RuleService {
         return true;
     }
 
-    public boolean updateDepartment(Department department){
+    public boolean updateRule(Rule Rule){
         try {
-            departmentMapper.updateDepartment(department);
+            ruleMapper.updateRule(Rule);
         }
         catch (Exception e){
             e.printStackTrace();

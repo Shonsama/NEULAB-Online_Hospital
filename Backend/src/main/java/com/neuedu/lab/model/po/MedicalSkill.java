@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.po;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class MedicalSkill {
     private Integer medical_skill_id;
@@ -11,11 +12,49 @@ public class MedicalSkill {
     private String medical_skill_checkpoint;
     private String medical_skill_purpose;
     private boolean medical_skill_urgent;
+    private Date medical_skill_create_time;
+    private Date medical_skill_pay_time;
+    private Date medical_skill_consume_time;
+    private BigDecimal medical_skill_fee;
     private Integer medical_skill_register_info_id;
     private Integer medical_skill_user_id;
     private Integer medical_skill_doctor_id;
+
+    public Date getMedical_skill_create_time() {
+        return medical_skill_create_time;
+    }
+
+    public void setMedical_skill_create_time(Date medical_skill_create_time) {
+        this.medical_skill_create_time = medical_skill_create_time;
+    }
+
+    public Date getMedical_skill_pay_time() {
+        return medical_skill_pay_time;
+    }
+
+    public void setMedical_skill_pay_time(Date medical_skill_pay_time) {
+        this.medical_skill_pay_time = medical_skill_pay_time;
+    }
+
+    public Date getMedical_skill_consume_time() {
+        return medical_skill_consume_time;
+    }
+
+    public void setMedical_skill_consume_time(Date medical_skill_consume_time) {
+        this.medical_skill_consume_time = medical_skill_consume_time;
+    }
+
     private String medical_skill_non_medical_id;
-    private BigDecimal medical_skill_fee;
+
+    private NonMedicine nonMedicine;
+
+    public NonMedicine getNonMedicine() {
+        return nonMedicine;
+    }
+
+    public void setNonMedicine(NonMedicine nonMedicine) {
+        this.nonMedicine = nonMedicine;
+    }
 
     public String getMedical_skill_execute_state() {
         return medical_skill_execute_state;
@@ -41,13 +80,6 @@ public class MedicalSkill {
         this.medical_skill_id = medical_skill_id;
     }
 
-    public String getMedical_skill_excute_state() {
-        return medical_skill_execute_state;
-    }
-
-    public void setMedical_skill_excute_state(String medical_skill_excute_state) {
-        this.medical_skill_execute_state = medical_skill_excute_state;
-    }
 
     public String getMedical_skill_result() {
         return medical_skill_result;
