@@ -224,7 +224,12 @@
 
 <script>
 export default {
-  name: 'medicine'
+  props: ['msgfromfa'],
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

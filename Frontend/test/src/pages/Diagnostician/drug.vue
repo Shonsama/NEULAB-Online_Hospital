@@ -222,8 +222,12 @@
 
 <script>
 export default {
-  name: 'drug'
+  props: ['msgfromfa'],
+  data () {
+    return {
 
+    }
+  }
 }
 </script>
 

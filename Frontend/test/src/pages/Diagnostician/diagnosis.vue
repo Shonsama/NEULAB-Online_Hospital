@@ -2,7 +2,7 @@
   <div>
     <v-card>
       <v-toolbar flat dense>
-        <v-toolbar-title  >西医</v-toolbar-title>
+        <v-toolbar-title  >西医{{msgfromfa}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn   flat icon color="primary"  @click="show = !show">
           <v-icon> add</v-icon>
@@ -56,7 +56,12 @@
 
 <script>
 export default {
-  name: 'diagnosis'
+  props: ['msgfromfa'],
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

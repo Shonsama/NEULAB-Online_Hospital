@@ -45,6 +45,15 @@
             </td>
           </template>
         </v-data-table>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="white--text"
+            color="primary"
+          >
+            保存
+          </v-btn>
+        </v-card-actions>
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex  xs3 md3>
@@ -101,7 +110,12 @@
 
 <script>
 export default {
-  name: 'jianyan'
+  props: ['msgfromfa'],
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

@@ -89,7 +89,12 @@
 
 <script>
 export default {
-  name: 'cost'
+  props: ['msgfromfa'],
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
 

@@ -180,28 +180,28 @@
           >
             <v-card flat>
               <div v-if="item.id == 'caseHistory'">
-                <caseHistory></caseHistory>
+                <caseHistory :msgfromfa="patient_record_id"></caseHistory>
               </div>
               <div v-if="item.id == 'inspect'">
-                <inspect></inspect>
+                <inspect :msgfromfa="patient_record_id"></inspect>
               </div>
               <div v-if="item.id == 'jianyan'">
-                <jianyan></jianyan>
+                <jianyan :msgfromfa="patient_record_id"></jianyan>
               </div>
               <div v-if="item.id == 'diagnosis'">
-                <diagnosis></diagnosis>
+                <diagnosis :msgfromfa="patient_record_id"></diagnosis>
               </div>
               <div v-if="item.id == 'dispose'">
-                <dispose></dispose>
+                <dispose :msgfromfa="patient_record_id"></dispose>
               </div>
               <div v-if="item.id == 'medicine'">
-                <medicine></medicine>
+                <medicine :msgfromfa="patient_record_id"></medicine>
               </div>
               <div v-if="item.id == 'drug'">
-                <drug></drug>
+                <drug :msgfromfa="patient_record_id"></drug>
               </div>
               <div v-if="item.id == 'cost'">
-                <cost></cost>
+                <cost :msgfromfa="patient_record_id"></cost>
               </div>
               <!--<router-view name="office"></router-view name="office">-->
             </v-card>

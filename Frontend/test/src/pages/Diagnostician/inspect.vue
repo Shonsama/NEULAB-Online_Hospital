@@ -4,16 +4,39 @@
       <v-layout>
         <v-flex xs9 md9>
           <v-toolbar flat dense>
-            <v-toolbar-title  >合计金额</v-toolbar-title>
+            <v-toolbar-title  >合计:</v-toolbar-title>
+            <v-spacer/>
+            <v-btn
+              small
+              color="primary"
+            >
+              新增
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              删除
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              开立
+            </v-btn>
+            <v-btn
+              small
+              color="primary"
+            >
+              作废
+            </v-btn>
           </v-toolbar>
           <v-data-table
             v-model="selected"
             :headers="headers"
             :items="desserts"
             item-key="name"
-
             select-all
-            class="elevation-1"
           >
             <template v-slot:items="props">
               <td>
@@ -46,6 +69,15 @@
               </td>
             </template>
           </v-data-table>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="white--text"
+              color="primary"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
         </v-flex>
         <v-divider vertical></v-divider>
         <v-flex  xs3 md3>
@@ -61,9 +93,6 @@
             :headers="headers"
             :items="desserts"
             item-key="name1"
-
-            select-all
-            class="elevation-1"
           >
             <template v-slot:items="props">
               <td>
@@ -105,7 +134,24 @@
 
 <script>
 export default {
-  name: 'inspect'
+  props: ['msgfromfa'],
+  data () {
+    return {
+      headers: [{
+        text: '编码',
+        align: 'left',
+        value: 'diagnose_id'
+      },
+      {
+        text: '名称',
+        value: 'diagnose_disease_name'
+      },
+      {
+        text: '发病时间',
+        value: 'diagnose_time'
+      }]
+    }
+  }
 }
 </script>
 

@@ -8,7 +8,7 @@
         <v-toolbar flat dense>
           <v-toolbar-title  >诊断目录</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn   flat icon dark color="primary" @click="show = !show">
+          <v-btn   flat icon dark color="primary" @click="addItem">
             <v-icon>
               add
             </v-icon>
@@ -17,10 +17,9 @@
         <v-data-table
           v-model="selected_dia"
           :headers="headers_dia"
-          :items="desserts"
-          item-key="code"
+          :items="desserts_dia"
+          item-key="disease_icd"
           select-all
-          hide-actions
         >
           <template v-slot:items="props">
             <td>
@@ -30,9 +29,9 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.code }}</td>
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.cate }}</td>
+            <td>{{ props.item.disease_icd }}</td>
+            <td>{{ props.item.disease_name }}</td>
+            <td>{{ props.item.disease_type }}</td>
           </template>
         </v-data-table>
       </v-card>
@@ -148,8 +147,8 @@
              <v-data-table
                v-model="selected"
                :headers="headers"
-               :items="content"
-               item-key="code_1"
+               :items="desserts"
+               item-key="diagnose_id"
                select-all
                class="elevation-1"
                style="margin-bottom: 20px"
@@ -162,9 +161,9 @@
                      hide-details
                    ></v-checkbox>
                  </td>
-                 <td>{{ props.item.code }}</td>
-                 <td class="text-xs-right">{{ props.item.name }}</td>
-                 <td class="text-xs-right">{{ props.item.time }}</td>
+                 <td>{{ props.item.diagnose_id }}</td>
+                 <td>{{ props.item.diagnose_disease_name }}</td>
+                 <td>{{ props.item.diagnose_time }}</td>
                </template>
              </v-data-table>
            </v-card>
@@ -186,8 +185,8 @@
               <v-data-table
                 v-model="selected"
                 :headers="headers"
-                :items="content"
-                item-key="code_2"
+                :items="desserts"
+                item-key="diagnose_id"
                 select-all
                 class="elevation-1"
                 style="margin-bottom: 20px"
@@ -200,9 +199,9 @@
                       hide-details
                     ></v-checkbox>
                   </td>
-                  <td>{{ props.item.name }}</td>
-                  <td>{{ props.item.code }}</td>
-                  <td>{{ props.item.time }}</td>
+                  <td>{{ props.item.diagnose_id }}</td>
+                  <td>{{ props.item.diagnose_disease_name }}</td>
+                  <td>{{ props.item.diagnose_time }}</td>
                 </template>
               </v-data-table>
             </v-card>
@@ -230,7 +229,6 @@
 
 <script>
 export default {
-  name: 'case',
   data () {
     return {
       selected: [],
@@ -239,55 +237,59 @@ export default {
       expand: false,
       expand_CH: false,
       expand_WE: false,
-      desserts: [{
-        code: '1',
-        name: '1',
-        cate: '1'
-      }, {
-        code: '1',
-        name: '1',
-        cate: '1'
-      }],
       headers: [{
         text: '编码',
         align: 'left',
-        value: 'code'
+        value: 'diagnose_id'
       },
-      { text: '名称', value: 'name' },
-      { text: '发病时间', value: 'time' }],
+      {
+        text: '名称',
+        value: 'diagnose_disease_name'
+      },
+      {
+        text: '发病时间',
+        value: 'diagnose_time'
+      }],
+      desserts: [{
+        diagnose_id: '1',
+        diagnose_disease_name: '1',
+        diagnose_time: '1'
+      }, {
+        diagnose_id: '1',
+        diagnose_disease_name: '1',
+        diagnose_time: '1'
+      }],
       headers_dia: [{
         text: '编码',
         align: 'left',
-        value: 'code'
+        value: 'disease_icd'
       },
-      { text: '名称', value: 'name' },
-      { text: '分类', value: 'cate' }],
-      content: [{
-        code: '1',
-        name: '1',
-        time: '1'
-      }, {
-        code: '2',
-        name: '2',
-        time: '2'
+      {
+        text: '名称',
+        value: 'disease_name'
+      },
+      {
+        text: '分类',
+        value: 'disease_type'
       }],
+      desserts_dia: [],
       form: {
         record_syndrome: '',
         record_health_check: '',
         record_xianbingshi: '',
         record_jiwangshi: '',
         record_cure_situation: '',
+        record_allergy_his: '',
         diagnosis: {
           cate: '',
           content: []
         },
-        record_allergy_his: '',
         notice: ''
       }
     }
   },
-  mounted: {
-
+  mounted: function () {
+    this.load_diagnosis()
   },
   methods: {
     getItem () {
@@ -296,6 +298,20 @@ export default {
       this.$http.get(url).then(response => {
         that.desserts = response.data
       })
+    },
+    addItem () {
+      this.show = !this.show
+      console.log(this.selected_dia)
+      var n
+      this.desserts = []
+      for (n = 0; n < this.selected_dia.length; n++) {
+        var data = {
+          diagnose_disease_id: this.selected_dia[n].disease_icd,
+          diagnose_disease_name: this.selected_dia[n].disease_name,
+          diagnose_type: this.selected_dia[n].disease_type
+        }
+        this.desserts.push(data)
+      }
     },
     submit () {
       let that = this
@@ -307,27 +323,44 @@ export default {
     },
     clear () {
       this.form = {
-        appeal: '',
-        now: '',
-        history: '',
-        nowTreat: '',
-        allergy: '',
+        record_syndrome: '',
+        record_health_check: '',
+        record_xianbingshi: '',
+        record_jiwangshi: '',
+        record_cure_situation: '',
+        record_allergy_his: '',
         diagnosis: {
           cate: '',
           content: []
         },
-        advise: '',
         notice: ''
       }
-      this.content = []
+      this.desserts = []
     },
     save () {
       let that = this
       var url = this.HOME + ''
-      this.form.diagnosis.content = this.content
-      this.$http.post(url, this.form)
+      var data = {
+        record_syndrome: '',
+        record_health_check: '',
+        record_xianbingshi: '',
+        record_jiwangshi: '',
+        record_cure_situation: '',
+        record_allergy_his: '',
+        diagnosis: [],
+        notice: ''
+      }
+      this.$http.post(url, data)
         .then(response => {
           that.desserts = response.data
+        })
+    },
+    load_diagnosis () {
+      let that = this
+      var url = this.HOME + '/diseaseInfo/get-all'
+      this.$http.post(url)
+        .then(response => {
+          that.desserts_dia = response.data.data
         })
     },
     refresh () {
