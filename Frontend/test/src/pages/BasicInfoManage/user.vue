@@ -53,13 +53,6 @@
                 item-value="department_id"
                 label="科室"
               ></v-select>
-              <!--<v-text-field-->
-                <!--ref="country"-->
-                <!--v-model="user_department_id"-->
-                <!--label="用户科室"-->
-                <!--placeholder="请输入用户科室"-->
-                <!--required-->
-              <!--&gt;</v-text-field>-->
               <div v-if="isDoctor">
                 <v-text-field
                   ref="country"
@@ -84,7 +77,6 @@
                 ></v-text-field>
               </div>
             </v-card-text>
-            <!--<v-divider class="mt-5"></v-divider>-->
             <v-card-actions>
               <v-btn flat @click="show =!show">Cancel</v-btn>
               <v-spacer></v-spacer>
@@ -119,6 +111,24 @@
       </v-layout>
     </v-dialog>
 
+    <v-alert
+      transition :duration="1"
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -134,7 +144,8 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="show = !show , mode = true"
         >
           <v-icon>
@@ -143,8 +154,9 @@
         </v-btn>
         <v-btn
           icon
-          falt
-          @click="expand = !expand"
+          flat
+          color="primary"
+          @click="delete_selected"
         >
           <v-icon>
             delete
@@ -156,7 +168,7 @@
         :headers="headers"
         :items="users"
         :search="search"
-        item-key="department_id"
+        item-key="user_id"
         select-all
         class="elevation-1"
       >
@@ -201,6 +213,8 @@
 <script>
 export default {
   data: () => ({
+    alert_success: false,
+    alert_error: false,
     user_type_items: [
       {text: '挂号收费员'},
       {text: '门诊医生'},
@@ -252,13 +266,13 @@ export default {
   methods: {
     load: function () {
       let that = this
-      // that.users = []
+      that.users = []
       var url = this.HOME + '/user/get-all-user'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
-          that.temUser = response.data
+          that.temUser = response.data.data
           for (let i = 0; i < that.temUser.length; i++) {
             var userTemp = {
               user_id: that.temUser[i].user_id,
@@ -279,38 +293,44 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.doctors = response.data
+          that.doctors = response.data.data
           for (let i = 0; i < that.doctors.length; i++) {
             // let doctor = that.temUser[i]
             var tempDoctor = {
-              user_id: that.temUser[i].doctor_id,
-              user_account: that.temUser[i].doctor_account,
-              user_password: that.temUser[i].doctor_password,
-              user_type: that.temUser[i].doctor_type,
-              user_name: that.temUser[i].doctor_name,
-              user_department_id: that.temUser[i].doctor_department_id,
-              doctor_register_level_id: that.temUser[i].doctor_register_level_id,
-              doctor_position: that.temUser[i].doctor_position,
-              doctor_arrange_or_not: that.temUser[i].doctor_arrange_or_not
+              user_id: that.doctors[i].doctor_id,
+              user_account: that.doctors[i].doctor_account,
+              user_password: that.doctors[i].doctor_password,
+              user_type: that.doctors[i].doctor_type,
+              user_name: that.doctors[i].doctor_name,
+              user_department_id: that.doctors[i].doctor_department_id,
+              doctor_register_level_id: that.doctors[i].doctor_register_level_id,
+              doctor_position: that.doctors[i].doctor_position,
+              doctor_arrange_or_not: that.doctors[i].doctor_arrange_or_not
             }
-            that.users.append(tempDoctor)
+            that.users.push(tempDoctor)
           }
         })
     },
     deleteItem: function (item) {
       let that = this
       var url = ''
+      var data
       if (item.user_type === '门诊医生' || item.user_type === '医技医生') {
         url = this.HOME + '/user/delete-doctor'
+        data = {doctor_account: item.user_account}
       } else {
         url = this.HOME + '/user/delete-user'
+        data = {user_account: item.user_account}
       }
-      this.$http.post(url, item.user_account)
+      this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -344,15 +364,16 @@ export default {
       this.$http.post(url, user)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
-      // console.log('This is the departmentid')
-      // console.log(this.user_department_id)
     },
     updateItem: function () {
       let that = this
@@ -385,10 +406,13 @@ export default {
       this.$http.post(url, user)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
+            that.notice_success()
+          }else  {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -422,9 +446,59 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.items_departments = response.data
+          that.items_departments = response.data.data
         })
+    },
+    notice_success: function () {
+      this.change_success()
+      var timeout_1 = window.setTimeout( this.change_success, 1500)
+    },
+    change_success: function () {
+      this.alert_success =! this.alert_success
+    },
+    notice_error: function () {
+      this.change_error()
+      var timeout_2 = window.setTimeout( this.change_error, 1500)
+    },
+    change_error: function () {
+      this.alert_error =! this.alert_error
+    },
+    delete_selected: function () {
+      var count = 0
+      var length = this.selected.length
+      for (let i = 0; i < this.selected.length; i++) {
+        var item ={
+          user_type: this.selected[i].user_type,
+          user_account: this.selected[i].user_account
+        }
+        let that = this
+        var url = ''
+        var data
+        if (item.user_type === '门诊医生' || item.user_type === '医技医生') {
+          url = this.HOME + '/user/delete-doctor'
+          data = {doctor_account: item.user_account}
+        } else {
+          url = this.HOME + '/user/delete-user'
+          data = {user_account: item.user_account}
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              count = count + 1
+            }
+          })
+      }
+      this.load()
+      if (this.count === this.length){
+        this.notice_success()
+      }
+      else {
+        this.notice_error()
+      }
     }
+
   },
   computed: {
   },

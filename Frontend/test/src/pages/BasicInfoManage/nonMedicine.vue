@@ -81,6 +81,24 @@
       </v-layout>
     </v-dialog>
 
+    <v-alert
+      transition :duration="1"
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -96,7 +114,8 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="show = !show , mode = true"
         >
           <v-icon>
@@ -105,8 +124,9 @@
         </v-btn>
         <v-btn
           icon
-          falt
-          @click="expand = !expand"
+          flat
+          color="primary"
+          @click="delete_selected"
         >
           <v-icon>
             delete
@@ -159,6 +179,8 @@
 <script>
 export default {
   data: () => ({
+    alert_success: false,
+    alert_error: false,
     mode: true,
     non_medicine_id: '',
     non_medicine_name: '',
@@ -192,7 +214,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.desserts = response.data.data
         })
     },
     deleteItem: function (item) {
@@ -201,9 +223,12 @@ export default {
       this.$http.post(url, {non_medicine_id: item.non_medicine_id})
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -221,10 +246,13 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.show =! that.show
             that.load()
-            that.show = !that.show
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -242,11 +270,13 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.show =! that.show
             that.load()
-            that.show = !that.show
-            that.eraseForm()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -264,6 +294,46 @@ export default {
       this.non_medicine_type = ''
       this.non_medicine_specification = ''
       this.non_medicine_unit_price = ''
+    },
+    notice_success: function () {
+      this.change_success()
+      var timeout_1 = window.setTimeout( this.change_success, 1500)
+    },
+    change_success: function () {
+      this.alert_success =! this.alert_success
+    },
+    notice_error: function () {
+      this.change_error()
+      var timeout_2 = window.setTimeout( this.change_error, 1500)
+    },
+    change_error: function () {
+      this.alert_error =! this.alert_error
+    },
+    delete_selected: function () {
+      var count = 0
+      var length = this.selected.length
+      for (let i = 0; i < this.selected.length; i++) {
+        var item ={
+          non_medicine_id: this.selected[i].non_medicine_id
+        }
+        let that = this
+        var url = this.HOME + '/non-medicine/delete'
+        this.$http.post(url, {non_medicine_id: item.non_medicine_id})
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              count = count + 1
+            }
+          })
+      }
+      if (this.count === this.length){
+        this.notice_success()
+      }
+      else {
+        this.notice_error()
+      }
     }
 
   },

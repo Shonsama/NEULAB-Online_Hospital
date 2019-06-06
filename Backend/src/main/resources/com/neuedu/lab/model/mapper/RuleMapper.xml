@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.RuleMapper">
+
+    <!--增加科室信息-->
+    <insert id="addRule" parameterType="com.neuedu.lab.model.po.Rule">
+        insert into rule (rule_id, rule_name, rule_work_time, rule_doctor_id)
+        values(#{rule_id},
+        #{rule_name},
+        #{rule_work_time},
+        #{rule_doctor_id})
+    </insert>
+
+    <!--删除科室信息-->
+    <delete id="deleteRule" parameterType="Rule">
+        DELETE FROM his.rule
+        where rule_id = #{rule_id}
+    </delete>
+
+    <!--修改科室信息-->
+    <update id="updateRule">
+        update rule
+        set rule_name = #{rule_name},
+         rule_work_time = #{rule_work_time},
+         rule_doctor_id = #{rule_doctor_id}
+        where rule_id = #{rule_id}
+    </update>
+
+    <!--查询某科室信息-->
+    <select id="getRule" resultType="Rule">
+        select * from rule
+        where rule_id  = #{rule_id}
+    </select>
+
+    <!--查询所有科室信息-->
+    <select id="getAllRule" resultType="Rule">
+        select * from rule
+    </select>
+
+</mapper>

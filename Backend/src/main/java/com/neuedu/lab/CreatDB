@@ -249,6 +249,7 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_num` int NOT NULL, #数量
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
+  `prescription_content_actual_unit_price` DECIMAL(8,2) NOT NULL, #实付单价
   `prescription_day` int NULL, #天数
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
   PRIMARY KEY (`prescription_id`)
@@ -293,22 +294,22 @@ CREATE TABLE `his`.`template` (
 
 drop table if exists `template_content`;
 create table `his`.`template_content`(
-	`template_content_id` int not null auto_increment,
-    `template_connect_id` int not null,
-    #非药品
-    `template_non_medicine_id` varchar(45) null,
-    `template_non_medicine_name` varchar(45) null,
-    `template_non_medicine_specification` varchar(45) null,
-    `template_non_medicine_checkpoint` varchar(45) null,
-    #药品
-    `template_medicine_name` varchar(45) null,
-    `template_medicine_specification` varchar(45) null,
-    `template_medicine_unit` varchar(45) null,
-    `template_medicine_usage` varchar(45) null,
-    `template_medicine_consumption` varchar(45) null,
-    `template_medicine_frequency` varchar(45) null,
-    primary key(`template_content_id`),
-    foreign key(`template_connect_id`) references `template`(`template_id`)
+  `template_content_id` int not null auto_increment,
+  `template_connect_id` int not null,
+  #非药品
+  `template_non_medicine_id` varchar(45) null,
+  `template_non_medicine_name` varchar(45) null,
+  `template_non_medicine_specification` varchar(45) null,
+  `template_non_medicine_checkpoint` varchar(45) null,
+  #药品
+  `template_medicine_name` varchar(45) null,
+  `template_medicine_specification` varchar(45) null,
+  `template_medicine_unit` varchar(45) null,
+  `template_medicine_usage` varchar(45) null,
+  `template_medicine_consumption` varchar(45) null,
+  `template_medicine_frequency` varchar(45) null,
+  primary key(`template_content_id`),
+  foreign key(`template_connect_id`) references `template`(`template_id`)
 )default charset=utf8;
 
 #费用科目

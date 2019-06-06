@@ -81,7 +81,6 @@ public class UserController {
     @RequestMapping("/delete-user")
     public JSONObject deleteUser(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(userService.deleteUser(request.getString("user_account")));
-
     }
 
     @RequestMapping("/delete-doctor")
