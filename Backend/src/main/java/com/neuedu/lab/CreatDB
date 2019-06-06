@@ -141,7 +141,7 @@ CREATE TABLE `his`.`usual_diagnose` (
 #患者信息
 drop table if exists  `his`.`patient_info`;
 CREATE TABLE `his`.`patient_info` (
-  `patient_id`INT NOT NULL AUTO_INCREMENT,
+  `patient_record_id`INT NOT NULL AUTO_INCREMENT,
   `patient_gender` bool not NULL,#男1女0
   `patient_name` VARCHAR(45)  NOT NULL,
   `patient_credit_id` VARCHAR(45) NOT NULL,
@@ -249,6 +249,7 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_num` int NOT NULL, #数量
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
+  `prescription_content_actual_unit_price` DECIMAL(8,2) NOT NULL, #实付单价
   `prescription_day` int NULL, #天数
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
   PRIMARY KEY (`prescription_id`)
