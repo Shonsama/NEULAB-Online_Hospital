@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.FeeCatMapper">
+
+    <select id="getFeeCat" resultType="FeeCat">
+        select * from fee_cat
+        where fee_cat_id=#{fee_cat_id}
+    </select>
+
+    <insert id="addFeeCat" parameterType="FeeCat">
+        INSERT INTO his.fee_cat (fee_cat_id, fee_cat_name) VALUES (#{fee_cat_id},#{fee_cat_name})
+    </insert>
+
+    <delete id="deleteFeeCat" parameterType="FeeCat">
+        DELETE FROM his.fee_cat
+        where fee_cat_id= #{fee_cat_id}
+    </delete>
+
+    <update id="updateFeeCat">
+        UPDATE his.fee_cat SET
+        fee_cat_name= #{fee_cat_name}
+        WHERE fee_cat_id = #{fee_cat_id}
+    </update>
+
+    <select id="getAllFeeCats" resultType="FeeCat">
+        SELECT * FROM fee_cat
+    </select>
+
+</mapper>
