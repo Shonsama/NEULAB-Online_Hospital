@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class PrescriptionContent {
     private Integer prescription_content_id;
     private Integer prescription_id;
@@ -8,6 +10,33 @@ public class PrescriptionContent {
     private String prescription_frequency;
     private Integer prescription_num;
     private Integer prescription_day;
+    private BigDecimal prescription_unit_price;
+    private BigDecimal prescription_content_fee;
+    private BigDecimal prescription_content_unit_actual_price;
+
+    public BigDecimal getPrescription_content_unit_actual_price() {
+        return prescription_content_unit_actual_price;
+    }
+
+    public void setPrescription_content_unit_actual_price(BigDecimal prescription_content_unit_actual_price) {
+        this.prescription_content_unit_actual_price = prescription_content_unit_actual_price;
+    }
+
+    public BigDecimal getPrescription_unit_price() {
+        return prescription_unit_price;
+    }
+
+    public void setPrescription_unit_price(BigDecimal prescription_unit_price) {
+        this.prescription_unit_price = prescription_unit_price;
+    }
+
+    public BigDecimal getPrescription_content_fee() {
+        return prescription_content_fee;
+    }
+
+    public void setPrescription_content_fee(BigDecimal prescription_content_fee) {
+        this.prescription_content_fee = prescription_content_fee;
+    }
 
     public Integer getPrescription_content_id() {
         return prescription_content_id;

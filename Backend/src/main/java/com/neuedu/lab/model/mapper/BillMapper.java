@@ -13,4 +13,10 @@ public interface BillMapper {
     List<Bill> getBillForOneRecord(Integer register_id);
 
     List<Bill> getBillByUserIdAndTime(Integer bill_user_id, Date start_time, Date end_time);
+
+    //供退费使用
+    Bill getBillByMedicalSkillId(Integer bill_medical_skill_id);
+
+    Bill getBillByPrescriptionId(Integer bill_prescription_id);
+
 }

@@ -57,6 +57,17 @@ public class DoctorController {
         }
     }
 
+    //提交最终诊断
+    @RequestMapping("/submit-first-diagnose")
+    public JSONObject submitFirstDiagnose(@RequestBody List<Diagnose> diagnoses){
+        if(doctorService.submitFirstDiagnose(diagnoses)){
+            return ConstantUtils.responseSuccess(null);
+        }
+        else {
+            return ConstantUtils.responseFail(null);
+        }
+    }
+
     //添加医技项目
     @RequestMapping("/add-medical-skill")
     public JSONObject addMedicalSkill(@RequestBody MedicalSkill medicalSkill){
@@ -104,10 +115,15 @@ public class DoctorController {
         }
     }
 
+    @RequestMapping("/check-result")
+    public JSONObject checkResult(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.checkResult(request.getInteger("medical_skill_id")));
+    }
+
     //查看初步诊断
     @RequestMapping("/get-record")
-    public Record getRecord(@RequestBody JSONObject request){
-        return doctorService.getRecord(request.getInteger("record_id"));
+    public JSONObject getRecord(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(doctorService.getRecord(request.getInteger("record_id")));
     }
 
     //提交最终诊断

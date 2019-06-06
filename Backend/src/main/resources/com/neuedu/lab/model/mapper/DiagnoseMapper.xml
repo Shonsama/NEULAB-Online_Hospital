@@ -3,8 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.DiagnoseMapper">
-    <insert id="addDiagnose" parameterType="Diagnose">
-        INSERT INTO diagnose (diagnose_record_id, diagnose_type, diagnose_disease_id, diagnose_disease_name)
-        VALUES (#{diagnose_record_id}, #{diagnose_type},#{diagnose_disease_id},#{diagnose_disease_name})
+    <insert id="addDiagnose" parameterType="Diagnose" useGeneratedKeys="true" keyProperty="diagnose_id">
+        <if test="diagnose_time==null">
+            INSERT INTO diagnose (diagnose_record_id, diagnose_type, diagnose_disease_id, diagnose_disease_name)
+            VALUES (#{diagnose_record_id}, #{diagnose_type}, #{diagnose_disease_id},#{diagnose_disease_name})
+        </if>
+
+        <if test="diagnose_time!=null">
+            INSERT INTO diagnose (diagnose_record_id, diagnose_type, diagnose_disease_id, diagnose_disease_name,diagnose_time)
+            VALUES (#{diagnose_record_id}, #{diagnose_type}, #{diagnose_disease_id},#{diagnose_disease_name},#{diagnose_time})
+        </if>
     </insert>
 </mapper>

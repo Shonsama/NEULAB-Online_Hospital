@@ -18,6 +18,10 @@ public class ConstantUtils {
         return source.multiply(new BigDecimal(-1));
     }
 
+    public static Integer convertToNegtive(Integer source){
+        return Integer.valueOf(source*(-1));
+    }
+
 
     /**
      * 返回统一格式化

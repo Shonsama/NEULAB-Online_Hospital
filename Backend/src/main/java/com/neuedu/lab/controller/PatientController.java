@@ -32,7 +32,7 @@ public class PatientController {
 
     @RequestMapping("/get-by-patient-id")
     public JSONObject getPatientByRecordId(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(patientService.getPatientByRecordId(request.getString("patient_record_id")));
+        return ConstantUtils.responseSuccess(patientService.getPatientByRecordId(request.getInteger("patient_record_id")));
     }
 
     @RequestMapping("/get-by-doctor-id")
