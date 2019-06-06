@@ -6,7 +6,7 @@ insert into constant values(1,'constant_name','constant_type');
 insert into non_medicine values('non_medicine_id','non_medicine_type','non_medicine_name',8.6,'non_medicine_specification');
 select * from non_medicine;
 insert into medicine values('medicine_id','medicine_usage','medicine_name','medicine_specifications','medicine_unit','medicine_factory','medicine_formulation','medicine_type',1.1,'medicine_pinyin');
-#select * from medicine;
+select * from medicine;
 insert into department_info values('department_id','department_type','department_cat','department_name');
 select * from department_info;
 
@@ -31,7 +31,7 @@ select * from patient_info;
 insert into rule values(1,'rule_name','rule_work_time',1);
 #select * from rule;
 
-insert into schedule values('rule_name','2019-12-11','2019-12-21',1);
+insert into schedule values(1,'2019-12-11','2019-12-21',1);
 #select * from his.schedule;
 
 insert into register_info values(1,'register_info_state',true, 6.9,'register_info_pay_type',1,1,1);
@@ -53,10 +53,11 @@ insert into medical_skill values(1, 'medical_skill_execute_state','medical_skill
 ,'medical_skill_checkpoint','medical_skill_purpose',false,'2018-11-11','2018-11-11','2018-11-11',1,1,1,'non_medicine_id');
 select * from medical_skill;
 
-insert into template values(1,'template_type','template_name','template_range','2017-11-19',1);
+insert into template values(1,'template_type1','template_name1','template_range1',NOW(),1);
 select * from template;
 
-insert into template_content values(1,1,'non_medicine_id');
+insert into template_content values(1,1,'non_medicine_id','non_medicine_name','non_medicine_speficication','non_medicine_cp',
+'medicine_name','medicine_specification','unit','medicine_usage','medicine_consumption','fre');
 select * from template_content;
 
 insert into fee_cat values('fee_cat_id','fee_cat_name');

@@ -74,6 +74,24 @@
           </v-layout>
     </v-dialog>
 
+    <v-alert
+      transition :duration="1"
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -91,7 +109,6 @@
           icon
           flat
           color="primary"
-
           @click="show = !show , mode = true"
         >
           <v-icon>
@@ -102,7 +119,7 @@
           icon
           flat
           color="primary"
-          @click="expand = !expand"
+          @click="delete_selected()"
         >
           <v-icon>
             delete
@@ -154,6 +171,8 @@
 <script>
 export default {
   data: () => ({
+    alert_success: false,
+    alert_error: false,
     mode: true,
     department_id: '',
     department_name: '',
@@ -185,7 +204,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.desserts = response.data.data
         })
     },
     deleteItem: function (item) {
@@ -194,9 +213,12 @@ export default {
       this.$http.post(url, {department_id: item.department_id})
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -213,10 +235,13 @@ export default {
       this.$http.post(url, department)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -233,11 +258,14 @@ export default {
       this.$http.post(url, department)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.msg === 'SUCCESS') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
             that.eraseForm()
+            that.notice_success()
+          }else {
+            that.notice_error()
           }
         })
       console.log(this.signal)
@@ -253,8 +281,47 @@ export default {
       this.department_name = ''
       this.department_cat = ''
       this.department_type = ''
+    },
+    notice_success: function () {
+      this.change_success()
+      var timeout_1 = window.setTimeout( this.change_success, 1500)
+    },
+    change_success: function () {
+      this.alert_success =! this.alert_success
+    },
+    notice_error: function () {
+      this.change_error()
+      var timeout_2 = window.setTimeout( this.change_error, 1500)
+    },
+    change_error: function () {
+      this.alert_error =! this.alert_error
+    },
+    delete_selected: function () {
+      var count = 0
+      var length = this.selected.length
+      for (let i = 0; i < this.selected.length; i++) {
+        var item ={
+          department_id: this.selected[i].department_id
+        }
+        let that = this
+        var url = this.HOME + '/department/delete'
+        this.$http.post(url, {department_id: item.department_id})
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              count = count + 1
+            }
+          })
+      }
+      if (this.count === this.length){
+        this.notice_success()
+      }
+      else {
+        this.notice_error()
+      }
     }
-
   },
   mounted: function () {
     this.load()
