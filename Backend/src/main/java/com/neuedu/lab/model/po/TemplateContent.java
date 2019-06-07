@@ -4,10 +4,10 @@ public class TemplateContent {
 
     private Integer template_content_id;
     private Integer template_connect_id;
-    private String template_non_medicine_id;
-    private String template_non_medicine_name;
-    private String template_non_medicine_specification;
-    private String template_non_medicine_checkpoint;
+    private String template_medical_skill_content_id;
+    private String template_medical_skill_content_name;
+    private String template_medical_skill_content_specification;
+    private String template_medical_skill_content_checkpoint;
 
     private  String template_medicine_name;
     private String template_medicine_specification;
@@ -32,36 +32,36 @@ public class TemplateContent {
         this.template_connect_id = template_connect_id;
     }
 
-    public String getTemplate_non_medicine_id() {
-        return template_non_medicine_id;
+    public String getTemplate_medical_skill_content_id() {
+        return template_medical_skill_content_id;
     }
 
-    public void setTemplate_non_medicine_id(String template_non_medicine_id) {
-        this.template_non_medicine_id = template_non_medicine_id;
+    public void setTemplate_medical_skill_content_id(String template_medical_skill_content_id) {
+        this.template_medical_skill_content_id = template_medical_skill_content_id;
     }
 
-    public String getTemplate_non_medicine_name() {
-        return template_non_medicine_name;
+    public String getTemplate_medical_skill_content_name() {
+        return template_medical_skill_content_name;
     }
 
-    public void setTemplate_non_medicine_name(String template_non_medicine_name) {
-        this.template_non_medicine_name = template_non_medicine_name;
+    public void setTemplate_medical_skill_content_name(String template_medical_skill_content_name) {
+        this.template_medical_skill_content_name = template_medical_skill_content_name;
     }
 
-    public String getTemplate_non_medicine_specification() {
-        return template_non_medicine_specification;
+    public String getTemplate_medical_skill_content_specification() {
+        return template_medical_skill_content_specification;
     }
 
-    public void setTemplate_non_medicine_specification(String template_non_medicine_specification) {
-        this.template_non_medicine_specification = template_non_medicine_specification;
+    public void setTemplate_medical_skill_content_specification(String template_medical_skill_content_specification) {
+        this.template_medical_skill_content_specification = template_medical_skill_content_specification;
     }
 
-    public String getTemplate_non_medicine_checkpoint() {
-        return template_non_medicine_checkpoint;
+    public String getTemplate_medical_skill_content_checkpoint() {
+        return template_medical_skill_content_checkpoint;
     }
 
-    public void setTemplate_non_medicine_checkpoint(String template_non_medicine_checkpoint) {
-        this.template_non_medicine_checkpoint = template_non_medicine_checkpoint;
+    public void setTemplate_medical_skill_content_checkpoint(String template_medical_skill_content_checkpoint) {
+        this.template_medical_skill_content_checkpoint = template_medical_skill_content_checkpoint;
     }
 
     public String getTemplate_medicine_name() {
