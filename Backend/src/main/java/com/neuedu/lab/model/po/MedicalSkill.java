@@ -19,6 +19,24 @@ public class MedicalSkill {
     private Integer medical_skill_register_info_id;
     private Integer medical_skill_user_id;
     private Integer medical_skill_doctor_id;
+    private Register register;
+    private String medical_skill_execute_department;
+
+    public String getMedical_skill_execute_department() {
+        return medical_skill_execute_department;
+    }
+
+    public void setMedical_skill_execute_department(String medical_skill_execute_department) {
+        this.medical_skill_execute_department = medical_skill_execute_department;
+    }
+
+    public Register getRegister() {
+        return register;
+    }
+
+    public void setRegister(Register register) {
+        this.register = register;
+    }
 
     public Date getMedical_skill_create_time() {
         return medical_skill_create_time;

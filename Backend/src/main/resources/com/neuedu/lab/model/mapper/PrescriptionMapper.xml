@@ -24,6 +24,11 @@
         WHERE prescription_id = #{prescription_id};
     </select>
 
+    <select id="getPrescriptionByRegisterId" resultType="Prescription">
+        SELECT * FROM  prescription
+        WHERE prescription_register_info_id = #{prescription_register_info_id}
+    </select>
+
     <update id="updatePrescriptionFee" parameterType="Prescription">
         UPDATE prescription SET prescription_fee = #{prescription_fee}
         WHERE prescription_id = #{prescription_id}

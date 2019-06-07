@@ -6,10 +6,10 @@
     <insert id="addRecord">
         INSERT INTO record (record_patient_id, record_doctor_id, record_id,
          record_syndrome, record_health_check, record_xianbingshi, record_jiwangshi, record_cure_situation,
-         record_allergy_his, record_state, record_suggestion, record_attention)
+         record_allergy_his, record_state, record_suggestion, record_attention, record_doctor_type)
         VALUES (#{record_patient_id}, #{record_doctor_id}, #{record_id}, #{record_syndrome}, #{record_health_check},
                 #{record_xianbingshi}, #{record_jiwangshi}, #{record_cure_situation},
-                #{record_allergy_his}, #{record_state},#{record_suggestion}, #{record_attention})
+                #{record_allergy_his}, #{record_state},#{record_suggestion}, #{record_attention},#{record_doctor_type})
     </insert>
 
     <update id="updateRecord">
@@ -22,7 +22,8 @@
         record_allergy_his = #{record_allergy_his},
         record_state = #{record_state},
         record_attention = #{rerecord_attention},
-        record_suggestion = #{record_suggestion}
+        record_suggestion = #{record_suggestion},
+        record_doctor_type = #{record_doctor_type}
         WHERE record_id = #{record_id}
     </update>
 
@@ -34,4 +35,10 @@
         SELECT * FROM  record
         WHERE record_id = #{record_id}
     </select>
+
+
+    <update id="updateRecordStateById">
+        UPDATE record SET record_state = #{record_state}
+        WHERE record_id = #{record_id}
+    </update>
 </mapper>

@@ -8,7 +8,7 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.misc.ConstructorUtil;
+
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -274,9 +274,11 @@ public class UserService {
         return ConstantUtils.responseSuccess(bill);
     }
 
-    // 退药
+    // 未领药直接退药，由收费员操作
     @Transactional
     public JSONObject returnMedicine(Integer prescription_id, String prescription_medicine_id, Integer prescription_num){
+        Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
+
         PrescriptionContent prescriptionContent = new PrescriptionContent();
         prescriptionContent.setPrescription_id(prescription_id);
         prescriptionContent.setPrescription_medicine_id(prescription_medicine_id);
@@ -284,6 +286,11 @@ public class UserService {
 
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
         Integer prescriptionContentNum = prescriptionContentMapper.getPrescriptionContentNum(prescriptionContent);
+
+        //查看药品状态应该是已缴费状态
+        if(!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3])){
+            return ConstantUtils.responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可退药",null);
+        }
 
         //查看药品数量是否满足
         if(prescriptionContentNum == null || prescriptionContentNum < prescriptionContent.getPrescription_num()){

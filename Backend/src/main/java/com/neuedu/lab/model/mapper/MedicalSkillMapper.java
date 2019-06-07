@@ -21,4 +21,6 @@ public interface MedicalSkillMapper {
     //用于医技项目缴费
     List<MedicalSkill> getMedicalSkillByRegisterId(Integer medical_skill_register_info_id,String medical_skill_execute_state);
 
+    //用于医技部门查找所有记录患者
+    List<MedicalSkill> getMedicalSkillByDepartmentId(String medical_skill_execute_department);
 }

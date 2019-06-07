@@ -18,6 +18,11 @@ public class MedicalSkillDoctorController {
     @Autowired
     MedicalSkillDoctorService medicalSkillDoctorService;
 
+    @RequestMapping("/get-medical-skill")
+    public JSONObject getMedicalSkill(@RequestBody JSONObject request){
+        return medicalSkillDoctorService.getMedicalSkill(request.getString("medical_skill_execute_department"));
+    }
+
 
     //项目执行 执行确认
     @RequestMapping("/confirm/medical-skill")

@@ -45,7 +45,7 @@ public class DoctorService {
             for(Register register: registers){
                 register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
@@ -62,7 +62,7 @@ public class DoctorService {
             for(Register register: registers){
                 register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
@@ -75,7 +75,7 @@ public class DoctorService {
         List<Register> registers;
         try{
             registers = registerMapper.getRegisterByDoctorIdAndPatientName(doctor_id,patient_name);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
@@ -87,7 +87,7 @@ public class DoctorService {
     public JSONObject treat(Integer register_id){
         try{
             doctorMapper.treat(register_id, ConstantDefinition.REGISTER_STATE[1]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
            return ConstantUtils.responseFail("接诊失败",null);
         }
@@ -100,6 +100,7 @@ public class DoctorService {
         try {
             String record_state = recordMapper.getRecordStateById(record.getRecord_id());
             if(record_state == null){
+                record.setRecord_state(ConstantDefinition.RECORD_STATE[0]);
                 recordMapper.addRecord(record);
                 return ConstantUtils.responseSuccess(record);
             }
@@ -116,25 +117,36 @@ public class DoctorService {
             else {
                 return ConstantUtils.responseFail("已提交最终诊断，不能更改",null);
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return ConstantUtils.responseFail("提交出错",null);
         }
     }
 
-    //提交最终确诊结果
+    //提交初步诊断结果
     @Transactional
-    public boolean submitFirstDiagnose(List<Diagnose> diagnoses){
+    public JSONObject submitFirstDiagnose(List<Diagnose> diagnoses){
         try {
             for(int i = 0; i<diagnoses.size(); i++){
                 diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
             }
-            return true;
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return ConstantUtils.responseFail(null);
         }
+        return ConstantUtils.responseSuccess(recordMapper.getRecordById(diagnoses.get(0).getDiagnose_record_id()));
+    }
+
+    //确认初诊完毕
+    public JSONObject confirmFirstDiagnose(Integer record_id){
+        try{
+            recordMapper.updateRecordStateById(record_id,ConstantDefinition.RECORD_STATE[1]);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
+        return ConstantUtils.responseSuccess(recordMapper.getRecordById(record_id));
     }
 
 
@@ -144,7 +156,7 @@ public class DoctorService {
         try{
             medicalSkill.setMedical_skill_execute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
             medicalSkillMapper.addMedicalSkill(medicalSkill);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -155,7 +167,7 @@ public class DoctorService {
     public boolean deleteMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.deleteMedicalSkill(medical_skill_id);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -166,7 +178,7 @@ public class DoctorService {
     public boolean startMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -177,7 +189,7 @@ public class DoctorService {
     public boolean endMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[2]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -203,7 +215,7 @@ public class DoctorService {
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
             }
             return true;
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -214,7 +226,7 @@ public class DoctorService {
         try{
             prescription.setPrescription_execute_state(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[0]);
             prescriptionMapper.addPrescription(prescription);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -227,7 +239,7 @@ public class DoctorService {
         try{
             prescriptionContentMapper.deletePrescriptionContents(prescription_id);
             prescriptionMapper.deletePrescription(prescription_id);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -238,7 +250,7 @@ public class DoctorService {
     public boolean sendPrescription(Integer prescription_id) {
         try {
             prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -248,7 +260,7 @@ public class DoctorService {
     public boolean endPrescription(Integer prescription_id) {
         try {
             prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[2]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -260,7 +272,7 @@ public class DoctorService {
     public boolean addPrescriptionContent(PrescriptionContent prescriptionContent){
         try {
             prescriptionContentMapper.addPrescriptionContent(prescriptionContent);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -271,7 +283,7 @@ public class DoctorService {
     public boolean deletePrescriptionContent(Integer prescriptionid) {
         try {
             prescriptionContentMapper.deletePrescriptionContent(prescriptionid);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -283,7 +295,7 @@ public class DoctorService {
     public boolean finish(Integer register_id){
         try{
             registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[2]);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             e.printStackTrace();
             return false;
         }
@@ -306,7 +318,7 @@ public class DoctorService {
         try{
             medicalSkillBefore= medicalSkillMapper.getMedicalSkill(medicalSkill.getMedical_skill_id());
         }
-        catch (Exception e){
+        catch (RuntimeException e){
             e.printStackTrace();
             return ConstantUtils.responseFail("获取医技项目失败",null);
         }
@@ -319,12 +331,24 @@ public class DoctorService {
 
         try{
             medicalSkillMapper.updateMedicalSkillResult(medicalSkillBefore);
-        }catch (Exception e){
+        }catch (RuntimeException e){
             return ConstantUtils.responseFail("结果添加失败",null);
         }
 
         return ConstantUtils.responseSuccess(medicalSkillBefore);
 
+    }
+
+    //获取一个病人的所有处方记录
+    public JSONObject getPrescription(Integer register_id){
+        List<Prescription> prescriptions;
+        try{
+            prescriptions = prescriptionMapper.getPrescriptionByRegisterId(register_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail(null);
+        }
+        return ConstantUtils.responseSuccess(prescriptions);
     }
 
 

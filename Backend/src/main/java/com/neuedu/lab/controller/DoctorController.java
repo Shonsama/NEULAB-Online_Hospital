@@ -47,15 +47,16 @@ public class DoctorController {
         return doctorService.submitRecord(record);
     }
 
-    //提交最终诊断
+    //提交初步诊断
     @RequestMapping("/submit-first-diagnose")
     public JSONObject submitFirstDiagnose(@RequestBody List<Diagnose> diagnoses){
-        if(doctorService.submitFirstDiagnose(diagnoses)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.submitFirstDiagnose(diagnoses);
+    }
+
+    //确认初步诊断
+    @RequestMapping("/confirm-first-diagnose")
+    public JSONObject confirmFirstDiagnose(@RequestBody JSONObject request){
+        return doctorService.confirmFirstDiagnose(request.getInteger("record_id"));
     }
 
     //添加医技项目
@@ -210,6 +211,12 @@ public class DoctorController {
     @RequestMapping("/get-fee-records")
     public JSONObject fee(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(doctorService.getFeeRecords(request.getInteger("patient_record_id")));
+    }
+
+    //获取病人的所有处方
+    @RequestMapping("/get-all-prescription")
+    public JSONObject getPrescription(@RequestBody JSONObject request){
+        return doctorService.getPrescription(request.getInteger("register_id"));
     }
 
 
