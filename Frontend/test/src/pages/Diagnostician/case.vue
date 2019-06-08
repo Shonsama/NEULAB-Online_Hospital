@@ -286,7 +286,7 @@ export default {
           content: []
         },
         record_suggestion: '',
-        record_attention: '',
+        record_attention: ''
       }
     }
   },
@@ -350,12 +350,12 @@ export default {
         record_jiwangshi: that.form.record_jiwangshi,
         record_cure_situation: that.form.record_cure_situation,
         record_allergy_his: that.form.record_allergy_his,
-        diagnosis: [],
+        diagnosis: that.desserts,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
         record_state: '',
         record_patient_id: '',
-        record_doctor_id: '',
+        record_doctor_id: '1',
         record_id: ''
       }
       this.$http.post(url, data)
