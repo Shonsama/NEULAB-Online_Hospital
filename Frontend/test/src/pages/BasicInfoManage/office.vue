@@ -199,7 +199,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/department/get-all'
+      var url = this.HOME + '/maintenance/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -209,7 +209,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/department/delete'
+      var url = this.HOME + '/maintenance/department/delete'
       this.$http.post(url, {department_id: item.department_id})
         .then(function (response) {
           console.log(response.data)
@@ -231,7 +231,7 @@ export default {
         department_type: this.department_type
       }
       let that = this
-      var url = this.HOME + '/department/add'
+      var url = this.HOME + '/maintenance/department/add'
       this.$http.post(url, department)
         .then(function (response) {
           console.log(response.data)
@@ -254,7 +254,7 @@ export default {
         department_type: this.department_type
       }
       let that = this
-      var url = this.HOME + '/department/update'
+      var url = this.HOME + '/maintenance/department/update'
       this.$http.post(url, department)
         .then(function (response) {
           console.log(response.data)
@@ -304,7 +304,7 @@ export default {
           department_id: this.selected[i].department_id
         }
         let that = this
-        var url = this.HOME + '/department/delete'
+        var url = this.HOME + '/maintenance/department/delete'
         this.$http.post(url, {department_id: item.department_id})
           .then(function (response) {
             console.log(response.data)
