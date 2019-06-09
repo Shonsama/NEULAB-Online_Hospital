@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.lang.RuntimeException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +55,7 @@ public class UserService {
     public boolean addUser(User user) {
         try {
             userMapper.addUser(user);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -64,7 +65,7 @@ public class UserService {
     public boolean deleteUser(String user_account) {
         try {
             userMapper.deleteUser(user_account);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -74,7 +75,7 @@ public class UserService {
     public boolean updateUser(User user) {
         try {
             userMapper.updateUser(user);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -84,7 +85,7 @@ public class UserService {
     public boolean updateUserPassword(User user) {
         try {
             userMapper.updateUserPassword(user);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -114,7 +115,7 @@ public class UserService {
     public boolean addDoctor(Doctor doctor) {
         try {
             userMapper.addDoctor(doctor);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -124,7 +125,7 @@ public class UserService {
     public boolean deleteDoctor(String doctor_account) {
         try {
             userMapper.deleteDoctor(doctor_account);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -134,7 +135,7 @@ public class UserService {
     public boolean updateDoctor(Doctor doctor) {
         try {
             userMapper.updateDoctor(doctor);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -144,7 +145,7 @@ public class UserService {
     public boolean updateDoctorPassword(Doctor doctor) {
         try {
             userMapper.updateDoctorPassword(doctor);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -155,7 +156,7 @@ public class UserService {
 
     //日结
     @Transactional
-    public List<Bill> dailyClear(Daily daily) throws ParseException {
+    public List<Bill> dailyClear(Daily daily) throws RuntimeException, ParseException {
         Daily dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id()); //取出最后一次日结记录
         Date end_time = dailyRecent == null ? ConstantUtils.getSystemInitializeTime() : dailyRecent.getDaily_end(); //若无记录，则按系统初始时间作为上次结束时间
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
@@ -170,7 +171,7 @@ public class UserService {
     public boolean dailyPass(Integer daily_id) {
         try {
             dailyMapper.updateDailyPass(daily_id, true);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return false;
         }
@@ -182,7 +183,7 @@ public class UserService {
 
         try {
             return ConstantUtils.responseSuccess(dailyMapper.getDaily(daily));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
@@ -196,7 +197,7 @@ public class UserService {
         List<MedicalSkill> medicalSkills;
         try {
             medicalSkills = medicalSkillMapper.getMedicalSkillByRegisterId(register_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("获取失败", null);
         }
@@ -210,7 +211,7 @@ public class UserService {
             for (Integer medical_skill_id : medical_skill_ids) {
                 medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("收费失败", null);
         }
@@ -223,7 +224,7 @@ public class UserService {
             for (Bill bill : billList) {
                 billMapper.addBill(bill);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseSuccess(null);
         }
@@ -232,21 +233,8 @@ public class UserService {
 
 
     //医技项目退费
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public JSONObject refundMedicalSkill(Integer medical_skill_id) {
-        try {
-            MedicalSkill medicalSkilBefore = medicalSkillMapper.getMedicalSkill(medical_skill_id);
-            //如果医技项目不是已缴费状态，不能退费
-            if (!medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3])) {
-                return ConstantUtils.responseFail("当前医技项目状态为["
-                        + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
-            } else {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5]);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ConstantUtils.responseFail("更新项目状态过程出错", null);
-        }
         //获取原发票
         Bill bill;
         try {
@@ -258,16 +246,31 @@ public class UserService {
             } else {
                 bill = bills.get(0);
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("获取原发票过程出错", null);
         }
+
+        try {
+            MedicalSkill medicalSkilBefore = medicalSkillMapper.getMedicalSkill(medical_skill_id);
+            //如果医技项目不是已缴费状态，不能退费
+            if (!medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3])) {
+                return ConstantUtils.responseFail("当前医技项目状态为["
+                        + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
+            } else {
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5]);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ConstantUtils.responseFail("更新项目状态过程出错", null);
+        }
+
         //增加对冲发票
         bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
         bill.setBill_actual_sum(ConstantUtils.convertToNegtive(bill.getBill_actual_sum()));
         try {
             billMapper.addBill(bill);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("增加对冲发票过程出错", null);
         }
@@ -337,7 +340,7 @@ public class UserService {
             billBefore.setBill_actual_sum(ConstantUtils.convertToNegtive(billBefore.getBill_actual_sum()));
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billMapper.addBill(billBefore);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("插入发票对冲记录出错", null);
         }
@@ -351,7 +354,7 @@ public class UserService {
                 content.setPrescription_content_fee(content.getPrescription_unit_price().multiply(new BigDecimal(content.getPrescription_num())));
                 sum = sum.add(content.getPrescription_content_fee());
             }
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("获取处方药品记录失败", null);
         }

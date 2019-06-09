@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Prescription;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface PrescriptionMapper {
 
     void deletePrescription(Integer prescription_id);
 
-    void updatePrescriptionState(Integer prescription_id,String prescription_execute_state);
+    void updatePrescriptionState(@Param("prescription_id") Integer prescription_id,@Param("prescription_execute_state") String prescription_execute_state);
 
     Prescription getPrescription(Integer prescription_id);
 
@@ -19,5 +20,8 @@ public interface PrescriptionMapper {
 
     //退费部分使用
     void updatePrescriptionFee(Prescription prescription);
+
+    //供更新姓名使用
+    void updatePrescriptionName(Prescription prescription);
 
 }

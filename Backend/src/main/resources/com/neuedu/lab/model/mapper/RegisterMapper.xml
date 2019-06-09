@@ -20,7 +20,7 @@
         WHERE register_info_doctor_id = #{doctor_id}
     </select>
 
-    <select id="getRegisterByDepartmentId" parameterType="Integer" resultType="Register">
+    <select id="getRegisterByDepartmentId" parameterType="String" resultType="Register">
         SELECT * FROM register_info, doctor_info
         WHERE register_info_doctor_id = doctor_id AND  doctor_department_id = #{department_id}
     </select>

@@ -40,6 +40,12 @@ public class UserServiceController {
         return userService.refundMedicalSkill(request.getInteger("medical_skill_id"));
     }
 
+    @RequestMapping("/refund/return-prescription")
+    public JSONObject retrunPrescription(@RequestBody JSONObject request){
+        return userService.returnMedicine(request.getInteger("prescription_id"),
+                request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
+    }
+
     @RequestMapping("/refund/prescription")
     public JSONObject refundPrescription(@RequestBody JSONObject request){
         return userService.refundPrescription(request.getInteger("prescription_id"));

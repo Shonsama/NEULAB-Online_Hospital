@@ -22,4 +22,8 @@ public interface PrescriptionContentMapper {
 
     //供退药使用，返回数量为正的药品记录
     PrescriptionContent getPrescriptionContentPositive(PrescriptionContent prescriptionContent);
+
+
+    //供删除药品使用
+    PrescriptionContent getgetPrescriptionContentById(Integer prescription_content_id);
 }
