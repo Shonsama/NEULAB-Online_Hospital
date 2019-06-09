@@ -3,6 +3,7 @@ package com.neuedu.lab.model.service;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.model.mapper.MedicalSkillContentMapper;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.mapper.RegisterMapper;
@@ -26,14 +27,20 @@ public class MedicalSkillDoctorService {
     RegisterMapper registerMapper;
     @Resource
     PatientMapper patientMapper;
+    @Resource
+    MedicalSkillContentMapper medicalSkillContentMapper;
 
-    public JSONObject confirmMedicalSkill(Integer medical_skill_id){
-        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[6]);
-        return ConstantUtils.responseSuccess(medicalSkillMapper.getMedicalSkill(medical_skill_id));
+    public JSONObject confirmMedicalSkill(Integer medical_skill_id,Integer medical_skill_execute_doctor_id){
+        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_doctor_id);
+        MedicalSkill result = medicalSkillMapper.getMedicalSkill(medical_skill_id);
+        result.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(result.getMedical_skill_content_id()));
+        return ConstantUtils.responseSuccess(result);
     }
-    public JSONObject cancelMedicalSkill(Integer medical_skill_id){
-        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[7]);
-        return ConstantUtils.responseSuccess(medicalSkillMapper.getMedicalSkill(medical_skill_id));
+    public JSONObject cancelMedicalSkill(Integer medical_skill_id, Integer medical_skill_execute_doctor_id){
+        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[7], medical_skill_execute_doctor_id);
+        MedicalSkill result = medicalSkillMapper.getMedicalSkill(medical_skill_id);
+        result.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(result.getMedical_skill_content_id()));
+        return ConstantUtils.responseSuccess(result);
     }
 
     public JSONObject getMedicalSkill(String medical_skill_execute_department){
@@ -43,6 +50,7 @@ public class MedicalSkillDoctorService {
             for(MedicalSkill medicalSkill : medicalSkills){
                 medicalSkill.setRegister(registerMapper.getRegister(medicalSkill.getMedical_skill_register_info_id()));
                 medicalSkill.getRegister().setPatient(patientMapper.getPatientByRecordId(medicalSkill.getRegister().getRegister_info_patient_id()));
+                medicalSkill.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id()));
             }
 
         }catch (RuntimeException e){
@@ -58,6 +66,9 @@ public class MedicalSkillDoctorService {
         List<MedicalSkill> medicalSkills;
         try{
             medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],medical_skill_execute_department);
+            for(MedicalSkill medicalSkill:medicalSkills){
+                medicalSkill.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id()));
+            }
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail(e);
@@ -86,6 +97,8 @@ public class MedicalSkillDoctorService {
         }catch (RuntimeException e){
             return responseFail("结果添加失败",null);
         }
+        medicalSkillBefore.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(medicalSkillBefore.getMedical_skill_content_id()));
+
 
         return responseSuccess(medicalSkillBefore);
 
