@@ -50,28 +50,28 @@
           </template>
           <template v-slot:expand="props">
             <v-layout align-center justify-center row>
-              <v-flex xs2 class="mr-2">
+              <v-flex xs2 class="mr-3">
                 <v-text-field
                   v-model="medical_skill_name"
                   label="申请名称"
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs2 class="mr-2">
+              <v-flex xs2 class="mr-3">
                 <v-text-field
                   v-model="medical_skill_checkpoint"
                   label="部位"
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs2 class="mr-2">
+              <v-flex xs2 class="mr-3">
                 <v-text-field
                   v-model="medical_skill_purpose"
                   label="目的"
                   required
                 ></v-text-field>
               </v-flex>
-              <v-flex xs2 class="mr-2">
+              <v-flex xs2 class="mr-3">
                 <v-select
                   v-model="medical_skill_urgent"
                   :items="isNo"
@@ -105,18 +105,21 @@
           </v-btn>
           <v-btn
             small
+            @click="deleteItem"
             color="primary"
           >
             删除
           </v-btn>
           <v-btn
             small
+            @click="startItem"
             color="primary"
           >
             开立
           </v-btn>
           <v-btn
             small
+            @click="endItem"
             color="primary"
           >
             作废
@@ -131,7 +134,6 @@
           select-all
         >
           <template v-slot:items="props">
-            <tr @click="props.expanded = !props.expanded">
             <td>
               <v-checkbox
                 v-model="props.selected"
@@ -140,27 +142,18 @@
               ></v-checkbox>
             </td>
             <td>{{ props.item.medical_skill_name }}</td>
-            <td class="text-xs-right">{{ props.item.medical_skill_execute_department }}</td>
-            <td class="text-xs-right">{{ props.item.medical_skill_execute_state }}</td>
-            <td class="text-xs-right">{{ props.item.medical_skill_checkpoint }}</td>
-            <td class="text-xs-right">{{ props.item.medical_skill_purpose }}</td>
-            <td class="text-xs-right">{{ props.item.medical_skill_fee }}</td>
-            <td class="justify-center layout px-0">
+            <td>{{ props.item.medical_skill_execute_department }}</td>
+            <td>{{ props.item.medical_skill_execute_state }}</td>
+            <td>{{ props.item.medical_skill_checkpoint }}</td>
+            <td>{{ props.item.medical_skill_purpose }}</td>
+            <td>{{ props.item.medical_skill_fee }}</td>
+            <td>
               <v-icon
-                small
-                class="mr-2"
-                @click="editItem(props.item)"
+                @click="props.expanded = !props.expanded"
               >
-                edit
-              </v-icon>
-              <v-icon
-                small
-                @click="deleteItem(props.item)"
-              >
-                delete
+                remove_red_eye
               </v-icon>
             </td>
-            </tr>
           </template>
           <template v-slot:expand="props">
             <v-card flat>
@@ -186,7 +179,7 @@
           <v-toolbar-title  >常用模板</v-toolbar-title>
         </v-toolbar>
         <v-data-table
-          v-model="selected"
+          v-model="selected_tem"
           :headers="headers_tem"
           :items="desserts_tem"
           item-key="non_medicine_id"
@@ -220,6 +213,8 @@ export default {
   data () {
     return {
       selected_dia: '',
+      selected: '',
+      selected_tem: '',
       search: '',
       show: false,
       expand: false,
@@ -261,7 +256,8 @@ export default {
         {
           text: '单价',
           value: 'medical_skill_fee'
-        }
+        },
+        { text: '操作', value: 'operation' }
       ],
       desserts: [],
       headers_tem: [
@@ -291,7 +287,7 @@ export default {
       let that = this
       var url = this.HOME + '/doctor/get-record'
       var data = {
-        record_id: '5'
+        record_id: '6'
       }
       this.$http.post(url, data)
         .then(response => {
@@ -324,15 +320,18 @@ export default {
     },
     deleteItem: function () {
       let that = this
-      var data = {
-        medical_skill_id: 1
-      }
+      var i
       var url = this.HOME + '/doctor/delete-medical-skill'
-      this.$http.post(url, data)
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts_dia = response.data.data
-        })
+      for (i = 0; i < that.selected.length; i++) {
+        var data = {
+          medical_skill_id: that.selected.medical_skill_id
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            that.desserts_dia = response.data.data
+          })
+      }
     },
     startItem: function () {
       let that = this
