@@ -32,6 +32,11 @@ public class MedicalSkillDoctorController {
                 request.getInteger("patient_id"));
     }
 
+    @RequestMapping("/get-all-patients")
+    public JSONObject getPatients(@RequestBody JSONObject request){
+        return medicalSkillDoctorService.getPatients(request.getString("medical_skill_execute_department"));
+    }
+
 
     //项目执行 执行确认
     @RequestMapping("/medical-skill/confirm")

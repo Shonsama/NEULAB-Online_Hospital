@@ -7,6 +7,7 @@ import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.mapper.RegisterMapper;
 import com.neuedu.lab.model.po.MedicalSkill;
+import com.neuedu.lab.model.po.Patient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -90,4 +91,14 @@ public class MedicalSkillDoctorService {
 
     }
 
+    public JSONObject getPatients(String medical_skill_execute_department) {
+        List<Patient> patients;
+        try{
+           patients = medicalSkillMapper.getAllPatients(medical_skill_execute_department,MEDICAL_SKILL_EXECUTE_STATE[3]);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail(e);
+        }
+        return responseSuccess(patients);
+    }
 }

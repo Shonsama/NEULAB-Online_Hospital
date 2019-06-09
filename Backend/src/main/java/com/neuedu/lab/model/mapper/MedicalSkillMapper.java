@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.MedicalSkill;
+import com.neuedu.lab.model.po.Patient;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -33,6 +34,9 @@ public interface MedicalSkillMapper {
                                                             @Param("medical_skill_execute_department") String medical_skill_execute_department);
 
 
+    //用于医技部门查找所有待诊患者
+    List<Patient> getAllPatients(@Param("medical_skill_execute_department") String medical_skill_execute_department,
+                                 @Param("medical_skill_execute_state") String medical_skill_execute_state);
 
 
     //author: LEE
