@@ -2,15 +2,23 @@ package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
+
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+
+import static com.neuedu.lab.Utils.ConstantDefinition.*;
+import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
 @Service
 public class DoctorService {
@@ -36,38 +44,83 @@ public class DoctorService {
     @Resource
     private PatientMapper patientMapper;
 
+    @Resource
+    private MedicineMapper medicineMapper;
+
 
     //查询一个医生的所有挂号信息
     public JSONObject getAllRegisters(Integer doctor_id){
+        JSONObject resultRegister = new JSONObject();
         List<Register> registers;
+        List<Register> registersState0 = new ArrayList<>();
+        List<Register> registersState1 = new ArrayList<>();
+        List<Register> registersState2 = new ArrayList<>();
+        List<Register> registersState3 = new ArrayList<>();
+
+
         try{
             registers  = registerMapper.getRegisterByDoctorId(doctor_id);
             for(Register register: registers){
                 register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
+                    registersState0.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
+                    registersState1.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[2])){
+                    registersState2.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[3])){
+                    registersState3.add(register);
+                }else {
+                    return ConstantUtils.responseFail();
+                }
+
             }
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail();
         }
-
-        return ConstantUtils.responseSuccess(registers);
+        resultRegister.put("YiGuaHao",registersState0);
+        resultRegister.put("YiJiuZhen",registersState1);
+        resultRegister.put("YiZhenBi",registersState2);
+        resultRegister.put("YiTuiHao",registersState3);
+        return responseSuccess(resultRegister);
 
     }
 
     //查询一个科室的所有挂号信息
-    public JSONObject getAllDepartmentRegisters(Integer department_id) {
+    public JSONObject getAllDepartmentRegisters(String department_id) {
+        JSONObject resultRegister = new JSONObject();
         List<Register> registers;
+        List<Register> registersState0 = new ArrayList<>();
+        List<Register> registersState1 = new ArrayList<>();
+        List<Register> registersState2 = new ArrayList<>();
+        List<Register> registersState3 = new ArrayList<>();
+
         try{
             registers  = registerMapper.getRegisterByDepartmentId(department_id);
             for(Register register: registers){
                 register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
+                    registersState0.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
+                    registersState1.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[2])){
+                    registersState2.add(register);
+                }else if(register.getRegister_info_state().equals(REGISTER_STATE[3])){
+                    registersState3.add(register);
+                }else {
+                    return ConstantUtils.responseFail();
+                }
             }
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
-
-        return ConstantUtils.responseSuccess(registers);
+        resultRegister.put("YiGuaHao",registersState0);
+        resultRegister.put("YiJiuZhen",registersState1);
+        resultRegister.put("YiZhenBi",registersState2);
+        resultRegister.put("YiTuiHao",registersState3);
+        return responseSuccess(resultRegister);
     }
 
     //根据患者姓名和医生ID查询挂号信息
@@ -77,21 +130,21 @@ public class DoctorService {
             registers = registerMapper.getRegisterByDoctorIdAndPatientName(doctor_id,patient_name);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
-        return ConstantUtils.responseSuccess(registers);
+        return responseSuccess(registers);
     }
 
 
     //接诊
     public JSONObject treat(Integer register_id){
         try{
-            doctorMapper.treat(register_id, ConstantDefinition.REGISTER_STATE[1]);
+            doctorMapper.treat(register_id, REGISTER_STATE[1]);
         }catch (RuntimeException e){
             e.printStackTrace();
-           return ConstantUtils.responseFail("接诊失败",null);
+           return responseFail("接诊失败",null);
         }
-        return ConstantUtils.responseSuccess(registerMapper.getRegister(register_id));
+        return responseSuccess(registerMapper.getRegister(register_id));
     }
 
     //填写门诊病历首页
@@ -100,26 +153,26 @@ public class DoctorService {
         try {
             String record_state = recordMapper.getRecordStateById(record.getRecord_id());
             if(record_state == null){
-                record.setRecord_state(ConstantDefinition.RECORD_STATE[0]);
+                record.setRecord_state(RECORD_STATE[0]);
                 recordMapper.addRecord(record);
-                return ConstantUtils.responseSuccess(record);
+                return responseSuccess(record);
             }
-            if(record_state.equals(ConstantDefinition.RECORD_STATE[0])){
+            if(record_state.equals(RECORD_STATE[0])){
                 recordMapper.updateRecord(record);
-                return ConstantUtils.responseSuccess("更新成功",recordMapper.getRecordById(record.getRecord_id()));
+                return responseSuccess("更新成功",recordMapper.getRecordById(record.getRecord_id()));
             }
-            else if(record_state.equals(ConstantDefinition.RECORD_STATE[1])){
-                return ConstantUtils.responseFail("已提交最终诊断，不能再次添加诊断",null);
+            else if(record_state.equals(RECORD_STATE[1])){
+                return responseFail("已提交最终诊断，不能再次添加诊断",null);
             }
-            else if(record_state.equals(ConstantDefinition.RECORD_STATE[2])){
-                return ConstantUtils.responseFail("已提交初步诊断，不能更改",null);
+            else if(record_state.equals(RECORD_STATE[2])){
+                return responseFail("已提交初步诊断，不能更改",null);
             }
             else {
-                return ConstantUtils.responseFail("已提交最终诊断，不能更改",null);
+                return responseFail("已提交最终诊断，不能更改",null);
             }
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail("提交出错",null);
+            return responseFail("提交出错",null);
         }
     }
 
@@ -128,25 +181,25 @@ public class DoctorService {
     public JSONObject submitFirstDiagnose(List<Diagnose> diagnoses){
         try {
             for(int i = 0; i<diagnoses.size(); i++){
-                diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[0]);
+                diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[0]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
             }
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
-        return ConstantUtils.responseSuccess(recordMapper.getRecordById(diagnoses.get(0).getDiagnose_record_id()));
+        return responseSuccess(recordMapper.getRecordById(diagnoses.get(0).getDiagnose_record_id()));
     }
 
     //确认初诊完毕
     public JSONObject confirmFirstDiagnose(Integer record_id){
         try{
-            recordMapper.updateRecordStateById(record_id,ConstantDefinition.RECORD_STATE[1]);
+            recordMapper.updateRecordStateById(record_id,RECORD_STATE[1]);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
-        return ConstantUtils.responseSuccess(recordMapper.getRecordById(record_id));
+        return responseSuccess(recordMapper.getRecordById(record_id));
     }
 
 
@@ -154,7 +207,7 @@ public class DoctorService {
     //新增医技项目
     public boolean addMedicalSkill(MedicalSkill medicalSkill){
         try{
-            medicalSkill.setMedical_skill_execute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[0]);
+            medicalSkill.setMedical_skill_execute_state(MEDICAL_SKILL_EXECUTE_STATE[0]);
             medicalSkillMapper.addMedicalSkill(medicalSkill);
         }catch (RuntimeException e){
             e.printStackTrace();
@@ -177,7 +230,7 @@ public class DoctorService {
     //开立医技项目
     public boolean startMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1]);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
@@ -188,7 +241,7 @@ public class DoctorService {
     //作废医技项目
     public boolean endMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[2]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2]);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
@@ -202,104 +255,151 @@ public class DoctorService {
     }
 
     //查看初步诊断信息
-    public Record getRecord(Integer record_id){
-        return recordMapper.getRecordById(record_id);
+    public JSONObject getRecord(Integer record_id){
+        Record record = recordMapper.getRecordById(record_id);
+        record.setFirstDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[0]));
+        record.setFinalDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[1]));
+        record.setMedicalSkills(medicalSkillMapper.getMedicalSkillByRegisterIdForDoctor(record_id));
+        record.setPrescriptions(prescriptionMapper.getPrescriptionByRegisterId(record_id));
+        record.setRegister(registerMapper.getRegister(record_id));
+        return responseSuccess(record);
     }
 
     //提交最终确诊结果
     @Transactional
-    public boolean submitFinalDiagnose(List<Diagnose> diagnoses){
+    public JSONObject submitFinalDiagnose(List<Diagnose> diagnoses){
         try {
             for(int i = 0; i<diagnoses.size(); i++){
-                diagnoses.get(i).setDiagnose_type(ConstantDefinition.DIAGNOSE_TYPE[1]);
+                diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[1]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
             }
-            return true;
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
+        return responseSuccess(getRecord(diagnoses.get(0).getDiagnose_record_id()));
     }
 
     //开立处方
-    public boolean addPrescription(Prescription prescription){
+    public JSONObject addPrescription(Prescription prescription){
         try{
-            prescription.setPrescription_execute_state(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[0]);
+            prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[0]);
             prescriptionMapper.addPrescription(prescription);
+
+            //更新处方名称为默认值
+            if(prescription.getPrescription_name()==null){
+                prescription.setPrescription_name(ADD_PRESCRIPTION_NAME+prescription.getPrescription_id());
+                prescriptionMapper.updatePrescriptionName(prescription);
+            }
+
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(prescriptionMapper.getPrescription(prescription.getPrescription_id()));
     }
 
     //删除处方
     @Transactional
-    public boolean deletePrescription(Integer prescription_id){
+    public JSONObject deletePrescription(Integer prescription_id){
+        Prescription prescription;
         try{
-            prescriptionContentMapper.deletePrescriptionContents(prescription_id);
-            prescriptionMapper.deletePrescription(prescription_id);
+//            prescriptionContentMapper.deletePrescriptionContents(prescription_id);
+            //先确定处方存在和状态
+            prescription = prescriptionMapper.getPrescription(prescription_id);
+            if(prescription==null){
+                return responseFail("处方不存在",null);
+            }else if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[0])){
+                return responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可删除处方",prescription);
+            }
+            //更新处方状态
+            prescriptionMapper.updatePrescriptionState(prescription_id,PRESCRIPTION_EXECUTE_STATE[7]);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(prescriptionMapper.getPrescription(prescription_id));
     }
 
     //发送处方,作废处方
-    public boolean sendPrescription(Integer prescription_id) {
+    public JSONObject sendPrescription(Integer prescription_id) {
         try {
-            prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1]);
+            prescriptionMapper.updatePrescriptionState(prescription_id, PRESCRIPTION_EXECUTE_STATE[1]);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(prescriptionMapper.getPrescription(prescription_id));
     }
 
-    public boolean endPrescription(Integer prescription_id) {
+    public JSONObject endPrescription(Integer prescription_id) {
         try {
-            prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[2]);
+            prescriptionMapper.updatePrescriptionState(prescription_id, PRESCRIPTION_EXECUTE_STATE[2]);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(prescriptionMapper.getPrescription(prescription_id));
     }
 
 
     //给某个处方增加药品
-    public boolean addPrescriptionContent(PrescriptionContent prescriptionContent){
+    public JSONObject addPrescriptionContent(PrescriptionContent prescriptionContent){
         try {
+            //先通过药品id确定记录单价，总价
+            Medicine medicine = medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id());
+
+            prescriptionContent.setPrescription_unit_price(medicine.getMedicine_unit_price());
+            prescriptionContent.setPrescription_content_actual_unit_price(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
+            prescriptionContent.setPrescription_content_fee(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
+            //增加药品
             prescriptionContentMapper.addPrescriptionContent(prescriptionContent);
+
+            //更新处方费用
+            Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
+            prescription.setPrescription_fee(prescription.getPrescription_fee().add(prescriptionContent.getPrescription_content_fee()));
+            prescriptionMapper.updatePrescriptionFee(prescription);
+
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail(prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id()));
         }
-        return true;
+        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
+//        prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
+        return responseSuccess(prescriptionContent);
     }
 
     //给某个处方删除药品
-    public boolean deletePrescriptionContent(Integer prescriptionid) {
+    public JSONObject deletePrescriptionContent(Integer prescription_content_id) {
+        Prescription prescription;
         try {
-            prescriptionContentMapper.deletePrescriptionContent(prescriptionid);
+            PrescriptionContent prescriptionContent = prescriptionContentMapper.getgetPrescriptionContentById(prescription_content_id);
+            prescriptionContentMapper.deletePrescriptionContent(prescription_content_id);
+
+            //更新处方费用
+            prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
+            prescription.setPrescription_fee(prescription.getPrescription_fee().subtract(prescriptionContent.getPrescription_content_fee()));
+            prescriptionMapper.updatePrescriptionFee(prescription);
+
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        Prescription prescription1 = prescriptionMapper.getPrescription(prescription.getPrescription_id());
+        prescription1.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription1.getPrescription_id()));
+        return responseSuccess(prescription1);
     }
 
 
     //诊毕
-    public boolean finish(Integer register_id){
+    public JSONObject finish(Integer register_id){
         try{
-            registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[2]);
+            registerMapper.updateRegisterState(register_id, REGISTER_STATE[2]);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(getRecord(register_id));
     }
 
 
@@ -313,32 +413,6 @@ public class DoctorService {
         return data;
     }
 
-    public JSONObject addMedicalSkillResult(MedicalSkill medicalSkill){
-        MedicalSkill medicalSkillBefore;
-        try{
-            medicalSkillBefore= medicalSkillMapper.getMedicalSkill(medicalSkill.getMedical_skill_id());
-        }
-        catch (RuntimeException e){
-            e.printStackTrace();
-            return ConstantUtils.responseFail("获取医技项目失败",null);
-        }
-        if(medicalSkillBefore == null){
-            return ConstantUtils.responseFail("无此医技项目",null);
-        }
-
-        medicalSkillBefore.setMedical_skill_execute_state(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[4]);
-        medicalSkillBefore.setMedical_skill_result(medicalSkill.getMedical_skill_result());
-
-        try{
-            medicalSkillMapper.updateMedicalSkillResult(medicalSkillBefore);
-        }catch (RuntimeException e){
-            return ConstantUtils.responseFail("结果添加失败",null);
-        }
-
-        return ConstantUtils.responseSuccess(medicalSkillBefore);
-
-    }
-
     //获取一个病人的所有处方记录
     public JSONObject getPrescription(Integer register_id){
         List<Prescription> prescriptions;
@@ -346,9 +420,9 @@ public class DoctorService {
             prescriptions = prescriptionMapper.getPrescriptionByRegisterId(register_id);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
-        return ConstantUtils.responseSuccess(prescriptions);
+        return responseSuccess(prescriptions);
     }
 
 

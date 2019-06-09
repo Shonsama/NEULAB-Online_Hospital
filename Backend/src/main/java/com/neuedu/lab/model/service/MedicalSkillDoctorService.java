@@ -10,7 +10,12 @@ import com.neuedu.lab.model.po.MedicalSkill;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.neuedu.lab.Utils.ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE;
+import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
 @Service
 public class MedicalSkillDoctorService {
@@ -33,7 +38,7 @@ public class MedicalSkillDoctorService {
     public JSONObject getMedicalSkill(String medical_skill_execute_department){
         List<MedicalSkill> medicalSkills;
         try{
-            medicalSkills = medicalSkillMapper.getMedicalSkillByDepartmentId(medical_skill_execute_department);
+            medicalSkills = medicalSkillMapper.getMedicalSkillByDepartmentId(medical_skill_execute_department,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
             for(MedicalSkill medicalSkill : medicalSkills){
                 medicalSkill.setRegister(registerMapper.getRegister(medicalSkill.getMedical_skill_register_info_id()));
                 medicalSkill.getRegister().setPatient(patientMapper.getPatientByRecordId(medicalSkill.getRegister().getRegister_info_patient_id()));
@@ -41,9 +46,56 @@ public class MedicalSkillDoctorService {
 
         }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(null);
+            return ConstantUtils.responseFail();
         }
         return ConstantUtils.responseSuccess(medicalSkills);
 
     }
+
+    public JSONObject getMedicalSkillByPatient(String medical_skill_execute_department, Integer register_id){
+        List<MedicalSkill> medicalSkills;
+        List<MedicalSkill> resultMedicalSkill = new ArrayList<>();
+        try{
+            medicalSkills = medicalSkillMapper.getMedicalSkillByDepartmentId(medical_skill_execute_department,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
+            for(MedicalSkill medicalSkill : medicalSkills){
+                if(medicalSkill.getMedical_skill_register_info_id()==register_id){
+                    medicalSkill.setRegister(registerMapper.getRegister(medicalSkill.getMedical_skill_register_info_id()));
+                    medicalSkill.getRegister().setPatient(patientMapper.getPatientByRecordId(medicalSkill.getRegister().getRegister_info_patient_id()));
+                    resultMedicalSkill.add(medicalSkill);
+                }
+            }
+
+            }catch (RuntimeException e){
+            e.printStackTrace();
+            return ConstantUtils.responseFail();
+        }
+        return ConstantUtils.responseSuccess(resultMedicalSkill);
+        }
+
+    public JSONObject addMedicalSkillResult(MedicalSkill medicalSkill){
+        MedicalSkill medicalSkillBefore;
+        try{
+            medicalSkillBefore= medicalSkillMapper.getMedicalSkill(medicalSkill.getMedical_skill_id());
+        }
+        catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取医技项目失败",null);
+        }
+        if(medicalSkillBefore == null){
+            return responseFail("无此医技项目",null);
+        }
+
+        medicalSkillBefore.setMedical_skill_execute_state(MEDICAL_SKILL_EXECUTE_STATE[4]);
+        medicalSkillBefore.setMedical_skill_result(medicalSkill.getMedical_skill_result());
+
+        try{
+            medicalSkillMapper.updateMedicalSkillResult(medicalSkillBefore);
+        }catch (RuntimeException e){
+            return responseFail("结果添加失败",null);
+        }
+
+        return responseSuccess(medicalSkillBefore);
+
+    }
+
 }

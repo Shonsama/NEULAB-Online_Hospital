@@ -18,19 +18,25 @@ public class MedicalSkillDoctorController {
     @Autowired
     MedicalSkillDoctorService medicalSkillDoctorService;
 
-    @RequestMapping("/get-medical-skill")
+    @RequestMapping("/medical-skill/getall")
     public JSONObject getMedicalSkill(@RequestBody JSONObject request){
         return medicalSkillDoctorService.getMedicalSkill(request.getString("medical_skill_execute_department"));
     }
 
+    @RequestMapping("/medical-skill/get-by-patient")
+    public JSONObject getMedicalSkillByPatientName(@RequestBody JSONObject request){
+        return medicalSkillDoctorService.getMedicalSkillByPatient(request.getString("medical_skill_execute_department"),
+                request.getInteger("register_id"));
+    }
+
 
     //项目执行 执行确认
-    @RequestMapping("/confirm/medical-skill")
+    @RequestMapping("/medical-skill/confirm")
     public JSONObject confirmMedicalSkill(@RequestBody JSONObject request){
         return medicalSkillDoctorService.confirmMedicalSkill(request.getInteger("medical_skill_id"));
     }
-    //项目执行 执行确认
-    @RequestMapping("/cancel/medical-skill")
+    //项目执行 取消执行
+    @RequestMapping("/medical-skill/cancel")
     public JSONObject cancelMedicalSkill(@RequestBody JSONObject request){
         return medicalSkillDoctorService.cancelMedicalSkill(request.getInteger("medical_skill_id"));
     }
@@ -39,6 +45,6 @@ public class MedicalSkillDoctorController {
     @RequestMapping("/medical-skill/add-result")
     public JSONObject addMedicalSkillResult(@RequestBody MedicalSkill medicalSkill){
         //只用传入medical_skill_id 和 medical_skill_result
-        return doctorService.addMedicalSkillResult(medicalSkill);
+        return medicalSkillDoctorService.addMedicalSkillResult(medicalSkill);
     }
 }

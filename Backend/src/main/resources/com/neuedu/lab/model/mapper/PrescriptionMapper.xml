@@ -5,9 +5,9 @@
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionMapper">
     <insert id="addPrescription" useGeneratedKeys="true" keyProperty="prescription_id">
         INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
-         prescription_doctor_id, prescription_register_info_id)
+         prescription_doctor_id, prescription_register_info_id, prescription_name)
          VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
-         #{prescription_doctor_id},#{prescription_register_info_id})
+         #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name})
     </insert>
 
     <delete id="deletePrescription">
@@ -31,6 +31,11 @@
 
     <update id="updatePrescriptionFee" parameterType="Prescription">
         UPDATE prescription SET prescription_fee = #{prescription_fee}
+        WHERE prescription_id = #{prescription_id}
+    </update>
+
+    <update id="updatePrescriptionName" parameterType="Prescription">
+        UPDATE prescription SET prescription_name = #{prescription_name}
         WHERE prescription_id = #{prescription_id}
     </update>
 

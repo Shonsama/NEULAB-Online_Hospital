@@ -41,10 +41,25 @@ public class ConstantUtils {
         result.put("msg", msg);
         return result;
     }
+    public static JSONObject responseSuccess() {
+        JSONObject result = new JSONObject();
+        result.put("code", ConstantDefinition.SUCCESS_CODE);
+        result.put("data", null);
+        result.put("msg", ConstantDefinition.SUCCESS_MESSAGE);
+        return result;
+    }
     public static JSONObject responseFail(Object data) {
         JSONObject result = new JSONObject();
         result.put("code", ConstantDefinition.FAIL_CODE);
         result.put("data", data);
+        result.put("msg", ConstantDefinition.FAIL_MESSAGE);
+        return result;
+    }
+
+    public static JSONObject responseFail(){
+        JSONObject result = new JSONObject();
+        result.put("code", ConstantDefinition.FAIL_CODE);
+        result.put("data", null);
         result.put("msg", ConstantDefinition.FAIL_MESSAGE);
         return result;
     }

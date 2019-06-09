@@ -16,8 +16,43 @@ public class Record {
     private String record_suggestion;
     private String record_attention;
     private String record_doctor_type;
-    private List<Diagnose> diagnoses;
+    private List<Diagnose> firstDiagnoses;
+    private List<Diagnose> finalDiagnoses;
+    private List<MedicalSkill> medicalSkills;
+    private List<Prescription> prescriptions;
+    private Register register;
 
+    public Register getRegister() {
+        return register;
+    }
+
+    public void setRegister(Register register) {
+        this.register = register;
+    }
+
+    public List<Diagnose> getFinalDiagnoses() {
+        return finalDiagnoses;
+    }
+
+    public void setFinalDiagnoses(List<Diagnose> finalDiagnoses) {
+        this.finalDiagnoses = finalDiagnoses;
+    }
+
+    public List<MedicalSkill> getMedicalSkills() {
+        return medicalSkills;
+    }
+
+    public void setMedicalSkills(List<MedicalSkill> medicalSkills) {
+        this.medicalSkills = medicalSkills;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
 
     public String getRecord_state() {
         return record_state;
@@ -53,12 +88,12 @@ public class Record {
 
 
 
-    public List<Diagnose> getDiagnoses() {
-        return diagnoses;
+    public List<Diagnose> getFirstDiagnoses() {
+        return firstDiagnoses;
     }
 
-    public void setDiagnoses(List<Diagnose> diagnoses) {
-        this.diagnoses = diagnoses;
+    public void setFirstDiagnoses(List<Diagnose> firstDiagnoses) {
+        this.firstDiagnoses = firstDiagnoses;
     }
 
 
