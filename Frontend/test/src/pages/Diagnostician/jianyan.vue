@@ -229,7 +229,7 @@ export default {
   methods: {
     load_mediskill: function () {
       let that = this
-      var url = this.HOME + '/non-medicine/get-all'
+      var url = this.HOME + '/maintenance/medical-skill-content/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

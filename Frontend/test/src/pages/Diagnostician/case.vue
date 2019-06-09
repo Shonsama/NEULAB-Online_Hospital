@@ -395,7 +395,7 @@ export default {
     },
     load_diagnosis () {
       let that = this
-      var url = this.HOME + '/diseaseInfo/get-all'
+      var url = this.HOME + '/maintenance/disease/get-all'
       this.$http.post(url)
         .then(response => {
           that.desserts_dia = response.data.data

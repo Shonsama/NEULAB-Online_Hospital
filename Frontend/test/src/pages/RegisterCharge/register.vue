@@ -442,7 +442,7 @@ export default {
     },
     load_constants: function () {
       let that = this
-      var url = this.HOME + '/constant/get'
+      var url = this.HOME + '/maintenance/constant/get'
       var data = {
         constant_type: 'payment_type'
       }
@@ -454,7 +454,7 @@ export default {
     },
     load_registerLevels: function () {
       let that = this
-      var url = this.HOME + '/registerLevel/get-all'
+      var url = this.HOME + '/maintenance/register-level/get-all'
       this.$http.post(url)
         .then(function (response) {
           console.log(response.data)
@@ -463,7 +463,7 @@ export default {
     },
     load_departs: function () {
       var that = this
-      var url = this.HOME + '/department/get-all'
+      var url = this.HOME + '/maintenance/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
