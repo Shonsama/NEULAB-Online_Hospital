@@ -2,7 +2,6 @@ package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Prescription;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface PrescriptionMapper {
@@ -19,5 +18,8 @@ public interface PrescriptionMapper {
 
     //退费部分使用
     void updatePrescriptionFee(Prescription prescription);
+
+    List<Prescription> getPrescriptionsInPayCondition(Integer prescription_register_info_id);
+    List<Prescription> getPrescriptionsNotInPayCondition(Integer prescription_register_info_id);
 
 }

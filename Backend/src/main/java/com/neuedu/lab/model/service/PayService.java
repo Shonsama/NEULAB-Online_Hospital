@@ -5,6 +5,8 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PrescriptionMapper;
+import com.neuedu.lab.model.po.MedicalSkill;
+import com.neuedu.lab.model.po.Prescription;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,5 +59,25 @@ public class PayService {
         } else {
             return ConstantUtils.responseFail("当前处方状态不允许缴费");
         }
+    }
+
+    //获取当前病人医技已缴费对象
+    public List<MedicalSkill> getMedicalSkillsInPayCondition(Integer register_info_id){
+        return medicalSkillMapper.getMedicalSkillsInPayCondition(register_info_id);
+    }
+
+    //获取当前病人医技未缴费对象
+    public List<MedicalSkill> getMedicalSkillsNotInPayCondition(Integer register_info_id){
+        return medicalSkillMapper.getMedicalSkillsNotInPayCondition(register_info_id);
+    }
+
+    //获取当前病人处方已缴费对象
+    public List<Prescription> getPrescriptionsInPayCondition(Integer register_info_id){
+        return prescriptionMapper.getPrescriptionsInPayCondition(register_info_id);
+    }
+
+    //获取当前病人处方未缴费对象
+    public List<Prescription> getPrescriptionsNotInPayCondition(Integer register_info_id){
+        return prescriptionMapper.getPrescriptionsNotInPayCondition(register_info_id);
     }
 }

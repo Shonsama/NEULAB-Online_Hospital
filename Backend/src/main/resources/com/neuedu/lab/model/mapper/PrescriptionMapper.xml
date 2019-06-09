@@ -34,4 +34,18 @@
         WHERE prescription_id = #{prescription_id}
     </update>
 
+    <!--    获取所有已缴费项目-->
+    <select id="getPrescriptionsInPayCondition" resultType="Prescription">
+        select * from prescription
+        where prescription_register_info_id = #{prescription_register_info_id}
+        and prescription_execute_state = "已缴费"
+    </select>
+
+    <!--    获取所有未缴费项目-->
+    <select id="getPrescriptionsNotInPayCondition" resultType="Prescription">
+        select * from prescription
+        where prescription_register_info_id = #{prescription_register_info_id}
+        and prescription_execute_state != "已缴费"
+    </select>
+
 </mapper>

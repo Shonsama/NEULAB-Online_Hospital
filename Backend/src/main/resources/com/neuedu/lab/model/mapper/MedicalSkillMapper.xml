@@ -47,6 +47,19 @@
         WHERE medical_skill_execute_department = #{medical_skill_execute_department}
     </select>
 
+<!--    获取medicalskill的所有已缴费项目-->
+    <select id="getMedicalSkillsInPayCondition" resultType="MedicalSkill">
+        select * from medical_skill
+        where medical_skill_register_info_id = #{medical_skill_register_info_id}
+        and medical_skill_execute_state = "已缴费"
+    </select>
+
+<!--    获取medicalskill的所有未缴费项目-->
+    <select id="getMedicalSkillsNotInPayCondition" resultType="MedicalSkill">
+        select * from medical_skill
+        where medical_skill_register_info_id = #{medical_skill_register_info_id}
+        and medical_skill_execute_state != "已缴费"
+    </select>
 
 
 </mapper>
