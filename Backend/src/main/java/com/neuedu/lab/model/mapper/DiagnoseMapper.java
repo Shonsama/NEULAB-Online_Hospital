@@ -10,4 +10,7 @@ public interface DiagnoseMapper {
 
     //供查询患者病历使用
     List<Diagnose> getDiagnoses (@Param("diagnose_record_id") Integer diagnose_record_id, @Param("diagnose_type") String diagnose_type);
+
+    //供医生删除原诊断使用
+    void deleteDiagnosesByRecordId(Integer diagnose_record_id);
 }

@@ -13,6 +13,9 @@ import java.util.List;
 
 //import net.sf.json.JSONArray;
 
+/**
+ * 给收费员的接口
+ */
 @RestController
 @RequestMapping("/pay")
 public class PayController {

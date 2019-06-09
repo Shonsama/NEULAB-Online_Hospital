@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 
+/**
+ * 日结是系统管理员的接口， 退费是收费员的接口
+ */
 @RestController
 @RequestMapping("/user-service")
 public class UserServiceController {
