@@ -61,7 +61,7 @@
                     <v-data-table
                       :search="search"
                       :headers="headers1"
-                      :items="per_off"
+                      :items="desserts_per.YiZhenBi"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
@@ -77,7 +77,7 @@
                     <v-data-table
                       :search="search"
                       :headers="headers"
-                      :items="per_on"
+                      :items="desserts_per.YiGuaHao"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
@@ -106,7 +106,7 @@
                       <v-data-table
                         :search="search"
                         :headers="headers1"
-                        :items="depart_off"
+                        :items="desserts_depart.YiZhenBi"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -122,7 +122,7 @@
                       <v-data-table
                         :search="search"
                         :headers="headers1"
-                        :items="depart_on"
+                        :items="desserts_depart.YiGuaHao"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -235,18 +235,18 @@ export default {
         {
           text: '病历号',
           align: 'left',
-          value: 'register_info_id'
+          value: 'patient.patient_record_id'
         },
-        { text: '患者名称', value: 'register_info_patient_id' },
+        { text: '患者名称', value: 'patient.patient_name' },
         { text: '操作', value: 'operation', sortable: false }
       ],
       headers1: [
         {
           text: '病历号',
           align: 'left',
-          value: 'register_info_id'
+          value: 'patient.patient_record_id'
         },
-        { text: '患者名称', value: 'register_info_patient_id' }
+        { text: '患者名称', value: 'patient.patient_name' }
       ],
       active: '1',
       active1: '1',
@@ -260,8 +260,8 @@ export default {
         patient_address: '',
         patient_age: ''
       },
-      desserts_per: [],
-      desserts_depart: [],
+      desserts_per: '',
+      desserts_depart: '',
       steps: 8,
       items1: [{
         name: '本人',

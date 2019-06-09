@@ -234,7 +234,7 @@ public class DoctorService {
     //开立医技项目
     public boolean startMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1],null);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
@@ -245,7 +245,7 @@ public class DoctorService {
     //作废医技项目
     public boolean endMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2],null);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;

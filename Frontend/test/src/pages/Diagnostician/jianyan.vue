@@ -21,27 +21,74 @@
           v-model="selected_dia"
           :headers="headers_dia"
           :items="desserts_dia"
+          :expand="expand_dia"
           :search="search"
-          item-key="non_medicine_id"
-          select-all
+          item-key="medical_skill_content_id"
           class="elevation-1"
         >
           <template v-slot:items="props">
+            <td>{{ props.item.medical_skill_content_id }}</td>
+            <td>{{ props.item.medical_skill_content_name }}</td>
+            <td>{{ props.item.medical_skill_content_father }}</td>
+            <td>{{ props.item.medical_skill_content_unit }}</td>
+            <td>{{ props.item.medical_skill_content_price }}</td>
             <td>
-              <v-checkbox
-                v-model="props.selected"
-                primary
-                hide-details
-              ></v-checkbox>
+              <v-btn
+                icon
+                flat
+                color="primary"
+                right
+              >
+              <v-icon
+                @click="props.expanded = !props.expanded"
+                color="primary"
+              >
+                add
+              </v-icon>
+              </v-btn>
             </td>
-            <td>{{ props.item.non_medicine_id }}</td>
-            <td>{{ props.item.non_medicine_name }}</td>
-            <td>{{ props.item.non_medicine_type }}</td>
-            <td>{{ props.item.non_medicine_specification }}</td>
-            <td>{{ props.item.non_medicine_unit_price }}</td>
+          </template>
+          <template v-slot:expand="props">
+            <v-layout align-center justify-center row>
+              <v-flex xs2 class="mr-2">
+                <v-text-field
+                  v-model="medical_skill_name"
+                  label="申请名称"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2 class="mr-2">
+                <v-text-field
+                  v-model="medical_skill_checkpoint"
+                  label="部位"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2 class="mr-2">
+                <v-text-field
+                  v-model="medical_skill_purpose"
+                  label="目的"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2 class="mr-2">
+                <v-select
+                  v-model="medical_skill_urgent"
+                  :items="isNo"
+                  label="是否加急"
+                  required
+                ></v-select>
+              </v-flex>
+              <v-btn
+                small
+                color="primary"
+                @click="addItem(props.item)"
+              >
+                添加
+              </v-btn>
+            </v-layout>
           </template>
         </v-data-table>
-
       </v-card>
     </v-dialog>
     <v-layout>
@@ -80,7 +127,7 @@
           :headers="headers"
           :items="desserts"
           :expand="expand"
-          item-key="name"
+          item-key="medical_skill_name"
           select-all
         >
           <template v-slot:items="props">
@@ -92,12 +139,12 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="text-xs-right">{{ props.item.iron }}</td>
+            <td>{{ props.item.medical_skill_name }}</td>
+            <td class="text-xs-right">{{ props.item.medical_skill_execute_department }}</td>
+            <td class="text-xs-right">{{ props.item.medical_skill_execute_state }}</td>
+            <td class="text-xs-right">{{ props.item.medical_skill_checkpoint }}</td>
+            <td class="text-xs-right">{{ props.item.medical_skill_purpose }}</td>
+            <td class="text-xs-right">{{ props.item.medical_skill_fee }}</td>
             <td class="justify-center layout px-0">
               <v-icon
                 small
@@ -176,39 +223,47 @@ export default {
       search: '',
       show: false,
       expand: false,
+      expand_dia: false,
+      isNo: [{text: '是', value: 'true'}, {text: '否', value: 'false'}],
       headers_dia: [
         {
-          text: '非药品编号',
+          text: '编号',
           align: 'left',
-          value: 'non_medicine_id'
+          value: 'medical_skill_content_id'
         },
-        { text: '非药品名称', value: 'non_medicine_name' },
-        { text: '非药品类型', value: 'non_medicine_type' },
-        { text: '非药品规格', value: 'non_medicine_specification' },
-        { text: '单价', value: 'non_medicine_unit_price' }],
+        { text: '项目名称', value: 'medical_skill_content_name' },
+        { text: '父级编码', value: 'medical_skill_content_father' },
+        { text: '单位', value: 'medical_skill_content_unit' },
+        { text: '单价', value: 'medical_skill_content_price' },
+        { text: '操作', value: 'operation' }],
       desserts_dia: [],
       headers: [
         {
-          text: '申请名称',
-          align: 'left',
-          value: 'non_medicine_id'
-        },
-        {
           text: '项目名称',
-          value: 'non_medicine_name'
+          value: 'medical_skill_name'
         },
         {
           text: '执行科室',
-          value: 'non_medicine_type'
+          value: 'medical_skill_execute_department'
         },
         {
           text: '执行状态',
           value: 'medical_skill_execute_state'
         },
         {
+          text: '检查部位',
+          value: 'medical_skill_checkpoint'
+        },
+        {
+          text: '目的',
+          value: 'medical_skill_purpose'
+        },
+        {
           text: '单价',
-          value: 'non_medicine_unit_price'
-        }],
+          value: 'medical_skill_fee'
+        }
+      ],
+      desserts: [],
       headers_tem: [
         {
           text: '模板名称',
@@ -220,16 +275,92 @@ export default {
       desserts_tem: [{
         non_medicine_id: '1'
       }
-      ]
+      ],
+      medical_skill_name: '',
+      medical_skill_checkpoint: '',
+      medical_skill_purpose: '',
+      medical_skill_urgent: ''
     }
   },
   mounted: function () {
     this.load_mediskill()
+    this.getItem()
   },
   methods: {
+    getItem () {
+      let that = this
+      var url = this.HOME + '/doctor/get-record'
+      var data = {
+        record_id: '5'
+      }
+      this.$http.post(url, data)
+        .then(response => {
+          console.log(response.data.data)
+          that.desserts = response.data.data.medicalSkills
+        })
+    },
+    addItem: function (value) {
+      let that = this
+      console.log(value)
+      var data = {
+        medical_skill_type: '检验',
+        medical_skill_name: value.medical_skill_content_name,
+        medical_skill_checkpoint: that.medical_skill_checkpoint,
+        medical_skill_purpose: that.medical_skill_purpose,
+        medical_skill_urgent: that.medical_skill_urgent,
+        medical_skill_register_info_id: '6',
+        medical_skill_doctor_id: 1,
+        medical_skill_content_id: value.medical_skill_content_id,
+        medical_skill_fee: value.medical_skill_content_price,
+        medical_skill_execute_department: '血液科'
+      }
+      console.log(data)
+      var url = this.HOME + '/doctor/add-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+        })
+    },
+    deleteItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/delete-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
+    startItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/start-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
+    endItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/end-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
     load_mediskill: function () {
       let that = this
-      var url = this.HOME + '/non-medicine/get-all'
+      var url = this.HOME + '/maintenance/medical-skill-content/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

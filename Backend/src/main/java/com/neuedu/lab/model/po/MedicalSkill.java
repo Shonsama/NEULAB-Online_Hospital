@@ -20,6 +20,27 @@ public class MedicalSkill {
     private Integer medical_skill_user_id;
     private Integer medical_skill_doctor_id;
     private String medical_skill_content_id;
+    private MedicalSkillContent medicalSkillContent;
+
+    public MedicalSkillContent getMedicalSkillContent() {
+        return medicalSkillContent;
+    }
+
+    public void setMedicalSkillContent(MedicalSkillContent medicalSkillContent) {
+        this.medicalSkillContent = medicalSkillContent;
+    }
+
+    public Integer getMedical_skill_execute_doctor_id() {
+        return medical_skill_execute_doctor_id;
+    }
+
+    public void setMedical_skill_execute_doctor_id(Integer medical_skill_execute_doctor_id) {
+        this.medical_skill_execute_doctor_id = medical_skill_execute_doctor_id;
+    }
+
+    private Integer medical_skill_execute_doctor_id;
+
+
 
     public String getMedical_skill_content_id() {
         return medical_skill_content_id;

@@ -209,7 +209,7 @@ public class UserService {
     public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids) {
         try {
             for (Integer medical_skill_id : medical_skill_ids) {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3],null);
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -258,7 +258,7 @@ public class UserService {
                 return ConstantUtils.responseFail("当前医技项目状态为["
                         + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
             } else {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5]);
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5],null);
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
