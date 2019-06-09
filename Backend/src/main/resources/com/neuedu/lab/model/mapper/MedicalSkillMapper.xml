@@ -48,7 +48,6 @@
     <select id="getMedicalSkillByRegisterIdForDoctor" resultType="MedicalSkill">
         SELECT * FROM  medical_skill
         WHERE medical_skill_register_info_id = #{medical_skill_register_info_id}
-        AND medical_skill_execute_state = #{medical_skill_execute_state}
     </select>
 <!--    获取medicalskill的所有已缴费项目-->
     <select id="getMedicalSkillsInPayCondition" resultType="MedicalSkill">
