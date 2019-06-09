@@ -161,9 +161,9 @@
                      hide-details
                    ></v-checkbox>
                  </td>
-                 <td>{{ props.item.diagnose_id }}</td>
+                 <td>{{ props.item.diagnose_disease_id }}</td>
                  <td>{{ props.item.diagnose_disease_name }}</td>
-                 <td>{{ props.item.diagnose_time }}</td>
+                 <td>{{ props.item.diagnose_time.getFullYear() + '-'}}{{ props.item.diagnose_time.getMonth() + '-'}}{{ props.item.diagnose_time.getDate()+' '}}{{ props.item.diagnose_time.getHours()+':'+props.item.diagnose_time.getMinutes()+':'+props.item.diagnose_time.getSeconds()}}</td>
                </template>
              </v-data-table>
            </v-card>
@@ -199,9 +199,9 @@
                       hide-details
                     ></v-checkbox>
                   </td>
-                  <td>{{ props.item.diagnose_id }}</td>
+                  <td>{{ props.item.diagnose_disease_id }}</td>
                   <td>{{ props.item.diagnose_disease_name }}</td>
-                  <td>{{ props.item.diagnose_time }}</td>
+                  <td>{{ props.item.diagnose_time.getFullYear() + '-'}}{{ props.item.diagnose_time.getMonth() + '-'}}{{ props.item.diagnose_time.getDate()+' '}}{{ props.item.diagnose_time.getHours()+':'+props.item.diagnose_time.getMinutes()+':'+props.item.diagnose_time.getSeconds()}}</td>
                 </template>
               </v-data-table>
             </v-card>
@@ -241,7 +241,7 @@ export default {
       headers: [{
         text: '编码',
         align: 'left',
-        value: 'diagnose_id'
+        value: 'diagnose_disease_id'
       },
       {
         text: '名称',
@@ -251,15 +251,7 @@ export default {
         text: '发病时间',
         value: 'diagnose_time'
       }],
-      desserts: [{
-        diagnose_id: '1',
-        diagnose_disease_name: '1',
-        diagnose_time: '1'
-      }, {
-        diagnose_id: '1',
-        diagnose_disease_name: '1',
-        diagnose_time: '1'
-      }],
+      desserts: [],
       headers_dia: [{
         text: '编码',
         align: 'left',
@@ -310,17 +302,55 @@ export default {
         var data = {
           diagnose_disease_id: this.selected_dia[n].disease_icd,
           diagnose_disease_name: this.selected_dia[n].disease_name,
-          diagnose_type: this.selected_dia[n].disease_type
+          diagnose_record_id: '6',
+          diagnose_time: new Date()
         }
         this.desserts.push(data)
       }
     },
+    submit_diagnoses () {
+      // let that = this
+      var url = this.HOME + '/doctor/submit-first-diagnose'
+      this.$http.post(url, this.desserts)
+        .then(response => {
+          console.log(response.data)
+        })
+    },
     submit () {
       let that = this
       var url = this.HOME + '/doctor/submit-record'
-      this.$http.post(url, this.form)
+      var data = {
+        record_syndrome: that.form.record_syndrome,
+        record_health_check: that.form.record_health_check,
+        record_xianbingshi: that.form.record_xianbingshi,
+        record_jiwangshi: that.form.record_jiwangshi,
+        record_cure_situation: that.form.record_cure_situation,
+        record_allergy_his: that.form.record_allergy_his,
+        record_suggestion: that.form.record_suggestion,
+        record_attention: that.form.record_attention,
+        record_patient_id: '1',
+        record_doctor_id: '1',
+        record_id: '6',
+        record_doctor_type: '中医'
+      }
+      this.$http.post(url, data)
         .then(response => {
-          that.desserts = response.data
+          console.log(response.data)
+          this.submit_diagnoses()
+          this.confirm_record()
+          // that.desserts = response.data
+        })
+    },
+    confirm_record () {
+      // let that = this
+      var url = this.HOME + '/doctor/confirm-first-diagnose'
+      var data = {
+        record_id: '6'
+      }
+      this.$http.post(url, data)
+        .then(response => {
+          console.log(response.data)
+          // that.desserts = response.data
         })
     },
     clear () {
@@ -331,12 +361,12 @@ export default {
         record_jiwangshi: '',
         record_cure_situation: '',
         record_allergy_his: '',
+        record_suggestion: '',
+        record_attention: '',
         diagnosis: {
           cate: '',
           content: []
-        },
-        record_suggestion: '',
-        record_attention: ''
+        }
       }
       this.desserts = []
     },
@@ -352,7 +382,6 @@ export default {
         record_allergy_his: that.form.record_allergy_his,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
-        record_state: '',
         record_patient_id: '1',
         record_doctor_id: '1',
         record_id: '6',
@@ -366,7 +395,7 @@ export default {
     },
     load_diagnosis () {
       let that = this
-      var url = this.HOME + '/diseaseInfo/get-all'
+      var url = this.HOME + '/maintenance/disease/get-all'
       this.$http.post(url)
         .then(response => {
           that.desserts_dia = response.data.data
@@ -380,8 +409,15 @@ export default {
       }
       this.$http.post(url, data)
         .then(response => {
-          console.log(response.data)
-          // that.desserts = response.data
+          console.log(response.data.data)
+          that.form.record_syndrome = response.data.data.record_syndrome
+          that.form.record_health_check = response.data.data.record_health_check
+          that.form.record_xianbingshi = response.data.data.record_xianbingshi
+          that.form.record_jiwangshi = response.data.data.record_jiwangshi
+          that.form.record_cure_situation = response.data.data.record_cure_situation
+          that.form.record_allergy_his = response.data.data.record_allergy_his
+          that.form.record_suggestion = response.data.data.record_suggestion
+          that.form.record_attention = response.data.data.record_attention
         })
     },
     choose_WE () {

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
+/**
+ * 给医生的接口
+ */
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {

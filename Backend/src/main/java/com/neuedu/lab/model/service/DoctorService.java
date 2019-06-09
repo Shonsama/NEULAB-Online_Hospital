@@ -61,7 +61,7 @@ public class DoctorService {
         try{
             registers  = registerMapper.getRegisterByDoctorId(doctor_id);
             for(Register register: registers){
-                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
                 if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
                     registersState0.add(register);
                 }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
@@ -99,7 +99,7 @@ public class DoctorService {
         try{
             registers  = registerMapper.getRegisterByDepartmentId(department_id);
             for(Register register: registers){
-                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
                 if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
                     registersState0.add(register);
                 }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
@@ -180,6 +180,10 @@ public class DoctorService {
     @Transactional
     public JSONObject submitFirstDiagnose(List<Diagnose> diagnoses){
         try {
+            if(diagnoses.size()==0){
+                return ConstantUtils.responseFail("无诊断显示",null);
+            }
+            diagnoseMapper.deleteDiagnosesByRecordId(diagnoses.get(0).getDiagnose_record_id());
             for(int i = 0; i<diagnoses.size(); i++){
                 diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[0]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
@@ -230,7 +234,7 @@ public class DoctorService {
     //开立医技项目
     public boolean startMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1],null);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
@@ -241,7 +245,7 @@ public class DoctorService {
     //作废医技项目
     public boolean endMedicalSkill(Integer medical_skill_id){
         try{
-            medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2]);
+            medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2],null);
         }catch (RuntimeException e){
             e.printStackTrace();
             return false;
@@ -256,12 +260,29 @@ public class DoctorService {
 
     //查看初步诊断信息
     public JSONObject getRecord(Integer record_id){
-        Record record = recordMapper.getRecordById(record_id);
-        record.setFirstDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[0]));
-        record.setFinalDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[1]));
-        record.setMedicalSkills(medicalSkillMapper.getMedicalSkillByRegisterIdForDoctor(record_id));
-        record.setPrescriptions(prescriptionMapper.getPrescriptionByRegisterId(record_id));
-        record.setRegister(registerMapper.getRegister(record_id));
+        //获取病历
+        Record record;
+        try{
+             record = recordMapper.getRecordById(record_id);
+            if(record == null){
+                return responseFail("不存在此病历记录",null);
+            }
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取病历过程出错",e);
+        }
+        //填充病历
+        try{
+            record.setFirstDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[0]));
+            record.setFinalDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[1]));
+            record.setMedicalSkills(medicalSkillMapper.getMedicalSkillByRegisterIdForDoctor(record_id));
+            record.setPrescriptions(prescriptionMapper.getPrescriptionByRegisterId(record_id));
+            record.setRegister(registerMapper.getRegister(record_id));
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取病历相关内容过程出错",e);
+        }
+
         return responseSuccess(record);
     }
 

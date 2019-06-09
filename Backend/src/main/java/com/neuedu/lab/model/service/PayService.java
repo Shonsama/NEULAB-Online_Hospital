@@ -35,7 +35,7 @@ public class PayService {
         if (currentPayable == medical_skill_ids.size()) {
           for (Integer medical_skill_id : medical_skill_ids) {
 //            for (int medical_skill_id = 0; medical_skill_id < medical_skill_ids.size(); medical_skill_id++) {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3],null);
             }
             return ConstantUtils.responseSuccess("缴费成功");
         } else {

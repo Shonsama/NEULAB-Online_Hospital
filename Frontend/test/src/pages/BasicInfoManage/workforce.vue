@@ -390,14 +390,14 @@ export default {
       this.items_departments = []
       this.items_register_level = []
       let that = this
-      var url = this.HOME + '/department/get-all'
+      var url = this.HOME + '/maintenance/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
           that.items_departments = response.data.data
         })
-      url = this.HOME + '/registerLevel/get-all'
+      url = this.HOME + '/maintenance/register-level/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

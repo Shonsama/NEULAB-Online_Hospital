@@ -27,4 +27,10 @@
             </if>
         </where>
     </select>
+
+
+    <delete id="deleteDiagnosesByRecordId" parameterType="Integer">
+        DELETE FROM diagnose
+        WHERE diagnose_record_id = #{diagnose_record_id}
+    </delete>
 </mapper>

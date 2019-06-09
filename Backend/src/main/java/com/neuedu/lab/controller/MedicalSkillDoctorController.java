@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 医技医生接口
+ */
 @RestController
 @RequestMapping("/ms-doctor")
 public class MedicalSkillDoctorController {
@@ -24,21 +27,26 @@ public class MedicalSkillDoctorController {
     }
 
     @RequestMapping("/medical-skill/get-by-patient")
-    public JSONObject getMedicalSkillByPatientName(@RequestBody JSONObject request){
+    public JSONObject getMedicalSkillByPatientId(@RequestBody JSONObject request){
         return medicalSkillDoctorService.getMedicalSkillByPatient(request.getString("medical_skill_execute_department"),
-                request.getInteger("register_id"));
+                request.getInteger("patient_id"));
+    }
+
+    @RequestMapping("/get-all-patients")
+    public JSONObject getPatients(@RequestBody JSONObject request){
+        return medicalSkillDoctorService.getPatients(request.getString("medical_skill_execute_department"));
     }
 
 
     //项目执行 执行确认
     @RequestMapping("/medical-skill/confirm")
     public JSONObject confirmMedicalSkill(@RequestBody JSONObject request){
-        return medicalSkillDoctorService.confirmMedicalSkill(request.getInteger("medical_skill_id"));
+        return medicalSkillDoctorService.confirmMedicalSkill(request.getInteger("medical_skill_id"),request.getInteger("medical_skill_execute_doctor_id"));
     }
     //项目执行 取消执行
     @RequestMapping("/medical-skill/cancel")
     public JSONObject cancelMedicalSkill(@RequestBody JSONObject request){
-        return medicalSkillDoctorService.cancelMedicalSkill(request.getInteger("medical_skill_id"));
+        return medicalSkillDoctorService.cancelMedicalSkill(request.getInteger("medical_skill_id"),request.getInteger("medical_skill_execute_doctor_id"));
     }
 
     //添加医技项目结果

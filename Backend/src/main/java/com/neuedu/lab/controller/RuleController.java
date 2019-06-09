@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 给系统管理员的接口，用于排班
+ */
 @RestController
 @RequestMapping("/rule")
 public class RuleController {
