@@ -61,7 +61,7 @@ public class DoctorService {
         try{
             registers  = registerMapper.getRegisterByDoctorId(doctor_id);
             for(Register register: registers){
-                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
                 if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
                     registersState0.add(register);
                 }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
@@ -99,7 +99,7 @@ public class DoctorService {
         try{
             registers  = registerMapper.getRegisterByDepartmentId(department_id);
             for(Register register: registers){
-                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_id()));
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
                 if(register.getRegister_info_state().equals(REGISTER_STATE[0])){
                     registersState0.add(register);
                 }else if(register.getRegister_info_state().equals(REGISTER_STATE[1])){
