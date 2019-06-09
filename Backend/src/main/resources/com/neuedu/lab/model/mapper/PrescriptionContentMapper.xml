@@ -3,10 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionContentMapper">
-    <insert id="addPrescriptionContent" parameterType="PrescriptionContent">
-        INSERT INTO prescription_content (prescription_id, prescription_consumption, prescription_medicine_id, prescription_frequency, prescription_num, prescription_day)
-        VALUES (#{prescription_id}, #{prescription_consumption}, #{prescription_medicine_id},
-         #{prescription_frequency}, #{prescription_num}, #{prescription_day})
+    <insert id="addPrescriptionContent" parameterType="PrescriptionContent" useGeneratedKeys="true" keyProperty="prescription_content_id">
+        INSERT INTO prescription_content ( prescription_id, prescription_consumption,
+                                          prescription_medicine_id, prescription_frequency, prescription_num,
+                                          prescription_day, prescription_unit_price,
+                                          prescription_content_fee, prescription_content_actual_unit_price)
+        VALUES (#{prescription_id}, #{prescription_consumption},
+                 #{prescription_medicine_id}, #{prescription_frequency}, #{prescription_num},
+                 #{prescription_day},#{prescription_unit_price}, #{prescription_content_fee},
+                #{prescription_content_actual_unit_price})
     </insert>
 
     <delete id="deletePrescriptionContents" >
@@ -49,6 +54,11 @@
     <select id="getPrescriptionContentPositive" resultType="PrescriptionContent">
         SELECT * FROM prescription_content
         WHERE prescription_id = #{prescription_id} AND prescription_medicine_id = #{prescription_medicine_id} AND prescription_num>0
+    </select>
+
+    <select id="getgetPrescriptionContentById" resultType="PrescriptionContent">
+        SELECT * FROM prescription_content
+        WHERE prescription_content_id = #{prescription_content_id}
     </select>
 
 </mapper>

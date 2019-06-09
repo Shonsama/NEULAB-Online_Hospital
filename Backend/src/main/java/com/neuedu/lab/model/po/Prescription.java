@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.po;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Prescription {
     private Integer prescription_id;
@@ -10,6 +11,24 @@ public class Prescription {
     private Integer prescription_register_info_id;
     private Integer prescription_user_id;
     private BigDecimal prescription_fee;
+    private String prescription_name;
+    private List<PrescriptionContent> prescriptionContents;
+
+    public List<PrescriptionContent> getPrescriptionContents() {
+        return prescriptionContents;
+    }
+
+    public void setPrescriptionContents(List<PrescriptionContent> prescriptionContents) {
+        this.prescriptionContents = prescriptionContents;
+    }
+
+    public String getPrescription_name() {
+        return prescription_name;
+    }
+
+    public void setPrescription_name(String prescription_name) {
+        this.prescription_name = prescription_name;
+    }
 
     public BigDecimal getPrescription_fee() {
         return prescription_fee;

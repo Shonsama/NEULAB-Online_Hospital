@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 
+/**
+ * 日结是系统管理员的接口， 退费是收费员的接口
+ */
 @RestController
 @RequestMapping("/user-service")
 public class UserServiceController {
@@ -38,6 +41,12 @@ public class UserServiceController {
     @RequestMapping("/refund/medical-skill")
     public JSONObject refundMedicalSkill(@RequestBody JSONObject request){
         return userService.refundMedicalSkill(request.getInteger("medical_skill_id"));
+    }
+
+    @RequestMapping("/refund/return-prescription")
+    public JSONObject retrunPrescription(@RequestBody JSONObject request){
+        return userService.returnMedicine(request.getInteger("prescription_id"),
+                request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
     }
 
     @RequestMapping("/refund/prescription")

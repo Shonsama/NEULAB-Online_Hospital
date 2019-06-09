@@ -13,10 +13,11 @@ public class PrescriptionContent {
     private Integer prescription_day;
     private BigDecimal prescription_unit_price;
     private BigDecimal prescription_content_fee;
-    private BigDecimal prescription_content_unit_actual_price;
+    private BigDecimal prescription_content_actual_unit_price;
     private Date prescription_create_time;
     private Date prescription_pay_time;
     private Date prescription_consume_time;
+
 
     public Date getPrescription_create_time() {
         return prescription_create_time;
@@ -42,12 +43,12 @@ public class PrescriptionContent {
         this.prescription_consume_time = prescription_consume_time;
     }
 
-    public BigDecimal getPrescription_content_unit_actual_price() {
-        return prescription_content_unit_actual_price;
+    public BigDecimal getPrescription_content_actual_unit_price() {
+        return prescription_content_actual_unit_price;
     }
 
-    public void setPrescription_content_unit_actual_price(BigDecimal prescription_content_unit_actual_price) {
-        this.prescription_content_unit_actual_price = prescription_content_unit_actual_price;
+    public void setPrescription_content_actual_unit_price(BigDecimal prescription_content_actual_unit_price) {
+        this.prescription_content_actual_unit_price = prescription_content_actual_unit_price;
     }
 
     public BigDecimal getPrescription_unit_price() {

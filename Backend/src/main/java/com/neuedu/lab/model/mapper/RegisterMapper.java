@@ -15,7 +15,7 @@ public interface RegisterMapper {
 
     public List<Register> getRegisterByDoctorId(Integer doctor_id);
 
-    public List<Register> getRegisterByDepartmentId(Integer department_id);
+    public List<Register> getRegisterByDepartmentId(String department_id);
 
     public List<Register> getRegisterByDoctorIdAndPatientName(Integer doctor_id, String patient_name);
 

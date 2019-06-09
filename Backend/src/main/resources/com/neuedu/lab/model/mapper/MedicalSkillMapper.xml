@@ -4,14 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.MedicalSkillMapper">
     <insert id="addMedicalSkill" parameterType="MedicalSkill" useGeneratedKeys="true" keyProperty="medical_skill_id">
-        insert into medical_skill (medical_skill_execute_state, medical_skill_result, medical_skill_type, medical_skill_name, medical_skill_checkpoint, medical_skill_purpose, medical_skill_urgent, medical_skill_register_info_id,
-         medical_skill_user_id, medical_skill_doctor_id, medical_skill_content_id)
-         values (#{medical_skill_execute_state}, #{medical_skill_result}, #{medical_skill_type}, #{medical_skill_name}, #{medical_skill_checkpoint}, #{medical_skill_purpose}, #{medical_skill_urgent}, #{medical_skill_register_info_id},
-          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_content_id});
         insert into medical_skill (medical_skill_execute_state, medical_skill_execute_department, medical_skill_result, medical_skill_type, medical_skill_name, medical_skill_checkpoint, medical_skill_purpose, medical_skill_urgent, medical_skill_register_info_id,
-         medical_skill_user_id, medical_skill_doctor_id, medical_skill_non_medical_id, medical_skill_fee)
+         medical_skill_user_id, medical_skill_doctor_id, medical_skill_content_id, medical_skill_fee)
          values (#{medical_skill_execute_state},#{medical_skill_execute_department}, #{medical_skill_result}, #{medical_skill_type}, #{medical_skill_name}, #{medical_skill_checkpoint}, #{medical_skill_purpose}, #{medical_skill_urgent}, #{medical_skill_register_info_id},
-          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_non_medical_id}, #{medical_skill_fee});
+          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_content_id}, #{medical_skill_fee});
     </insert>
 
     <delete id="deleteMedicalSkill" parameterType="MedicalSkill">
@@ -45,8 +41,37 @@
     <select id="getMedicalSkillByDepartmentId" resultType="MedicalSkill">
         SELECT * FROM medical_skill
         WHERE medical_skill_execute_department = #{medical_skill_execute_department}
+              AND medical_skill_execute_state = #{medical_skill_execute_state}
     </select>
 
+    <select id="getMedicalSkillByRegisterIdForDoctor" resultType="MedicalSkill">
+        SELECT * FROM  medical_skill
+        WHERE medical_skill_register_info_id = #{medical_skill_register_info_id}
+        AND medical_skill_execute_state = #{medical_skill_execute_state}
+    </select>
+<!--    获取medicalskill的所有已缴费项目-->
+    <select id="getMedicalSkillsInPayCondition" resultType="MedicalSkill">
+        select * from medical_skill
+        where medical_skill_register_info_id = #{medical_skill_register_info_id}
+        and medical_skill_execute_state = "已缴费"
+    </select>
+
+<!--    获取medicalskill的所有未缴费项目-->
+    <select id="getMedicalSkillsNotInPayCondition" resultType="MedicalSkill">
+        select * from medical_skill
+        where medical_skill_register_info_id = #{medical_skill_register_info_id}
+        and medical_skill_execute_state != "已缴费"
+    </select>
+
+
+    <!--根据病人id获取每个register对应的未缴费项目-->
+    <select id="getDepartmentMedicalSkillByPatientId" resultType="MedicalSkill">
+        SELECT medical_skill.* FROM medical_skill,register_info
+        WHERE register_info_patient_id = #{register_info_patient_id}
+            AND register_info_id = medical_skill.medical_skill_register_info_id
+            AND medical_skill_execute_state = #{medical_skill_execute_state}
+            AND medical_skill_execute_department = #{medical_skill_execute_department}
+    </select>
 
 
 </mapper>

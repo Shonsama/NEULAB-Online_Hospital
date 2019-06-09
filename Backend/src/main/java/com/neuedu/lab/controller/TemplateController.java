@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 模板接口，将来整合到医生接口控制类
+ */
 @RestController
 @RequestMapping("/template")
 public class TemplateController {

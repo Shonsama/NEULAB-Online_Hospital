@@ -14,4 +14,23 @@
             VALUES (#{diagnose_record_id}, #{diagnose_type}, #{diagnose_disease_id},#{diagnose_disease_name},#{diagnose_time})
         </if>
     </insert>
+
+
+    <select id="getDiagnoses" resultType="Diagnose">
+        SELECT * FROM diagnose
+        <where>
+            <if test="diagnose_type == null">
+                AND  diagnose_record_id = #{diagnose_record_id}
+            </if>
+            <if test="diagnose_type != null">
+                AND diagnose_record_id = #{diagnose_record_id} AND diagnose_type = #{diagnose_type}
+            </if>
+        </where>
+    </select>
+
+
+    <delete id="deleteDiagnosesByRecordId" parameterType="Integer">
+        DELETE FROM diagnose
+        WHERE diagnose_record_id = #{diagnose_record_id}
+    </delete>
 </mapper>

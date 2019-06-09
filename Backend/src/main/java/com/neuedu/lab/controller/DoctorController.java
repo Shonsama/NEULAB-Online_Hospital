@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
+/**
+ * 给医生的接口
+ */
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {
@@ -25,7 +27,7 @@ public class DoctorController {
 
     @RequestMapping("/get-department-registers")
     public JSONObject getDepartmentRegisters(@RequestBody JSONObject request){
-        return doctorService.getAllDepartmentRegisters(request.getInteger("department_id"));
+        return doctorService.getAllDepartmentRegisters(request.getString("department_id"));
     }
 
     //接诊
@@ -114,61 +116,35 @@ public class DoctorController {
     //查看初步诊断
     @RequestMapping("/get-record")
     public JSONObject getRecord(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(doctorService.getRecord(request.getInteger("record_id")));
+        return doctorService.getRecord(request.getInteger("record_id"));
     }
 
     //提交最终诊断
     @RequestMapping("/submit-final-diagnose")
     public JSONObject submitFinalDiagnose(@RequestBody List<Diagnose> diagnoses){
-        if(doctorService.submitFinalDiagnose(diagnoses)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.submitFinalDiagnose(diagnoses);
     }
 
     //新增处方
     @RequestMapping("/add-prescription")
     public JSONObject addPrescription(@RequestBody Prescription prescription){
-        if(doctorService.addPrescription(prescription)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.addPrescription(prescription);
     }
 
     //删除处方
     @RequestMapping("/delete-prescription")
-    public JSONObject deletePrescription(@RequestBody JSONObject prescription_id){
-        Integer getInt = prescription_id.getInteger("prescription_id");
-        if(doctorService.deletePrescription(getInt)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+    public JSONObject deletePrescription(@RequestBody JSONObject request){
+        return doctorService.deletePrescription(request.getInteger("prescription_id"));
     }
 
     //发送处方、作废处方
         @RequestMapping("/send-prescription")
     public JSONObject sendPrescription(@RequestBody JSONObject request){
-       if(doctorService.sendPrescription(request.getInteger("prescriptioin_id"))){
-           return ConstantUtils.responseSuccess(null);
-       }
-       else {
-           return ConstantUtils.responseFail(null);
-       }
+       return doctorService.sendPrescription(request.getInteger("prescriptioin_id"));
     }
     @RequestMapping("/end-prescription")
     public JSONObject endPrescription(@RequestBody JSONObject request){
-        if(doctorService.endPrescription(request.getInteger("prescriptioin_id"))){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.endPrescription(request.getInteger("prescriptioin_id"));
     }
 
 
@@ -176,35 +152,20 @@ public class DoctorController {
     //增加药品
     @RequestMapping("/add-medicine")
     public JSONObject addMedicine(@RequestBody PrescriptionContent prescriptionContent){
-        if(doctorService.addPrescriptionContent(prescriptionContent)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.addPrescriptionContent(prescriptionContent);
     }
 
     //删除药品
     @RequestMapping("/delete-medicine")
     public JSONObject deleteMedicine(@RequestBody JSONObject request){
-        if(doctorService.deletePrescriptionContent(request.getInteger("prescription_content_id"))){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.deletePrescriptionContent(request.getInteger("prescription_content_id"));
     }
 
 
     //诊毕
     @RequestMapping("/finish")
     public JSONObject finish(@RequestBody JSONObject request){
-        if(doctorService.finish(request.getInteger("register_id"))){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return doctorService.finish(request.getInteger("register_id"));
     }
 
     //查询患者本次看病
