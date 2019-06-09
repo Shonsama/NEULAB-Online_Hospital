@@ -56,7 +56,7 @@
       <v-flex xs12>
       <v-form
         class="pa-3 pt-4 scroll-y"
-        style="max-height: 900px"
+        style="max-height: 600px"
       >
         <v-card-title primary-title>
           <div>
@@ -342,7 +342,7 @@ export default {
     },
     save () {
       let that = this
-      var url = this.HOME + ''
+      var url = this.HOME + '/doctor/submit-record'
       var data = {
         record_syndrome: that.form.record_syndrome,
         record_health_check: that.form.record_health_check,
@@ -350,17 +350,18 @@ export default {
         record_jiwangshi: that.form.record_jiwangshi,
         record_cure_situation: that.form.record_cure_situation,
         record_allergy_his: that.form.record_allergy_his,
-        diagnosis: that.desserts,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
         record_state: '',
-        record_patient_id: '',
+        record_patient_id: '1',
         record_doctor_id: '1',
-        record_id: ''
+        record_id: '6',
+        record_doctor_type: '中医'
       }
       this.$http.post(url, data)
         .then(response => {
-          that.desserts = response.data
+          console.log(response.data)
+          // that.desserts = response.data
         })
     },
     load_diagnosis () {
@@ -373,11 +374,14 @@ export default {
     },
     refresh () {
       let that = this
-      var url = this.HOME + ''
-      this.form.diagnosis.content = this.content
-      this.$http.post(url, this.form)
+      var url = this.HOME + '/doctor/get-record'
+      var data = {
+        record_id: '6'
+      }
+      this.$http.post(url, data)
         .then(response => {
-          that.desserts = response.data
+          console.log(response.data)
+          // that.desserts = response.data
         })
     },
     choose_WE () {
