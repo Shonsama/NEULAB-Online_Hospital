@@ -41,6 +41,7 @@
     <select id="getMedicalSkillByDepartmentId" resultType="MedicalSkill">
         SELECT * FROM medical_skill
         WHERE medical_skill_execute_department = #{medical_skill_execute_department}
+              AND medical_skill_execute_state = #{medical_skill_execute_state}
     </select>
 
     <select id="getMedicalSkillByRegisterIdForDoctor" resultType="MedicalSkill">
@@ -60,6 +61,16 @@
         select * from medical_skill
         where medical_skill_register_info_id = #{medical_skill_register_info_id}
         and medical_skill_execute_state != "已缴费"
+    </select>
+
+
+    <!--根据病人id获取每个register对应的未缴费项目-->
+    <select id="getDepartmentMedicalSkillByPatientId" resultType="MedicalSkill">
+        SELECT medical_skill.* FROM medical_skill,register_info
+        WHERE register_info_patient_id = #{register_info_patient_id}
+            AND register_info_id = medical_skill.medical_skill_register_info_id
+            AND medical_skill_execute_state = #{medical_skill_execute_state}
+            AND medical_skill_execute_department = #{medical_skill_execute_department}
     </select>
 
 

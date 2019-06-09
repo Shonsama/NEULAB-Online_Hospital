@@ -52,24 +52,16 @@ public class MedicalSkillDoctorService {
 
     }
 
-    public JSONObject getMedicalSkillByPatient(String medical_skill_execute_department, Integer register_id){
-        List<MedicalSkill> medicalSkills;
-        List<MedicalSkill> resultMedicalSkill = new ArrayList<>();
-        try{
-            medicalSkills = medicalSkillMapper.getMedicalSkillByDepartmentId(medical_skill_execute_department,ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3]);
-            for(MedicalSkill medicalSkill : medicalSkills){
-                if(medicalSkill.getMedical_skill_register_info_id()==register_id){
-                    medicalSkill.setRegister(registerMapper.getRegister(medicalSkill.getMedical_skill_register_info_id()));
-                    medicalSkill.getRegister().setPatient(patientMapper.getPatientByRecordId(medicalSkill.getRegister().getRegister_info_patient_id()));
-                    resultMedicalSkill.add(medicalSkill);
-                }
-            }
+    public JSONObject getMedicalSkillByPatient(String medical_skill_execute_department, Integer patient_id){
 
-            }catch (RuntimeException e){
+        List<MedicalSkill> medicalSkills;
+        try{
+            medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],medical_skill_execute_department);
+        }catch (RuntimeException e){
             e.printStackTrace();
-            return ConstantUtils.responseFail();
+            return responseFail(e);
         }
-        return ConstantUtils.responseSuccess(resultMedicalSkill);
+        return responseSuccess(medicalSkills);
         }
 
     public JSONObject addMedicalSkillResult(MedicalSkill medicalSkill){

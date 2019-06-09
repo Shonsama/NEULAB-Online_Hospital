@@ -22,11 +22,21 @@ public interface MedicalSkillMapper {
     List<MedicalSkill> getMedicalSkillByRegisterId(Integer medical_skill_register_info_id,String medical_skill_execute_state);
 
     //用于医技部门查找所有记录患者
-    List<MedicalSkill> getMedicalSkillByDepartmentId(String medical_skill_execute_department, String medical_skill_execute_state);
+    List<MedicalSkill> getMedicalSkillByDepartmentId(@Param("medical_skill_execute_department") String medical_skill_execute_department, @Param("medical_skill_execute_state") String medical_skill_execute_state);
 
     //用于医生查看病人病历
     List<MedicalSkill> getMedicalSkillByRegisterIdForDoctor(Integer medical_skill_register_info_id);
 
+    //用于查看一个病人的所有已缴费记录
+    List<MedicalSkill> getDepartmentMedicalSkillByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,
+                                                            @Param("medical_skill_execute_state") String medical_skill_execute_state,
+                                                            @Param("medical_skill_execute_department") String medical_skill_execute_department);
+
+
+
+
+    //author: LEE
     List<MedicalSkill> getMedicalSkillsInPayCondition(Integer medical_skill_register_info_id);
     List<MedicalSkill> getMedicalSkillsNotInPayCondition(Integer medical_skill_register_info_id);
+
 }

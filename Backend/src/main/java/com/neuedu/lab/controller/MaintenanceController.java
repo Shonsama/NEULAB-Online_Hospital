@@ -57,8 +57,6 @@ public class MaintenanceController {
         }
     }
 
-
-
     //部门的增删改查
     @Autowired
     private DepartmentService departmentService;

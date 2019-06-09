@@ -27,9 +27,9 @@ public class MedicalSkillDoctorController {
     }
 
     @RequestMapping("/medical-skill/get-by-patient")
-    public JSONObject getMedicalSkillByPatientName(@RequestBody JSONObject request){
+    public JSONObject getMedicalSkillByPatientId(@RequestBody JSONObject request){
         return medicalSkillDoctorService.getMedicalSkillByPatient(request.getString("medical_skill_execute_department"),
-                request.getInteger("register_id"));
+                request.getInteger("patient_id"));
     }
 
 
