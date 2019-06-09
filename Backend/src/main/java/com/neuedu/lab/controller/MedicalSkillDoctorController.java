@@ -41,12 +41,12 @@ public class MedicalSkillDoctorController {
     //项目执行 执行确认
     @RequestMapping("/medical-skill/confirm")
     public JSONObject confirmMedicalSkill(@RequestBody JSONObject request){
-        return medicalSkillDoctorService.confirmMedicalSkill(request.getInteger("medical_skill_id"));
+        return medicalSkillDoctorService.confirmMedicalSkill(request.getInteger("medical_skill_id"),request.getInteger("medical_skill_execute_doctor_id"));
     }
     //项目执行 取消执行
     @RequestMapping("/medical-skill/cancel")
     public JSONObject cancelMedicalSkill(@RequestBody JSONObject request){
-        return medicalSkillDoctorService.cancelMedicalSkill(request.getInteger("medical_skill_id"));
+        return medicalSkillDoctorService.cancelMedicalSkill(request.getInteger("medical_skill_id"),request.getInteger("medical_skill_execute_doctor_id"));
     }
 
     //添加医技项目结果

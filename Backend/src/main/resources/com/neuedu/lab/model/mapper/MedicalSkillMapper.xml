@@ -5,9 +5,9 @@
 <mapper namespace="com.neuedu.lab.model.mapper.MedicalSkillMapper">
     <insert id="addMedicalSkill" parameterType="MedicalSkill" useGeneratedKeys="true" keyProperty="medical_skill_id">
         insert into medical_skill (medical_skill_execute_state, medical_skill_execute_department, medical_skill_result, medical_skill_type, medical_skill_name, medical_skill_checkpoint, medical_skill_purpose, medical_skill_urgent, medical_skill_register_info_id,
-         medical_skill_user_id, medical_skill_doctor_id, medical_skill_content_id, medical_skill_fee)
+         medical_skill_user_id, medical_skill_doctor_id, medical_skill_content_id, medical_skill_fee,medical_skill_doctor_id)
          values (#{medical_skill_execute_state},#{medical_skill_execute_department}, #{medical_skill_result}, #{medical_skill_type}, #{medical_skill_name}, #{medical_skill_checkpoint}, #{medical_skill_purpose}, #{medical_skill_urgent}, #{medical_skill_register_info_id},
-          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_content_id}, #{medical_skill_fee});
+          #{medical_skill_user_id}, #{medical_skill_doctor_id}, #{medical_skill_content_id}, #{medical_skill_fee}, #{medical_skill_doctor_id});
     </insert>
 
     <delete id="deleteMedicalSkill" parameterType="MedicalSkill">
@@ -16,7 +16,8 @@
     </delete>
 
     <update id="updateMedicalSkillState">
-        UPDATE medical_skill SET medical_skill_execute_state = #{medical_skill_execute_state}
+        UPDATE medical_skill SET medical_skill_execute_state = #{medical_skill_execute_state},
+            medical_skill_execute_doctor_id = #{medical_skill_execute_doctor_id}
         WHERE medical_skill_id = #{medical_skill_id}
     </update>
 

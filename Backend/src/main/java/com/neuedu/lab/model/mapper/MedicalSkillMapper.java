@@ -12,7 +12,9 @@ public interface MedicalSkillMapper {
 
     public void deleteMedicalSkill(Integer medical_skill_id);
 
-    void updateMedicalSkillState(@Param("medical_skill_id") Integer medical_skill_id,@Param("medical_skill_execute_state") String medical_skill_execute_state);
+    void updateMedicalSkillState(@Param("medical_skill_id") Integer medical_skill_id,
+                                 @Param("medical_skill_execute_state") String medical_skill_execute_state,
+                                 @Param("medical_skill_execute_doctor_id") Integer medical_skill_execute_doctor_id);
 
     MedicalSkill getMedicalSkill(Integer medical_skill_id);
 
