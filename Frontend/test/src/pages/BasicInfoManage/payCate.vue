@@ -189,7 +189,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/constant/get-all'
+      var url = this.HOME + '/maintenance/constant/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -199,7 +199,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/constant/delete'
+      var url = this.HOME + '/maintenance/constant/delete'
       this.$http.post(url, {constant_id: item.constant_id})
         .then(function (response) {
           console.log(response.data)
@@ -219,7 +219,7 @@ export default {
         constant_type: this.constant_type
       }
       let that = this
-      var url = this.HOME + '/constant/add'
+      var url = this.HOME + '/maintenance/constant/add'
       this.$http.post(url, constant)
         .then(function (response) {
           console.log(response.data)
@@ -241,7 +241,7 @@ export default {
         constant_type: this.constant_type
       }
       let that = this
-      var url = this.HOME + '/constant/update'
+      var url = this.HOME + '/maintenance/constant/update'
       this.$http.post(url, constant)
         .then(function (response) {
           console.log(response.data)
@@ -288,7 +288,7 @@ export default {
           constant_id: this.selected[i].constant_id
         }
         let that = this
-        var url = this.HOME + '/constant/delete'
+        var url = this.HOME + '/maintenance/constant/delete'
         this.$http.post(url, {constant_id: item.constant_id})
           .then(function (response) {
             console.log(response.data)

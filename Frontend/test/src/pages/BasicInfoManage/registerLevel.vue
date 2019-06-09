@@ -209,7 +209,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/registerLevel/get-all'
+      var url = this.HOME + '/maintenance/register-level/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -219,7 +219,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/registerLevel/delete'
+      var url = this.HOME + '/maintenance/register-level/delete'
       this.$http.post(url, {register_level_id: item.register_level_id})
         .then(function (response) {
           console.log(response.data)
@@ -241,7 +241,7 @@ export default {
         register_level_fee: this.register_level_fee
       }
       let that = this
-      var url = this.HOME + '/registerLevel/add'
+      var url = this.HOME + '/maintenance/register-level/add'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
@@ -265,7 +265,7 @@ export default {
         register_level_fee: this.register_level_fee
       }
       let that = this
-      var url = this.HOME + '/registerLevel/update'
+      var url = this.HOME + '/maintenance/register-level/update'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
@@ -316,7 +316,7 @@ export default {
           register_level_id: this.selected[i].register_level_id
         }
         let that = this
-        var url = this.HOME + '/registerLevel/delete'
+        var url = this.HOME + '/maintenance/register-level/delete'
         this.$http.post(url, {register_level_id: item.register_level_id})
           .then(function (response) {
             console.log(response.data)

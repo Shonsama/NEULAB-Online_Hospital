@@ -209,7 +209,7 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/non-medicine/get-all'
+      var url = this.HOME + '/maintenance/non-medicine/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -219,7 +219,7 @@ export default {
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/non-medicine/delete'
+      var url = this.HOME + '/maintenance/non-medicine/delete'
       this.$http.post(url, {non_medicine_id: item.non_medicine_id})
         .then(function (response) {
           console.log(response.data)
@@ -242,7 +242,7 @@ export default {
         non_medicine_unit_price: this.non_medicine_unit_price
       }
       let that = this
-      var url = this.HOME + '/non-medicine/add'
+      var url = this.HOME + '/maintenance/non-medicine/add'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
@@ -266,7 +266,7 @@ export default {
         non_medicine_unit_price: this.non_medicine_unit_price
       }
       let that = this
-      var url = this.HOME + '/non-medicine/update'
+      var url = this.HOME + '/maintenance/non-medicine/update'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
@@ -317,7 +317,7 @@ export default {
           non_medicine_id: this.selected[i].non_medicine_id
         }
         let that = this
-        var url = this.HOME + '/non-medicine/delete'
+        var url = this.HOME + '/maintenance/non-medicine/delete'
         this.$http.post(url, {non_medicine_id: item.non_medicine_id})
           .then(function (response) {
             console.log(response.data)

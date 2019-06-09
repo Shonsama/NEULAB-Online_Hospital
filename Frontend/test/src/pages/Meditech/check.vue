@@ -33,33 +33,12 @@
         class="elevation-1"
       >
         <template v-slot:items="props">
+          <td>{{ props.item.patient_record_id }}</td>
+          <td>{{ props.item.patient_name }}</td>
           <td>
-            <v-checkbox
-              v-model="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
-          </td>
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
-          <td class="text-xs-right">{{ props.item.iron }}</td>
-          <td class="justify-center layout px-0">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
+            <v-btn color="primary" dark>Accept
+              <v-icon dark right>check_circle</v-icon>
+            </v-btn>
           </td>
         </template>
       </v-data-table>
