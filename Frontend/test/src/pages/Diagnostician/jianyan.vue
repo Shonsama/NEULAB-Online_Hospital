@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-dialog
-      v-model="show"
+      v-model="show1"
       max-width="800"
     >
       <v-card>
@@ -174,41 +174,45 @@ export default {
     return {
       selected_dia: '',
       search: '',
-      show: false,
+      show1: false,
       expand: false,
       headers_dia: [
         {
-          text: '非药品编号',
+          text: '编号',
           align: 'left',
-          value: 'non_medicine_id'
+          value: 'medical_skill_content_id'
         },
-        { text: '非药品名称', value: 'non_medicine_name' },
-        { text: '非药品类型', value: 'non_medicine_type' },
-        { text: '非药品规格', value: 'non_medicine_specification' },
-        { text: '单价', value: 'non_medicine_unit_price' }],
+        { text: '项目名称', value: 'medical_skill_content_name' },
+        { text: '父级编码', value: 'medical_skill_content_father' },
+        { text: '单位', value: 'medical_skill_content_unit' },
+        { text: '单价', value: 'medical_skill_content_price' }],
       desserts_dia: [],
       headers: [
         {
-          text: '申请名称',
-          align: 'left',
-          value: 'non_medicine_id'
-        },
-        {
           text: '项目名称',
-          value: 'non_medicine_name'
+          value: 'medical_skill_name'
         },
         {
           text: '执行科室',
-          value: 'non_medicine_type'
+          value: 'medical_skill_execute_department'
         },
         {
           text: '执行状态',
           value: 'medical_skill_execute_state'
         },
         {
+          text: '检查部位',
+          value: 'medical_skill_checkpoint'
+        },
+        {
+          text: '目的',
+          value: 'medical_skill_purpose'
+        },
+        {
           text: '单价',
-          value: 'non_medicine_unit_price'
-        }],
+          value: 'medical_skill_fee'
+        }
+      ],
       headers_tem: [
         {
           text: '模板名称',
@@ -227,6 +231,64 @@ export default {
     this.load_mediskill()
   },
   methods: {
+    addItem: function () {
+      let that = this
+      var data = {
+        medical_skill_type: '检验',
+        medical_skill_name: '血检',
+        medical_skill_checkpoint: '血液',
+        medical_skill_purpose: '检查',
+        medical_skill_urgent: 'true',
+        medical_skill_register_info_id: 5,
+        medical_skill_user_id: 1,
+        medical_skill_doctor_id: 1,
+        medical_skill_non_medical_id: 2,
+        medical_skill_fee: '50.00',
+        medical_skill_execute_department: '血液科'
+      }
+      var url = this.HOME + '/doctor/add-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
+    deleteItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/delete-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
+    startItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/start-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
+    endItem: function () {
+      let that = this
+      var data = {
+        medical_skill_id: 1
+      }
+      var url = this.HOME + '/doctor/end-medical-skill'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_dia = response.data.data
+        })
+    },
     load_mediskill: function () {
       let that = this
       var url = this.HOME + '/maintenance/medical-skill-content/get-all'
