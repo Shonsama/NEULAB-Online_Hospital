@@ -12,7 +12,6 @@ import com.neuedu.lab.model.po.Patient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.neuedu.lab.Utils.ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE;
@@ -65,7 +64,7 @@ public class MedicalSkillDoctorService {
 
         List<MedicalSkill> medicalSkills;
         try{
-            medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],medical_skill_execute_department);
+            medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_department);
             for(MedicalSkill medicalSkill:medicalSkills){
                 medicalSkill.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id()));
             }
