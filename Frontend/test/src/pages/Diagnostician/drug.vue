@@ -69,7 +69,7 @@
               </tr>
             </template>
             <template v-slot:expand="props">
-              <v-container style="max-width: 650px">
+              <v-container style="max-width: 750px">
               <v-card>
                 <v-toolbar flat dense color="white">
                   药品

@@ -59,10 +59,9 @@
                       <v-toolbar-title>已诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
-                      v-model="selected"
                       :search="search"
                       :headers="headers1"
-                      :items="desserts_per.off"
+                      :items="per_off"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
@@ -76,10 +75,9 @@
                       <v-toolbar-title>未诊断</v-toolbar-title>
                     </v-toolbar>
                     <v-data-table
-                      v-model="selected"
                       :search="search"
                       :headers="headers"
-                      :items="desserts_per.on"
+                      :items="per_on"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
@@ -106,10 +104,9 @@
                         <v-toolbar-title>已诊断</v-toolbar-title>
                       </v-toolbar>
                       <v-data-table
-                        v-model="selected"
                         :search="search"
                         :headers="headers1"
-                        :items="desserts_depart.off"
+                        :items="depart_off"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -123,10 +120,9 @@
                         <v-toolbar-title>未诊断</v-toolbar-title>
                       </v-toolbar>
                       <v-data-table
-                        v-model="selected"
                         :search="search"
                         :headers="headers1"
-                        :items="desserts_depart.on"
+                        :items="depart_on"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -264,34 +260,8 @@ export default {
         patient_address: '',
         patient_age: ''
       },
-      desserts_per: {
-        on: [{
-          patient: {
-            patient_record_id: '1',
-            patient_name: '1'
-          }
-        }],
-        off: [{
-          patient: {
-            patient_record_id: '1',
-            patient_name: '1'
-          }
-        }]
-      },
-      desserts_depart: {
-        on: [{
-          patient: {
-            patient_record_id: '1',
-            patient_name: '1'
-          }
-        }],
-        off: [{
-          patient: {
-            patient_record_id: '1',
-            patient_name: '1'
-          }
-        }]
-      },
+      desserts_per: [],
+      desserts_depart: [],
       steps: 8,
       items1: [{
         name: '本人',
@@ -335,11 +305,32 @@ export default {
       }]
     }
   },
+  computed: {
+    depart_on () {
+      return this.desserts_depart.filter(this.filterState_on)
+    },
+    depart_off () {
+      return this.desserts_depart.filter(this.filterState_off)
+    },
+    per_on () {
+      console.log(this.desserts_per.filter(this.filterState_on))
+      return this.desserts_per.filter(this.filterState_on)
+    },
+    per_off () {
+      return this.desserts_per.filter(this.filterState_off)
+    }
+  },
   mounted: function () {
     this.load_patient_self()
     this.load_patient_depart()
   },
   methods: {
+    filterState_on: function (value) {
+      return value.register_info_state === '已挂号'
+    },
+    filterState_off: function (value) {
+      return value.register_info_state === '诊毕'
+    },
     load_patient_self: function () {
       var url = this.HOME + '/doctor/get-all-registers'
       var that = this
@@ -349,38 +340,22 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          let i
-          for (i = 0; i < response.data.data.length; i++) {
-            if (response.data.data[i].register_info_state === '已挂号') {
-              that.desserts_per.on.append(response.data.data[i])
-            }
-            if (response.data.data[i].register_info_state === '诊毕') {
-              that.desserts_per.off.append(response.data.data[i])
-            }
-          }
+          that.desserts_per = response.data.data
+          console.log(that.desserts_per)
         })
-      console.log(this.desserts_per)
     },
     load_patient_depart: function () {
       var url = this.HOME + '/doctor/get-department-registers'
       var that = this
       var data = {
-        'department_id': '1'
+        'department_id': 'XXGK'
       }
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          let i
-          for (i = 0; i < response.data.data.length; i++) {
-            if (response.data.data[i].register_info_state === '已挂号') {
-              that.desserts_depart.on.push(response.data.data[i])
-            }
-            if (response.data.data[i].register_info_state === '诊毕') {
-              that.desserts_depart.off.push(response.data.data[i])
-            }
-          }
+          that.desserts_depart = response.data.data
+          console.log(that.desserts_depart)
         })
-      console.log(this.desserts_depart)
     },
     treat: function (value) {
       var url = this.HOME + '/doctor/treat'
@@ -407,6 +382,9 @@ export default {
         .then(function (response) {
           console.log(response.data)
         })
+    },
+    get: function () {
+
     },
     refresh: function () {
       this.patient_name = ''

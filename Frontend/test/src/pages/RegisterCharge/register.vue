@@ -33,8 +33,8 @@
     </template>
   </v-toolbar>
   <v-divider></v-divider>
-  <v-form v-model="valid">
-    <v-container>
+  <v-layout class="ml-4 mt-4">
+    <v-form v-model="valid">
       <v-layout>
         <div class="title font-weight-light">患者信息查询</div>
       </v-layout>
@@ -66,6 +66,7 @@
         <v-flex
           xs12
           md2
+          class="mr-4"
         >
           <v-text-field
             v-model="patient_name"
@@ -79,6 +80,7 @@
         <v-flex
           xs12
           md2
+          class="mr-4"
         >
           <v-select
             v-model="patient_gender"
@@ -93,6 +95,7 @@
         <v-flex
           xs12
           md4
+          class="mr-4"
         >
           <v-textarea
             v-model="patient_address"
@@ -105,6 +108,7 @@
         <v-flex
           xs12
           md3
+          class="mr-4"
         >
           <v-text-field
             v-model="patient_credit_id"
@@ -115,11 +119,10 @@
             required
           ></v-text-field>
         </v-flex>
-      </v-layout>
-      <v-layout>
         <v-flex
           xs12
           md2
+          class="mr-4"
         >
           <v-menu
             ref="menu"
@@ -154,6 +157,7 @@
         <v-flex
           xs12
           md2
+          class="mr-4"
         >
           <v-text-field
             v-model="patient_age"
@@ -162,43 +166,12 @@
             placeholder="请输入年龄"
           ></v-text-field>
         </v-flex>
-
-        <v-flex
-          xs12
-          md4
-        >
-          <v-select
-            v-model="paycate"
-            :items="payCates"
-            :rules="payRules"
-            item-text="constant_name"
-            item_value="constant_id"
-            label="结算类别"
-            required
-            placeholder="请选择结算类别"
-          ></v-select>
-        </v-flex>
-
-        <v-flex
-          xs12
-          md3
-        >
-          <v-select
-            :items="registers"
-            :rules="registerRules"
-            item-text="register_level_name"
-            item_value="register_level_id"
-            return-object
-            label="挂号级别"
-            required
-            placeholder="请选择挂号级别"
-          ></v-select>
-        </v-flex>
       </v-layout>
       <v-layout>
         <v-flex
           xs12
-          md3
+          md2
+          class="mr-4"
         >
           <v-select
             v-model="departmentId"
@@ -213,8 +186,8 @@
           ></v-select>
         </v-flex>
         <v-flex
-          xs12
-          md3
+          md2
+          class="mr-4"
         >
           <v-select
             v-model="doctor_id"
@@ -228,7 +201,39 @@
             placeholder="请选择看诊医生"
           ></v-select>
         </v-flex>
-        <v-flex xs12 md2>
+        <v-flex
+          md2
+          class="mr-4"
+        >
+          <v-select
+            v-model="paycate"
+            :items="payCates"
+            :rules="payRules"
+            item-text="constant_name"
+            item_value="constant_id"
+            label="结算类别"
+            required
+            placeholder="请选择结算类别"
+          ></v-select>
+        </v-flex>
+
+        <v-flex
+          md2
+          class="mr-4"
+        >
+          <v-select
+            :items="registers"
+            :rules="registerRules"
+            item-text="register_level_name"
+            item_value="register_level_id"
+            return-object
+            label="挂号级别"
+            required
+            placeholder="请选择挂号级别"
+          ></v-select>
+        </v-flex>
+        <v-spacer/>
+        <v-flex md2>
           <v-checkbox
             v-model="checkbox"
             v-validate="'required'"
@@ -240,7 +245,7 @@
             required
           ></v-checkbox>
         </v-flex>
-        <v-flex xs12 md2>
+        <v-flex md1>
           <v-text-field
             v-model="bill_sum"
             label="应收金额"
@@ -248,10 +253,10 @@
             disabled
           ></v-text-field>
         </v-flex>
-        <v-btn small color="primary" style="margin-top: 25px" @click="submit_register">挂号</v-btn>
+        <v-btn small color="primary" style="margin-top: 20px" @click="submit_register">挂号</v-btn>
       </v-layout>
-    </v-container>
-  </v-form>
+     </v-form>
+  </v-layout>
 </v-card>
   <v-card>
     <v-toolbar flat dense>

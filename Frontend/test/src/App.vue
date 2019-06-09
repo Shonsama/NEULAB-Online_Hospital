@@ -76,9 +76,9 @@
     </v-toolbar>
     <v-divider />
     <v-content>
-      <v-container>
+      <v-card>
         <router-view></router-view>
-      </v-container>
+      </v-card>
     </v-content>
     <v-footer :inset="footer.inset" app>
       <span class="px-3">&copy; {{ new Date().getFullYear() }}</span>
