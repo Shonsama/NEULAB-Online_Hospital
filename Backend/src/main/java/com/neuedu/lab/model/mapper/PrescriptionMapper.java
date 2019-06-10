@@ -1,8 +1,10 @@
 package com.neuedu.lab.model.mapper;
 
+import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.Prescription;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface PrescriptionMapper {
@@ -27,7 +29,10 @@ public interface PrescriptionMapper {
     List<Prescription> getPrescriptionsNotInPayCondition(Integer prescription_register_info_id);
 
     //通过patient_id找到所有已经缴费prescription
+    List<Prescription> getPrescriptionByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,
+                                                  @Param("prescription_execute_state") String prescription_execute_state,
+                                                  @Param("start_time") Date start_time,
+                                                  @Param("end_time" )Date end_time);
 
-    List<Prescription> getPrescriptionByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,@Param("prescription_execute_state") String prescription_execute_state);
-
+    List<Patient> getAllPatients(String prescription_execute_state);
 }

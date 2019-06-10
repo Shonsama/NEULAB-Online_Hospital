@@ -276,7 +276,13 @@ public class DoctorService {
             record.setFirstDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[0]));
             record.setFinalDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[1]));
             record.setMedicalSkills(medicalSkillMapper.getMedicalSkillByRegisterIdForDoctor(record_id));
-            record.setPrescriptions(prescriptionMapper.getPrescriptionByRegisterId(record_id));
+            //填充处方
+            List<Prescription> prescriptions = prescriptionMapper.getPrescriptionByRegisterId(record_id);
+            for(Prescription prescription: prescriptions){
+                //填充处方内容
+                prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
+            }
+            record.setPrescriptions(prescriptions);
             record.setRegister(registerMapper.getRegister(record_id));
         }catch (RuntimeException e){
             e.printStackTrace();
@@ -333,8 +339,10 @@ public class DoctorService {
             }else if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[0])){
                 return responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可删除处方",prescription);
             }
-            //更新处方状态
-            prescriptionMapper.updatePrescriptionState(prescription_id,PRESCRIPTION_EXECUTE_STATE[7]);
+            //先删除处方内容
+            prescriptionContentMapper.deletePrescriptionContents(prescription_id);
+            //再删除处方
+            prescriptionMapper.deletePrescription(prescription_id);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();
@@ -385,7 +393,7 @@ public class DoctorService {
             e.printStackTrace();
             return responseFail(prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id()));
         }
-        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
+//        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
 //        prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
         return responseSuccess(prescriptionContent);
     }

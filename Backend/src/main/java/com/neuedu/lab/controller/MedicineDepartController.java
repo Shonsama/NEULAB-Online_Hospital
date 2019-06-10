@@ -19,6 +19,11 @@ public class MedicineDepartController {
         return medicineDepartService.getPrescriptionByPatientId(request.getInteger("register_info_patient_id"));
     }
 
+    @RequestMapping("/get-all-patients")
+    public JSONObject getAllPatients(){
+        return medicineDepartService.getAllPatients();
+    }
+
     @RequestMapping("/send-medicine")
     public JSONObject sendMedicine(@RequestBody JSONObject request){
         return medicineDepartService.sendMedicine(request.getInteger("prescription_id"));
@@ -28,6 +33,17 @@ public class MedicineDepartController {
     public JSONObject returnMedicine(@RequestBody JSONObject request){
         return medicineDepartService.returnMedicine(request.getInteger("prescription_id"),
                 request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
+    }
+
+    @RequestMapping("/get-sent-prescription")
+    public JSONObject getSentPrescription(@RequestBody JSONObject request){
+        return  medicineDepartService.getSentPrescription(request.getInteger("patient_id"),
+                request.getDate("start_time"), request.getDate("end_time"));
+    }
+
+    @RequestMapping("/get-prescription-contents")
+    public JSONObject getPrescriptionContentsByPrescriptionId(@RequestBody JSONObject request){
+        return medicineDepartService.getPrescriptionContentsByPrescriptionId(request.getInteger("prescription_id"));
     }
 
 
