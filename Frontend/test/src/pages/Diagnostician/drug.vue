@@ -470,6 +470,11 @@ export default {
           console.log(response.data)
           that.getItem()
         })
+      that.prescription_id = ''
+      that.prescription_consumption = ''
+      that.prescription_frequency = ''
+      that.prescription_num = ''
+      that.prescription_day = ''
     },
     deleteContent: function () {
       let that = this
