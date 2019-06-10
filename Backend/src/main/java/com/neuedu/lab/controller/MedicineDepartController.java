@@ -16,7 +16,10 @@ public class MedicineDepartController {
 
     @RequestMapping("/get-prescription-by-patient")
     public JSONObject getPrescriptionByPatientId(@RequestBody JSONObject request){
-        return medicineDepartService.getPrescriptionByPatientId(request.getInteger("register_info_patient_id"));
+        return medicineDepartService.getPrescriptionByPatientIdByPayTime(
+                request.getInteger("register_info_patient_id"),
+                request.getDate("start_time"),
+                request.getDate("end_time"));
     }
 
     @RequestMapping("/get-all-patients")
