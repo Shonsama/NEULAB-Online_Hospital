@@ -250,8 +250,8 @@ CREATE TABLE `his`.`prescription` (
   `prescription_doctor_id` INT NULL,
   `prescription_register_info_id` INT NOT NULL,
   `prescription_create_time` DATETIME NULL DEFAULT current_timestamp, #开立时间
-  `prescription_pay_time` DATETIME NULL DEFAULT current_timestamp ,
-  `prescription_sent_time` DATETIME NULL DEFAULT current_timestamp,
+  `prescription_pay_time` DATETIME NULL ,
+  `prescription_sent_time` DATETIME NULL ,
   `prescription_fee` DECIMAL(8,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`prescription_id`),
   FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`)
