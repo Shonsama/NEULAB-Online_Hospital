@@ -26,4 +26,8 @@ public interface PrescriptionMapper {
     List<Prescription> getPrescriptionsInPayCondition(Integer prescription_register_info_id);
     List<Prescription> getPrescriptionsNotInPayCondition(Integer prescription_register_info_id);
 
+    //通过patient_id找到所有已经缴费prescription
+
+    List<Prescription> getPrescriptionByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,@Param("prescription_execute_state") String prescription_execute_state);
+
 }

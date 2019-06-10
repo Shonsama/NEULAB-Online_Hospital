@@ -53,4 +53,11 @@
         and prescription_execute_state != "已缴费"
     </select>
 
+    <select id="getPrescriptionByPatientId" resultType="Prescription">
+        SELECT prescription.* FROM prescription,register_info
+        WHERE register_info_patient_id = #{register_info_patient_id}
+            AND register_info_id = prescription_register_info_id
+            AND prescription_execute_state = #{prescription_execute_state}
+
+    </select>
 </mapper>

@@ -32,7 +32,8 @@ public interface MedicalSkillMapper {
 
     //用于查看一个病人的所有已缴费记录
     List<MedicalSkill> getDepartmentMedicalSkillByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,
-                                                            @Param("medical_skill_execute_state") String medical_skill_execute_state,
+                                                            @Param("medical_skill_execute_state_1") String medical_skill_execute_state_1,
+                                                            @Param("medical_skill_execute_state_2") String medical_skill_execute_state_2,
                                                             @Param("medical_skill_execute_department") String medical_skill_execute_department);
 
 

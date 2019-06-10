@@ -4,14 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
-import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Prescription;
 import com.neuedu.lab.model.po.PrescriptionContent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class MedicineDepartService {
@@ -26,6 +24,10 @@ public class MedicineDepartService {
     @Resource
     PrescriptionContentMapper prescriptionContentMapper;
 
+
+    public JSONObject getPrescriptionByPatientId(Integer register_info_patient_id){
+        return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientId(register_info_patient_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]));
+    }
 
     public JSONObject sendMedicine(Integer prescription_id){
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);

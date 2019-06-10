@@ -14,6 +14,11 @@ public class MedicineDepartController {
     @Autowired
     MedicineDepartService medicineDepartService;
 
+    @RequestMapping("/get-prescription-by-patient")
+    public JSONObject getPrescriptionByPatientId(@RequestBody JSONObject request){
+        return medicineDepartService.getPrescriptionByPatientId(request.getInteger("register_info_patient_id"));
+    }
+
     @RequestMapping("/send-medicine")
     public JSONObject sendMedicine(@RequestBody JSONObject request){
         return medicineDepartService.sendMedicine(request.getInteger("prescription_id"));
