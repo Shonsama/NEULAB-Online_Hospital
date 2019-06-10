@@ -5,11 +5,11 @@
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionContentMapper">
     <insert id="addPrescriptionContent" parameterType="PrescriptionContent" useGeneratedKeys="true" keyProperty="prescription_content_id">
         INSERT INTO prescription_content ( prescription_id, prescription_consumption,
-                                          prescription_medicine_id, prescription_frequency, prescription_num,
+                                          prescription_medicine_id, prescription_frequency, prescription_num,prescription_refund_available_num,
                                           prescription_day, prescription_unit_price,
                                           prescription_content_fee, prescription_content_actual_unit_price)
         VALUES (#{prescription_id}, #{prescription_consumption},
-                 #{prescription_medicine_id}, #{prescription_frequency}, #{prescription_num},
+                 #{prescription_medicine_id}, #{prescription_frequency}, #{prescription_num},#{prescription_refund_available_num},
                  #{prescription_day},#{prescription_unit_price}, #{prescription_content_fee},
                 #{prescription_content_actual_unit_price})
     </insert>
@@ -24,10 +24,15 @@
         WHERE prescription_content_id = #{prescription_content_id}
     </delete>
 
-    <select id="getPrescriptionContents" resultType="PrescriptionContent">
+    <select id="getPrescriptionContentsPart" resultType="PrescriptionContent">
         SELECT prescription_id, sum(prescription_num) AS prescription_num, prescription_unit_price  FROM prescription_content
         WHERE prescription_id = #{prescription_id}
         GROUP BY prescription_id, prescription_medicine_id,prescription_unit_price
+    </select>
+
+    <select id="getPrescriptionContents" resultType="PrescriptionContent">
+        SELECT *  FROM prescription_content
+        WHERE prescription_id = #{prescription_id}
     </select>
 
     <select id="getPrescriptionContent" resultType="PrescriptionContent">

@@ -394,7 +394,7 @@ public class DoctorService {
             return responseFail(prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id()));
         }
 //        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
-//        prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
+//        prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContentsPart(prescription.getPrescription_id()));
         return responseSuccess(prescriptionContent);
     }
 
@@ -415,7 +415,7 @@ public class DoctorService {
             return responseFail();
         }
         Prescription prescription1 = prescriptionMapper.getPrescription(prescription.getPrescription_id());
-        prescription1.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription1.getPrescription_id()));
+        prescription1.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContentsPart(prescription1.getPrescription_id()));
         return responseSuccess(prescription1);
     }
 
