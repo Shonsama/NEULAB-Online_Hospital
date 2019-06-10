@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.po;
 
+import java.math.BigDecimal;
+
 public class TemplateContent {
 
     private Integer template_content_id;
@@ -8,13 +10,18 @@ public class TemplateContent {
     private String template_medical_skill_content_name;
     private String template_medical_skill_content_specification;
     private String template_medical_skill_content_checkpoint;
+    private String template_medical_skill_content_department_id;
+    private String template_medical_skill_content_department_name;
+    private BigDecimal template_medical_skill_content_unit_price;
 
-    private  String template_medicine_name;
+    private String template_medicine_name;
     private String template_medicine_specification;
     private String template_medicine_unit;
     private String template_medicine_usage;
     private String template_medicine_consumption;
     private String template_medicine_frequency;
+    private Integer template_medicine_number;
+    private BigDecimal template_medicine_unit_price;
 
     public Integer getTemplate_content_id() {
         return template_content_id;
@@ -110,5 +117,45 @@ public class TemplateContent {
 
     public void setTemplate_medicine_frequency(String template_medicine_frequency) {
         this.template_medicine_frequency = template_medicine_frequency;
+    }
+
+    public String getTemplate_medical_skill_content_department_id() {
+        return template_medical_skill_content_department_id;
+    }
+
+    public void setTemplate_medical_skill_content_department_id(String template_medical_skill_content_department_id) {
+        this.template_medical_skill_content_department_id = template_medical_skill_content_department_id;
+    }
+
+    public String getTemplate_medical_skill_content_department_name() {
+        return template_medical_skill_content_department_name;
+    }
+
+    public void setTemplate_medical_skill_content_department_name(String template_medical_skill_content_department_name) {
+        this.template_medical_skill_content_department_name = template_medical_skill_content_department_name;
+    }
+
+    public BigDecimal getTemplate_medical_skill_content_unit_price() {
+        return template_medical_skill_content_unit_price;
+    }
+
+    public void setTemplate_medical_skill_content_unit_price(BigDecimal template_medical_skill_content_unit_price) {
+        this.template_medical_skill_content_unit_price = template_medical_skill_content_unit_price;
+    }
+
+    public Integer getTemplate_medicine_number() {
+        return template_medicine_number;
+    }
+
+    public void setTemplate_medicine_number(Integer template_medicine_number) {
+        this.template_medicine_number = template_medicine_number;
+    }
+
+    public BigDecimal getTemplate_medicine_unit_price() {
+        return template_medicine_unit_price;
+    }
+
+    public void setTemplate_medicine_unit_price(BigDecimal template_medicine_unit_price) {
+        this.template_medicine_unit_price = template_medicine_unit_price;
     }
 }
