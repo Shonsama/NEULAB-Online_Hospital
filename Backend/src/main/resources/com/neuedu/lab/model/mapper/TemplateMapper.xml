@@ -61,12 +61,17 @@
     <insert id="addTemplateContentNonMedicine" parameterType="TemplateContent" useGeneratedKeys="true"
             keyProperty="template_content_id">
         insert into template_content (template_connect_id,template_medical_skill_content_id,
-        template_medical_skill_content_name,template_medical_skill_content_specification,template_medical_skill_content_checkpoint)
+        template_medical_skill_content_name,template_medical_skill_content_specification,template_medical_skill_content_checkpoint,
+        template_medical_skill_content_department_id,template_medical_skill_content_department_name,
+        template_medical_skill_content_unit_price)
         values(#{template_connect_id},
         #{template_medical_skill_content_id},
         #{template_medical_skill_content_name},
         #{template_medical_skill_content_specification},
-        #{template_medical_skill_content_checkpoint})
+        #{template_medical_skill_content_checkpoint},
+        #{template_medical_skill_content_department_id},
+        #{template_medical_skill_content_department_name},
+        #{template_medical_skill_content_unit_price})
     </insert>
 
     <!--    增加项目,药品-->
@@ -74,14 +79,17 @@
             keyProperty="template_content_id">
         insert into template_content (template_connect_id,template_medicine_name,
         template_medicine_specification,template_medicine_unit,template_medicine_usage,
-        template_medicine_consumption,template_medicine_frequency)
+        template_medicine_consumption,template_medicine_frequency,
+        template_medicine_number,template_medicine_unit_price)
         values(#{template_connect_id},
         #{template_medicine_name},
         #{template_medicine_specification},
         #{template_medicine_unit},
         #{template_medicine_usage},
         #{template_medicine_consumption},
-        #{template_medicine_frequency})
+        #{template_medicine_frequency},
+        #{template_medicine_number},
+        #{template_medicine_unit_price})
     </insert>
 
 
@@ -95,16 +103,19 @@
     <!--查询项目内容,医技-->
     <select id="getTemplateContentNonMedicine" resultType="TemplateContent">
         select template_medical_skill_content_id,template_medical_skill_content_name,
-         template_medical_skill_content_specification,template_medical_skill_content_checkpoint
+         template_medical_skill_content_specification,template_medical_skill_content_checkpoint,
+         template_medical_skill_content_department_id,template_medical_skill_content_department_name,
+         template_medical_skill_content_unit_price
          from template_content where
         template_content.template_connect_id = #{template_connect_id};
     </select>
 
     <!--查询项目内容,根据模板id,药品-->
     <select id="getTemplateContentMedicine" resultType="TemplateContent">
-        select template_content.template_medicine_name,template_medicine_specification,
+        select template_medicine_name,template_medicine_specification,
          template_medicine_unit,template_medicine_usage,
-         template_medicine_consumption,template_medicine_frequency
+         template_medicine_consumption,template_medicine_frequency,
+         template_medicine_number,template_medicine_unit_price
          from template_content
         where template_content.template_connect_id = #{template_id};
     </select>

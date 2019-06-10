@@ -35,21 +35,26 @@ public class PayController {
         return payService.payPrescriptionFee(ids);
     }
 
-    @RequestMapping("/get-medical-skill-paid")
-    public JSONObject getMedicalSkillsInPayCondition(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInPayCondition(request.getInteger("register_info_id")));
+    //已缴费/已取消执行
+    @RequestMapping("/get-medical-skill-canceled-or-paid")
+    public JSONObject getMedicalSkillsInCanceledOrPaid(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInCanceledOrPaid(request.getInteger("register_info_id")));
     }
-    @RequestMapping("/get-medical-skill-not-paid")
-    public JSONObject getMedicalSkillsNotInPayCondition(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getMedicalSkillsNotInPayCondition(request.getInteger("register_info_id")));
+    //已开立
+    @RequestMapping("/get-medical-skill-drew")
+    public JSONObject getMedicalSkillsInDrew(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInDrew(request.getInteger("register_info_id")));
     }
 
-    @RequestMapping("/get-prescription-paid")
-    public JSONObject getPrescriptionsInPayCondition(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getPrescriptionsInPayCondition(request.getInteger("register_info_id")));
+    //已缴费/已退药
+    @RequestMapping("/get-prescription-returned-or-paid")
+    public JSONObject getPrescriptionsInReturnedOrPaid(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(payService.getPrescriptionsInReturnedOrPaid(request.getInteger("register_info_id")));
     }
-    @RequestMapping("/get-prescription-not-paid")
-    public JSONObject getPrescriptionsNotInPayCondition(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getPrescriptionsNotInPayCondition(request.getInteger("register_info_id")));
+
+    //已发送
+    @RequestMapping("/get-prescription-sent")
+    public JSONObject getPrescriptionsInSent(@RequestBody JSONObject request){
+        return ConstantUtils.responseSuccess(payService.getPrescriptionsInSent(request.getInteger("register_info_id")));
     }
 }
