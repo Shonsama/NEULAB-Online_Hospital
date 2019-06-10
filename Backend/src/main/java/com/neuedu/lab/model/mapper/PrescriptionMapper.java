@@ -1,5 +1,6 @@
 package com.neuedu.lab.model.mapper;
 
+import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.Prescription;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +34,5 @@ public interface PrescriptionMapper {
                                                   @Param("start_time") Date start_time,
                                                   @Param("end_time" )Date end_time);
 
+    List<Patient> getAllPatients(String prescription_execute_state);
 }

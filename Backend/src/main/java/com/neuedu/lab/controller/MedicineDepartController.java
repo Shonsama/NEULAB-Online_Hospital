@@ -19,6 +19,11 @@ public class MedicineDepartController {
         return medicineDepartService.getPrescriptionByPatientId(request.getInteger("register_info_patient_id"));
     }
 
+    @RequestMapping("/get-all-patients")
+    public JSONObject getAllPatients(){
+        return medicineDepartService.getAllPatients();
+    }
+
     @RequestMapping("/send-medicine")
     public JSONObject sendMedicine(@RequestBody JSONObject request){
         return medicineDepartService.sendMedicine(request.getInteger("prescription_id"));

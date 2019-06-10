@@ -33,6 +33,10 @@ public class MedicineDepartService {
         return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientId(register_info_patient_id, PRESCRIPTION_EXECUTE_STATE[3],null,null));
     }
 
+    public JSONObject getAllPatients(){
+        return ConstantUtils.responseSuccess(prescriptionMapper.getAllPatients(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]));
+    }
+
     public JSONObject sendMedicine(Integer prescription_id){
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(prescription==null){
