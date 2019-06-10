@@ -414,9 +414,7 @@ public class DoctorService {
             e.printStackTrace();
             return responseFail();
         }
-        Prescription prescription1 = prescriptionMapper.getPrescription(prescription.getPrescription_id());
-        prescription1.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContentsPart(prescription1.getPrescription_id()));
-        return responseSuccess(prescription1);
+       return responseSuccess(fulfill(prescriptionMapper.getPrescription(prescription.getPrescription_id())));
     }
 
 
@@ -451,7 +449,28 @@ public class DoctorService {
             e.printStackTrace();
             return responseFail(null);
         }
-        return responseSuccess(prescriptions);
+        return responseSuccess(fulfill(prescriptions));
+    }
+
+
+    //==================私有内部方法=================
+
+    //获取一个处方的所有内容及药品
+    private Prescription fulfill(Prescription prescription){
+        List<PrescriptionContent> contentList;
+        contentList = prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id());
+        for(PrescriptionContent prescriptionContent: contentList){
+            prescriptionContent.setMedicine(medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id()));
+        }
+        prescription.setPrescriptionContents(contentList);
+        return prescription;
+    }
+    private List<Prescription> fulfill(List<Prescription> prescriptionList){
+        List<Prescription> prescriptions = new ArrayList<>();
+        for(Prescription prescription : prescriptionList){
+            prescriptions.add(fulfill(prescription));
+        }
+        return prescriptions;
     }
 
 

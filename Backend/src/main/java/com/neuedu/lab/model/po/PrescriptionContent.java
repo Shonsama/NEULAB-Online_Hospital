@@ -15,6 +15,15 @@ public class PrescriptionContent {
     private BigDecimal prescription_unit_price;
     private BigDecimal prescription_content_fee;
     private BigDecimal prescription_content_actual_unit_price;
+    private Medicine medicine;
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
 
     public Integer getPrescription_refund_available_num() {
         return prescription_refund_available_num;

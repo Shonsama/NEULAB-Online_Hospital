@@ -32,7 +32,7 @@
 
     <select id="getPrescriptionContents" resultType="PrescriptionContent">
         SELECT *  FROM prescription_content
-        WHERE prescription_id = #{prescription_id}
+        WHERE prescription_id = #{prescription_id} AND  prescription_num>0
     </select>
 
     <select id="getPrescriptionContent" resultType="PrescriptionContent">
