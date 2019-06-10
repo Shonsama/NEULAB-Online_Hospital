@@ -49,18 +49,19 @@
         SELECT * FROM  medical_skill
         WHERE medical_skill_register_info_id = #{medical_skill_register_info_id}
     </select>
-<!--    获取medicalskill的所有已缴费项目-->
-    <select id="getMedicalSkillsInPayCondition" resultType="MedicalSkill">
+<!--    获取medicalskill的所有已取消或已缴费项目-->
+    <select id="getMedicalSkillsInCanceledOrPaid" resultType="MedicalSkill">
         select * from medical_skill
         where medical_skill_register_info_id = #{medical_skill_register_info_id}
-        and medical_skill_execute_state = "已缴费"
+        and (medical_skill_execute_state = "已取消执行"
+        or medical_skill_execute_state = "已缴费");
     </select>
 
-<!--    获取medicalskill的所有未缴费项目-->
-    <select id="getMedicalSkillsNotInPayCondition" resultType="MedicalSkill">
+<!--    获取medicalskill的所有已开立项目-->
+    <select id="getMedicalSkillsInDrew" resultType="MedicalSkill">
         select * from medical_skill
         where medical_skill_register_info_id = #{medical_skill_register_info_id}
-        and medical_skill_execute_state != "已缴费"
+        and medical_skill_execute_state = "已开立"
     </select>
 
 

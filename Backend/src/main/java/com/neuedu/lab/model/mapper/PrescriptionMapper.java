@@ -23,8 +23,8 @@ public interface PrescriptionMapper {
     //供更新姓名使用
     void updatePrescriptionName(Prescription prescription);
 
-    List<Prescription> getPrescriptionsInPayCondition(Integer prescription_register_info_id);
-    List<Prescription> getPrescriptionsNotInPayCondition(Integer prescription_register_info_id);
+    List<Prescription> getPrescriptionsInReturnedOrPaid(Integer prescription_register_info_id);
+    List<Prescription> getPrescriptionsInSent(Integer prescription_register_info_id);
 
     //通过patient_id找到所有已经缴费prescription
 

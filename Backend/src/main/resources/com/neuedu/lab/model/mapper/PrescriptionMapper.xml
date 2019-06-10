@@ -39,18 +39,19 @@
         WHERE prescription_id = #{prescription_id}
     </update>
 
-    <!--    获取所有已缴费项目-->
-    <select id="getPrescriptionsInPayCondition" resultType="Prescription">
+    <!--    获取所有已缴费/已退药项目-->
+    <select id="getPrescriptionsInReturnedOrPaid" resultType="Prescription">
         select * from prescription
         where prescription_register_info_id = #{prescription_register_info_id}
-        and prescription_execute_state = "已缴费"
+        and (prescription_execute_state = "已缴费"
+        or prescription_execute_state = "已退药");
     </select>
 
-    <!--    获取所有未缴费项目-->
-    <select id="getPrescriptionsNotInPayCondition" resultType="Prescription">
+    <!--    获取所有已发送项目-->
+    <select id="getPrescriptionsInSent" resultType="Prescription">
         select * from prescription
         where prescription_register_info_id = #{prescription_register_info_id}
-        and prescription_execute_state != "已缴费"
+        and prescription_execute_state = "已发送"
     </select>
 
     <select id="getPrescriptionByPatientId" resultType="Prescription">
