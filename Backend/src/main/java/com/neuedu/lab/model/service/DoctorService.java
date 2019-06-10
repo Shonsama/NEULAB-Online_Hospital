@@ -276,7 +276,13 @@ public class DoctorService {
             record.setFirstDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[0]));
             record.setFinalDiagnoses(diagnoseMapper.getDiagnoses(record_id, DIAGNOSE_TYPE[1]));
             record.setMedicalSkills(medicalSkillMapper.getMedicalSkillByRegisterIdForDoctor(record_id));
-            record.setPrescriptions(prescriptionMapper.getPrescriptionByRegisterId(record_id));
+            //填充处方
+            List<Prescription> prescriptions = prescriptionMapper.getPrescriptionByRegisterId(record_id);
+            for(Prescription prescription: prescriptions){
+                //填充处方内容
+                prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
+            }
+            record.setPrescriptions(prescriptions);
             record.setRegister(registerMapper.getRegister(record_id));
         }catch (RuntimeException e){
             e.printStackTrace();
@@ -385,7 +391,7 @@ public class DoctorService {
             e.printStackTrace();
             return responseFail(prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id()));
         }
-        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
+//        Prescription prescription = prescriptionMapper.getPrescription(prescriptionContent.getPrescription_id());
 //        prescription.setPrescriptionContents(prescriptionContentMapper.getPrescriptionContents(prescription.getPrescription_id()));
         return responseSuccess(prescriptionContent);
     }
