@@ -152,7 +152,7 @@
             :headers="headers_pre"
             :items="desserts_pre"
             expand
-            item-key="prescription_id"
+            item-key="prescription_name"
             select-all
           >
             <template v-slot:items="props">
@@ -463,7 +463,6 @@ export default {
         prescription_frequency: that.prescription_frequency,
         prescription_num: that.prescription_num,
         prescription_day: that.prescription_day
-
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-medicine'

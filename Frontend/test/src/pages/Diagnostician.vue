@@ -87,6 +87,7 @@
                           <v-btn
                             color="primary"
                             small
+                            right
                             :disabled = "disable"
                             append-icon="search"
                             @click="treat(props.item.register_info_patient_id)"
@@ -140,13 +141,35 @@
         </v-expand-x-transition>
       </v-flex>
       <v-divider vertical></v-divider>
-
       <v-flex xs12 md12>
         <v-toolbar flat>
           <v-toolbar-side-icon
             @click.stop="show = !show"
           ></v-toolbar-side-icon>
-          <v-toolbar-title>患者:{{patient.patient_name}}</v-toolbar-title>
+          <v-toolbar-items>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  flat
+                  v-on="on"
+                >
+                  患者{{':'+patient.patient_name}}
+                  <v-icon
+                  >
+                    arrow_drop_down
+                  </v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-container>
+                  <v-switch
+                    v-model="dark"
+                    :label="`黑暗模式`"
+                  ></v-switch>
+                </v-container>
+              </v-card>
+            </v-menu>
+          </v-toolbar-items>
           <v-spacer/>
           <v-btn
             color="primary"
