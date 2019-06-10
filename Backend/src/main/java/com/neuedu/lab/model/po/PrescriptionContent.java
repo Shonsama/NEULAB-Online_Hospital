@@ -15,9 +15,6 @@ public class PrescriptionContent {
     private BigDecimal prescription_unit_price;
     private BigDecimal prescription_content_fee;
     private BigDecimal prescription_content_actual_unit_price;
-    private Date prescription_create_time;
-    private Date prescription_pay_time;
-    private Date prescription_consume_time;
 
     public Integer getPrescription_refund_available_num() {
         return prescription_refund_available_num;
@@ -25,30 +22,6 @@ public class PrescriptionContent {
 
     public void setPrescription_refund_available_num(Integer prescription_refund_available_num) {
         this.prescription_refund_available_num = prescription_refund_available_num;
-    }
-
-    public Date getPrescription_create_time() {
-        return prescription_create_time;
-    }
-
-    public void setPrescription_create_time(Date prescription_create_time) {
-        this.prescription_create_time = prescription_create_time;
-    }
-
-    public Date getPrescription_pay_time() {
-        return prescription_pay_time;
-    }
-
-    public void setPrescription_pay_time(Date prescription_pay_time) {
-        this.prescription_pay_time = prescription_pay_time;
-    }
-
-    public Date getPrescription_consume_time() {
-        return prescription_consume_time;
-    }
-
-    public void setPrescription_consume_time(Date prescription_consume_time) {
-        this.prescription_consume_time = prescription_consume_time;
     }
 
     public BigDecimal getPrescription_content_actual_unit_price() {

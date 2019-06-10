@@ -28,5 +28,9 @@ public interface PrescriptionContentMapper {
 
 
     //供删除药品使用
-    PrescriptionContent getgetPrescriptionContentById(Integer prescription_content_id);
+    PrescriptionContent getPrescriptionContentById(Integer prescription_content_id);
+
+
+    //供退药使用， 更新内容
+    void updatePrescriptionContent(PrescriptionContent prescriptionContent);
 }

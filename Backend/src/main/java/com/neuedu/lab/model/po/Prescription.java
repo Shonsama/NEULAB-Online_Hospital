@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.po;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class Prescription {
@@ -13,6 +14,33 @@ public class Prescription {
     private BigDecimal prescription_fee;
     private String prescription_name;
     private List<PrescriptionContent> prescriptionContents;
+    private Date prescription_create_time;
+    private Date prescription_pay_time;
+    private Date prescription_sent_time;
+
+    public Date getPrescription_create_time() {
+        return prescription_create_time;
+    }
+
+    public void setPrescription_create_time(Date prescription_create_time) {
+        this.prescription_create_time = prescription_create_time;
+    }
+
+    public Date getPrescription_pay_time() {
+        return prescription_pay_time;
+    }
+
+    public void setPrescription_pay_time(Date prescription_pay_time) {
+        this.prescription_pay_time = prescription_pay_time;
+    }
+
+    public Date getPrescription_sent_time() {
+        return prescription_sent_time;
+    }
+
+    public void setPrescription_sent_time(Date prescription_sent_time) {
+        this.prescription_sent_time = prescription_sent_time;
+    }
 
     public List<PrescriptionContent> getPrescriptionContents() {
         return prescriptionContents;

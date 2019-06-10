@@ -66,4 +66,10 @@
         WHERE prescription_content_id = #{prescription_content_id}
     </select>
 
+    <update id="updatePrescriptionContent" parameterType="PrescriptionContent">
+        UPDATE prescription_content SET
+            prescription_refund_available_num = #{prescription_refund_available_num}
+        WHERE prescription_content_id = #{prescription_content_id}
+    </update>
+
 </mapper>

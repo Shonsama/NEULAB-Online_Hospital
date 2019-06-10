@@ -45,8 +45,11 @@ public class MedicineDepartService {
             return responseFail("此处方状态为["+prescription.getPrescription_execute_state()+"],不可发药",prescription);
         }
         else {
-            prescriptionMapper.updatePrescriptionState(prescription_id, PRESCRIPTION_EXECUTE_STATE[4]);
 
+            //更新状态和发药时间
+            prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]);
+            prescription.setPrescription_sent_time(new Date());
+            prescriptionMapper.updatePrescription(prescription);
             return ConstantUtils.responseSuccess(prescriptionMapper.getPrescription(prescription_id));
         }
 
@@ -63,30 +66,47 @@ public class MedicineDepartService {
         prescriptionContent.setPrescription_num(prescription_num);
 
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
-        Integer prescriptionContentNum = prescriptionContentMapper.getPrescriptionContentNum(prescriptionContent);
+//        Integer prescriptionContentNum = prescriptionContentMapper.getPrescriptionContentNum(prescriptionContent);
+        PrescriptionContent prescriptionContentBefore = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
 
+        if(prescriptionContentBefore == null){
+            return responseFail("该处方药品不存在");
+        }
         //查看药品状态应该是已领药状态
-        if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[4])){
+        if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[4])){//已领药
             return responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可退药",null);
         }
 
         //查看药品数量是否满足
-        if(prescriptionContentNum == null || prescriptionContentNum < prescriptionContent.getPrescription_num()){
+        if(prescriptionContentBefore.getPrescription_refund_available_num()  < prescriptionContent.getPrescription_num()){
             return responseFail("药品数量大于可退费数量",null);
         }
         else {
-            //获取最初的药品记录
-            PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
+            try{
+                //修改可退药数量
+                prescriptionContentBefore.setPrescription_refund_available_num(
+                        prescriptionContentBefore.getPrescription_refund_available_num() - prescriptionContent.getPrescription_num()
+                );
 
-            //改变数量、支付时间
-            prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
 
-            prescriptionContentToAdd.setPrescription_create_time(null);
-             prescriptionContentToAdd.setPrescription_consume_time(null);
+                //更新其可退药数量
+                prescriptionContentMapper.updatePrescriptionContent(prescriptionContentBefore);
 
-            //增加退药的数量为负的药品记录
-            prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
-            return ConstantUtils.responseSuccess(prescriptionContentToAdd);
+
+                //再次获取最初的药品记录
+                PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
+
+                //改变数量、支付时间
+                prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
+
+
+                //增加退药的数量为负的药品记录
+                prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
+            }catch (RuntimeException e){
+                e.printStackTrace();
+                return responseFail("退药失败");
+            }
+            return responseSuccess(prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent));
         }
     }
 
