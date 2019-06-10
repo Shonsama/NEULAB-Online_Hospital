@@ -13,6 +13,9 @@ public interface PrescriptionContentMapper {
     //供退药使用，仅返回未被消费的药品
     List<PrescriptionContent> getPrescriptionContentsNew(Integer prescription_id);
 
+    List<PrescriptionContent> getPrescriptionContentsPart(Integer prescription_id);
+
+    //供病历填充内容使用
     List<PrescriptionContent> getPrescriptionContents(Integer prescription_id);
 
     PrescriptionContent getPrescriptionContent(Integer prescription_id, String prescription_medicine_id);

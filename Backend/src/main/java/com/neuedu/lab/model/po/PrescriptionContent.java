@@ -10,6 +10,7 @@ public class PrescriptionContent {
     private String prescription_medicine_id;
     private String prescription_frequency;
     private Integer prescription_num;
+    private Integer prescription_refund_available_num;
     private Integer prescription_day;
     private BigDecimal prescription_unit_price;
     private BigDecimal prescription_content_fee;
@@ -18,6 +19,13 @@ public class PrescriptionContent {
     private Date prescription_pay_time;
     private Date prescription_consume_time;
 
+    public Integer getPrescription_refund_available_num() {
+        return prescription_refund_available_num;
+    }
+
+    public void setPrescription_refund_available_num(Integer prescription_refund_available_num) {
+        this.prescription_refund_available_num = prescription_refund_available_num;
+    }
 
     public Date getPrescription_create_time() {
         return prescription_create_time;
