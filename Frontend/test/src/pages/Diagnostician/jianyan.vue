@@ -216,6 +216,7 @@ export default {
       selected: '',
       selected_tem: '',
       search: '',
+      text: false,
       show: false,
       expand: false,
       expand_dia: false,
@@ -275,7 +276,8 @@ export default {
       medical_skill_name: '',
       medical_skill_checkpoint: '',
       medical_skill_purpose: '',
-      medical_skill_urgent: ''
+      medical_skill_urgent: '',
+      template_name: ''
     }
   },
   mounted: function () {
@@ -283,6 +285,13 @@ export default {
     this.getItem()
   },
   methods: {
+    addTem () {
+      if (this.text) {
+
+      } else {
+        this.text = true
+      }
+    },
     getItem () {
       let that = this
       var url = this.HOME + '/doctor/get-record'
@@ -322,40 +331,50 @@ export default {
       let that = this
       var i
       var url = this.HOME + '/doctor/delete-medical-skill'
+      console.log(that.selected)
+      var data
       for (i = 0; i < that.selected.length; i++) {
-        var data = {
-          medical_skill_id: that.selected.medical_skill_id
+        data = {
+          medical_skill_id: that.selected[i].medical_skill_id
         }
         this.$http.post(url, data)
           .then(function (response) {
             console.log(response.data)
-            that.desserts_dia = response.data.data
+            that.getItem()
           })
       }
     },
     startItem: function () {
       let that = this
-      var data = {
-        medical_skill_id: 1
-      }
+      var i
       var url = this.HOME + '/doctor/start-medical-skill'
-      this.$http.post(url, data)
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts_dia = response.data.data
-        })
+      console.log(that.selected)
+      for (i = 0; i < that.selected.length; i++) {
+        var data = {
+          medical_skill_id: that.selected[i].medical_skill_id
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            that.getItem()
+          })
+      }
     },
     endItem: function () {
       let that = this
-      var data = {
-        medical_skill_id: 1
-      }
+      var i
       var url = this.HOME + '/doctor/end-medical-skill'
-      this.$http.post(url, data)
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts_dia = response.data.data
-        })
+      console.log(that.selected)
+      for (i = 0; i < that.selected.length; i++) {
+        var data = {
+          medical_skill_id: that.selected[i].medical_skill_id
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            that.getItem()
+          })
+      }
     },
     load_mediskill: function () {
       let that = this
