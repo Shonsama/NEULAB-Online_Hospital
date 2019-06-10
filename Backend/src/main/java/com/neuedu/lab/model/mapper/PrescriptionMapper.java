@@ -35,4 +35,7 @@ public interface PrescriptionMapper {
                                                   @Param("end_time" )Date end_time);
 
     List<Patient> getAllPatients(String prescription_execute_state);
+
+    //药房发药更改处方发药时间
+    void updatePrescription(Prescription prescription);
 }
