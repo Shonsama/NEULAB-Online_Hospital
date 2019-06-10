@@ -211,7 +211,7 @@
                   v-model="selected_con"
                   :headers="headers_con"
                   :items="props.item.prescriptionContents"
-                  item-key="prescription_medicine_id"
+                  item-key="prescription_content_id"
                   hide-actions
                   select-all
                 >
@@ -224,8 +224,8 @@
                       ></v-checkbox>
                     </td>
                     <td>{{ props.item.prescription_medicine_id }}</td>
-                    <td>{{ props.item.medicine_name }}</td>
-                    <td>{{ props.item.medicine_specification }}</td>
+                    <td>{{ props.item.medicine.medicine_name }}</td>
+                    <td>{{ props.item.medicine.medicine_specifications }}</td>
                     <td>{{ props.item.prescription_day }}</td>
                     <td>{{ props.item.prescription_consumption }}</td>
                     <td>{{ props.item.prescription_unit_price }}</td>
@@ -296,6 +296,8 @@ export default {
       selected_pre: [],
       selected_con: [],
       selected_tem: [],
+      alert_success: false,
+      alert_error: false,
       search: '',
       show: false,
       show_pre_dia: false,
@@ -437,6 +439,9 @@ export default {
     }
   },
   methods: {
+    notice_success: function () {
+      window.setTimeout(this.change_success, 1500)
+    },
     filterType (value) {
       return value.prescription_type === '中药'
     },

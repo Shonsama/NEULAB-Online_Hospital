@@ -43,7 +43,7 @@ public interface MedicalSkillMapper {
 
 
     //author: LEE
-    List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer medical_skill_register_info_id);
-    List<MedicalSkill> getMedicalSkillsInDrew(Integer medical_skill_register_info_id);
+    List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id);
+    List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_patient_id);
 
 }
