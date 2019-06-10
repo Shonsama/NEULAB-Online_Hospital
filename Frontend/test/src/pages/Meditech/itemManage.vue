@@ -10,39 +10,67 @@
             <v-card-text>
               <v-text-field
                 ref="name"
-                v-model="non_medicine_id"
+                v-model="medical_skill_content_id"
                 :error-messages="errorMessages"
-                label="非药品编号"
-                placeholder="请输入非药品编号"
+                label="医技项目编号"
+                placeholder="请输入医技项目编号"
                 :disabled="!mode"
                 required
               ></v-text-field>
               <v-text-field
                 ref="address"
-                v-model="non_medicine_type"
-                label="非药品类型"
-                placeholder="请输入非药品类型"
+                v-model="medical_skill_content_name"
+                label="医技项目名称"
+                placeholder="请输入医技项目名称"
                 required
               ></v-text-field>
               <v-text-field
                 ref="city"
-                v-model="non_medicine_name"
-                label="非药品名称"
-                placeholder="请输入非药品名称"
+                v-model="medical_skill_content_detail"
+                label="医技项目内涵"
+                placeholder="请输入医技项目内涵"
                 required
               ></v-text-field>
               <v-text-field
                 ref="country"
-                v-model="non_medicine_specification"
-                label="非药品规格"
-                placeholder="请输入非药品规格"
+                v-model="medical_skill_content_father"
+                label="医技项目父级编码"
+                placeholder="请输入医技项目父级编码"
                 required
               ></v-text-field>
               <v-text-field
                 ref="country"
-                v-model="non_medicine_unit_price"
-                label="非药品单价"
-                placeholder="请输入非药品单价"
+                v-model="medical_skill_content_extra"
+                label="医技项目除外内容"
+                placeholder="请输入医技项目除外内容"
+                required
+              ></v-text-field>
+              <v-text-field
+                ref="country"
+                v-model="medical_skill_content_unit"
+                label="医技项目计价单位"
+                placeholder="请输入医技项目计价单位"
+                required
+              ></v-text-field>
+              <v-text-field
+                ref="country"
+                v-model="medical_skill_content_price"
+                label="医技项目单价"
+                placeholder="请输入医技项目单价"
+                required
+              ></v-text-field>
+              <v-text-field
+                ref="country"
+                v-model="medical_skill_content_explain"
+                label="医技项目说明"
+                placeholder="请输入医技项目说明"
+                required
+              ></v-text-field>
+              <v-text-field
+                ref="country"
+                v-model="medical_skill_content_department_id"
+                label="医技项目科室ID"
+                placeholder="请输入医技项目科室ID"
                 required
               ></v-text-field>
             </v-card-text>
@@ -81,6 +109,24 @@
       </v-layout>
     </v-dialog>
 
+    <v-alert
+      transition :duration="1"
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+
+    <v-alert
+      transition :duration="1"
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -96,7 +142,8 @@
         <v-spacer></v-spacer>
         <v-btn
           icon
-          falt
+          flat
+          color="primary"
           @click="show = !show , mode = true"
         >
           <v-icon>
@@ -105,8 +152,9 @@
         </v-btn>
         <v-btn
           icon
-          falt
-          @click="expand = !expand"
+          flat
+          color="primary"
+          @click="delete_selected()"
         >
           <v-icon>
             delete
@@ -118,7 +166,7 @@
         :headers="headers"
         :items="desserts"
         :search="search"
-        item-key="non_medicine_id"
+        item-key="medical_skill_content_id"
         select-all
         class="elevation-1"
       >
@@ -130,11 +178,15 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td>{{ props.item.non_medicine_id }}</td>
-          <td>{{ props.item.non_medicine_type }}</td>
-          <td>{{ props.item.non_medicine_name }}</td>
-          <td>{{ props.item.non_medicine_specification }}</td>
-          <td>{{ props.item.non_medicine_unit_price }}</td>
+          <td>{{ props.item.medical_skill_content_id }}</td>
+          <td>{{ props.item.medical_skill_content_name }}</td>
+          <td>{{ props.item.medical_skill_content_detail }}</td>
+          <td>{{ props.item.medical_skill_content_father }}</td>
+          <td>{{ props.item.medical_skill_content_extra }}</td>
+          <td>{{ props.item.medical_skill_content_unit }}</td>
+          <td>{{ props.item.medical_skill_content_price }}</td>
+          <td>{{ props.item.medical_skill_content_explain }}</td>
+          <td>{{ props.item.medical_skill_content_department_id }}</td>
           <td>
             <v-icon
               small
@@ -158,128 +210,202 @@
 
 <script>
 export default {
-  data: () => ({
-    mode: true,
-    non_medicine_id: '',
-    non_medicine_type: '',
-    non_medicine_name: '',
-    non_medicine_specification: '',
-    non_medicine_unit_price: '',
-    show: false,
-    search: '',
-    expand: false,
-    selected: [],
-    signal: '',
-    headers: [
-      {
-        text: '非药品编号',
-        align: 'left',
-        value: 'non_medicine_id'
+    data: () => ({
+      alert_success: false,
+      alert_error: false,
+      mode: true,
+      medical_skill_content_id: '',
+      medical_skill_content_name: '',
+      medical_skill_content_detail: '',
+      medical_skill_content_father: '',
+      medical_skill_content_extra: '',
+      medical_skill_content_unit: '',
+      medical_skill_content_price: '',
+      medical_skill_content_explain: '',
+      medical_skill_content_department_id: '',
+      show: false,
+      search: '',
+      expand: false,
+      selected: [],
+      signal: '',
+      headers: [
+        {
+          text: '医技项目编号',
+          align: 'left',
+          value: 'medical_skill_content_id'
+        },
+        { text: '医技项目名称', value: 'medical_skill_content_name' },
+        { text: '医技项目内涵', value: 'medical_skill_content_detail' },
+        { text: '医技项目父级编码', value: 'medical_skill_content_father' },
+        { text: '医技项目除外内容', value: 'medical_skill_content_extra' },
+        { text: '医技项目计价单位', value: 'medical_skill_content_unit' },
+        { text: '医技项目单价', value: 'medical_skill_content_price' },
+        { text: '医技项目说明', value: 'medical_skill_content_explain' },
+        { text: '医技项目科室ID', value: 'medical_skill_content_department_id' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
+      desserts: []
+    }),
+    methods: {
+      load: function () {
+        let that = this
+        var url = this.HOME + '/maintenance/medical-skill-content/get-all'
+        this.$http.post(url, {
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.desserts = response.data.data
+          })
       },
-      { text: '非药品类型', value: 'non_medicine_type' },
-      { text: '非药品名称', value: 'non_medicine_name' },
-      { text: '非药品规格', value: 'non_medicine_specification' },
-      { text: '非药品单价', value: 'non_medicine_unit_price' },
-      { text: '操作', value: 'operation', sortable: false }
-    ],
-    desserts: []
-  }),
-  methods: {
-    load: function () {
-      let that = this
-      var url = this.HOME + '/non_medicine/getall'
-      this.$http.post(url, {
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts = response.data
-        })
-    },
-    deleteItem: function (item) {
-      let that = this
-      var url = this.HOME + '/non_medicine/delete'
-      this.$http.post(url, {non_medicine_id: item.non_medicine_id})
-        .then(function (response) {
-          console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
-            that.load()
+      deleteItem: function (item) {
+        let that = this
+        var url = this.HOME + '/maintenance/medical-skill-content/delete'
+        this.$http.post(url, {medical_skill_content_id: item.medical_skill_content_id})
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              that.notice_success()
+            }else {
+              that.notice_error()
+            }
+          })
+        console.log(this.signal)
+      },
+      addItem: function () {
+        var department = {
+          medical_skill_content_id: this.medical_skill_content_id,
+          medical_skill_content_name: this.medical_skill_content_name,
+          medical_skill_content_detail: this.medical_skill_content_detail,
+          medical_skill_content_father: this.medical_skill_content_father,
+          medical_skill_content_extra: this.medical_skill_content_extra,
+          medical_skill_content_unit: this.medical_skill_content_unit,
+          medical_skill_content_price: this.medical_skill_content_price,
+          medical_skill_content_explain: this.medical_skill_content_explain,
+          medical_skill_content_department_id: this.medical_skill_content_department_id
+        }
+        let that = this
+        var url = this.HOME + '/maintenance/medical-skill-content/add'
+        this.$http.post(url, department)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              that.show = !that.show
+              that.notice_success()
+            }else {
+              that.notice_error()
+            }
+          })
+        console.log(this.signal)
+      },
+      updateItem: function () {
+        var department = {
+          medical_skill_content_id: this.medical_skill_content_id,
+          medical_skill_content_name: this.medical_skill_content_name,
+          medical_skill_content_detail: this.medical_skill_content_detail,
+          medical_skill_content_father: this.medical_skill_content_father,
+          medical_skill_content_extra: this.medical_skill_content_extra,
+          medical_skill_content_unit: this.medical_skill_content_unit,
+          medical_skill_content_price: this.medical_skill_content_price,
+          medical_skill_content_explain: this.medical_skill_content_explain,
+          medical_skill_content_department_id: this.medical_skill_content_department_id
+        }
+        let that = this
+        var url = this.HOME + '/maintenance/medical-skill-content/update'
+        this.$http.post(url, department)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              that.show = !that.show
+              that.eraseForm()
+              that.notice_success()
+            }else {
+              that.notice_error()
+            }
+          })
+        console.log(this.signal)
+      },
+      fillForm: function (item) {
+        this.medical_skill_content_id = item.medical_skill_content_id
+        this.medical_skill_content_name = item.medical_skill_content_name
+        this.medical_skill_content_detail = item.medical_skill_content_detail
+        this.medical_skill_content_father = item.medical_skill_content_father
+        this.medical_skill_content_extra = item.medical_skill_content_extra
+        this.medical_skill_content_unit = item.medical_skill_content_unit
+        this.medical_skill_content_price = item.medical_skill_content_price
+        this.medical_skill_content_explain = item.medical_skill_content_explain
+        this.medical_skill_content_department_id = item.medical_skill_content_department_id
+      },
+      eraseForm: function () {
+        this.medical_skill_content_id = ''
+        this.medical_skill_content_name = ''
+        this.medical_skill_content_detail = ''
+        this.medical_skill_content_father = ''
+        this.medical_skill_content_extra = ''
+        this.medical_skill_content_unit = ''
+        this.medical_skill_content_price = ''
+        this.medical_skill_content_explain = ''
+        this.medical_skill_content_department_id = ''
+      },
+      notice_success: function () {
+        this.change_success()
+        var timeout_1 = window.setTimeout( this.change_success, 1500)
+      },
+      change_success: function () {
+        this.alert_success =! this.alert_success
+      },
+      notice_error: function () {
+        this.change_error()
+        var timeout_2 = window.setTimeout( this.change_error, 1500)
+      },
+      change_error: function () {
+        this.alert_error =! this.alert_error
+      },
+      delete_selected: function () {
+        var count = 0
+        var length = this.selected.length
+        for (let i = 0; i < this.selected.length; i++) {
+          var item ={
+            medical_skill_content_id: this.selected[i].medical_skill_content_id
           }
-        })
-      console.log(this.signal)
-    },
-    addItem: function () {
-      var nonedicine = {
-        non_medicine_id: this.non_medicine_id,
-        non_medicine_type: this.non_medicine_type,
-        non_medicine_name: this.non_medicine_name,
-        non_medicine_specification: this.non_medicine_specification,
-        non_medicine_unit_price: this.non_medicine_unit_price
+          let that = this
+          var url = this.HOME + '/maintenance/medical-skill-content/delete'
+          this.$http.post(url, {medical_skill_content_id: item.medical_skill_content_id})
+            .then(function (response) {
+              console.log(response.data)
+              that.signal = response.data.msg
+              if (that.signal === 'SUCCESS') {
+                that.load()
+                count = count + 1
+              }
+            })
+        }
+        if (this.count === this.length){
+          this.notice_success()
+        }
+        else {
+          this.notice_error()
+        }
       }
-      let that = this
-      var url = this.HOME + '/non_medicine/add'
-      this.$http.poMst(url, nonedicine)
-        .then(function (response) {
-          console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
-            that.load()
-            that.show = !that.show
-          }
-        })
-      console.log(this.signal)
     },
-    updateItem: function () {
-      var nonMedicine = {
-        non_medicine_id: this.non_medicine_id,
-        non_medicine_type: this.non_medicine_type,
-        non_medicine_name: this.non_medicine_name,
-        non_medicine_specification: this.non_medicine_specification,
-        non_medicine_unit_price: this.non_medicine_unit_price
-      }
-      let that = this
-      var url = this.HOME + '/non_medicine/update'
-      this.$http.post(url, nonMedicine)
-        .then(function (response) {
-          console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
-            that.load()
-            that.show = !that.show
-            that.eraseForm()
-          }
-        })
-      console.log(this.signal)
+    mounted: function () {
+      this.load()
     },
-    fillForm: function (item) {
-      this.non_medicine_id = item.non_medicine_id
-      this.non_medicine_type = item.non_medicine_type
-      this.non_medicine_name = item.non_medicine_name
-      this.non_medicine_specification = item.non_medicine_specification
-      this.non_medicine_unit_price = item.non_medicine_unit_price
+    computed: {
     },
-    eraseForm: function () {
-      this.non_medicine_id = ''
-      this.non_medicine_type = ''
-      this.non_medicine_name = ''
-      this.non_medicine_specification = ''
-      this.non_medicine_unit_price = ''
-    }
-
-  },
-  mounted: function () {
-    this.load()
-  },
-  computed: {
-  },
-  watch: {
-    show: function (newState, oldState) {
-      if (newState === false) {
-        this.eraseForm()
+    watch: {
+      show: function (newState, oldState) {
+        if (newState === false) {
+          this.eraseForm()
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>

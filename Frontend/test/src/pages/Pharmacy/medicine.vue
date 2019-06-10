@@ -142,7 +142,7 @@
 </template>
 
 <script>
-  export default {
+export default {
     data: () => ({
       // alert_success: false,
       // alert_error: false,
