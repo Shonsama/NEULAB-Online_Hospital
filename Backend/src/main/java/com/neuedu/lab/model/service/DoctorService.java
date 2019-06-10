@@ -402,7 +402,7 @@ public class DoctorService {
     public JSONObject deletePrescriptionContent(Integer prescription_content_id) {
         Prescription prescription;
         try {
-            PrescriptionContent prescriptionContent = prescriptionContentMapper.getgetPrescriptionContentById(prescription_content_id);
+            PrescriptionContent prescriptionContent = prescriptionContentMapper.getPrescriptionContentById(prescription_content_id);
             prescriptionContentMapper.deletePrescriptionContent(prescription_content_id);
 
             //更新处方费用
