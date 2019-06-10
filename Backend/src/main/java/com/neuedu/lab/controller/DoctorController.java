@@ -140,11 +140,11 @@ public class DoctorController {
     //发送处方、作废处方
         @RequestMapping("/send-prescription")
     public JSONObject sendPrescription(@RequestBody JSONObject request){
-       return doctorService.sendPrescription(request.getInteger("prescriptioin_id"));
+       return doctorService.sendPrescription(request.getInteger("prescription_id"));
     }
     @RequestMapping("/end-prescription")
     public JSONObject endPrescription(@RequestBody JSONObject request){
-        return doctorService.endPrescription(request.getInteger("prescriptioin_id"));
+        return doctorService.endPrescription(request.getInteger("prescription_id"));
     }
 
 

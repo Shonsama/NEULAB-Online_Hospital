@@ -81,17 +81,22 @@ CREATE TABLE `his`.`department_info` (
   PRIMARY KEY (`department_id`)
 )default charset=utf8;
 
+
+
+
+#医技内容表
 drop table if exists `his`.`medical_skill_content`;
 create table `medical_skill_content`(
-`medical_skill_content_id` varchar(45) not null,
-`medical_skill_content_name` varchar(45) not null,
-`medical_skill_content_detail` varchar(45) null,
-`medical_skill_content_father` varchar(45) null,
-`medical_skill_content_extra` varchar(45) null,
-`medical_skill_content_unit` varchar(45) null,
-`medical_skill_content_price` decimal(8,2) unsigned null,
-`medical_skill_content_explain` varchar(45) null,
-primary key(`medical_skill_content_id`)
+  `medical_skill_content_id` varchar(45) not null,
+  `medical_skill_content_name` varchar(45) not null,
+  `medical_skill_content_detail` varchar(45) null,
+  `medical_skill_content_father` varchar(45) null,
+  `medical_skill_content_extra` varchar(45) null,
+  `medical_skill_content_unit` varchar(45) null,
+  `medical_skill_content_price` decimal(8,2) unsigned null,
+  `medical_skill_content_explain` varchar(45) null,
+  `medical_skill_content_department_id` VARCHAR(45) NULL ,
+  primary key(`medical_skill_content_id`)
 )default charset=utf8;
 
 
@@ -217,7 +222,8 @@ CREATE TABLE `his`.`record` (
   `record_allergy_his` VARCHAR(400) NULL,
   `record_suggestion` VARCHAR(400) NULL,
   `record_attention` VARCHAR(400) NULL,
-  `record_final_submit` BOOLEAN NOT NULL DEFAULT FALSE ,
+  `record_doctor_type` VARCHAR(45) NOT NULL ,
+  `record_state` VARCHAR(45) NOT NULL ,
   FOREIGN KEY  (`record_patient_id`)  REFERENCES  `patient_info` (`patient_record_id`),
   FOREIGN KEY  (`record_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
@@ -241,14 +247,15 @@ CREATE TABLE `his`.`prescription` (
   `prescription_id` int NOT NULL AUTO_INCREMENT,
   `prescription_execute_state` varchar(45) NOT NULL,
   `prescription_type` varchar(45) NOT NULL,
+  prescription_name VARCHAR(45) NOT NULL COMMENT '处方名称',
   #foreign key
   `prescription_user_id` INT NULL,
   `prescription_doctor_id` INT NULL,
   `prescription_register_info_id` INT NOT NULL,
-  `prescription_create_time` DATETIME NULL, #开立时间
-  `prescription_pay_time` DATETIME NULL ,
-  `prescription_consume_time` DATETIME NULL ,
-  `prescription_fee` DECIMAL(8,2) NOT NULL ,
+  `prescription_create_time` DATETIME NULL DEFAULT current_timestamp, #开立时间
+  `prescription_pay_time` DATETIME NULL DEFAULT current_timestamp ,
+  `prescription_sent_time` DATETIME NULL DEFAULT current_timestamp,
+  `prescription_fee` DECIMAL(8,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`prescription_id`),
   FOREIGN KEY  (`prescription_register_info_id`)  REFERENCES  `register_info` (`register_info_id`)
 )default charset=utf8;
@@ -261,8 +268,10 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_medicine_id` VARCHAR(45) NULL, #药物ID
   `prescription_frequency` varchar(45) NULL, #频度
   `prescription_num` int NOT NULL, #数量
+  `prescription_refund_available_num` INT NOT NULL ,
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
+  `prescription_content_actual_unit_price` DECIMAL(8,2) NOT NULL, #实付单价
   `prescription_day` int NULL, #天数
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
   PRIMARY KEY (`prescription_id`)
@@ -272,6 +281,7 @@ drop table  if exists `his`.`medical_skill`;
 CREATE TABLE `his`.`medical_skill` (
   `medical_skill_id` int NOT NULL AUTO_INCREMENT,
   `medical_skill_execute_state` varchar(45) not null,
+  `medical_skill_execute_department` varchar(45) not null,
   `medical_skill_result` varchar(400) NULL,
   `medical_skill_type` varchar(45) NOT NULL,
   `medical_skill_name` varchar(45) NOT NULL,
@@ -375,3 +385,26 @@ CREATE TABLE `his`.`daily` (
 )default charset=utf8;
 
 #show TABLES ;
+ALTER TABLE bill engine=InnoDB;
+ALTER TABLE constant engine=InnoDB;
+ALTER TABLE daily engine=InnoDB;
+ALTER TABLE department_info engine=InnoDB;
+ALTER TABLE diagnose engine=InnoDB;
+ALTER TABLE disease_info engine=InnoDB;
+ALTER TABLE doctor_info engine=InnoDB;
+ALTER TABLE fee_cat engine=InnoDB;
+ALTER TABLE medical_skill engine=InnoDB;
+ALTER TABLE medicine engine=InnoDB;
+ALTER TABLE non_medicine engine=InnoDB;
+ALTER TABLE medicine engine=InnoDB;
+ALTER TABLE patient_info engine=InnoDB;
+ALTER TABLE prescription engine=InnoDB;
+ALTER TABLE prescription_content engine=InnoDB;
+ALTER TABLE record engine=InnoDB;
+ALTER TABLE register_info engine=InnoDB;
+ALTER TABLE register_level engine=InnoDB;
+ALTER TABLE rule engine=InnoDB;
+ALTER TABLE schedule engine=InnoDB;
+ALTER TABLE template engine=InnoDB;
+ALTER TABLE user_info engine=InnoDB;
+ALTER TABLE usual_diagnose engine=InnoDB;
