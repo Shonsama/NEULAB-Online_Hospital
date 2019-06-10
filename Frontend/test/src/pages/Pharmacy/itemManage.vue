@@ -239,22 +239,22 @@ export default {
   methods: {
     load: function () {
       let that = this
-      var url = this.HOME + '/medicine/getall'
+      var url = this.HOME + '/maintenance/medicine/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts = response.data
+          that.desserts = response.data.data
         })
     },
     deleteItem: function (item) {
       let that = this
-      var url = this.HOME + '/medicine/delete'
+      var url = this.HOME + '/maintenance/medicine/delete'
       this.$http.post(url, {medicine_id: item.medicine_id})
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
           }
         })
@@ -274,12 +274,12 @@ export default {
         medicine_pinyin: this.medicine_pinyin
       }
       let that = this
-      var url = this.HOME + '/medicine/add'
+      var url = this.HOME + '/maintenance/medicine/add'
       this.$http.post(url, medicine)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
           }
@@ -300,12 +300,12 @@ export default {
         medicine_pinyin: this.medicine_pinyin
       }
       let that = this
-      var url = this.HOME + '/medicine/update'
+      var url = this.HOME + '/maintenance/medicine/update'
       this.$http.post(url, medicine)
         .then(function (response) {
           console.log(response.data)
-          that.signal = response.data
-          if (that.signal.result === 'success') {
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
             that.load()
             that.show = !that.show
             that.eraseForm()
