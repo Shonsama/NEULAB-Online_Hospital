@@ -55,9 +55,17 @@
 
     <select id="getPrescriptionByPatientId" resultType="Prescription">
         SELECT prescription.* FROM prescription,register_info
-        WHERE register_info_patient_id = #{register_info_patient_id}
-            AND register_info_id = prescription_register_info_id
-            AND prescription_execute_state = #{prescription_execute_state}
+            <where>
+                AND register_info_patient_id = #{register_info_patient_id}
+                AND register_info_id = prescription_register_info_id
+                AND prescription_execute_state = #{prescription_execute_state}
+                <if test="start_time != null">
+                    AND unix_timestamp(prescription_sent_time) > unix_timestamp(#{start_time})
+                </if>
+                <if test="end_time != null">
+                    AND  unix_timestamp(#{end_time}) > unix_timestamp(prescription_sent_time)
+                </if>
+            </where>
 
     </select>
 

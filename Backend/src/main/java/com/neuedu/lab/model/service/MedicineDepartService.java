@@ -1,7 +1,6 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Prescription;
@@ -10,6 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+
+import static com.neuedu.lab.Utils.ConstantDefinition.*;
+import static com.neuedu.lab.Utils.ConstantUtils.*;
 
 @Service
 public class MedicineDepartService {
@@ -26,22 +30,22 @@ public class MedicineDepartService {
 
 
     public JSONObject getPrescriptionByPatientId(Integer register_info_patient_id){
-        return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientId(register_info_patient_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]));
+        return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientId(register_info_patient_id, PRESCRIPTION_EXECUTE_STATE[3],null,null));
     }
 
     public JSONObject getAllPatients(){
-        return ConstantUtils.responseSuccess(prescriptionMapper.getAllPatients(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]));
+        return ConstantUtils.responseSuccess(prescriptionMapper.getAllPatients(PRESCRIPTION_EXECUTE_STATE[3]));
     }
 
     public JSONObject sendMedicine(Integer prescription_id){
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(prescription==null){
-            return ConstantUtils.responseFail("无此处方记录");
-        }else if(!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3])){
-            return ConstantUtils.responseFail("此处方状态为["+prescription.getPrescription_execute_state()+"],不可发药",prescription);
+            return responseFail("无此处方记录");
+        }else if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])){
+            return responseFail("此处方状态为["+prescription.getPrescription_execute_state()+"],不可发药",prescription);
         }
         else {
-            prescriptionMapper.updatePrescriptionState(prescription_id,ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[4]);
+            prescriptionMapper.updatePrescriptionState(prescription_id, PRESCRIPTION_EXECUTE_STATE[4]);
 
             return ConstantUtils.responseSuccess(prescriptionMapper.getPrescription(prescription_id));
         }
@@ -62,13 +66,13 @@ public class MedicineDepartService {
         Integer prescriptionContentNum = prescriptionContentMapper.getPrescriptionContentNum(prescriptionContent);
 
         //查看药品状态应该是已领药状态
-        if(!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[4])){
-            return ConstantUtils.responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可退药",null);
+        if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[4])){
+            return responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可退药",null);
         }
 
         //查看药品数量是否满足
         if(prescriptionContentNum == null || prescriptionContentNum < prescriptionContent.getPrescription_num()){
-            return ConstantUtils.responseFail("药品数量大于可退费数量",null);
+            return responseFail("药品数量大于可退费数量",null);
         }
         else {
             //获取最初的药品记录
@@ -85,6 +89,31 @@ public class MedicineDepartService {
             return ConstantUtils.responseSuccess(prescriptionContentToAdd);
         }
     }
+
+
+    public JSONObject getSentPrescription(Integer patient_id, Date start_time, Date end_time) {
+        List<Prescription> prescriptions;
+        try{
+            prescriptions = prescriptionMapper.getPrescriptionByPatientId
+                    (patient_id,PRESCRIPTION_EXECUTE_STATE[4],start_time,end_time);//已领药
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(prescriptions);
+    }
+
+    public JSONObject getPrescriptionContentsByPrescriptionId(Integer prescription_id){
+        List<PrescriptionContent> prescriptionContents;
+        try{
+            prescriptionContents = prescriptionContentMapper.getPrescriptionContents(prescription_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(prescriptionContents);
+    }
+
 
 
 }

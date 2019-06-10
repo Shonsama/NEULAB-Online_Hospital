@@ -35,6 +35,17 @@ public class MedicineDepartController {
                 request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
     }
 
+    @RequestMapping("/get-sent-prescription")
+    public JSONObject getSentPrescription(@RequestBody JSONObject request){
+        return  medicineDepartService.getSentPrescription(request.getInteger("patient_id"),
+                request.getDate("start_time"), request.getDate("end_time"));
+    }
+
+    @RequestMapping("/get-prescription-contents")
+    public JSONObject getPrescriptionContentsByPrescriptionId(@RequestBody JSONObject request){
+        return medicineDepartService.getPrescriptionContentsByPrescriptionId(request.getInteger("prescription_id"));
+    }
+
 
 
 
