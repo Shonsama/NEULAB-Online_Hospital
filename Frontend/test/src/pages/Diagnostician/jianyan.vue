@@ -141,20 +141,6 @@
         </v-data-table>
       </v-card>
     </v-dialog>
-    <v-alert
-      :value="alert_success"
-      type="success"
-      transition="slide-y-transition"
-    >
-      This is a success alert.
-    </v-alert>
-    <v-alert
-      :value="alert_error"
-      type="error"
-      transition="slide-y-transition"
-    >
-      This is a error alert.
-    </v-alert>
     <v-layout>
       <v-flex  lg8>
         <v-toolbar flat dense>
@@ -289,7 +275,9 @@ export default {
       selected_tem: [],
       search: '',
       alert_success: false,
+      msg_success: '',
       alert_error: false,
+      msg_error: '',
       text: false,
       show: false,
       expand: false,
@@ -355,12 +343,6 @@ export default {
     this.load_mediskill()
     this.getItem()
   },
-  watch: {
-    dialog (val) {
-      if (!val) return
-      setTimeout(() => (this.dialog = false), 4000)
-    }
-  },
   computed: {
     filterDesserts () {
       return this.desserts.filter(this.filterType)
@@ -389,12 +371,13 @@ export default {
       let that = this
       var url = this.HOME + '/doctor/get-record'
       var data = {
-        record_id: '6'
+        record_id: that.msgfromfa.register_info_id
       }
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
           that.desserts = response.data.data.medicalSkills
+          that.dialog = false
         })
     },
     addItem: function (value) {
@@ -406,8 +389,8 @@ export default {
         medical_skill_checkpoint: that.medical_skill_checkpoint,
         medical_skill_purpose: that.medical_skill_purpose,
         medical_skill_urgent: that.medical_skill_urgent,
-        medical_skill_register_info_id: '6',
-        medical_skill_doctor_id: 1,
+        medical_skill_register_info_id: that.msgfromfa.register_info_id,
+        medical_skill_doctor_id: that.msgfromfa.register_info_doctor_id,
         medical_skill_content_id: value.medical_skill_content_id,
         medical_skill_fee: value.medical_skill_content_price,
         medical_skill_execute_department: '血液科'
@@ -417,12 +400,15 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.show = false
+          that.dialog = true
           that.getItem()
         })
     },
     deleteItem: function () {
       let that = this
       var i
+      that.dialog = true
       var url = this.HOME + '/doctor/delete-medical-skill'
       console.log(that.selected)
       var data
@@ -440,6 +426,7 @@ export default {
     startItem: function () {
       let that = this
       var i
+      that.dialog = true
       var url = this.HOME + '/doctor/start-medical-skill'
       console.log(that.selected)
       for (i = 0; i < that.selected.length; i++) {
@@ -456,6 +443,7 @@ export default {
     endItem: function () {
       let that = this
       var i
+      that.dialog = true
       var url = this.HOME + '/doctor/end-medical-skill'
       console.log(that.selected)
       for (i = 0; i < that.selected.length; i++) {

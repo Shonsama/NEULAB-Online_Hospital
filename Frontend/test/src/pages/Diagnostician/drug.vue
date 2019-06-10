@@ -289,7 +289,7 @@
 
 <script>
 export default {
-  props: ['msgfromfa'],
+  props: ['msgfromfa', 'dialog'],
   data () {
     return {
       selected_dia: [],
