@@ -55,6 +55,34 @@
                 >
                   <div v-if="item.id == 'desserts_per'">
                     <v-card flat >
+                      <v-toolbar flat dense>
+                        <v-toolbar-title>未诊断</v-toolbar-title>
+                      </v-toolbar>
+                      <v-data-table
+                        :search="search"
+                        :headers="headers"
+                        :items="desserts_per.YiGuaHao"
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                          <td>{{ props.item.patient.patient_record_id }}</td>
+                          <td>{{ props.item.patient.patient_name }}</td>
+                          <td>
+                            <v-btn
+                              color="primary"
+                              small
+                              right
+                              :disabled = "disable"
+                              append-icon="search"
+                              @click="treat(props.item)"
+                            >
+                              接诊
+                            </v-btn>
+                          </td>
+                        </template>
+                      </v-data-table>
+                    </v-card>
+                    <v-card flat >
                     <v-toolbar flat dense>
                       <v-toolbar-title>已诊断</v-toolbar-title>
                     </v-toolbar>
@@ -70,43 +98,16 @@
                       </template>
                     </v-data-table>
                   </v-card>
-                    <v-card flat >
-                    <v-toolbar flat dense>
-                      <v-toolbar-title>未诊断</v-toolbar-title>
-                    </v-toolbar>
-                    <v-data-table
-                      :search="search"
-                      :headers="headers"
-                      :items="desserts_per.YiGuaHao"
-                      class="elevation-1"
-                    >
-                      <template v-slot:items="props">
-                        <td>{{ props.item.patient.patient_record_id }}</td>
-                        <td>{{ props.item.patient.patient_name }}</td>
-                        <td>
-                          <v-btn
-                            color="primary"
-                            small
-                            :disabled = "disable"
-                            append-icon="search"
-                            @click="treat(props.item.register_info_patient_id)"
-                          >
-                            接诊
-                          </v-btn>
-                        </td>
-                      </template>
-                    </v-data-table>
-                  </v-card>
                   </div>
                   <div v-if="item.id == 'desserts_depart'">
                     <v-card flat >
                       <v-toolbar flat dense>
-                        <v-toolbar-title>已诊断</v-toolbar-title>
+                        <v-toolbar-title>未诊断</v-toolbar-title>
                       </v-toolbar>
                       <v-data-table
                         :search="search"
                         :headers="headers1"
-                        :items="desserts_depart.YiZhenBi"
+                        :items="desserts_depart.YiGuaHao"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -117,12 +118,12 @@
                     </v-card>
                     <v-card flat >
                       <v-toolbar flat dense>
-                        <v-toolbar-title>未诊断</v-toolbar-title>
+                        <v-toolbar-title>已诊断</v-toolbar-title>
                       </v-toolbar>
                       <v-data-table
                         :search="search"
                         :headers="headers1"
-                        :items="desserts_depart.YiGuaHao"
+                        :items="desserts_depart.YiZhenBi"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -140,13 +141,35 @@
         </v-expand-x-transition>
       </v-flex>
       <v-divider vertical></v-divider>
-
       <v-flex xs12 md12>
         <v-toolbar flat>
           <v-toolbar-side-icon
             @click.stop="show = !show"
           ></v-toolbar-side-icon>
-          <v-toolbar-title>患者:{{patient.patient_name}}</v-toolbar-title>
+          <v-toolbar-items>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  flat
+                  v-on="on"
+                >
+                  患者{{':'+patient.patient_name}}
+                  <v-icon
+                  >
+                    arrow_drop_down
+                  </v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-container>
+                  <v-switch
+                    v-model="dark"
+                    :label="`黑暗模式`"
+                  ></v-switch>
+                </v-container>
+              </v-card>
+            </v-menu>
+          </v-toolbar-items>
           <v-spacer/>
           <v-btn
             color="primary"
@@ -359,15 +382,14 @@ export default {
     },
     treat: function (value) {
       var url = this.HOME + '/doctor/treat'
-      var that = this
+      // var that = this
       var data = {
-        'register_id': '1'
+        register_id: value.register_info_id
       }
       console.log(value)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.patient.patient_name = value
           this.load_patient_self()
           this.load_patient_depart()
         })

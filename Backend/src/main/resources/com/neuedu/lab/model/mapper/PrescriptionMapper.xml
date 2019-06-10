@@ -54,20 +54,22 @@
 
     <!--    获取所有已缴费/已退药项目-->
     <select id="getPrescriptionsInReturnedOrPaid" resultType="Prescription">
-        select * from prescription
-        where prescription_register_info_id = #{prescription_register_info_id}
+        select medical_skill.* from prescription,register_info
+        where register_info_patient_id = #{register_info_patient_id}
+        and register_info_id = prescription.prescription_register_info_id
         and (prescription_execute_state = "已缴费"
         or prescription_execute_state = "已退药");
     </select>
 
     <!--    获取所有已发送项目-->
     <select id="getPrescriptionsInSent" resultType="Prescription">
-        select * from prescription
-        where prescription_register_info_id = #{prescription_register_info_id}
+        select medical_skill.* from prescription,register_info
+        where register_info_patient_id = #{register_info_patient_id}
+        and register_info_id = prescription.prescription_register_info_id
         and prescription_execute_state = "已发送"
     </select>
 
-    <select id="getPrescriptionByPatientId" resultType="Prescription">
+    <select id="getPrescriptionByPatientIdBySentTime" resultType="Prescription">
         SELECT prescription.* FROM prescription,register_info
             <where>
                 AND register_info_patient_id = #{register_info_patient_id}
@@ -80,6 +82,22 @@
                     AND  unix_timestamp(#{end_time}) > unix_timestamp(prescription_sent_time)
                 </if>
             </where>
+
+    </select>
+
+    <select id="getPrescriptionByPatientIdByPayTime" resultType="Prescription">
+        SELECT prescription.* FROM prescription,register_info
+        <where>
+            AND register_info_patient_id = #{register_info_patient_id}
+            AND register_info_id = prescription_register_info_id
+            AND prescription_execute_state = #{prescription_execute_state}
+            <if test="start_time != null">
+                AND unix_timestamp(prescription_pay_time) > unix_timestamp(#{start_time})
+            </if>
+            <if test="end_time != null">
+                AND  unix_timestamp(#{end_time}) > unix_timestamp(prescription_pay_time)
+            </if>
+        </where>
 
     </select>
 

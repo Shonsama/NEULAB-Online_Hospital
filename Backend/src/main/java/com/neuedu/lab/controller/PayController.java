@@ -38,23 +38,23 @@ public class PayController {
     //已缴费/已取消执行
     @RequestMapping("/get-medical-skill-canceled-or-paid")
     public JSONObject getMedicalSkillsInCanceledOrPaid(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInCanceledOrPaid(request.getInteger("register_info_id")));
+        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInCanceledOrPaid(request.getInteger("register_info_patient_id")));
     }
     //已开立
     @RequestMapping("/get-medical-skill-drew")
     public JSONObject getMedicalSkillsInDrew(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInDrew(request.getInteger("register_info_id")));
+        return ConstantUtils.responseSuccess(payService.getMedicalSkillsInDrew(request.getInteger("register_info_patient_id")));
     }
 
     //已缴费/已退药
     @RequestMapping("/get-prescription-returned-or-paid")
     public JSONObject getPrescriptionsInReturnedOrPaid(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getPrescriptionsInReturnedOrPaid(request.getInteger("register_info_id")));
+        return ConstantUtils.responseSuccess(payService.getPrescriptionsInReturnedOrPaid(request.getInteger("register_info_patient_id")));
     }
 
     //已发送
     @RequestMapping("/get-prescription-sent")
     public JSONObject getPrescriptionsInSent(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(payService.getPrescriptionsInSent(request.getInteger("register_info_id")));
+        return ConstantUtils.responseSuccess(payService.getPrescriptionsInSent(request.getInteger("register_info_patient_id")));
     }
 }
