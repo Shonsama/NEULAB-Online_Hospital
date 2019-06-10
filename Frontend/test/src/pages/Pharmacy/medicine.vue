@@ -10,7 +10,7 @@
             <v-card-text>
               <v-text-field
                 ref="name"
-                v-model="ms_id"
+                v-model="md_id"
                 :error-messages="errorMessages"
                 label="医技ID"
                 placeholder="请输入医技ID"
@@ -98,7 +98,7 @@
               <td>{{ props.item.patient_record_id }}</td>
               <td>{{ props.item.patient_name }}</td>
               <td >
-                <v-btn right small icon flat color="primary" @click="getPersonalMS(props.item)">
+                <v-btn right small icon flat color="primary" @click="getPersonalMD(props.item)">
                   <v-icon>check_circle</v-icon>
                 </v-btn>
               </td>
@@ -112,22 +112,27 @@
           <v-toolbar-title>检验项目</v-toolbar-title>
         </v-toolbar>
         <v-data-table
-          :headers="headers_ms"
-          :items="desserts_ms"
+          :headers="headers_md"
+          :items="desserts_md"
           class="elevation-1"
         >
           <template v-slot:items="props">
-            <td>{{ props.item.medical_skill_id }}</td>
-            <td>{{ props.item.medical_skill_execute_state }}</td>
-            <td>{{ props.item.medical_skill_result }}</td>
+            <td>{{ props.item.prescription_id }}</td>
+            <td>{{ props.item.prescription_name }}</td>
+            <td>{{ props.item.prescription_execute_state }}</td>
+            <td>{{ props.item.prescription_type }}</td>
+            <td>{{ props.item.prescription_fee }}</td>
             <td>
-              <v-icon
-                small
-                class="mr-2"
-                @click="show =! show , fillForm(props.item)"
-              >
-                edit
-              </v-icon>
+              <!--<v-icon-->
+                <!--small-->
+                <!--class="mr-2"-->
+                <!--@click="show =! show , fillForm(props.item)"-->
+              <!--&gt;-->
+                <!--edit-->
+              <!--</v-icon>-->
+              <v-btn right small color="primary" @click="sendMedicine(props.item)">
+                领药
+              </v-btn>
             </td>
           </template>
         </v-data-table>
@@ -150,13 +155,13 @@
       // search: '',
       // expand: false,
       // selected: [],
-      ms_item: '',
-      ms_patient_id: '',
+      md_item: '',
+      md_patient_id: '',
       show: false,
       department_default: '血液科',
       search_patient: '',
       state: '',
-      ms_id: '',
+      md_id: '',
       result:'',
       signal: '',
       state_items: [
@@ -182,60 +187,77 @@
           patient_name: 'shu'
         }
       ],
-      headers_ms: [
+      headers_md: [
         {
-          text: '医技id',
+          text: '处方id',
           align: 'left',
-          value: 'medical_skill_id'
+          value: 'prescription_id'
         },
-        { text: '医技状态', value: 'medical_skill_execute_state' },
-        { text: '医技结果', value: 'medical_skill_result' },
+        { text: '处方名称', value: 'prescription_name' },
+        { text: '处方状态', value: 'prescription_execute_state' },
+        { text: '处方类型', value: 'prescription_type' },
+        { text: '费用', value: 'prescription_fee' },
         { text: '操作', value: 'operation', sortable: false }
       ],
-      desserts_ms: [
+      desserts_md: [
         {
-          medical_skill_id: 1,
-          medical_skill_execute_state: '验血',
-          medical_skill_result: '正常'
+          prescription_id: 1,
+          prescription_name: '这是处方',
+          prescription_execute_state: '已缴费',
+          prescription_type: '中药',
+          prescription_fee: '25.00'
         }
       ]
     }),
     methods: {
       load: function () {
         let that = this
-        var url = this.HOME + 'ms-doctor/get-all-patients'
-        this.$http.post(url, {medical_skill_execute_department: that.department_default
+        var url = this.HOME + 'md-doctor/get-all-patients'
+        this.$http.post(url, {
         })
           .then(function (response) {
             console.log(response.data)
             that.desserts_patient = response.data.data
           })
       },
-      getPersonalMS: function (item) {
-        this.ms_patient_id = item.patient_record_id
+      getPersonalMD: function (item) {
+        this.md_patient_id = item.patient_record_id
         let that = this
-        var url = this.HOME + 'ms-doctor/medical-skill/get-by-patient'
+        var url = this.HOME + 'md-doctor/get-prescription-by-patient'
         this.$http.post(url, {
-          medical_skill_execute_department: that.department_default,
-          patient_id: item.patient_record_id
+          register_info_patient_id: item.patient_record_id
         })
           .then(function (response) {
             console.log(response.data)
-            that.desserts_ms = response.data.data
+            that.desserts_md = response.data.data
+          })
+      },
+      sendMedicine: function (item) {
+        let that = this
+        var url = this.HOME + 'md-doctor/send-medicine'
+        this.$http.post(url, {
+          prescription_id: item.prescription_id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            var item = {
+              patient_record_id: that.md_patient_id
+            }
+            that.getPersonalMD(item)
           })
       },
       setResult: function () {
         let that = this
         var url = this.HOME + 'ms-doctor/medical-skill/add-result'
         this.$http.post(url, {
-          medical_skill_id: that.ms_id,
+          medical_skill_id: that.md_id,
           medical_skill_result: that.result
         })
           .then(function (response) {
             console.log(response.data)
             that.load()
             var item = {
-              patient_record_id: that.ms_patient_id
+              patient_record_id: that.md_patient_id
             }
             that.getPersonalMS(item)
           })
@@ -244,13 +266,13 @@
         let that = this
         var url = this.HOME + 'ms-doctor/medical-skill/confirm'
         this.$http.post(url, {
-          medical_skill_id: that.ms_id
+          medical_skill_id: that.md_id
         })
           .then(function (response) {
             console.log(response.data)
             that.load()
             var item = {
-              patient_record_id: that.ms_patient_id
+              patient_record_id: that.md_patient_id
             }
             that.getPersonalMS(item)
           })
@@ -259,19 +281,19 @@
         let that = this
         var url = this.HOME + 'ms-doctor/medical-skill/cancel'
         this.$http.post(url, {
-          medical_skill_id: that.ms_id
+          medical_skill_id: that.md_id
         })
           .then(function (response) {
             console.log(response.data)
             that.load()
             var item = {
-              patient_record_id: that.ms_patient_id
+              patient_record_id: that.md_patient_id
             }
             that.getPersonalMS(item)
           })
       },
       change: function () {
-        if (this.state !== this.ms_item.medical_skill_execute_state) {
+        if (this.state !== this.md_item.medical_skill_execute_state) {
           if (this.state === '已确认执行') {
             this.confirmState()
           }
@@ -279,20 +301,20 @@
             this.cancelState()
           }
         }
-        if (this.result !== this.ms_item.medical_skill_result) {
+        if (this.result !== this.md_item.medical_skill_result) {
           this.setResult()
         }
         this.show = !this.show
       },
       eraseForm: function () {
-        this.ms_id = ''
+        this.md_id = ''
         this.result = ''
         this.state = ''
-        this.ms_item = ''
+        this.md_item = ''
       },
       fillForm: function (item) {
-        this.ms_item = item
-        this.ms_id = item.medical_skill_id
+        this.md_item = item
+        this.md_id = item.medical_skill_id
         this.result = item.medical_skill_result
         this.state = item.medical_skill_execute_state
       }
