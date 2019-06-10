@@ -29,8 +29,8 @@ public class MedicineDepartService {
     PrescriptionContentMapper prescriptionContentMapper;
 
 
-    public JSONObject getPrescriptionByPatientId(Integer register_info_patient_id){
-        return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientId(register_info_patient_id, PRESCRIPTION_EXECUTE_STATE[3],null,null));
+    public JSONObject getPrescriptionByPatientIdByPayTime(Integer register_info_patient_id,Date start_time, Date end_time){
+        return ConstantUtils.responseSuccess(prescriptionMapper.getPrescriptionByPatientIdByPayTime(register_info_patient_id, PRESCRIPTION_EXECUTE_STATE[3],start_time,end_time));
     }
 
     public JSONObject getAllPatients(){
@@ -52,7 +52,6 @@ public class MedicineDepartService {
             prescriptionMapper.updatePrescription(prescription);
             return ConstantUtils.responseSuccess(prescriptionMapper.getPrescription(prescription_id));
         }
-
     }
 
 
@@ -96,7 +95,7 @@ public class MedicineDepartService {
                 //再次获取最初的药品记录
                 PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
 
-                //改变数量、支付时间
+                //改变数量
                 prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
 
 
@@ -114,7 +113,7 @@ public class MedicineDepartService {
     public JSONObject getSentPrescription(Integer patient_id, Date start_time, Date end_time) {
         List<Prescription> prescriptions;
         try{
-            prescriptions = prescriptionMapper.getPrescriptionByPatientId
+            prescriptions = prescriptionMapper.getPrescriptionByPatientIdBySentTime
                     (patient_id,PRESCRIPTION_EXECUTE_STATE[4],start_time,end_time);//已领药
         }catch (RuntimeException e){
             e.printStackTrace();
