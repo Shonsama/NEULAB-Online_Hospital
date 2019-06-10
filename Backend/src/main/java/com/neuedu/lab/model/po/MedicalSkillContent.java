@@ -11,6 +11,7 @@ public class MedicalSkillContent {
     private String medical_skill_content_unit;
     private BigDecimal medical_skill_content_price;
     private String medical_skill_content_explain;
+    private String medical_skill_department_id;
 
     public String getMedical_skill_content_id() {
         return medical_skill_content_id;
@@ -74,5 +75,13 @@ public class MedicalSkillContent {
 
     public void setMedical_skill_content_explain(String medical_skill_content_explain) {
         this.medical_skill_content_explain = medical_skill_content_explain;
+    }
+
+    public String getMedical_skill_department_id() {
+        return medical_skill_department_id;
+    }
+
+    public void setMedical_skill_department_id(String medical_skill_department_id) {
+        this.medical_skill_department_id = medical_skill_department_id;
     }
 }

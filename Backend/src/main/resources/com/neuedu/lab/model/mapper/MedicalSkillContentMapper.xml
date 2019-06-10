@@ -8,7 +8,8 @@
         insert into medical_skill_content (medical_skill_content_id, medical_skill_content_name,
          medical_skill_content_detail, medical_skill_content_father,
          medical_skill_content_extra,medical_skill_content_unit,
-         medical_skill_content_price,medical_skill_content_explain)
+         medical_skill_content_price,medical_skill_content_explain,
+         medical_skill_content_department_id)
         values(#{medical_skill_content_id},
         #{medical_skill_content_name},
         #{medical_skill_content_detail},
@@ -16,7 +17,8 @@
         #{medical_skill_content_extra},
         #{medical_skill_content_unit},
         #{medical_skill_content_price},
-        #{medical_skill_content_explain})
+        #{medical_skill_content_explain},
+        #{medical_skill_content_department_id})
     </insert>
 
     <delete id="deleteMedicalSkillContent" parameterType="MedicalSkillContent">
@@ -32,7 +34,8 @@
         medical_skill_content_extra = #{medical_skill_content_extra},
         medical_skill_content_unit = #{medical_skill_content_unit},
         medical_skill_content_price = #{medical_skill_content_price},
-        medical_skill_content_explain = #{medical_skill_content_explain}
+        medical_skill_content_explain = #{medical_skill_content_explain},
+        medical_skill_content_department_id = #{medical_skill_content_department_id}
         where medical_skill_content_id = #{medical_skill_content_id}
     </update>
 
