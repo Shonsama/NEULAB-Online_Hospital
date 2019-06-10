@@ -194,6 +194,7 @@
               small
               right
               color="primary"
+              @click="chargeItem(props.item)"
             >
               收费
             </v-btn>
@@ -244,7 +245,7 @@
               small
               right
               color="primary"
-              @click="filter"
+              @click="returnItem(props.item)"
             >
               退费
             </v-btn>
@@ -270,29 +271,8 @@ export default {
       patient_address: '',
       patient_age: '',
       disabled: true,
-      desserts: [{
-        code: '1',
-        name: '11',
-        state: '1',
-        type: '1',
-        number: '1'
-      },
-      {
-        code: '11',
-        name: '111',
-        state: '11',
-        type: '11',
-        number: '1'
-
-      }],
-      desserts1: [{
-        code: '1',
-        name: '11',
-        state: '1',
-        type: '1',
-        number: '1',
-        time: '1'
-      }],
+      desserts: [],
+      desserts1: [],
       headers: [
         {
           text: '挂号ID',
@@ -302,7 +282,7 @@ export default {
         {text: '名称', value: 'name'},
         {text: '状态', value: 'state'},
         {text: '类型', value: 'type'},
-        {text: '数量', value: 'number'},
+        {text: '金额', value: 'number'},
         {text: '操作', value: 'operation', sortable: false}
       ],
       headers1: [
@@ -314,7 +294,7 @@ export default {
         {text: '名称', value: 'name'},
         {text: '状态', value: 'state'},
         {text: '类型', value: 'type'},
-        {text: '数量', value: 'number'},
+        {text: '金额', value: 'number'},
         {text: '收费时间', value: 'time'},
         {text: '操作', value: 'operation', sortable: false}
       ]
@@ -330,6 +310,118 @@ export default {
   methods: {
     filterDate: function (value) {
       return (this.date[0] <= value.time && this.date[1] >= value.time) || this.date[0] === '' || this.date[1] === ''
+    },
+    chargeItem: function (value) {
+      let that = this
+      console.log(value)
+      var url = this.HOME + '/pay/medical-skill'
+      var url1 = this.HOME + '/pay/prescription'
+      if (value.type === '检查' || value.type === '检验' || value.type === '处置') {
+        var data = {
+          'register_info_patient_id': that.patient_record_id
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+          })
+      } else {
+        var data = {
+          'register_info_patient_id': that.patient_record_id
+        }
+        this.$http.post(url1, data)
+          .then(function (response) {
+            console.log(response.data)
+          })
+      }
+    },
+    returnItem: function (value) {
+      console.log(value)
+      var url = this.HOME + '/pay/get-medical-skill-canceled-or-paid'
+
+    },
+    getItem: function () {
+      var url = this.HOME + '/pay/get-medical-skill-canceled-or-paid'
+      var url1 = this.HOME + '/pay/get-prescription-returned-or-paid'
+      var that = this
+      var data = {
+        'register_info_patient_id': that.patient_record_id
+      }
+      that.desserts1 = []
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var i
+          for (i = 0; i < response.data.data.length; i++) {
+            var data = {
+              code: response.data.data[i].medical_skill_register_info_id,
+              name: response.data.data[i].medical_skill_name,
+              state: response.data.data[i].medical_skill_execute_state,
+              type: response.data.data[i].medical_skill_type,
+              number: response.data.data[i].medical_skill_fee,
+              time: response.data.data[i].medical_skill_pay_time
+            }
+            console.log(data)
+            that.desserts1.push(data)
+          }
+        })
+      this.$http.post(url1, data)
+        .then(function (response) {
+          console.log(response.data)
+          var i
+          for (i = 0; i < response.data.data.length; i++) {
+            var data = {
+              code: response.data.data[i].prescription_register_info_id,
+              name: response.data.data[i].prescription_name,
+              state: response.data.data[i].prescription_execute_state,
+              type: response.data.data[i].prescription_type,
+              number: response.data.data[i].prescription_fee,
+              time: response.data.data[i].prescription_pay_time
+            }
+            console.log(data)
+            that.desserts1.push(data)
+          }
+        })
+    },
+    getItem_charge: function () {
+      var url1 = this.HOME + '/pay/get-prescription-sent'
+      var url = this.HOME + '/pay/get-medical-skill-drew'
+      var that = this
+      var data = {
+        'register_info_patient_id': that.patient_record_id
+      }
+      that.desserts = []
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var i
+          for (i = 0; i < response.data.data.length; i++) {
+            var data = {
+              code: response.data.data[i].medical_skill_register_info_id,
+              name: response.data.data[i].medical_skill_name,
+              state: response.data.data[i].medical_skill_execute_state,
+              type: response.data.data[i].medical_skill_type,
+              number: response.data.data[i].medical_skill_fee,
+            }
+            console.log(data)
+            that.desserts.push(data)
+          }
+        })
+      this.$http.post(url1, data)
+        .then(function (response) {
+          console.log(response.data)
+          var i
+          for (i = 0; i < response.data.data.length; i++) {
+            var data = {
+              code: response.data.data[i].prescription_register_info_id,
+              name: response.data.data[i].prescription_name,
+              state: response.data.data[i].prescription_execute_state,
+              type: response.data.data[i].prescription_type,
+              number: response.data.data[i].prescription_fee,
+            }
+            console.log(data)
+            that.desserts.push(data)
+          }
+        })
     },
     get_patient_register: function () {
       var url = this.HOME + '/constant/get'
@@ -361,7 +453,10 @@ export default {
           that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
           that.patient_age = response.data.data.patient_age
           that.patient_address = response.data.data.patient_address
-          // that.get_patient_register()
+          that.getItem()
+          that.getItem_charge()
+          console.log(that.desserts)
+          console.log(that.desserts1)
         })
     }
   }

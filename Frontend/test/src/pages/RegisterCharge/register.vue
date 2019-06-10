@@ -35,6 +35,7 @@
   <v-divider></v-divider>
   <v-layout class="ml-4 mt-4">
     <v-form v-model="valid">
+      <v-container>
       <v-layout>
         <div class="title font-weight-light">患者信息查询</div>
       </v-layout>
@@ -66,7 +67,6 @@
         <v-flex
           xs12
           md2
-          class="mr-4"
         >
           <v-text-field
             v-model="patient_name"
@@ -76,11 +76,9 @@
             required
           ></v-text-field>
         </v-flex>
-
         <v-flex
           xs12
           md2
-          class="mr-4"
         >
           <v-select
             v-model="patient_gender"
@@ -95,7 +93,6 @@
         <v-flex
           xs12
           md4
-          class="mr-4"
         >
           <v-textarea
             v-model="patient_address"
@@ -108,7 +105,6 @@
         <v-flex
           xs12
           md3
-          class="mr-4"
         >
           <v-text-field
             v-model="patient_credit_id"
@@ -122,7 +118,6 @@
         <v-flex
           xs12
           md2
-          class="mr-4"
         >
           <v-menu
             ref="menu"
@@ -157,7 +152,6 @@
         <v-flex
           xs12
           md2
-          class="mr-4"
         >
           <v-text-field
             v-model="patient_age"
@@ -171,7 +165,6 @@
         <v-flex
           xs12
           md2
-          class="mr-4"
         >
           <v-select
             v-model="departmentId"
@@ -187,7 +180,6 @@
         </v-flex>
         <v-flex
           md2
-          class="mr-4"
         >
           <v-select
             v-model="doctor_id"
@@ -203,7 +195,6 @@
         </v-flex>
         <v-flex
           md2
-          class="mr-4"
         >
           <v-select
             v-model="paycate"
@@ -219,7 +210,6 @@
 
         <v-flex
           md2
-          class="mr-4"
         >
           <v-select
             :items="registers"
@@ -255,6 +245,7 @@
         </v-flex>
         <v-btn small color="primary" style="margin-top: 20px" @click="submit_register">挂号</v-btn>
       </v-layout>
+      </v-container>
      </v-form>
   </v-layout>
 </v-card>

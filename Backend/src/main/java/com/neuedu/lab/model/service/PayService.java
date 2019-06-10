@@ -62,22 +62,22 @@ public class PayService {
     }
 
     //获取当前病人医技已缴费对象
-    public List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_id){
-        return medicalSkillMapper.getMedicalSkillsInCanceledOrPaid(register_info_id);
+    public List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id){
+        return medicalSkillMapper.getMedicalSkillsInCanceledOrPaid(register_info_patient_id);
     }
 
     //获取当前病人医技未缴费对象
-    public List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_id){
-        return medicalSkillMapper.getMedicalSkillsInDrew(register_info_id);
+    public List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_patient_id){
+        return medicalSkillMapper.getMedicalSkillsInDrew(register_info_patient_id);
     }
 
     //获取当前病人处方已缴费对象
-    public List<Prescription> getPrescriptionsInReturnedOrPaid(Integer register_info_id){
-        return prescriptionMapper.getPrescriptionsInReturnedOrPaid(register_info_id);
+    public List<Prescription> getPrescriptionsInReturnedOrPaid(Integer register_info_patient_id){
+        return prescriptionMapper.getPrescriptionsInReturnedOrPaid(register_info_patient_id);
     }
 
     //获取当前病人处方未缴费对象
-    public List<Prescription> getPrescriptionsInSent(Integer register_info_id){
-        return prescriptionMapper.getPrescriptionsInSent(register_info_id);
+    public List<Prescription> getPrescriptionsInSent(Integer register_info_patient_id){
+        return prescriptionMapper.getPrescriptionsInSent(register_info_patient_id);
     }
 }

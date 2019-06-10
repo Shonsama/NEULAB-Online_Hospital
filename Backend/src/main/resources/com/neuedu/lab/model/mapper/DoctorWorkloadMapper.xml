@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.DoctorWorkloadMapper">
+    <select id="getVisitorsNum" resultType="Integer">
+        select count(register_info_id) from register_info, bill
+        where register_info_id = bill_register_id
+        and register_info_doctor_id = #{doctor_id}
+        and bill_time &gt; #{start_time}
+        and bill_time &lt; #{end_time};
+    </select>
+
+    <select id="getBillsNum" resultType="Integer">
+        select count(bill_id) from register_info,bill
+        where bill_time &gt; #{start_time}
+        and bill_time &lt; #{end_time}
+        and bill_register_id = register_info_id
+        and register_info_doctor_id = #{doctor_id};
+    </select>
+
+    <select id="getRegisterFee" resultType="BigDecimal">
+        select sum(register_info_fee) from register_info,bill
+        where bill_time &gt; #{start_time}
+        and bill_time &lt; #{end_time}
+        and bill_register_id = register_info_id
+        and register_info_doctor_id = #{doctor_id};
+    </select>
+
+
+
+
+    <!--检查-->
+    <select id="getMedicalSkillInspect" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_create_time &gt; #{start_time}
+        and medical_skill_create_time &lt; #{end_time}
+        and medical_skill_doctor_id = #{doctor_id}
+        and medical_skill_type = "检查"
+    </select>
+
+    <!--检验-->
+    <select id="getMedicalSkillCheck" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_create_time &gt; #{start_time}
+        and medical_skill_create_time &lt; #{end_time}
+        and medical_skill_doctor_id = #{doctor_id}
+        and medical_skill_type = "检验"
+    </select>
+
+    <!--处置-->
+    <select id="getMedicalSkillDispose" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_create_time &gt; #{start_time}
+        and medical_skill_create_time &lt; #{end_time}
+        and medical_skill_doctor_id = #{doctor_id}
+        and medical_skill_type = "处置"
+    </select>
+    <!--西药-->
+    <select id="getPrescriptionWest" resultType="BigDecimal">
+        select sum(prescription_fee) from prescription
+        where prescription_create_time &gt; #{start_time}
+        and prescription_create_time &lt; #{end_time}
+        and prescription_doctor_id = #{doctor_id}
+        and prescription_type = "西药"
+    </select>
+    <!--中药-->
+    <select id="getPrescriptionChinese" resultType="BigDecimal">
+        select sum(prescription_fee) from prescription
+        where prescription_create_time &gt; #{start_time}
+        and prescription_create_time &lt; #{end_time}
+        and prescription_doctor_id = #{doctor_id}
+        and prescription_type = "中药"
+    </select>
+
+    <select id="getDoctorsId" resultType="Integer">
+        select doctor_id from doctor_info;
+    </select>
+</mapper>

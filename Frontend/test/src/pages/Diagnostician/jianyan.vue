@@ -1,6 +1,57 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          Please stand by
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="text"
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">添加医技模板</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field label="模板名称"  required></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-select
+                  :items="['个人', '科室', '全院']"
+                  label="模板范围"
+                  required
+                ></v-select>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="text = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="text = false; dialog = true">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
       v-model="show"
       max-width="800"
     >
@@ -18,7 +69,6 @@
           </v-flex>
         </v-toolbar>
         <v-data-table
-          v-model="selected_dia"
           :headers="headers_dia"
           :items="desserts_dia"
           :expand="expand_dia"
@@ -91,6 +141,20 @@
         </v-data-table>
       </v-card>
     </v-dialog>
+    <v-alert
+      :value="alert_success"
+      type="success"
+      transition="slide-y-transition"
+    >
+      This is a success alert.
+    </v-alert>
+    <v-alert
+      :value="alert_error"
+      type="error"
+      transition="slide-y-transition"
+    >
+      This is a error alert.
+    </v-alert>
     <v-layout>
       <v-flex  lg8>
         <v-toolbar flat dense>
@@ -128,9 +192,9 @@
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="desserts"
-          :expand="expand"
-          item-key="medical_skill_name"
+          :items="filterDesserts"
+          :expand=false
+          item-key="medical_skill_id"
           select-all
         >
           <template v-slot:items="props">
@@ -156,9 +220,16 @@
             </td>
           </template>
           <template v-slot:expand="props">
+            <v-flex xs12 sm6 offset-sm1>
             <v-card flat>
-              <v-card-text>Peek-a-boo!</v-card-text>
+              <v-card-title>
+                <div>
+                  <span class="grey--text">结果</span><br>
+                  <span>详情：{{props.item.medical_skill_result}}</span><br>
+                </div>
+              </v-card-title>
             </v-card>
+            </v-flex>
           </template>
         </v-data-table>
         <v-divider/>
@@ -168,6 +239,7 @@
             class="white--text"
             color="primary"
             small
+            @click="text = !text"
           >
             保存
           </v-btn>
@@ -179,7 +251,6 @@
           <v-toolbar-title  >常用模板</v-toolbar-title>
         </v-toolbar>
         <v-data-table
-          v-model="selected_tem"
           :headers="headers_tem"
           :items="desserts_tem"
           item-key="non_medicine_id"
@@ -212,10 +283,13 @@ export default {
   props: ['msgfromfa'],
   data () {
     return {
-      selected_dia: '',
-      selected: '',
-      selected_tem: '',
+      dialog: false,
+      selected_dia: [],
+      selected: [],
+      selected_tem: [],
       search: '',
+      alert_success: false,
+      alert_error: false,
       text: false,
       show: false,
       expand: false,
@@ -269,10 +343,7 @@ export default {
         },
         { text: '操作', value: 'operation', sortable: false }
       ],
-      desserts_tem: [{
-        non_medicine_id: '1'
-      }
-      ],
+      desserts_tem: [],
       medical_skill_name: '',
       medical_skill_checkpoint: '',
       medical_skill_purpose: '',
@@ -280,11 +351,33 @@ export default {
       template_name: ''
     }
   },
-  mounted: function () {
+  created: function () {
     this.load_mediskill()
     this.getItem()
   },
+  watch: {
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog = false), 4000)
+    }
+  },
+  computed: {
+    filterDesserts () {
+      return this.desserts.filter(this.filterType)
+    }
+  },
   methods: {
+    notice_success: function () {
+      this.alert_success = !this.alert_success
+      var time = window.setTimeout(this.alert_success = !this.alert_success, 1500)
+    },
+    notice_error: function () {
+      this.alert_error = !this.alert_error
+      window.setTimeout(this.alert_error = !this.alert_error, 1500)
+    },
+    filterType (value) {
+      return value.medical_skill_type === '检验'
+    },
     addTem () {
       if (this.text) {
 
