@@ -264,6 +264,7 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_medicine_id` VARCHAR(45) NULL, #药物ID
   `prescription_frequency` varchar(45) NULL, #频度
   `prescription_num` int NOT NULL, #数量
+  `prescription_refund_available_num` INT NOT NULL ,
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
   `prescription_content_actual_unit_price` DECIMAL(8,2) NOT NULL, #实付单价
