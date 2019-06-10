@@ -60,4 +60,12 @@
             AND prescription_execute_state = #{prescription_execute_state}
 
     </select>
+
+    <select id="getAllPatients" resultType="Patient">
+        SELECT DISTINCT patient_info.*
+        FROM patient_info,register_info,prescription
+        WHERE patient_record_id = register_info_patient_id
+            AND register_info_id = prescription.prescription_register_info_id
+            AND prescription_execute_state = #{prescription_execute_state}
+    </select>
 </mapper>

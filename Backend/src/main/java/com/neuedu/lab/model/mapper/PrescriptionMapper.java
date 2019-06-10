@@ -1,5 +1,6 @@
 package com.neuedu.lab.model.mapper;
 
+import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.Prescription;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +31,5 @@ public interface PrescriptionMapper {
 
     List<Prescription> getPrescriptionByPatientId(@Param("register_info_patient_id") Integer register_info_patient_id,@Param("prescription_execute_state") String prescription_execute_state);
 
+    List<Patient> getAllPatients(String prescription_execute_state);
 }
