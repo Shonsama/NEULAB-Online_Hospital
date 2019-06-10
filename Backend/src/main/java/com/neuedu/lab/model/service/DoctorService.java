@@ -339,8 +339,10 @@ public class DoctorService {
             }else if(!prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[0])){
                 return responseFail("该处方状态为["+prescription.getPrescription_execute_state()+"],不可删除处方",prescription);
             }
-            //更新处方状态
-            prescriptionMapper.updatePrescriptionState(prescription_id,PRESCRIPTION_EXECUTE_STATE[7]);
+            //先删除处方内容
+            prescriptionContentMapper.deletePrescriptionContents(prescription_id);
+            //再删除处方
+            prescriptionMapper.deletePrescription(prescription_id);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();
