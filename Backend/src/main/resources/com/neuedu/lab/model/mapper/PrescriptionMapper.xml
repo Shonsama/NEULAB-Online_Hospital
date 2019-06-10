@@ -4,10 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionMapper">
     <insert id="addPrescription" useGeneratedKeys="true" keyProperty="prescription_id">
-        INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
-         prescription_doctor_id, prescription_register_info_id, prescription_name)
-         VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
-         #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name})
+        <if test="prescription_create_time == null">
+            INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
+            prescription_doctor_id, prescription_register_info_id, prescription_name,
+            prescription_pay_time,prescription_sent_time)
+            VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
+            #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name},
+            #{prescription_pay_time},#{prescription_sent_time})
+        </if>
+        <if test="prescription_create_time != null">
+            INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
+            prescription_doctor_id, prescription_register_info_id, prescription_name,
+            prescription_create_time,prescription_pay_time,prescription_sent_time)
+            VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
+            #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name},
+            #{prescription_create_time},#{prescription_pay_time},#{prescription_sent_time})
+        </if>
+
     </insert>
 
     <delete id="deletePrescription">
@@ -77,4 +90,11 @@
             AND register_info_id = prescription.prescription_register_info_id
             AND prescription_execute_state = #{prescription_execute_state}
     </select>
+
+    <update id="updatePrescription" parameterType="Prescription">
+        UPDATE prescription SET prescription_execute_state = #{prescription_execute_state},
+            prescription_fee = #{prescription_fee}, prescription_name = #{prescription_name},
+            prescription_pay_time = #{prescription_pay_time}, prescription_sent_time = #{prescription_sent_time}
+        WHERE prescription_id = #{prescription_id}
+    </update>
 </mapper>
