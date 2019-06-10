@@ -150,10 +150,10 @@
           <v-data-table
             v-model="selected_pre"
             :headers="headers_pre"
-            :items="desserts_pre"
-            expand
-            item-key="prescription_name"
+            :items="filterDesserts"
+            item-key="prescription_id"
             select-all
+            :expand="expand"
           >
             <template v-slot:items="props">
               <td>
@@ -163,6 +163,7 @@
                   hide-details
                 ></v-checkbox>
               </td>
+              <td>{{ props.item.prescription_id }}</td>
               <td>{{ props.item.prescription_name }}</td>
               <td>{{ props.item.prescription_execute_state }}</td>
               <td>{{ props.item.prescription_fee }}</td>
@@ -197,6 +198,7 @@
                     small
                     icon
                     flat
+                    @click="deleteContent(props.item)"
                   >
                     <v-icon>
                       delete
@@ -208,37 +210,27 @@
                 <v-data-table
                   v-model="selected_con"
                   :headers="headers_con"
-                  :items="desserts_con"
-                  item-key="name"
+                  :items="props.item.prescriptionContents"
+                  item-key="prescription_medicine_id"
                   hide-actions
                   select-all
                 >
                   <template v-slot:items="props">
-                      <td>
-                        <v-checkbox
-                          v-model="props.selected"
-                          primary
-                          hide-details
-                        ></v-checkbox>
-                      </td>
-                      <td>{{ props.item.name }}</td>
-                      <td>{{ props.item.state }}</td>
-                      <td>{{ props.item.fee }}</td>
-                      <td>
-                        <v-icon
-                          small
-                          class="mr-2"
-                          @click="editItem(props.item)"
-                        >
-                          edit
-                        </v-icon>
-                        <v-icon
-                          small
-                          @click="deleteItem(props.item)"
-                        >
-                          delete
-                        </v-icon>
-                      </td>
+                    <td>
+                      <v-checkbox
+                        v-model="props.selected"
+                        primary
+                        hide-details
+                      ></v-checkbox>
+                    </td>
+                    <td>{{ props.item.prescription_medicine_id }}</td>
+                    <td>{{ props.item.medicine_name }}</td>
+                    <td>{{ props.item.medicine_specification }}</td>
+                    <td>{{ props.item.prescription_day }}</td>
+                    <td>{{ props.item.prescription_consumption }}</td>
+                    <td>{{ props.item.prescription_unit_price }}</td>
+                    <td>{{ props.item.prescription_frequency }}</td>
+                    <td>{{ props.item.prescription_num }}</td>
                   </template>
                 </v-data-table>
                 <v-divider/>
@@ -300,15 +292,15 @@ export default {
   props: ['msgfromfa'],
   data () {
     return {
-      selected_dia: '',
-      selected_pre: '',
-      selected_con: '',
-      selected_tem: '',
+      selected_dia: [],
+      selected_pre: [],
+      selected_con: [],
+      selected_tem: [],
       search: '',
       show: false,
       show_pre_dia: false,
       text: false,
-      expand: true,
+      expand: false,
       expand1: true,
       expand_dia: false,
       headers_dia: [
@@ -327,7 +319,7 @@ export default {
         {
           text: '药品编号',
           align: 'left',
-          value: 'medicine_id'
+          value: 'prescription_medicine_id'
         },
         {
           text: '药品名称',
@@ -348,7 +340,7 @@ export default {
         },
         {
           text: '单价',
-          value: 'medicine_unit_price'
+          value: 'prescription_content_id'
         },
         {
           text: '频次',
@@ -359,11 +351,14 @@ export default {
           value: 'prescription_num'
         }
       ],
-      desserts_con: [],
       headers_pre: [
         {
-          text: '处方名称',
+          text: '处方ID',
           align: 'left',
+          value: 'prescription_id'
+        },
+        {
+          text: '处方名称',
           value: 'prescription_name'
         },
         {
@@ -375,11 +370,7 @@ export default {
           value: 'prescription_fee'
         },
         { text: '操作', value: 'operation', sortable: false }],
-      desserts_pre: [{
-        name: '1',
-        state: '1',
-        fee: '1'
-      }],
+      desserts_pre: [],
       headers_tem: [
         {
           text: '模板名称',
@@ -436,11 +427,19 @@ export default {
       prescription_id: ''
     }
   },
-  mounted: function () {
+  created: function () {
     this.getItem()
     this.load_medicne()
   },
+  computed: {
+    filterDesserts () {
+      return this.desserts_pre.filter(this.filterType)
+    }
+  },
   methods: {
+    filterType (value) {
+      return value.prescription_type === '中药'
+    },
     getItem () {
       let that = this
       var url = this.HOME + '/doctor/get-record'
@@ -474,20 +473,20 @@ export default {
     },
     deleteContent: function () {
       let that = this
-      var data = {
-        prescription_type: '中药',
-        prescription_doctor_id: 1,
-        prescription_register_info_id: 6,
-        prescription_name: that.prescription_name
-
+      var i
+      var url = this.HOME + '/doctor/delete-medicine'
+      console.log(that.selected_con)
+      var data
+      for (i = 0; i < that.selected_con.length; i++) {
+        data = {
+          prescription_content_id: that.selected_con[i].prescription_content_id
+        }
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            that.getItem()
+          })
       }
-      console.log(data)
-      var url = this.HOME + '/doctor/add-prescription'
-      this.$http.post(url, data)
-        .then(function (response) {
-          console.log(response.data)
-          that.getItem()
-        })
     },
     addItem: function () {
       let that = this

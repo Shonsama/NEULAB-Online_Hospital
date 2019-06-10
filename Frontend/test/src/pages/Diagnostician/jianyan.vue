@@ -18,7 +18,6 @@
           </v-flex>
         </v-toolbar>
         <v-data-table
-          v-model="selected_dia"
           :headers="headers_dia"
           :items="desserts_dia"
           :expand="expand_dia"
@@ -128,8 +127,8 @@
         <v-data-table
           v-model="selected"
           :headers="headers"
-          :items="desserts"
-          :expand="expand"
+          :items="filterDesserts"
+          expand
           item-key="medical_skill_name"
           select-all
         >
@@ -179,7 +178,6 @@
           <v-toolbar-title  >常用模板</v-toolbar-title>
         </v-toolbar>
         <v-data-table
-          v-model="selected_tem"
           :headers="headers_tem"
           :items="desserts_tem"
           item-key="non_medicine_id"
@@ -212,9 +210,9 @@ export default {
   props: ['msgfromfa'],
   data () {
     return {
-      selected_dia: '',
-      selected: '',
-      selected_tem: '',
+      selected_dia: [],
+      selected: [],
+      selected_tem: [],
       search: '',
       text: false,
       show: false,
@@ -280,11 +278,19 @@ export default {
       template_name: ''
     }
   },
-  mounted: function () {
+  created: function () {
     this.load_mediskill()
     this.getItem()
   },
+  computed: {
+    filterDesserts () {
+      return this.desserts.filter(this.filterType)
+    }
+  },
   methods: {
+    filterType (value) {
+      return value.medical_skill_type === '检验'
+    },
     addTem () {
       if (this.text) {
 
