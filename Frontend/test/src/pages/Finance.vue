@@ -64,7 +64,7 @@ export default {
         id: 'workSumByDepart'
       },
       {
-        name: '门诊科室工作量统计',
+        name: '门诊医生工作量统计',
         id: 'workSumByDoctor'
       }]
     }
