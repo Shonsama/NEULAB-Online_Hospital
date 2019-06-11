@@ -184,8 +184,4 @@ public class DoctorController {
     public JSONObject getPrescription(@RequestBody JSONObject request){
         return doctorService.getPrescription(request.getInteger("register_id"));
     }
-
-
-
-
 }

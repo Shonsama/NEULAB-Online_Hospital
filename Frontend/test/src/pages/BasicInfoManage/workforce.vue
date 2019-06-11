@@ -375,7 +375,7 @@ export default {
     this.load_doctor()
   },
   methods: {
-    load_rule: function(){
+    load_rule: function () {
       let that = this
       that.desserts_scheduling = []
       var url = this.HOME + '/rule/get-all-names'
@@ -431,13 +431,13 @@ export default {
         })
     },
     add_Rule: function () {
-      //从selected_rule里面建立，三个属性
+      // 从selected_rule里面建立，三个属性
       let that = this
       var url = this.HOME + '/rule/add'
       console.log(that.selected_rule)
       var time_array = []
       for (let i = 0; i < that.selected_rule[0].time.length; i++) {
-        if (that.selected_rule[0].time[i]){
+        if (that.selected_rule[0].time[i]) {
           time_array[i] = 1
         } else {
           time_array[i] = 0
@@ -447,7 +447,7 @@ export default {
       var data = {
         rule_doctor_id: that.selected_rule[0].doctor_id,
         rule_work_time: time_string,
-        rule_name: that.rule_name_create,
+        rule_name: that.rule_name_create
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -457,8 +457,7 @@ export default {
             that.load_rule()
             that.show = !that.show
             that.notice_success()
-          }
-          else{
+          } else {
             that.notice_error()
           }
         })
@@ -467,7 +466,7 @@ export default {
       var data = {
         schedule_start_date: this.date[0],
         schedule_end_date: this.date[1],
-        schedule_rule_id: this.selected_scheduling[0].rule_id,
+        schedule_rule_id: this.selected_scheduling[0].rule_id
       }
       let that = this
       var url = this.HOME + '/schedule/add'
@@ -478,12 +477,11 @@ export default {
           if (that.signal === 'SUCCESS') {
             that.load_rule()
             that.notice_success()
-          }else {
+          } else {
             that.notice_error()
           }
         })
       console.log(this.signal)
-
     },
 
     updateItem: function () {
@@ -502,8 +500,7 @@ export default {
             that.load_rule()
             that.edit_show = !that.edit_show
             that.notice_success()
-          }
-          else{
+          } else {
             that.notice_error()
           }
         })
@@ -519,7 +516,7 @@ export default {
           if (that.signal === 'SUCCESS') {
             that.load_rule()
             that.notice_success()
-          }else {
+          } else {
             that.notice_error()
           }
         })
@@ -539,7 +536,7 @@ export default {
       this.doctor_name = ''
       this.rule_work_time = ''
     },
-    eraseForm_add: function() {
+    eraseForm_add: function () {
       this.desserts_rule = []
       this.department_rule = ''
       this.register_level_rule = ''
@@ -547,23 +544,23 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout( this.change_success, 1500)
+      var timeout_1 = window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
-      this.alert_success =! this.alert_success
+      this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout( this.change_error, 1500)
+      var timeout_2 = window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
-      this.alert_error =! this.alert_error
+      this.alert_error = !this.alert_error
     },
     delete_selected: function () {
       var count = 0
       var length = this.selected_scheduling.length
       for (let i = 0; i < this.selected_scheduling.length; i++) {
-        var item ={
+        var item = {
           rule_id: this.selected_scheduling[i].rule_id
         }
         let that = this
@@ -578,10 +575,9 @@ export default {
             }
           })
       }
-      if (this.count === this.length){
+      if (this.count === this.length) {
         this.notice_success()
-      }
-      else {
+      } else {
         this.notice_error()
       }
     }

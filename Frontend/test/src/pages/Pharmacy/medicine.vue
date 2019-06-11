@@ -157,199 +157,199 @@
 
 <script>
 export default {
-    data: () => ({
-      // alert_success: false,
-      // alert_error: false,
-      // mode: true,
-      // department_id: '',
-      // department_name: '',
-      // department_cat: '',
-      // department_type: '',
-      // show: false,
-      // search: '',
-      // expand: false,
-      // selected: [],
-      refund_num: '',
-      num_available: [],
-      selected_prescriptionContent: '',
-      desserts_prescriptionContent: [],
-      mode_refund: false,
-      date: ['', ''],
-      md_item: '',
-      md_patient_id: '',
-      show: false,
-      department_default: '血液科',
-      search_patient: '',
-      state: '',
-      md_id: '',
-      result:'',
-      signal: '',
-      state_items: [
-        {
-          text: '已取消执行'
-        },
-        {
-          text: '已确认执行'
-        }
-      ],
-      headers_prescriptionContent: [
-        {
-          text: '处方id',
-          align: 'left',
-          value: 'prescription_id'
-        },
-        { text: '处方内容id', value: 'prescription_content_id' },
-        { text: '处方药品id', value: 'prescription_medicine_id' },
-        { text: '可退药数量', value: 'prescription_refund_available_num' },
-        { text: '选择药数量', value: 'num' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      headers_patient: [
-        {
-          text: '病人id',
-          align: 'left',
-          value: 'patient_record_id'
-        },
-        { text: '病人姓名', value: 'patient_name' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts_patient: [
-        {
-          patient_record_id: 1,
-          patient_name: 'shu'
-        }
-      ],
-      headers_md: [
-        {
-          text: '处方id',
-          align: 'left',
-          value: 'prescription_id'
-        },
-        { text: '处方名称', value: 'prescription_name' },
-        { text: '处方状态', value: 'prescription_execute_state' },
-        { text: '处方类型', value: 'prescription_type' },
-        { text: '费用', value: 'prescription_fee' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts_md: [
-        {
-          prescription_id: 1,
-          prescription_name: '这是处方',
-          prescription_execute_state: '已缴费',
-          prescription_type: '中药',
-          prescription_fee: '25.00'
-        }
-      ]
-    }),
-    methods: {
-      returnMedicine: function (item) {
-        let that = this
-        var url = this.HOME + 'md-doctor/return-medicine'
-        this.$http.post(url, {
-          prescription_id: item.prescription_id,
-          prescription_medicine_id: item.prescription_medicine_id,
-          prescription_num: that.refund_num
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.getContent(item)
-            that.getSentPre({patient_record_id: that.md_patient_id})
-          })
+  data: () => ({
+    // alert_success: false,
+    // alert_error: false,
+    // mode: true,
+    // department_id: '',
+    // department_name: '',
+    // department_cat: '',
+    // department_type: '',
+    // show: false,
+    // search: '',
+    // expand: false,
+    // selected: [],
+    refund_num: '',
+    num_available: [],
+    selected_prescriptionContent: '',
+    desserts_prescriptionContent: [],
+    mode_refund: false,
+    date: ['', ''],
+    md_item: '',
+    md_patient_id: '',
+    show: false,
+    department_default: '血液科',
+    search_patient: '',
+    state: '',
+    md_id: '',
+    result: '',
+    signal: '',
+    state_items: [
+      {
+        text: '已取消执行'
       },
-      getNumAvailable: function (num){
-        var array = []
-        for (let i = 1; i <= num; i++) {
-          array.push(i)
-        }
-        return array
-      },
-      load: function () {
-        let that = this
-        var url = this.HOME + 'md-doctor/get-all-patients'
-        this.$http.post(url, {
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_patient = response.data.data
-          })
-      },
-      getPayPre: function (item) {
-        this.md_patient_id = item.patient_record_id
-        let that = this
-        var url = this.HOME + 'md-doctor/get-prescription-by-patient'
-        this.$http.post(url, {
-          register_info_patient_id: item.patient_record_id,
-          start_time: that.date[0],
-          end_time: that.date[1]
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_md = response.data.data
-          })
-      },
-      getSentPre: function (item) {
-        this.md_patient_id = item.patient_record_id
-        let that = this
-        var url = this.HOME + 'md-doctor/get-sent-prescription'
-        this.$http.post(url, {
-          patient_id: item.patient_record_id,
-          start_time: that.date[0],
-          end_time: that.date[1]
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_md = response.data.data
-          })
-      },
-      sendMedicine: function (item) {
-        let that = this
-        var url = this.HOME + 'md-doctor/send-medicine'
-        this.$http.post(url, {
-          prescription_id: item.prescription_id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            var item = {
-              patient_record_id: that.md_patient_id
-            }
-            that.getPayPre(item)
-          })
-      },
-      getContent: function (item) {
-        let that = this
-        var url = this.HOME + 'md-doctor/get-prescription-contents'
-        this.$http.post(url, {
-          prescription_id: item.prescription_id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_prescriptionContent = response.data.data
-          })
-      },
-      eraseForm: function () {
-        this.md_id = ''
-        this.result = ''
-        this.state = ''
-        this.md_item = ''
-      },
-      fillForm: function (item) {
-        this.md_item = item
-        this.md_id = item.medical_skill_id
-        this.result = item.medical_skill_result
-        this.state = item.medical_skill_execute_state
+      {
+        text: '已确认执行'
       }
+    ],
+    headers_prescriptionContent: [
+      {
+        text: '处方id',
+        align: 'left',
+        value: 'prescription_id'
+      },
+      { text: '处方内容id', value: 'prescription_content_id' },
+      { text: '处方药品id', value: 'prescription_medicine_id' },
+      { text: '可退药数量', value: 'prescription_refund_available_num' },
+      { text: '选择药数量', value: 'num' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    headers_patient: [
+      {
+        text: '病人id',
+        align: 'left',
+        value: 'patient_record_id'
+      },
+      { text: '病人姓名', value: 'patient_name' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts_patient: [
+      {
+        patient_record_id: 1,
+        patient_name: 'shu'
+      }
+    ],
+    headers_md: [
+      {
+        text: '处方id',
+        align: 'left',
+        value: 'prescription_id'
+      },
+      { text: '处方名称', value: 'prescription_name' },
+      { text: '处方状态', value: 'prescription_execute_state' },
+      { text: '处方类型', value: 'prescription_type' },
+      { text: '费用', value: 'prescription_fee' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts_md: [
+      {
+        prescription_id: 1,
+        prescription_name: '这是处方',
+        prescription_execute_state: '已缴费',
+        prescription_type: '中药',
+        prescription_fee: '25.00'
+      }
+    ]
+  }),
+  methods: {
+    returnMedicine: function (item) {
+      let that = this
+      var url = this.HOME + 'md-doctor/return-medicine'
+      this.$http.post(url, {
+        prescription_id: item.prescription_id,
+        prescription_medicine_id: item.prescription_medicine_id,
+        prescription_num: that.refund_num
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.getContent(item)
+          that.getSentPre({patient_record_id: that.md_patient_id})
+        })
     },
-    mounted: function () {
-      this.load()
+    getNumAvailable: function (num) {
+      var array = []
+      for (let i = 1; i <= num; i++) {
+        array.push(i)
+      }
+      return array
     },
-    watch: {
-      show: function (newState, oldState) {
-        if (newState === false) {
-          this.eraseForm()
-        }
+    load: function () {
+      let that = this
+      var url = this.HOME + 'md-doctor/get-all-patients'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_patient = response.data.data
+        })
+    },
+    getPayPre: function (item) {
+      this.md_patient_id = item.patient_record_id
+      let that = this
+      var url = this.HOME + 'md-doctor/get-prescription-by-patient'
+      this.$http.post(url, {
+        register_info_patient_id: item.patient_record_id,
+        start_time: that.date[0],
+        end_time: that.date[1]
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_md = response.data.data
+        })
+    },
+    getSentPre: function (item) {
+      this.md_patient_id = item.patient_record_id
+      let that = this
+      var url = this.HOME + 'md-doctor/get-sent-prescription'
+      this.$http.post(url, {
+        patient_id: item.patient_record_id,
+        start_time: that.date[0],
+        end_time: that.date[1]
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_md = response.data.data
+        })
+    },
+    sendMedicine: function (item) {
+      let that = this
+      var url = this.HOME + 'md-doctor/send-medicine'
+      this.$http.post(url, {
+        prescription_id: item.prescription_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          var item = {
+            patient_record_id: that.md_patient_id
+          }
+          that.getPayPre(item)
+        })
+    },
+    getContent: function (item) {
+      let that = this
+      var url = this.HOME + 'md-doctor/get-prescription-contents'
+      this.$http.post(url, {
+        prescription_id: item.prescription_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_prescriptionContent = response.data.data
+        })
+    },
+    eraseForm: function () {
+      this.md_id = ''
+      this.result = ''
+      this.state = ''
+      this.md_item = ''
+    },
+    fillForm: function (item) {
+      this.md_item = item
+      this.md_id = item.medical_skill_id
+      this.result = item.medical_skill_result
+      this.state = item.medical_skill_execute_state
+    }
+  },
+  mounted: function () {
+    this.load()
+  },
+  watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
       }
     }
   }
+}
 </script>
 
 <style scoped>
