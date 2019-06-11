@@ -14,11 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.lang.RuntimeException;
+import java.nio.file.attribute.AclEntryPermission;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.neuedu.lab.Utils.ConstantDefinition.DAILY_PASS_STATE;
 import static com.neuedu.lab.Utils.ConstantDefinition.REFUND_TYPE;
 import static com.neuedu.lab.Utils.ConstantUtils.convertToNegtive;
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
@@ -171,28 +173,72 @@ public class UserService {
 
     //用户服务
 
-    //日结
+    //收费员自己日结
     @Transactional
-    public List<Bill> dailyClear(Daily daily) throws RuntimeException, ParseException {
+    public JSONObject dailySearch(Daily daily) throws RuntimeException, ParseException {
         Daily dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id()); //取出最后一次日结记录
         Date end_time = dailyRecent == null ? ConstantUtils.getSystemInitializeTime() : dailyRecent.getDaily_end(); //若无记录，则按系统初始时间作为上次结束时间
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
-        daily.setDaily_pass(false);  //默认审核未通过
+        daily.setDaily_pass_state(ConstantDefinition.DAILY_PASS_STATE[0]);
+
+
+        //获取发票List
+        List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+
+        //通过发票计算费用
+        BigDecimal daily_sum = new BigDecimal(0);
+        BigDecimal daily_actual_sum = new BigDecimal(0);
+        BigDecimal daily_register_sum = new BigDecimal(0);
+        BigDecimal daily_mid_prescription_sum = new BigDecimal(0);
+        BigDecimal daily_west_prescription_sum = new BigDecimal(0);
+
+        for(Bill bill: bills){
+            if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[0])){//挂号费
+                daily_register_sum = daily_register_sum.add(bill.getBill_sum());
+            }
+            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[4])){ //中药费
+                daily_mid_prescription_sum = daily_mid_prescription_sum.add(bill.getBill_sum());
+            }
+            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[5])){ //西药费
+                daily_west_prescription_sum = daily_west_prescription_sum.add(bill.getBill_sum());
+            }
+            daily_sum = daily_sum.add(bill.getBill_sum());
+            daily_actual_sum = daily_actual_sum.add(bill.getBill_sum());
+        }
+
+        daily.setDaily_sum(daily_sum);
+        daily.setDaily_actual_sum(daily_actual_sum);
+        daily.setDaily_register_sum(daily_register_sum);
+        daily.setDaily_mid_prescription_sum(daily_mid_prescription_sum);
+        daily.setDaily_west_prescription_sum(daily_west_prescription_sum);
+
         dailyMapper.addDaily(daily); //将记录插入到日结表
-        System.out.println(daily.getDaily_start());
-        System.out.println(daily.getDaily_end());
-        return billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+
+        //给日结表填充发票记录
+        daily.setBills(bills);
+
+        return responseSuccess(daily);
+    }
+    //日结确认
+    public JSONObject dailySubmit(Integer daily_id){
+        try{
+            dailyMapper.updateDailyPass(daily_id,DAILY_PASS_STATE[1],null);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(dailyMapper.getDailyById(daily_id));
     }
 
-    //日结确认
-    public boolean dailyPass(Integer daily_id) {
+    //日结审核通过
+    public JSONObject dailyPass(Integer daily_id,Integer daily_owner_id) {
         try {
-            dailyMapper.updateDailyPass(daily_id, true);
+            dailyMapper.updateDailyPass(daily_id, DAILY_PASS_STATE[2],daily_owner_id);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(dailyMapper.getDailyById(daily_id));
     }
 
     //获取日结信息
@@ -439,7 +485,7 @@ public class UserService {
             return refundPrescription(id);
         }
         else {
-            return responseFail("type类型错误",null);
+            return responseFail("无此类型",null);
         }
     }
 }

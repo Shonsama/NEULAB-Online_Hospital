@@ -16,10 +16,6 @@ public class ServiceTest {
     private UserService userService;
 
 
-    @Test
-    public void dailyPassTest(){
-        userService.dailyPass(1);
-    }
 
 
 }
