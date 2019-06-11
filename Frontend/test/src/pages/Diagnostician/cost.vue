@@ -2,9 +2,10 @@
   <div>
     <v-layout>
       <v-flex xs4>
-        <v-toolbar flat dense color="white">
+        <v-toolbar flat dense>
           <v-toolbar-title>患者查询</v-toolbar-title>
           <v-spacer/>
+          <v-flex md6>
           <v-text-field
             v-model="search_patient"
             append-icon="search"
@@ -12,6 +13,7 @@
             hide-details
             style="margin-bottom: 15px"
           ></v-text-field>
+          </v-flex>
         </v-toolbar>
         <v-divider/>
         <v-data-table
@@ -33,7 +35,7 @@
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex>
-        <v-toolbar flat dense color="white">
+        <v-toolbar flat dense>
           <v-toolbar-title>检验项目</v-toolbar-title>
         </v-toolbar>
         <v-divider/>
