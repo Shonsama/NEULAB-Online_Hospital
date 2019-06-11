@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.TemplateMapper;
 import com.neuedu.lab.model.po.Template;
 import com.neuedu.lab.model.po.TemplateContent;
@@ -13,15 +15,15 @@ public class TemplateService {
     @Resource
     private TemplateMapper templateMapper;
 
-    public boolean addTemplate(Template template){
+    public JSONObject addTemplate(Template template){
         try {
             templateMapper.addTemplate(template);
         }
         catch (Exception e){
             e.printStackTrace();
-            return false;
+            return ConstantUtils.responseFail();
         }
-        return true;
+        return ConstantUtils.responseSuccess(template);
     }
 
     public boolean deleteTemplate(Integer template_id){
@@ -44,8 +46,8 @@ public class TemplateService {
         return true;
     }
 
-    public List<Template> getAllTemplates(){
-        return templateMapper.getAllTemplates();
+    public List<Template> getAllTemplates(Integer doctor_id,String department_id){
+        return templateMapper.getAllTemplates(doctor_id,department_id);
     }
 
     public List<Template> getTemplatesByDoctor(Integer doctor_id){

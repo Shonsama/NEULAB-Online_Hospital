@@ -2,6 +2,7 @@ package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Template;
 import com.neuedu.lab.model.po.TemplateContent;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface TemplateMapper {
     void deleteTemplate(Integer template_id);
     void updateTemplate(Template template);
 
-    List<Template> getAllTemplates();
+    List<Template> getAllTemplates(@Param("doctor_id")Integer doctor_id, @Param("department_id")String department_id);
     List<Template> getTemplatesByDoctor(Integer doctor_id);
     List<Template> getTemplatesByDepartment(String department_id);
 

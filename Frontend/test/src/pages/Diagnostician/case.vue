@@ -1,6 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-dialog
       v-model="show"
       max-width="400"
     >
@@ -186,7 +206,7 @@
                 v-model="selected"
                 :headers="headers"
                 :items="desserts"
-                item-key="diagnose_id"
+                item-key="diagnose_disease_id"
                 select-all
                 class="elevation-1"
                 style="margin-bottom: 20px"
@@ -229,9 +249,10 @@
 
 <script>
 export default {
-  props: ['msgfromfa'],
+  props: ['msgfromfa', 'dialog'],
   data () {
     return {
+      dialog: false,
       selected: [],
       selected_dia: [],
       show: false,
@@ -284,6 +305,7 @@ export default {
   },
   mounted: function () {
     this.load_diagnosis()
+    console.log(this.msgfromfa)
   },
   methods: {
     getItem () {
@@ -302,7 +324,7 @@ export default {
         var data = {
           diagnose_disease_id: this.selected_dia[n].disease_icd,
           diagnose_disease_name: this.selected_dia[n].disease_name,
-          diagnose_record_id: '6',
+          diagnose_record_id: this.msgfromfa.register_info_id,
           diagnose_time: new Date()
         }
         this.desserts.push(data)
@@ -319,6 +341,7 @@ export default {
     submit () {
       let that = this
       var url = this.HOME + '/doctor/submit-record'
+      that.dialog = true
       var data = {
         record_syndrome: that.form.record_syndrome,
         record_health_check: that.form.record_health_check,
@@ -328,16 +351,17 @@ export default {
         record_allergy_his: that.form.record_allergy_his,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
-        record_patient_id: '1',
-        record_doctor_id: '1',
-        record_id: '6',
-        record_doctor_type: '中医'
+        record_patient_id: that.msgfromfa.register_info_patient_id,
+        record_doctor_id: that.msgfromfa.register_info_doctor_id,
+        record_id: that.msgfromfa.register_info_id,
+        record_doctor_type: that.form.diagnosis.cate
       }
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data)
           this.submit_diagnoses()
           this.confirm_record()
+          that.dialog = false
           // that.desserts = response.data
         })
     },
@@ -345,7 +369,7 @@ export default {
       // let that = this
       var url = this.HOME + '/doctor/confirm-first-diagnose'
       var data = {
-        record_id: '6'
+        record_id: this.msgfromfa.register_info_id
       }
       this.$http.post(url, data)
         .then(response => {
@@ -382,14 +406,17 @@ export default {
         record_allergy_his: that.form.record_allergy_his,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
-        record_patient_id: '1',
-        record_doctor_id: '1',
-        record_id: '6',
-        record_doctor_type: '中医'
+        record_patient_id: that.msgfromfa.register_info_patient_id,
+        record_doctor_id: that.msgfromfa.register_info_doctor_id,
+        record_id: that.msgfromfa.register_info_id,
+        record_doctor_type: that.form.diagnosis.cate
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data)
+          that.submit_diagnoses()
+          that.dialog = false
           // that.desserts = response.data
         })
     },
@@ -405,8 +432,9 @@ export default {
       let that = this
       var url = this.HOME + '/doctor/get-record'
       var data = {
-        record_id: '6'
+        record_id: that.msgfromfa.register_info_id
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
@@ -418,6 +446,24 @@ export default {
           that.form.record_allergy_his = response.data.data.record_allergy_his
           that.form.record_suggestion = response.data.data.record_suggestion
           that.form.record_attention = response.data.data.record_attention
+          that.form.diagnosis.cate = response.data.data.record_doctor_type
+          var i
+          for (i = 0;i < response.data.data.firstDiagnoses.length; i++) {
+            var data = {
+              diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
+              diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
+              diagnose_id: response.data.data.firstDiagnoses[i].diagnose_id,
+              diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0,19))
+            }
+            that.desserts.push(data)
+          }
+          // that.desserts = response.data.data.firstDiagnoses
+          console.log(that.desserts)
+          that.expand_WE = true
+          if (that.expand_CH) {
+            that.expand_CH = !that.expand_CH
+          }
+          that.dialog = false
         })
     },
     choose_WE () {
