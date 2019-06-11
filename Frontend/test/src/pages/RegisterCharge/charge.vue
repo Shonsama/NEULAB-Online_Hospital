@@ -197,7 +197,10 @@
           <td>
             <v-btn
               small
+              flat
               right
+              icon
+              class="ml-3"
               color="primary"
               @click="chargeItem(props.item)"
             >
@@ -249,6 +252,9 @@
             <v-btn
               small
               right
+              icon
+              flat
+              class="ml-3"
               color="primary"
               @click="returnItem(props.item)"
             >
@@ -332,8 +338,17 @@ export default {
     },
     returnItem: function (value) {
       console.log(value)
-      var url = this.HOME + '/pay/get-medical-skill-canceled-or-paid'
-
+      let that = this
+      var url = this.HOME + '/user-service/refund'
+      var data = {
+        id: value.id,
+        type: value.type
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+        })
     },
     getItem: function () {
       var url = this.HOME + '/pay/get-medical-skill-canceled-or-paid'
@@ -349,6 +364,7 @@ export default {
           var i
           for (i = 0; i < response.data.data.length; i++) {
             var data = {
+              id: response.data.data[i].medical_skill_id,
               code: response.data.data[i].medical_skill_register_info_id,
               name: response.data.data[i].medical_skill_name,
               state: response.data.data[i].medical_skill_execute_state,
@@ -366,6 +382,7 @@ export default {
           var i
           for (i = 0; i < response.data.data.length; i++) {
             var data = {
+              id: response.data.data[i].prescription_id,
               code: response.data.data[i].prescription_register_info_id,
               name: response.data.data[i].prescription_name,
               state: response.data.data[i].prescription_execute_state,

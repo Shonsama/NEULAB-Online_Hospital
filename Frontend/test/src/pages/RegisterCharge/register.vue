@@ -297,9 +297,12 @@
         <td>{{ props.item.register_info_fee }}</td>
         <td>
           <v-btn
+            class="ml-3"
             small
+            flat
+            icon
             right
-            :disabled="props.item.register_info_state"
+            :disabled="props.item.register_info_state != '已挂号'"
             color="primary"
             @click="refund(props.item.register_info_id)"
           >
@@ -316,18 +319,7 @@
 <script>
 export default {
   data: () => ({
-    register_items: [{
-      register_info_id: '1',
-      register_info_state: '未看诊',
-      register_info_fee: '1',
-      register_info_pay_type: '1',
-      register_info_doctor_id: '1',
-      register_info_patient_id: '1',
-      register_info_user_id: '1',
-      doctor: '1',
-      user: '1',
-      patient: '1'
-    }],
+    register_items: [],
     headers: [
       {
         text: '挂号ID',
@@ -423,14 +415,15 @@ export default {
       this.bill_sum = 32
     },
     get_patient_register: function () {
-      var url = this.HOME + '/patient/get'
+      var url = this.HOME + 'user-service/refund/get-paid-registers'
       var that = this
       var data = {
-        'patient_record_id': that.patient_record_id
+        patient_id: that.patient_record_id
       }
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.register_items = response.data.data
         })
     },
     get_patient: function () {
@@ -451,7 +444,7 @@ export default {
           that.patient_credit_id = response.data.data.patient_credit_id
           that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
           that.patient_address = response.data.data.patient_address
-          // that.get_patient_register()
+          that.get_patient_register()
         })
     },
     load_constants: function () {
@@ -501,7 +494,7 @@ export default {
         })
     },
     refund: function (id) {
-      // let that = this
+      let that = this
       var data = {
         'register_id': id
       }
@@ -509,6 +502,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.get_patient_register()
         })
     },
     print_bill: function () {
@@ -550,6 +544,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.get_patient_register()
         })
     }
   }
