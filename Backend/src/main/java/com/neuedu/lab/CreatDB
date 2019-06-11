@@ -156,7 +156,7 @@ CREATE TABLE `his`.`usual_diagnose` (
 #患者信息
 drop table if exists  `his`.`patient_info`;
 CREATE TABLE `his`.`patient_info` (
-  `patient_id`INT NOT NULL AUTO_INCREMENT,
+  `patient_record_id`INT NOT NULL AUTO_INCREMENT,
   `patient_gender` bool not NULL,#男1女0
   `patient_name` VARCHAR(45)  NOT NULL,
   `patient_credit_id` VARCHAR(45) NOT NULL,

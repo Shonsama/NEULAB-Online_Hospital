@@ -1,5 +1,7 @@
 package com.neuedu.lab.model.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.po.Patient;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,15 @@ public class PatientService {
         return patientMapper.getAllPatients();
     }
 
-    public boolean addPatient(Patient patient){
+    public JSONObject addPatient(Patient patient){
         try {
             patientMapper.addPatient(patient);
         }
         catch (Exception e){
             e.printStackTrace();
-            return false;
+            return ConstantUtils.responseFail();
         }
-        return true;
+        return ConstantUtils.responseSuccess(patient);
     }
 
     public Patient getPatientByRecordId(Integer patient_id){
