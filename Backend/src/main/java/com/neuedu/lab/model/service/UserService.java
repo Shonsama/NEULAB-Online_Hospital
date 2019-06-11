@@ -6,6 +6,7 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import org.hibernate.validator.cfg.ConstraintDef;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.lang.RuntimeException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
@@ -35,6 +37,10 @@ public class UserService {
     private PrescriptionMapper prescriptionMapper;
     @Resource
     private PrescriptionContentMapper prescriptionContentMapper;
+    @Resource
+    private RegisterMapper registerMapper;
+    @Resource
+    private PatientMapper patientMapper;
 
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
@@ -235,6 +241,36 @@ public class UserService {
     }
 
 
+    //退号， 获取一个病人下所有“已挂号”状态下的挂号记录
+    public JSONObject getPaidRegisters(Integer patient_id){
+        List<Register> registers;
+        //获取挂号记录
+        try{
+            registers = registerMapper.getRegistersByPatientId(patient_id);
+        }catch (RuntimeException e ){
+            e.printStackTrace();
+            return responseFail("获取挂号记录失败",null);
+        }
+        Iterator<Register> iterator = registers.iterator();
+        while (iterator.hasNext()){
+            //如果不是“已挂号”状态，则删除
+            if(!iterator.next().getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])){
+                iterator.remove();
+            }
+        }
+        //填充病人
+        try{
+            for(Register register : registers){
+                register.setPatient(patientMapper.getPatientByRecordId(patient_id));
+            }
+        }catch (RuntimeException e ){
+            e.printStackTrace();
+            return responseFail("填充挂号记录的病人失败",null);
+        }
+        return responseSuccess(registers);
+    }
+
+
     //医技项目退费
     @Transactional
     public JSONObject refundMedicalSkill(Integer medical_skill_id) {
@@ -385,8 +421,6 @@ public class UserService {
 
         return ConstantUtils.responseSuccess(billBefore);
     }
-
-
 
 
 

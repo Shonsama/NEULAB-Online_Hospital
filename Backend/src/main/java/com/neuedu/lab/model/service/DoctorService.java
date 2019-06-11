@@ -104,6 +104,16 @@ public class DoctorService {
             }
         }
 
+        for(Register register: registers){
+            //填充病人
+            try{
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
+            }catch (RuntimeException e){
+                e.printStackTrace();
+                return responseFail("获取病人信息出错",null);
+            }
+        }
+
         return responseSuccess(registers);
 
     }
