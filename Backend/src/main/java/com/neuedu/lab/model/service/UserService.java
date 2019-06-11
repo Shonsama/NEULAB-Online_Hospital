@@ -518,4 +518,15 @@ public class UserService {
             return responseFail("无此类型",null);
         }
     }
+
+    public JSONObject getPrescriptions(Integer prescription_id){
+            List<PrescriptionContent> prescriptionContents;
+            try {
+                prescriptionContents = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
+            }catch (RuntimeException e){
+                e.printStackTrace();
+                return responseFail();
+            }
+            return responseSuccess(prescriptionContents);
+    }
 }
