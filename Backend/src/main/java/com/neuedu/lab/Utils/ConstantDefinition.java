@@ -16,6 +16,8 @@ public class ConstantDefinition {
 
     public static final String[] DAILY_PASS_STATE = {"未确认提交","已确认提交","审核通过","审核未通过"};
 
+    public static final String[] BILL_STATE = {"正常","作废","重打","补打","对冲"};
+
     public static final String ADD_PRESCRIPTION_NAME = "新增处方";
 
     public static final String SUCCESS_MESSAGE = "SUCCESS";

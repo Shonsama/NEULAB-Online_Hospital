@@ -345,12 +345,11 @@ drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
   `bill_id` INT NOT NULL AUTO_INCREMENT,
   `bill_num` VARCHAR(45) NOT NULL, #发票号
-  `bill_actual_sum` decimal(8,2) signed NOT NULL,
   `bill_sum` decimal(8,2) signed NOT NULL,
   `bill_time` DATETIME  NULL DEFAULT current_timestamp,
   `bill_type` varchar(45) NOT NULL,
+  `bill_state` VARCHAR(45) NOT NULL,
   #foreign key
-  `bill_fee_cat_id` VARCHAR(45) null,
   `bill_fee_cat_name`varchar(45) null,
   `bill_register_id` INT NOT NULL,
   `bill_prescription_id` INT NULL,
