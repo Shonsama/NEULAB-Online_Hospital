@@ -71,9 +71,12 @@
                             <v-btn
                               color="primary"
                               small
+                              flat
+                              icon
                               right
                               :disabled = "disable"
                               append-icon="search"
+                              class="ml-3"
                               @click="treat(props.item)"
                             >
                               接诊
@@ -161,14 +164,28 @@
                 </v-btn>
               </template>
               <v-card>
-                <v-container>
-                  <span>姓名：{{patient.patient_name}}</span><br>
-                  <span>性别：{{patient.patient_name}}</span><br>
-                  <span>年龄：{{patient.patient_name}}</span><br>
-                  <span>出生日期：{{patient.patient_name}}</span><br>
-                  <span>身份证号：{{patient.patient_name}}</span><br>
-
-                </v-container>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content>姓名:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_name }}</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>性别:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_gender }}</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>年龄:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_age }}</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>出生日期:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_birthDate }}</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>身份证号:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_credit_id }}</v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
               </v-card>
             </v-menu>
           </v-toolbar-items>

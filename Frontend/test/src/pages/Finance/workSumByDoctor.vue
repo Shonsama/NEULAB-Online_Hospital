@@ -1,5 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-flex>
       <v-toolbar flat>
         <v-flex xs3>
@@ -26,7 +47,7 @@
           icon
           flat
           color="primary"
-          @click="show = !show , mode = true"
+          @click="load"
         >
           <v-icon>
             search
@@ -68,6 +89,7 @@
 <script>
 export default {
   data: () => ({
+    dialog: false,
     date: ['', ''],
     search: '',
     expand: false,
@@ -94,18 +116,17 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/workload/get-doctor'
+      that.dialog = true
       this.$http.post(url, {
         start_time: that.date[0],
         end_time: that.date[1]
       })
         .then(function (response) {
           console.log(response.data)
+          that.dialog = false
           that.desserts = response.data.data
         })
     }
-  },
-  mounted: function () {
-    this.load()
   },
   computed: {
   },

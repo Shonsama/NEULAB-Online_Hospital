@@ -62,6 +62,11 @@ public class UserServiceController {
         return userService.refund(request.getString("type"),request.getInteger("id"));
     }
     // 退药
+    //获取一个处方的所有内容
+    @RequestMapping("/refund/prescription/get-content")
+    public JSONObject getPrescriptionContent(@RequestBody JSONObject request){
+        return userService.getPrescriptions(request.getInteger("prescription_id"));
+    }
     @RequestMapping("/refund/return-prescription")
     public JSONObject retrunPrescription(@RequestBody JSONObject request){
         return userService.returnMedicine(request.getInteger("prescription_id"),

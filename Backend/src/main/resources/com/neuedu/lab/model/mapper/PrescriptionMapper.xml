@@ -54,7 +54,7 @@
 
     <!--    获取所有已缴费/已退药项目-->
     <select id="getPrescriptionsInReturnedOrPaid" resultType="Prescription">
-        select medical_skill.* from prescription,register_info
+        select prescription.* from prescription,register_info
         where register_info_patient_id = #{register_info_patient_id}
         and register_info_id = prescription.prescription_register_info_id
         and (prescription_execute_state = "已缴费"
@@ -63,7 +63,7 @@
 
     <!--    获取所有已发送项目-->
     <select id="getPrescriptionsInSent" resultType="Prescription">
-        select medical_skill.* from prescription,register_info
+        select prescription.* from prescription,register_info
         where register_info_patient_id = #{register_info_patient_id}
         and register_info_id = prescription.prescription_register_info_id
         and prescription_execute_state = "已发送"

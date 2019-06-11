@@ -403,6 +403,7 @@
           :expand=false
           item-key="medical_skill_id"
           select-all
+          class="scroll-y"
         >
           <template v-slot:items="props">
             <td>

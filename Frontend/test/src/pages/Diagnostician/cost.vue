@@ -2,9 +2,10 @@
   <div>
     <v-layout>
       <v-flex xs4>
-        <v-toolbar flat dense color="white">
+        <v-toolbar flat dense>
           <v-toolbar-title>患者查询</v-toolbar-title>
           <v-spacer/>
+          <v-flex md6>
           <v-text-field
             v-model="search_patient"
             append-icon="search"
@@ -12,6 +13,7 @@
             hide-details
             style="margin-bottom: 15px"
           ></v-text-field>
+          </v-flex>
         </v-toolbar>
         <v-divider/>
         <v-data-table
@@ -24,7 +26,7 @@
             <td>{{ props.item.register_info_patient_id }}</td>
             <td>{{ props.item.patient.patient_name }}</td>
             <td>
-              <v-btn small right icon flat color="primary" @click="getPersonalMS(props.item)" class="ml-3">
+              <v-btn small right icon flat color="primary" @click="getFee(props.item)" class="ml-3">
                 查看
               </v-btn>
             </td>
@@ -33,7 +35,7 @@
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex>
-        <v-toolbar flat dense color="white">
+        <v-toolbar flat dense>
           <v-toolbar-title>检验项目</v-toolbar-title>
         </v-toolbar>
         <v-divider/>
@@ -139,14 +141,14 @@ export default {
     },
     getFee: function (value) {
       let that = this
-      var url = this.HOME + '/doctor/get-fee-records'
+      var url = this.HOME + '/doctxor/get-fee-records'
+      console.log(value)
       var data = {
-        patient_record_id: that.msgfromfa.register_info_doctor_id
+        register_id: value.register_info_id
       }
       this.$http.post(url, data)
         .then(response => {
-          that.desserts_patient = response.data.data
-          console.log(that.desserts_patient)
+          console.log(response.data)
         })
     }
   }

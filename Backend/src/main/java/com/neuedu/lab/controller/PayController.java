@@ -34,7 +34,7 @@ public class PayController {
         return payService.payPrescriptionFee(ids);
     }*/
 
-    @RequestMapping("")
+    @RequestMapping("/pay")
     public JSONObject payFee(@RequestBody JSONObject request){
         return payService.payFee(request.getInteger("id"), request.getString("type"),
                 request.getInteger("register_id"),request.getInteger("user_id"));
