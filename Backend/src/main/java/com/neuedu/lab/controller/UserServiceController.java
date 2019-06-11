@@ -37,6 +37,11 @@ public class UserServiceController {
 
 
 
+    //退号部分
+    @RequestMapping("/refund/get-paid-registers")
+    public JSONObject getPaidRegisters(@RequestBody JSONObject request){
+        return userService.getPaidRegisters(request.getInteger("patient_id"));
+    }
     //退费部分
     @RequestMapping("/refund/medical-skill")
     public JSONObject refundMedicalSkill(@RequestBody JSONObject request){
