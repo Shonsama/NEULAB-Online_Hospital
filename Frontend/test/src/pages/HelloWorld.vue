@@ -62,8 +62,7 @@
                     登录
                   </v-btn>
                 </v-flex>
-              </v-layout
-                justify-center>
+              </v-layout>
             </v-card>
         </v-layout>
       </v-parallax>

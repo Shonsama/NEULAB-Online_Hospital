@@ -447,12 +447,12 @@ export default {
           that.form.record_attention = response.data.data.record_attention
           that.form.diagnosis.cate = response.data.data.record_doctor_type
           var i
-          for (i = 0;i < response.data.data.firstDiagnoses.length; i++) {
+          for (i = 0; i < response.data.data.firstDiagnoses.length; i++) {
             var data = {
               diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
               diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
               diagnose_id: response.data.data.firstDiagnoses[i].diagnose_id,
-              diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0,19))
+              diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19))
             }
             that.desserts.push(data)
           }

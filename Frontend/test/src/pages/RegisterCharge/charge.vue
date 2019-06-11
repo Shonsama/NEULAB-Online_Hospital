@@ -355,7 +355,7 @@ export default {
       let that = this
       var url = this.HOME + '/user-service/refund/prescription/get-content'
       var data = {
-        prescription_id: value.id,
+        prescription_id: value.id
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -425,7 +425,7 @@ export default {
               name: response.data.data[i].medical_skill_name,
               state: response.data.data[i].medical_skill_execute_state,
               type: response.data.data[i].medical_skill_type,
-              number: response.data.data[i].medical_skill_fee,
+              number: response.data.data[i].medical_skill_fee
             }
             console.log(data)
             that.desserts.push(data)
@@ -441,7 +441,7 @@ export default {
               name: response.data.data[i].prescription_name,
               state: response.data.data[i].prescription_execute_state,
               type: response.data.data[i].prescription_type,
-              number: response.data.data[i].prescription_fee,
+              number: response.data.data[i].prescription_fee
             }
             console.log(data)
             that.desserts.push(data)
