@@ -22,7 +22,7 @@ public class UserServiceController {
     //日结
     //日结查询
     @RequestMapping("/daily-search")
-    public JSONObject dailySearch(@RequestBody Daily daily) throws ParseException {
+    public JSONObject dailySearch(@RequestBody Daily daily) {
         return userService.dailySearch(daily);
     }
 

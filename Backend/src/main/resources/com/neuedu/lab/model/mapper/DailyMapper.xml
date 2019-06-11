@@ -5,7 +5,8 @@
 <mapper namespace="com.neuedu.lab.model.mapper.DailyMapper">
     <select id="getDailyByUserId" resultType="Daily">
         SELECT * FROM daily
-        WHERE daily_user_id = #{daily_user_id}
+        WHERE daily_user_id = #{daily_user_id} AND
+              (daily_pass_state = #{daily_pass_state0} OR daily_pass_state = #{daily_pass_state1} OR daily_pass_state = #{daily_pass_state2})
         ORDER BY daily_end DESC
         LIMIT 0,1;
     </select>
@@ -49,6 +50,11 @@
         SELECT * FROM daily
         WHERE daily_id = #{daily_id}
     </select>
+
+    <delete id="deleteNonPassDaily">
+        DELETE FROM daily
+        WHERE daily_user_id = #{daily_user_id} AND daily_pass_state = #{daily_pass_state}
+    </delete>
 
 
 
