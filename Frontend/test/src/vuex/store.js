@@ -4,11 +4,12 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    showDrawer: null,
     doctor: '',
-    authority: [],
     user: {
-    }
+      id: '',
+      department_id: ''
+    },
+    isLogin: false
   },
   getters: {
     getIsShowDrawer: function (state, data) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     saveForm: function (state) {
       var stateNow = state.showDrawer
       state.showDrawer = !stateNow
+    },
+    login: function (state) {
+      state.isLogin = true
     }
   }
 })

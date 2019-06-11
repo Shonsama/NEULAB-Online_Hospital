@@ -307,7 +307,8 @@ export default {
         {text: '金额', value: 'number'},
         {text: '收费时间', value: 'time'},
         {text: '操作', value: 'operation', sortable: false}
-      ]
+      ],
+      content: []
     }
   },
   computed: {
@@ -347,6 +348,18 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.getItem()
+        })
+    },
+    getContent: function (value) {
+      console.log(value)
+      let that = this
+      var url = this.HOME + '/user-service/refund/prescription/get-content'
+      var data = {
+        prescription_id: value.id,
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
         })
     },
     getItem: function () {

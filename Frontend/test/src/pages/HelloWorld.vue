@@ -1,33 +1,74 @@
 <template>
-  <v-layout align-center justify-center>
-    <v-flex xs12 sm8 md6>
-      <v-card class="elevation-1">
-        <v-toolbar flat color="primary">
-          <v-toolbar-title flat class="white--text">Login form</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <v-card-text>
-          <v-form>
-            <v-text-field prepend-inner-icon="person" name="login" label="Login" type="text"></v-text-field>
-            <v-text-field id="password" prepend-inner-icon="lock" name="password" label="Password" type="password"></v-text-field>
-            <v-select
-              v-model="route"
-              :items="states"
-              menu-props="auto"
-              label="Identity"
-              hide-details
-              prepend-inner-icon="account_box"
-              required
-            ></v-select>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary">Login</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <div>
+    <section>
+      <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
+        <v-layout
+          column
+          align-center
+          justify-center
+          class="white--text"
+        >
+          <h1 class="white--text mb-2 display-1 text-xs-center">
+            <v-icon dark large style="margin-bottom: 2px">
+              local_hospital
+            </v-icon>
+            NeuHospital
+          </h1>
+            <v-card
+              width="400"
+            >
+              <v-layout
+                justify-center
+                column
+              >
+                <v-flex xs12 sm10 md8 lg6>
+                  <v-card-title primary-title>
+                    <v-layout
+                      justify-center
+                      column
+                      align-center
+                    >
+                      <div>
+                        <h6 class="title">登录</h6>
+                      </div>
+                      <div>
+                        <h6 class="body-1 font-weight-regular mt-2">使用你的云医院账号</h6>
+                      </div>
+                    </v-layout>
+                  </v-card-title>
+                </v-flex>
+                <v-flex xs12 sm10 md8 lg8 class="mr-5 ml-5">
+                  <v-text-field
+                    label="用户名"
+                    prepend-inner-icon="person"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 class="mr-5 ml-5">
+                  <v-text-field
+                    v-model="password"
+                    prepend-inner-icon="edit"
+                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                    :type="show1 ? 'text' : 'password'"
+                    name="input-10-1"
+                    label="密码"
+                    counter
+                    @click:append="show1 = !show1"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 class="text-xs-center mb-4">
+                  <v-btn
+                    color="primary"
+
+                  >
+                    登录
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-card>
+        </v-layout>
+      </v-parallax>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -35,6 +76,22 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      show1: false,
+      password: '',
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+        }
+      ],
       route: '',
       states: [
         '门诊医生', '医技医生', '挂号收费员', '药房操作员',
