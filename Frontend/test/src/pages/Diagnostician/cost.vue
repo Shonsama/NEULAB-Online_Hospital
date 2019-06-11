@@ -26,7 +26,7 @@
             <td>{{ props.item.register_info_patient_id }}</td>
             <td>{{ props.item.patient.patient_name }}</td>
             <td>
-              <v-btn small right icon flat color="primary" @click="getPersonalMS(props.item)" class="ml-3">
+              <v-btn small right icon flat color="primary" @click="getFee(props.item)" class="ml-3">
                 查看
               </v-btn>
             </td>
@@ -141,14 +141,14 @@ export default {
     },
     getFee: function (value) {
       let that = this
-      var url = this.HOME + '/doctor/get-fee-records'
+      var url = this.HOME + '/doctxor/get-fee-records'
+      console.log(value)
       var data = {
-        patient_record_id: that.msgfromfa.register_info_doctor_id
+        register_id: value.register_info_id
       }
       this.$http.post(url, data)
         .then(response => {
-          that.desserts_patient = response.data.data
-          console.log(that.desserts_patient)
+          console.log(response.data)
         })
     }
   }

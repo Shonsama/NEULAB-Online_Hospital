@@ -33,220 +33,239 @@
     </template>
   </v-toolbar>
   <v-divider></v-divider>
-  <v-layout class="ml-4 mt-4">
+  <v-layout class="ml-4">
     <v-form v-model="valid">
       <v-container>
-      <v-layout>
-        <div class="title font-weight-light">患者信息查询</div>
-      </v-layout>
-      <v-layout>
-        <v-flex
-          xs12
-          md3
-        >
-          <v-text-field
-            v-model="patient_record_id"
-            label="病历号"
-            required
-          ></v-text-field>
-        </v-flex>
-        <v-btn
-          @click="get_patient"
-          color="primary"
-          flat
-          icon
-          style="margin-top: 20px"
-        >
-          <v-icon>search</v-icon>
-        </v-btn>
-      </v-layout>
-      <v-layout>
-        <div class="title font-weight-light">患者信息确认</div>
-      </v-layout>
-      <v-layout>
-        <v-flex
-          xs12
-          md2
-        >
-          <v-text-field
-            v-model="patient_name"
-            :rules="nameRules"
-            label="姓名"
-            placeholder="请输入姓名"
-            required
-          ></v-text-field>
-        </v-flex>
-        <v-flex
-          xs12
-          md2
-        >
-          <v-select
-            v-model="patient_gender"
-            :rules="genderRules"
-            :items="genders"
-            label="性别"
-            required
-            placeholder="请选择性别"
-          ></v-select>
-        </v-flex>
-
-        <v-flex
-          xs12
-          md4
-        >
-          <v-textarea
-            v-model="patient_address"
-            label="家庭住址"
-            placeholder="请输入家庭住址"
-            rows="1"
-          ></v-textarea>
-        </v-flex>
-
-        <v-flex
-          xs12
-          md3
-        >
-          <v-text-field
-            v-model="patient_credit_id"
-            :rules="creditRules"
-            :counter="18"
-            label="身份证号"
-            placeholder="请输入身份证号"
-            required
-          ></v-text-field>
-        </v-flex>
-        <v-flex
-          xs12
-          md2
-        >
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="patient_birthDate"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
+        <v-layout>
+          <div class="title font-weight-light">患者信息查询</div>
+        </v-layout>
+        <v-layout>
+          <v-flex
+            xs12
+            md6
+            lg3
           >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="patient_birthDate"
-                label="出生日期"
-                required
-                readonly
-                v-on="on"
-                placeholder="请选择出生日期"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="patient_birthDate" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
+            <v-text-field
+              v-model="patient_record_id"
+              label="病历号"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-btn
+            @click="get_patient"
+            color="primary"
+            flat
+            icon
+            style="margin-top: 20px"
+          >
+            <v-icon>search</v-icon>
+          </v-btn>
+        </v-layout>
+        <v-layout>
+          <div class="title font-weight-light">患者信息确认</div>
+        </v-layout>
+        <v-layout wrap>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-text-field
+              v-model="patient_name"
+              :rules="nameRules"
+              label="姓名"
+              placeholder="请输入姓名"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-select
+              v-model="patient_gender"
+              :rules="genderRules"
+              :items="genders"
+              label="性别"
+              required
+              placeholder="请选择性别"
+            ></v-select>
+          </v-flex>
 
-        <v-flex
-          xs12
-          md2
-        >
-          <v-text-field
-            v-model="patient_age"
-            label="年龄"
-            required
-            placeholder="请输入年龄"
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex
-          xs12
-          md2
-        >
-          <v-select
-            v-model="departmentId"
-            :items="departments"
-            item-text="department_name"
-            item_value="department_id"
-            :rules="departRules"
-            label="科室"
-            return-object
-            required
-            placeholder="请选择科室"
-          ></v-select>
-        </v-flex>
-        <v-flex
-          md2
-        >
-          <v-select
-            v-model="doctor_id"
-            :items="doctors"
-            item-text="doctor_name"
-            item-value="doctor_id"
-            :rules="doctorRules"
-            label="看诊医生"
-            return-object
-            required
-            placeholder="请选择看诊医生"
-          ></v-select>
-        </v-flex>
-        <v-flex
-          md2
-        >
-          <v-select
-            v-model="paycate"
-            :items="payCates"
-            :rules="payRules"
-            item-text="constant_name"
-            item_value="constant_id"
-            label="结算类别"
-            required
-            placeholder="请选择结算类别"
-          ></v-select>
-        </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg4
+          >
+            <v-textarea
+              v-model="patient_address"
+              label="家庭住址"
+              placeholder="请输入家庭住址"
+              rows="1"
+            ></v-textarea>
+          </v-flex>
 
-        <v-flex
-          md2
-        >
-          <v-select
-            :items="registers"
-            :rules="registerRules"
-            item-text="register_level_name"
-            item_value="register_level_id"
-            return-object
-            label="挂号级别"
-            required
-            placeholder="请选择挂号级别"
-          ></v-select>
-        </v-flex>
-        <v-spacer/>
-        <v-flex md2>
-          <v-checkbox
-            v-model="checkbox"
-            v-validate="'required'"
-            value="1"
-            style="margin-left: 10px"
-            label="是否需要病历本"
-            data-vv-name="checkbox"
-            type="checkbox"
-            required
-          ></v-checkbox>
-        </v-flex>
-        <v-flex md1>
-          <v-text-field
-            v-model="bill_sum"
-            label="应收金额"
-            placeholder="未知"
-            disabled
-          ></v-text-field>
-        </v-flex>
-        <v-btn small color="primary" style="margin-top: 20px" @click="submit_register">挂号</v-btn>
-      </v-layout>
+          <v-flex
+            xs12
+            md6
+            lg4
+          >
+            <v-text-field
+              v-model="patient_credit_id"
+              :rules="creditRules"
+              :counter="18"
+              label="身份证号"
+              placeholder="请输入身份证号"
+              required
+            ></v-text-field>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="patient_birthDate"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="patient_birthDate"
+                  label="出生日期"
+                  required
+                  readonly
+                  v-on="on"
+                  placeholder="请选择出生日期"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="patient_birthDate" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">OK</v-btn>
+              </v-date-picker>
+            </v-menu>
+          </v-flex>
+
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-text-field
+              v-model="patient_age"
+              label="年龄"
+              required
+              placeholder="请输入年龄"
+            ></v-text-field>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-select
+              v-model="paycate"
+              :items="payCates"
+              :rules="payRules"
+              item-text="constant_name"
+              item_value="constant_id"
+              label="结算类别"
+              required
+              placeholder="请选择结算类别"
+            ></v-select>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-select
+              v-model="register_level"
+              :items="registers"
+              :rules="registerRules"
+              item-text="register_level_name"
+              item_value="register_level_id"
+              return-object
+              label="挂号级别"
+              required
+              placeholder="请选择挂号级别"
+            ></v-select>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-select
+              v-model="departmentId"
+              :items="departments"
+              item-text="department_name"
+              item_value="department_id"
+              :rules="departRules"
+              label="科室"
+              return-object
+              required
+              placeholder="请选择科室"
+            ></v-select>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-select
+              v-model="doctor_id"
+              :items="doctors"
+              item-text="doctor_name"
+              item-value="doctor_id"
+              :rules="doctorRules"
+              label="看诊医生"
+              return-object
+              required
+              placeholder="请选择看诊医生"
+            ></v-select>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-text-field
+              v-model="bill_sum"
+              label="应收金额"
+              placeholder="未知"
+              disabled
+            ></v-text-field>
+          </v-flex>
+          <v-flex
+            xs12
+            md6
+            lg2
+          >
+            <v-checkbox
+              v-model="checkbox"
+              v-validate="'required'"
+              value="1"
+              style="margin-left: 10px"
+              label="是否需要病历本"
+              data-vv-name="checkbox"
+              type="checkbox"
+              required
+            ></v-checkbox>
+          </v-flex>
+          <v-btn small color="primary" style="margin-top: 25px" @click="submit_register">挂号</v-btn>
+        </v-layout>
       </v-container>
-     </v-form>
+    </v-form>
   </v-layout>
 </v-card>
   <v-card>
@@ -340,6 +359,7 @@ export default {
     departmentId: '',
     genders: ['男', '女'],
     registers: [],
+    register_level: '',
     payCates: [],
     paycate: '',
     registerLevel: '',
@@ -383,7 +403,10 @@ export default {
       this.patient_age = date.getFullYear() - date1.getFullYear()
     },
     departmentId: function (newState) {
-      this.load_doctors(newState.department_id)
+      this.load_doctors()
+    },
+    register_level: function (newState) {
+      this.load_doctors()
     }
   },
   mounted: function () {
@@ -465,8 +488,10 @@ export default {
     load_doctors: function () {
       let that = this
       console.log(that.departmentId)
+      console.log(that.register_level)
       var data = {
-        'department_id': that.departmentId.department_id
+        department_id: that.departmentId.department_id,
+        register_level_id: that.register_level.register_level_id
       }
       var url = this.HOME + '/register/get-all-doctor'
       this.$http.post(url, data)
@@ -490,12 +515,12 @@ export default {
       let that = this
       var url = this.HOME + '/register/print_bill'
       var data = {
-        'bill_actual_sum': that.bill_sum,
-        'bill_sum': that.bill_sum,
-        'bill_time': new Date(),
-        'bill_type': '挂号费',
-        'bill_register_id': that.register_info_id,
-        'bill_user_id': '1'
+        bill_actual_sum: that.bill_sum,
+        bill_sum: that.bill_sum,
+        bill_time: new Date(),
+        bill_type: '挂号费',
+        bill_register_id: that.register_info_id,
+        bill_user_id: '1'
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -512,14 +537,14 @@ export default {
         checkbox = 'false'
       }
       var data = {
-        'register_info_id': '',
-        'register_info_state': '未看诊',
-        'register_info_fee': that.bill_sum,
-        'register_info_pay_type': that.paycate,
-        'register_info_doctor_id': that.doctor_id.doctor_id,
-        'register_info_patient_id': that.patient_record_id,
-        'register_info_user_id': '1',
-        'register_info_records_book': checkbox
+        register_info_id: '',
+        register_info_state: '未看诊',
+        register_info_fee: that.bill_sum,
+        register_info_pay_type: that.paycate,
+        register_info_doctor_id: that.doctor_id.doctor_id,
+        register_info_patient_id: that.patient_record_id,
+        register_info_user_id: '1',
+        register_info_records_book: checkbox
       }
       console.log(data)
       this.$http.post(url, data)

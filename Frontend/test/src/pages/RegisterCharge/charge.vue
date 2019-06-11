@@ -2,10 +2,11 @@
   <div>
     <v-card>
       <v-toolbar extended flat dense>
-        <v-toolbar-title >收费信息</v-toolbar-title>
+        <v-toolbar-title>收费信息</v-toolbar-title>
         <template v-slot:extension>
           <v-flex xs2>
-            <v-text-field  prepend-inner-icon="assignment" name="login" label="发票号" type="text" :disabled = "disabled"></v-text-field>
+            <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text"
+                          :disabled="disabled"></v-text-field>
           </v-flex>
           <v-btn
             small
@@ -64,10 +65,11 @@
           <v-layout>
             <div class="title font-weight-light">患者信息确认</div>
           </v-layout>
-          <v-layout>
+          <v-layout wrap>
             <v-flex
               xs12
-              md2
+              md6
+              lg2
             >
               <v-text-field
                 v-model="patient_name"
@@ -79,7 +81,8 @@
 
             <v-flex
               xs12
-              md2
+              md6
+              lg2
             >
               <v-text-field
                 v-model="patient_gender"
@@ -91,7 +94,8 @@
 
             <v-flex
               xs12
-              md4
+              md6
+              lg4
             >
               <v-textarea
                 v-model="patient_address"
@@ -103,7 +107,8 @@
 
             <v-flex
               xs12
-              md3
+              md6
+              lg4
             >
               <v-text-field
                 v-model="patient_credit_id"
@@ -113,11 +118,10 @@
                 required
               ></v-text-field>
             </v-flex>
-          </v-layout>
-          <v-layout>
             <v-flex
               xs12
-              md2
+              md6
+              lg2
             >
               <v-menu
                 ref="menu"
@@ -151,7 +155,8 @@
 
             <v-flex
               xs12
-              md2
+              md6
+              lg2
             >
               <v-text-field
                 v-model="patient_age"
@@ -314,25 +319,16 @@ export default {
     chargeItem: function (value) {
       let that = this
       console.log(value)
-      var url = this.HOME + '/pay/medical-skill'
-      var url1 = this.HOME + '/pay/prescription'
-      if (value.type === '检查' || value.type === '检验' || value.type === '处置') {
-        var data = {
-          'register_info_patient_id': that.patient_record_id
-        }
-        this.$http.post(url, data)
-          .then(function (response) {
-            console.log(response.data)
-          })
-      } else {
-        var data = {
-          'register_info_patient_id': that.patient_record_id
-        }
-        this.$http.post(url1, data)
-          .then(function (response) {
-            console.log(response.data)
-          })
+      var url = this.HOME + '/pay/pay'
+      var data = {
+        id: value.code,
+        type: value.type
       }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+        })
     },
     returnItem: function (value) {
       console.log(value)
