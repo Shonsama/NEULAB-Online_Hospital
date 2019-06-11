@@ -228,7 +228,7 @@ export default {
             that.show = !that.show
             that.load()
             that.notice_success()
-          }else {
+          } else {
             that.notice_error()
           }
         })
@@ -250,7 +250,7 @@ export default {
             that.show = !that.show
             that.load()
             that.notice_success()
-          }else {
+          } else {
             that.notice_error()
           }
         })
@@ -300,8 +300,7 @@ export default {
       }
       if (this.count === this.length) {
         this.notice_success()
-      }
-      else {
+      } else {
         this.notice_error()
       }
     }
