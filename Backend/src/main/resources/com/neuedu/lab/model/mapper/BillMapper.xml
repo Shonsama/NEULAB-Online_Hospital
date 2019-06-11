@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.BillMapper">
     <insert id="addBill" parameterType="Bill" useGeneratedKeys="true" keyProperty="bill_id">
-        INSERT INTO his.bill (bill_actual_sum, bill_sum, bill_type, bill_register_id, bill_prescription_id,
-         bill_medical_skill_id, bill_user_id,bill_num)
-         VALUES (#{bill_actual_sum}, #{bill_sum},  #{bill_type}, #{bill_register_id}, #{bill_prescription_id},
-          #{bill_medical_skill_id}, #{bill_user_id},#{bill_num})
+        INSERT INTO his.bill (bill_num, bill_sum, bill_type, bill_state,bill_register_id, bill_prescription_id,
+         bill_medical_skill_id, bill_user_id,bill_fee_cat_name)
+         VALUES (#{bill_num},#{bill_sum},  #{bill_type}, #{bill_state}, #{bill_register_id}, #{bill_prescription_id},
+          #{bill_medical_skill_id}, #{bill_user_id},#{bill_fee_cat_name})
     </insert>
 
     <select id="getBill" resultType="Bill">
@@ -44,4 +44,9 @@
         ORDER BY bill_time DESC
         LIMIT 0,1
     </select>
+
+    <update id="updateBillNum">
+        update bill set bill_num = #{bill_num}
+        where bill_id = #{bill_id}
+    </update>
 </mapper>

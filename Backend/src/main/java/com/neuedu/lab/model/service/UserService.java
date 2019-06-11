@@ -6,15 +6,11 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
-import org.hibernate.validator.cfg.ConstraintDef;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.lang.RuntimeException;
-import java.nio.file.attribute.AclEntryPermission;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,7 +18,6 @@ import java.util.List;
 
 import static com.neuedu.lab.Utils.ConstantDefinition.DAILY_PASS_STATE;
 import static com.neuedu.lab.Utils.ConstantDefinition.REFUND_TYPE;
-import static com.neuedu.lab.Utils.ConstantUtils.convertToNegtive;
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
 import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
@@ -390,7 +385,7 @@ public class UserService {
 
         //增加对冲发票
         bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
-        bill.setBill_actual_sum(ConstantUtils.convertToNegtive(bill.getBill_actual_sum()));
+        bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
         try {
             billMapper.addBill(bill);
         } catch (RuntimeException e) {
@@ -471,7 +466,7 @@ public class UserService {
         Bill billBefore;
         try {
             billBefore = billMapper.getBillByPrescriptionId(prescription_id);
-            billBefore.setBill_actual_sum(ConstantUtils.convertToNegtive(billBefore.getBill_actual_sum()));
+            billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billMapper.addBill(billBefore);
         } catch (RuntimeException e) {
@@ -499,8 +494,8 @@ public class UserService {
 
         //插入新的处方发票记录
         billBefore.setBill_prescription_id(prescriptionToAdd.getPrescription_id());
-        billBefore.setBill_actual_sum(prescriptionToAdd.getPrescription_fee());
         billBefore.setBill_sum(prescriptionToAdd.getPrescription_fee());
+        //billBefore.setBill_sum(prescriptionToAdd.getPrescription_fee());
         billMapper.addBill(billBefore);
 
         return ConstantUtils.responseSuccess(billBefore);

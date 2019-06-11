@@ -2,6 +2,7 @@ package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pay")
 public class PayController {
+    Bill bill;
     @Autowired
     private PayService payService;
 
@@ -34,7 +36,8 @@ public class PayController {
 
     @RequestMapping("")
     public JSONObject payFee(@RequestBody JSONObject request){
-        return payService.payFee(request.getInteger("id"), request.getString("type"));
+        return payService.payFee(request.getInteger("id"), request.getString("type"),
+                request.getInteger("register_id"),request.getInteger("user_id"));
     }
 
     //已缴费/已取消执行

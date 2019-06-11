@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Bill {
-    private String bill_id;
-    private BigDecimal bill_actual_sum;
+    private Integer bill_id;
     private BigDecimal bill_sum;
     private Date bill_time;
     private String bill_type;
@@ -13,15 +12,15 @@ public class Bill {
     private Integer bill_prescription_id;
     private Integer bill_medical_skill_id;
     private Integer bill_user_id;
-    private String bill_fee_cat_id;
+    private String bill_state;
     private String bill_fee_cat_name;
-    private Integer bill_num;
+    private String bill_num;
 
-    public Integer getBill_num() {
+    public String getBill_num() {
         return bill_num;
     }
 
-    public void setBill_num(Integer bill_num) {
+    public void setBill_num(String bill_num) {
         this.bill_num = bill_num;
     }
 
@@ -33,14 +32,6 @@ public class Bill {
         this.bill_prescription_id = bill_prescription_id;
     }
 
-    public String getBill_fee_cat_id() {
-        return bill_fee_cat_id;
-    }
-
-    public void setBill_fee_cat_id(String bill_fee_cat_id) {
-        this.bill_fee_cat_id = bill_fee_cat_id;
-    }
-
     public String getBill_fee_cat_name() {
         return bill_fee_cat_name;
     }
@@ -49,20 +40,20 @@ public class Bill {
         this.bill_fee_cat_name = bill_fee_cat_name;
     }
 
-    public String getBill_id() {
+    public Integer getBill_id() {
         return bill_id;
     }
 
-    public void setBill_id(String bill_id) {
+    public void setBill_id(Integer bill_id) {
         this.bill_id = bill_id;
     }
 
-    public BigDecimal getBill_actual_sum() {
-        return bill_actual_sum;
+    public String getBill_state() {
+        return bill_state;
     }
 
-    public void setBill_actual_sum(BigDecimal bill_actual_sum) {
-        this.bill_actual_sum = bill_actual_sum;
+    public void setBill_state(String bill_state) {
+        this.bill_state = bill_state;
     }
 
     public BigDecimal getBill_sum() {
