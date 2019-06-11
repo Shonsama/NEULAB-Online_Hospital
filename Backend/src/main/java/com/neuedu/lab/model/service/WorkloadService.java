@@ -57,7 +57,7 @@ public class WorkloadService {
         Integer departmentNum = departmentWorkloadMapper.getDepartmentsClinical().size();
         for (int i = 0; i < departmentNum; i++) {
             JSONObject obj = new JSONObject();
-            obj.put("getDoctorName", departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_name());
+            obj.put("getDepartmentName", departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_name());
             obj.put("getVisitorsNum", checkIfNull(departmentWorkloadMapper.getVisitorsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getRegisterFee", checkIfNull(departmentWorkloadMapper.getRegisterFee(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
@@ -76,7 +76,7 @@ public class WorkloadService {
         Integer departmentNum = departmentWorkloadMapper.getDepartmentsMedicalSkill().size();
         for (int i = 0; i < departmentNum; i++) {
             JSONObject obj = new JSONObject();
-            obj.put("getDoctorName", departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_name());
+            obj.put("getDepartmentName", departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_name());
             obj.put("getVisitorsNum", checkIfNull(departmentWorkloadMapper.getVisitorsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getRegisterFee", checkIfNull(departmentWorkloadMapper.getRegisterFee(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
