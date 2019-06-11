@@ -6,6 +6,7 @@ import java.util.Date;
 public class MedicalSkill {
     private Integer medical_skill_id;
     private String medical_skill_execute_state;
+    private Integer medical_skill_execute_doctor_id;
     private String medical_skill_result;
     private String medical_skill_type;
     private String medical_skill_name;
@@ -37,10 +38,6 @@ public class MedicalSkill {
     public void setMedical_skill_execute_doctor_id(Integer medical_skill_execute_doctor_id) {
         this.medical_skill_execute_doctor_id = medical_skill_execute_doctor_id;
     }
-
-    private Integer medical_skill_execute_doctor_id;
-
-
 
     public String getMedical_skill_content_id() {
         return medical_skill_content_id;

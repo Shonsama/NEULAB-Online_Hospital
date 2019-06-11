@@ -22,7 +22,7 @@ public interface MedicalSkillMapper {
     void updateMedicalSkillResult(MedicalSkill medicalSkill);
 
     //用于医技项目缴费
-    List<MedicalSkill> getMedicalSkillByRegisterId(Integer medical_skill_register_info_id,String medical_skill_execute_state);
+    List<MedicalSkill> getMedicalSkillByRegisterId(Integer medical_skill_register_info_id, String medical_skill_execute_state);
 
     //用于医技部门查找所有记录患者
     List<MedicalSkill> getMedicalSkillByDepartmentId(@Param("medical_skill_execute_department") String medical_skill_execute_department, @Param("medical_skill_execute_state") String medical_skill_execute_state);
@@ -44,6 +44,7 @@ public interface MedicalSkillMapper {
 
     //author: LEE
     List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id);
+
     List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_patient_id);
 
 }
