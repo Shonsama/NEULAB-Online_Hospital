@@ -21,8 +21,9 @@ public class TemplateController {
 
 //    manage template
     @RequestMapping("/get-all")
-    public JSONObject getAllTemplates(){
-        return ConstantUtils.responseSuccess(templateService.getAllTemplates());
+    public JSONObject getAllTemplates(@RequestBody JSONObject request){
+        System.out.println(request.getInteger("doctor_id")+request.getString("department_id"));
+        return ConstantUtils.responseSuccess(templateService.getAllTemplates(request.getInteger("doctor_id"),request.getString("department_id")));
     }
 
     @RequestMapping("/get-by-doctor")
@@ -37,12 +38,7 @@ public class TemplateController {
 
     @RequestMapping("/add-template")
     public JSONObject addTemplate(@RequestBody Template template){
-        if(templateService.addTemplate(template)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return templateService.addTemplate(template);
     }
 
     @RequestMapping("/delete-template")

@@ -112,6 +112,42 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="text"
+      max-width="400"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">添加处方模板</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="template_name"
+                  label="模板名称"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-select
+                  v-model="template_range"
+                  :items="['个人', '科室', '全院']"
+                  label="模板范围"
+                  required
+                ></v-select>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="text = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="addTem">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-card>
       <v-layout>
         <v-flex xs9>
@@ -255,31 +291,40 @@
         <v-divider vertical></v-divider>
         <v-flex  xs3>
           <v-toolbar flat dense>
-            <v-toolbar-title>常用模板</v-toolbar-title>
+            <v-toolbar-title  >常用模板</v-toolbar-title>
           </v-toolbar>
-            <v-data-table
-              v-model="selected_tem"
-              :headers="headers_tem"
-              :items="desserts_tem"
-              item-key="non_medicine_id"
-            >
-              <template v-slot:items="props">
-                <td>{{ props.item.non_medicine_id }}</td>
-                <td>
-                  <v-icon
-                    small
-                    class="mr-2"
-                  >
-                    add
-                  </v-icon>
-                  <v-icon
-                    small
-                  >
-                    settings
-                  </v-icon>
-                </td>
-              </template>
-            </v-data-table>
+          <v-data-table
+            :headers="headers_tem"
+            :items="filterDessertsTem"
+            item-key="template_id"
+          >
+            <template v-slot:items="props">
+              <td>{{ props.item.template_name }}</td>
+              <td>
+                <v-btn
+                  icon
+                  color="primary"
+                  flat
+                  right
+                  small
+                  class="ml-3"
+                  @click="useTem(props.item)"
+                >
+                  使用
+                </v-btn>
+                <v-btn
+                  icon
+                  color="primary"
+                  flat
+                  small
+                  right
+                  @click="seeTem(props.item);"
+                >
+                  详情
+                </v-btn>
+              </td>
+            </template>
+          </v-data-table>
           <v-divider/>
         </v-flex>
       </v-layout>
@@ -377,12 +422,12 @@ export default {
         {
           text: '模板名称',
           align: 'left',
-          value: 'non_medicine_id'
+          value: 'template_name'
         },
         { text: '操作', value: 'operation', sortable: false }
       ],
       desserts_tem: [{
-        non_medicine_id: '1'
+        template_name: '1'
       }],
       headers_tem_con: [
         {
@@ -426,12 +471,20 @@ export default {
       prescription_num: '',
       prescription_day: '',
       prescription_name: '',
-      prescription_id: ''
+      prescription_id: '',
+      template_name: '',
+      template_range: '',
+      template_id: '',
+      template_con_name: '',
+      template_con_range: '',
+      template_con_type: '',
+      template_con_id: ''
     }
   },
   created: function () {
     this.getItem()
     this.load_medicne()
+    this.getTem()
   },
   computed: {
     filterDesserts () {
@@ -445,11 +498,207 @@ export default {
     filterType (value) {
       return value.prescription_type === '中药'
     },
+    filterType_tem (value) {
+      return value.template_type === '中药' || value.template_type === '检验'
+    },
+    getTem () {
+      let that = this
+      var data = {
+        doctor_id: '1',
+        department_id: 'XXGK'
+      }
+      var url = this.HOME + '/template/get-all'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_tem = response.data.data
+          // that.dialog = false
+        })
+    },
+    deleteTem () {
+      let that = this
+      var data = {
+        template_id: that.template_con_id
+      }
+      var url = this.HOME + '/template/delete-template'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getTem()
+          that.tem = false
+        })
+    },
+    updateTem () {
+      let that = this
+      var data = {
+        template_type: that.template_con_type,
+        template_range: that.template_con_range,
+        template_id: that.template_con_id,
+        template_name: that.template_con_name,
+        template_init_date: new Date(),
+        template_doctor_id: that.msgfromfa.register_info_doctor_id
+      }
+      var url = this.HOME + '/template/update-template'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getTem()
+          that.tem = false
+        })
+    },
+    useTem (value) {
+      let that = this
+      var data = {
+        template_id: value.template_id
+      }
+      var url = this.HOME + '/template/get-content-non-medicine'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var i
+          for (i = 0; i < response.data.data.length; i++) {
+            that.addItemByTem(response.data.data[i])
+          }
+          // that.dialog = false
+        })
+    },
+    seeTem (value) {
+      let that = this
+      this.tem = true
+      var data = {
+        template_id: value.template_id
+      }
+      that.template_con_name = value.template_name
+      that.template_con_range = value.template_range
+      that.template_con_type = value.template_type
+      that.template_con_id = value.template_id
+      var url = this.HOME + '/template/get-content-non-medicine'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_tem_con = response.data.data
+          that.dialog = false
+        })
+    },
+    addTem () {
+      let that = this
+      var data = {
+        template_type: '检验',
+        template_name: that.template_name,
+        template_range: that.template_range,
+        template_doctor_id: that.msgfromfa.register_info_doctor_id
+      }
+      console.log(data)
+      var url = this.HOME + '/template/add-template'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.template_con_id = response.data.data.template_id
+          that.addTemContent()
+          that.text = false
+          that.getTem()
+        })
+    },
+    addTemContent () {
+      let that = this
+      var i
+      var url = this.HOME + '/template/add-content-non-medicine'
+      for (i = 0; i < that.filterDesserts.length; i++) {
+        var data = {
+          template_connect_id: that.template_con_id,
+          template_medical_skill_content_id: that.filterDesserts[i].medical_skill_content_id,
+          template_medical_skill_content_name: that.filterDesserts[i].medical_skill_name,
+          template_medical_skill_content_department_id: that.filterDesserts[i].medical_skill_urgent,
+          template_medical_skill_content_specification: that.filterDesserts[i].medical_skill_purpose,
+          template_medical_skill_content_checkpoint: that.filterDesserts[i].medical_skill_checkpoint,
+          template_medical_skill_content_department_name: that.filterDesserts[i].medical_skill_execute_department,
+          template_medical_skill_content_unit_price: that.filterDesserts[i].medical_skill_fee
+        }
+        console.log(data)
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            // that.dialog = true
+            // that.getItem()
+          })
+      }
+    },
+    addTemContentSingle (value) {
+      let that = this
+      var url = this.HOME + '/template/add-content-non-medicine'
+      var data = {
+        template_connect_id: that.template_con_id,
+        template_medical_skill_content_id: value.medical_skill_content_id,
+        template_medical_skill_content_name: value.medical_skill_content_name,
+        template_medical_skill_content_department_id: that.medical_skill_urgent,
+        template_medical_skill_content_specification: that.medical_skill_purpose,
+        template_medical_skill_content_checkpoint: that.medical_skill_checkpoint,
+        template_medical_skill_content_department_name: '血液科',
+        template_medical_skill_content_unit_price: value.medical_skill_content_price
+      }
+      console.log(value)
+      that.dialog = true
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var value = {
+            template_name: that.template_con_name,
+            template_range: that.template_con_range,
+            template_type: that.template_con_type,
+            template_id: that.template_con_id
+          }
+          that.seeTem(value)
+          that.show_tem = false
+        })
+    },
+    deleteTemContentSingle (value) {
+      let that = this
+      var url = this.HOME + '/template/delete-content'
+      var data = {
+        template_content_id: value.template_content_id
+      }
+      that.dialog = true
+      console.log(value)
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var value = {
+            template_name: that.template_con_name,
+            template_range: that.template_con_range,
+            template_type: that.template_con_type,
+            template_id: that.template_con_id
+          }
+          that.seeTem(value)
+        })
+    },
+    deleteTemContent () {
+      let that = this
+      var i
+      var url = this.HOME + '/template/delete-content'
+      for (i = 0; i < that.selected_tem.length; i++) {
+        var data = {
+          template_content_id: that.selected_tem[i].template_content_id
+        }
+        console.log(data)
+        this.$http.post(url, data)
+          .then(function (response) {
+            console.log(response.data)
+            var value = {
+              template_name: that.template_con_name,
+              template_range: that.template_con_range,
+              template_type: that.template_con_type,
+              template_id: that.template_con_id
+            }
+            that.dialog = true
+            that.seeTem(value)
+          })
+      }
+    },
     getItem () {
       let that = this
       var url = this.HOME + '/doctor/get-record'
       var data = {
-        record_id: '6'
+        record_id: that.msgfromfa.register_info_id
       }
       this.$http.post(url, data)
         .then(response => {
@@ -502,8 +751,8 @@ export default {
       let that = this
       var data = {
         prescription_type: '中药',
-        prescription_doctor_id: 1,
-        prescription_register_info_id: 6,
+        prescription_doctor_id: that.msgfromfa.register_info_doctor_id,
+        prescription_register_info_id: that.msgfromfa.register_info_id,
         prescription_name: that.prescription_name
 
       }
