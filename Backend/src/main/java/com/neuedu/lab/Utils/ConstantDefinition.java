@@ -14,6 +14,7 @@ public class ConstantDefinition {
     //只有暂存状态下的处方是可以修改或删除的,其他状态不可以
     //开立之后的处方是不能被删除的，可以点击“作废”，作废处方。作废处方是指收款人员页面看不到处方信息，也不能进行划价收款。
 
+    public static final String[] DAILY_PASS_STATE = {"未确认提交","已确认提交","审核通过","审核未通过"};
 
     public static final String ADD_PRESCRIPTION_NAME = "新增处方";
 
@@ -30,7 +31,7 @@ public class ConstantDefinition {
     public static final Integer FAIL_CODE = 500;
 
 
-    public static final String[] BILL_TYPE = {"挂号费", "检查费", "检验费", "处方费"};
+    public static final String[] BILL_TYPE = {"挂号费", "检查费", "检验费", "处置费","中药费","西药费"};
     public static final String[] REFUND_TYPE = {"检查","检验","处置","中药","西药"};
     //Token失效时间
     public static final Long EXPIRY_TIME = 2000 * 3600L;  //过期时间2小时

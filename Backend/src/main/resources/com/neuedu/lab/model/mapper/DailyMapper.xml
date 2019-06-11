@@ -16,29 +16,39 @@
             <if test="daily_user_id != null">
                 AND daily_user_id = #{daily_user_id}
             </if>
-            <if test="daily_pass != null">
-                AND daily_pass = #{daily_pass}
+            <if test="daily_pass_state != null">
+                AND daily_pass_state = #{daily_pass_state}
             </if>
         </where>
     </select>
 
     <insert id="addDaily" parameterType="Daily" useGeneratedKeys="true" keyProperty="daily_id">
         <if test="daily_end == null">
-            INSERT INTO daily ( daily_start, daily_user_id, daily_pass)
-            VALUES (#{daily_start}, #{daily_user_id}, #{daily_pass})
+            INSERT INTO daily (daily_start, daily_user_id, daily_pass_state, daily_sum, daily_mid_prescription_sum,
+                                daily_west_prescription_sum,daily_actual_sum, daily_register_sum)
+            VALUES (#{daily_start},#{daily_user_id},#{daily_pass_state}, #{daily_sum},#{daily_mid_prescription_sum},
+                    #{daily_west_prescription_sum}, #{daily_actual_sum}, #{daily_register_sum})
         </if>
 
         <if test="daily_end != null">
-            INSERT INTO daily ( daily_start, daily_end, daily_user_id, daily_pass)
-            VALUES (#{daily_start}, #{daily_end}, #{daily_user_id}, #{daily_pass})
+            INSERT INTO daily (daily_start, daily_end, daily_user_id, daily_pass_state ,daily_sum, daily_mid_prescription_sum,
+            daily_west_prescription_sum,daily_actual_sum, daily_register_sum)
+            VALUES (#{daily_start}, #{daily_end}, #{daily_user_id},#{daily_pass_state}, #{daily_sum},
+            #{daily_mid_prescription_sum}, #{daily_west_prescription_sum}, #{daily_actual_sum}, #{daily_register_sum})
         </if>
 
     </insert>
 
     <update id="updateDailyPass">
-        UPDATE daily SET daily_pass = #{daily_pass}
+        UPDATE daily SET daily_pass_state = #{daily_pass_state},
+            daily_owner_id = #{daily_owner_id}
         WHERE daily_id = #{daily_id}
     </update>
+
+    <select id="getDailyById" parameterType="Integer" resultType="Daily">
+        SELECT * FROM daily
+        WHERE daily_id = #{daily_id}
+    </select>
 
 
 
