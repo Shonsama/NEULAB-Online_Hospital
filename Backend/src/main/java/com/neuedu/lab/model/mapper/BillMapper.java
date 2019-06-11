@@ -22,4 +22,5 @@ public interface BillMapper {
 
     Bill getBillByPrescriptionId(Integer bill_prescription_id);
 
+    void updateBillNum(String bill_num,Integer bill_id);
 }

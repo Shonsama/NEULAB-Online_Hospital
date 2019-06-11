@@ -3,14 +3,18 @@ package com.neuedu.lab.model.service;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.model.mapper.BillMapper;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PrescriptionMapper;
+import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Prescription;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -20,6 +24,9 @@ public class PayService {
 
     @Resource
     private PrescriptionMapper prescriptionMapper;
+
+    @Resource
+    private BillMapper billMapper;
 
     //收费
 /*    @Transactional
@@ -40,22 +47,46 @@ public class PayService {
         }
     }*/
     @Transactional
-    public JSONObject payFee(Integer id, String type) {
-        if (type.equals("检查") || type.equals("检验") || type.equals("处置")) {
+    public JSONObject payFee(Integer id, String type, Integer register_id, Integer user_id) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Bill bill = new Bill();
+        bill.setBill_state(ConstantDefinition.BILL_STATE[0]);
+        bill.setBill_register_id(register_id);
+        bill.setBill_user_id(user_id);
+        if (type.equals("检查") || type.equals("检验") || type.equals("处置")) {//医技
             if (medicalSkillMapper.getMedicalSkill(id).getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1])) {
+                //更改medicalSkill缴费状态
                 medicalSkillMapper.updateMedicalSkillState(id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3], null);
+                //增加发票
+                bill.setBill_type(medicalSkillMapper.getMedicalSkill(id).getMedical_skill_type());
+                bill.setBill_fee_cat_name(medicalSkillMapper.getMedicalSkill(id).getMedical_skill_type());
+                bill.setBill_sum(medicalSkillMapper.getMedicalSkill(id).getMedical_skill_fee());
+                bill.setBill_medical_skill_id(id);
+                billMapper.addBill(bill);
+                String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
+                billMapper.updateBillNum(billNum,bill.getBill_id());
+                //返回成功
                 return ConstantUtils.responseSuccess("医技项目缴费成功");
             } else {
                 return ConstantUtils.responseFail("该医技项目不允许缴费");
             }
-        } else if (type.equals("西药") || type.equals("中药")) {
+        } else if (type.equals("西药") || type.equals("中药")) {//处方
             if (prescriptionMapper.getPrescription(id).getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1])) {
                 prescriptionMapper.updatePrescriptionState(id, ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]);
+                //增加发票
+                bill.setBill_type(prescriptionMapper.getPrescription(id).getPrescription_type());
+                bill.setBill_fee_cat_name(prescriptionMapper.getPrescription(id).getPrescription_type());
+                bill.setBill_sum(prescriptionMapper.getPrescription(id).getPrescription_fee());
+                bill.setBill_prescription_id(id);
+                billMapper.addBill(bill);
+                String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
+                billMapper.updateBillNum(billNum,bill.getBill_id());
                 return ConstantUtils.responseSuccess("处方项目缴费成功");
             } else {
                 return ConstantUtils.responseFail("该处方项目不允许缴费");
             }
-        }else{
+        } else {
             return ConstantUtils.responseFail("type无效!");
         }
     }
