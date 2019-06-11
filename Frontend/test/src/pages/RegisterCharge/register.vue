@@ -335,7 +335,7 @@ export default {
     ],
     valid: false,
     disabled: true,
-    register_info_id: '1',
+    register_info_id: '',
     patient_record_id: '',
     patient_gender: '',
     patient_name: '',
@@ -514,7 +514,7 @@ export default {
         bill_time: new Date(),
         bill_type: '挂号费',
         bill_register_id: that.register_info_id,
-        bill_user_id: '1'
+        bill_user_id: that.$store.state.user.id
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -537,7 +537,7 @@ export default {
         register_info_pay_type: that.paycate,
         register_info_doctor_id: that.doctor_id.doctor_id,
         register_info_patient_id: that.patient_record_id,
-        register_info_user_id: '1',
+        register_info_user_id: that.$store.state.user.id,
         register_info_records_book: checkbox
       }
       console.log(data)

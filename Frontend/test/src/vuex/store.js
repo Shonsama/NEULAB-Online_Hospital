@@ -7,7 +7,8 @@ export default new Vuex.Store({
     doctor: '',
     user: {
       id: '',
-      department_id: ''
+      department_id: '',
+      type: ''
     },
     isLogin: false
   },

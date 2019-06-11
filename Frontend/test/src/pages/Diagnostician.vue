@@ -381,7 +381,7 @@ export default {
       var url = this.HOME + '/doctor/get-all-registers'
       var that = this
       var data = {
-        'doctor_id': '1'
+        'doctor_id': this.$store.state.user.id
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -394,7 +394,7 @@ export default {
       var url = this.HOME + '/doctor/get-department-registers'
       var that = this
       var data = {
-        'department_id': 'XXGK'
+        'department_id': this.$store.state.user.department_id
       }
       this.$http.post(url, data)
         .then(function (response) {
