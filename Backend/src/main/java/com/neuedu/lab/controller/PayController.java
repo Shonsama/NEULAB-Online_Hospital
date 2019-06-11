@@ -1,6 +1,5 @@
 package com.neuedu.lab.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.service.PayService;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 //import net.sf.json.JSONArray;
 
@@ -23,7 +20,7 @@ public class PayController {
     private PayService payService;
 
     //缴费部分
-    @RequestMapping("/medical-skill")
+/*    @RequestMapping("/medical-skill")
     public JSONObject payMedicalSkill(@RequestBody JSONArray medical_skill_ids) {
         List<Integer> ids = JSONObject.parseArray(medical_skill_ids.toJSONString(),Integer.class);
         return payService.payMedicalSkillFee(ids);
@@ -33,6 +30,11 @@ public class PayController {
     public JSONObject payPrescription(@RequestBody JSONArray prescription_ids){
         List<Integer> ids = JSONObject.parseArray(prescription_ids.toJSONString(),Integer.class);
         return payService.payPrescriptionFee(ids);
+    }*/
+
+    @RequestMapping("")
+    public JSONObject payFee(@RequestBody JSONObject request){
+        return payService.payFee(request.getInteger("id"), request.getString("type"));
     }
 
     //已缴费/已取消执行

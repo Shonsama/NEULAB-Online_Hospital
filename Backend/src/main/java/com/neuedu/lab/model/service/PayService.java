@@ -22,28 +22,45 @@ public class PayService {
     private PrescriptionMapper prescriptionMapper;
 
     //收费
-    //医技项目收费
-    @Transactional
+/*    @Transactional
     public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids) {
         Integer currentPayable = 0;
         for (Integer medical_skill_id : medical_skill_ids) {
-            System.out.println("&");
             if (medicalSkillMapper.getMedicalSkill(medical_skill_id).getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1])) {
                 currentPayable++;
             }
         }
         if (currentPayable == medical_skill_ids.size()) {
-          for (Integer medical_skill_id : medical_skill_ids) {
-//            for (int medical_skill_id = 0; medical_skill_id < medical_skill_ids.size(); medical_skill_id++) {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3],null);
+            for (Integer medical_skill_id : medical_skill_ids) {
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3], null);
             }
             return ConstantUtils.responseSuccess("缴费成功");
         } else {
             return ConstantUtils.responseFail("当前医技状态不允许缴费");
         }
+    }*/
+    @Transactional
+    public JSONObject payFee(Integer id, String type) {
+        if (type.equals("检查") || type.equals("检验") || type.equals("处置")) {
+            if (medicalSkillMapper.getMedicalSkill(id).getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1])) {
+                medicalSkillMapper.updateMedicalSkillState(id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3], null);
+                return ConstantUtils.responseSuccess("医技项目缴费成功");
+            } else {
+                return ConstantUtils.responseFail("该医技项目不允许缴费");
+            }
+        } else if (type.equals("西药") || type.equals("中药")) {
+            if (prescriptionMapper.getPrescription(id).getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1])) {
+                prescriptionMapper.updatePrescriptionState(id, ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]);
+                return ConstantUtils.responseSuccess("处方项目缴费成功");
+            } else {
+                return ConstantUtils.responseFail("该处方项目不允许缴费");
+            }
+        }else{
+            return ConstantUtils.responseFail("type无效!");
+        }
     }
 
-    @Transactional
+    /*@Transactional
     public JSONObject payPrescriptionFee(List<Integer> prescription_ids) {
         Integer currentPayable = 0;
         for (Integer prescription_id : prescription_ids) {
@@ -59,25 +76,25 @@ public class PayService {
         } else {
             return ConstantUtils.responseFail("当前处方状态不允许缴费");
         }
-    }
+    }*/
 
     //获取当前病人医技已缴费对象
-    public List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id){
+    public List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id) {
         return medicalSkillMapper.getMedicalSkillsInCanceledOrPaid(register_info_patient_id);
     }
 
     //获取当前病人医技未缴费对象
-    public List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_patient_id){
+    public List<MedicalSkill> getMedicalSkillsInDrew(Integer register_info_patient_id) {
         return medicalSkillMapper.getMedicalSkillsInDrew(register_info_patient_id);
     }
 
     //获取当前病人处方已缴费对象
-    public List<Prescription> getPrescriptionsInReturnedOrPaid(Integer register_info_patient_id){
+    public List<Prescription> getPrescriptionsInReturnedOrPaid(Integer register_info_patient_id) {
         return prescriptionMapper.getPrescriptionsInReturnedOrPaid(register_info_patient_id);
     }
 
     //获取当前病人处方未缴费对象
-    public List<Prescription> getPrescriptionsInSent(Integer register_info_patient_id){
+    public List<Prescription> getPrescriptionsInSent(Integer register_info_patient_id) {
         return prescriptionMapper.getPrescriptionsInSent(register_info_patient_id);
     }
 }

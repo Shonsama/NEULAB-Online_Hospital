@@ -20,19 +20,30 @@ public class UserServiceController {
     @Autowired
     private UserService userService;
     //日结
-    @RequestMapping("/daily-clear")
-    public JSONObject dailyClear(@RequestBody Daily daily) throws ParseException {
-        return ConstantUtils.responseSuccess(userService.dailyClear(daily));
+    //日结查询
+    @RequestMapping("/daily-search")
+    public JSONObject dailySearch(@RequestBody Daily daily) {
+        return userService.dailySearch(daily);
     }
 
+
+    //日结结算
+    @RequestMapping("/daily-submit")
+    public JSONObject dailySubmit(@RequestBody JSONObject request) {
+        return ConstantUtils.responseSuccess(userService.dailySubmit(request.getInteger("daily_id")));
+    }
+
+    //日结查询
     @RequestMapping("/daily-get")
     public JSONObject dailyGet(@RequestBody Daily daily){
         return userService.dailyGet(daily);
     }
 
+    //日结审核通过
     @RequestMapping("/daily-pass")
     public JSONObject dailyPass(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(userService.dailyPass(request.getInteger("daily_id")));
+        return userService.dailyPass(request.getInteger("daily_id"),
+                request.getInteger("daily_owner_id"));
     }
 
 
@@ -51,6 +62,11 @@ public class UserServiceController {
         return userService.refund(request.getString("type"),request.getInteger("id"));
     }
     // 退药
+    //获取一个处方的所有内容
+    @RequestMapping("/refund/prescription/get-content")
+    public JSONObject getPrescriptionContent(@RequestBody JSONObject request){
+        return userService.getPrescriptions(request.getInteger("prescription_id"));
+    }
     @RequestMapping("/refund/return-prescription")
     public JSONObject retrunPrescription(@RequestBody JSONObject request){
         return userService.returnMedicine(request.getInteger("prescription_id"),

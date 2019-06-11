@@ -344,13 +344,12 @@ create table `his`.`fee_cat`(
 drop table if exists `his`.`bill`;
 CREATE TABLE `his`.`bill` (
   `bill_id` INT NOT NULL AUTO_INCREMENT,
-  `bill_num` INT NOT NULL, #发票号
-  `bill_actual_sum` decimal(8,2) signed NOT NULL,
+  `bill_num` VARCHAR(45) NOT NULL, #发票号
   `bill_sum` decimal(8,2) signed NOT NULL,
   `bill_time` DATETIME  NULL DEFAULT current_timestamp,
   `bill_type` varchar(45) NOT NULL,
+  `bill_state` VARCHAR(45) NOT NULL,
   #foreign key
-  `bill_fee_cat_id` VARCHAR(45) null,
   `bill_fee_cat_name`varchar(45) null,
   `bill_register_id` INT NOT NULL,
   `bill_prescription_id` INT NULL,
@@ -370,7 +369,14 @@ CREATE TABLE `his`.`daily` (
   `daily_end` DATETIME NOT NULL DEFAULT current_timestamp,
   `daily_user_id` INT NULL ,
   `daily_operate_time` DATETIME NULL DEFAULT current_timestamp,
-  `daily_pass` BOOLEAN NULL ,
+  `daily_pass_state` VARCHAR(45) NULL ,
+  `daily_fail_comment` VARCHAR(400) NULL ,
+  `daily_owner_id` INT NULL ,
+  `daily_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_actual_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_register_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_mid_prescription_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_west_prescription_sum` DECIMAL(8,2) NOT NULL ,
   PRIMARY KEY (`daily_id`)
 )default charset=utf8;
 

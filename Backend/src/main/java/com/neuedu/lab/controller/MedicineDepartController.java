@@ -50,14 +50,4 @@ public class MedicineDepartController {
     public JSONObject getPrescriptionContentsByPrescriptionId(@RequestBody JSONObject request){
         return medicineDepartService.getPrescriptionContentsByPrescriptionId(request.getInteger("prescription_id"));
     }
-
-
-
-
-
-
-
-
-
-
 }

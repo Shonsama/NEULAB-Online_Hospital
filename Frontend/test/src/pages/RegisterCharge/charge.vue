@@ -302,9 +302,9 @@ export default {
   },
   computed: {
     filterDesserts () {
-    return this.desserts1.filter(this.filterDate)
-  }
-},
+      return this.desserts1.filter(this.filterDate)
+    }
+  },
   mounted: function () {
   },
   methods: {

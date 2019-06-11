@@ -72,4 +72,9 @@
         WHERE prescription_content_id = #{prescription_content_id}
     </update>
 
+    <select id="getPrescriptionContentsPositive" resultType="PrescriptionContent">
+        SELECT * FROM prescription_content
+        WHERE prescription_id = #{prescription_id} AND prescription_num > 0
+    </select>
+
 </mapper>
