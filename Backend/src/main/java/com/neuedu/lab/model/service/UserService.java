@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.neuedu.lab.Utils.ConstantDefinition.REFUND_TYPE;
+import static com.neuedu.lab.Utils.ConstantUtils.convertToNegtive;
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
 import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
@@ -429,5 +431,15 @@ public class UserService {
     }
 
 
-
+    public JSONObject refund(String type, Integer id) {
+        if(type.equals(REFUND_TYPE[0]) || type.equals(REFUND_TYPE[1]) || type.equals(REFUND_TYPE[2])){
+            return refundMedicalSkill(id);
+        }
+        else if(type.equals(REFUND_TYPE[3]) || type.equals(REFUND_TYPE[4]) ){
+            return refundPrescription(id);
+        }
+        else {
+            return responseFail("type类型错误",null);
+        }
+    }
 }
