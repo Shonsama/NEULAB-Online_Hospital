@@ -249,7 +249,7 @@
 
 <script>
 export default {
-  props: ['msgfromfa', 'dialog'],
+  props: ['msgfromfa', 'record'],
   data () {
     return {
       dialog: false,
@@ -319,12 +319,11 @@ export default {
       this.show = !this.show
       console.log(this.selected_dia)
       var n
-      this.desserts = []
       for (n = 0; n < this.selected_dia.length; n++) {
         var data = {
           diagnose_disease_id: this.selected_dia[n].disease_icd,
-          diagnose_disease_name: this.selected_dia[n].disease_name,
           diagnose_record_id: this.msgfromfa.register_info_id,
+          diagnose_disease_name: this.selected_dia[n].disease_name,
           diagnose_time: new Date()
         }
         this.desserts.push(data)

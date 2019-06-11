@@ -1,6 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          Please stand by
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-dialog
       v-model="show"
       max-width="800"
     >
@@ -88,6 +108,225 @@
               </v-btn>
             </v-layout>
             </div>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="show_tem"
+      max-width="800"
+    >
+      <v-card>
+        <v-toolbar flat>
+          <v-toolbar-title>药品项目目录</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-flex xs3>
+            <v-text-field
+              prepend-inner-icon="search"
+              v-model="search"
+              label="编号/名称"
+              required
+            ></v-text-field>
+          </v-flex>
+        </v-toolbar>
+        <v-data-table
+          v-model="selected_dia"
+          :headers="headers_dia"
+          :items="desserts_dia"
+          expand
+          :search="search"
+          item-key="medicine_id"
+          class="elevation-1"
+        >
+          <template v-slot:items="props">
+            <td>{{ props.item.medicine_id }}</td>
+            <td>{{ props.item.medicine_name }}</td>
+            <td>{{ props.item.medicine_type }}</td>
+            <td>{{ props.item.medicine_specifications }}</td>
+            <td>{{ props.item.medicine_unit_price }}</td>
+            <td>
+              <v-btn
+                icon
+                flat
+                color="primary"
+                right
+              >
+                <v-icon
+                  @click="props.expanded = !props.expanded"
+                  color="primary"
+                >
+                  add
+                </v-icon>
+              </v-btn>
+            </td>
+          </template>
+          <template v-slot:expand="props">
+            <div>
+              <v-layout align-center justify-center row>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_day"
+                    label="用量"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_consumption"
+                    label="用法"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_frequency"
+                    label="频次"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_num"
+                    label="数量"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-btn
+                  small
+                  color="primary"
+                  @click="addTemContentSingle(props.item)"
+                >
+                  添加
+                </v-btn>
+              </v-layout>
+            </div>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="tem"
+      hide-overlay
+      width="950"
+    >
+      <v-card>
+        <v-toolbar flat>
+          <v-toolbar-title >医技模板详情</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            flat
+            color="primary"
+            @click="deleteTem"
+          >
+            <v-icon
+            >
+              delete
+            </v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            flat
+            color="primary"
+            @click="updateTem"
+          >
+            <v-icon
+            >
+              save
+            </v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-container grid-list-md>
+          <v-layout>
+            <v-flex xs12>
+              <v-text-field
+                v-model="template_con_name"
+                label="模板名称"
+                required
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                v-model="template_con_range"
+                :items="['个人', '科室', '全院']"
+                label="模板范围"
+                required
+              ></v-select>
+            </v-flex>
+            <v-flex xs12>
+              <v-select
+                v-model="template_con_type"
+                :items="['中药', '西药']"
+                label="类型"
+                required
+              ></v-select>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-divider></v-divider>
+        <v-toolbar flat dense color="white">
+          <v-toolbar-title>药品项目</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            flat
+            color="primary"
+            @click="deleteTemContent"
+          >
+            <v-icon
+            >
+              delete
+            </v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            flat
+            color="primary"
+            @click="show_tem = !show_tem"
+          >
+            <v-icon
+            >
+              add
+            </v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-divider></v-divider>
+        <v-data-table
+          v-model="selected_tem"
+          :headers="headers_tem_con"
+          :items="desserts_tem_con"
+          select-all
+          item-key="template_content_id"
+        >
+          <template v-slot:items="props">
+            <td>
+              <v-checkbox
+                v-model="props.selected"
+                primary
+                hide-details
+              ></v-checkbox>
+            </td>
+            <td>{{ props.item.template_medical_skill_content_unit_price }}</td>
+            <td>{{ props.item.template_medicine_name }}</td>
+            <td>{{ props.item.template_medicine_specification }}</td>
+            <td>{{ props.item.template_medicine_usage }}</td>
+            <td>{{ props.item.template_medicine_consumption }}</td>
+            <td>{{ props.item.template_medicine_unit_price }}</td>
+            <td>{{ props.item.template_medicine_frequency }}</td>
+            <td>{{ props.item.template_medicine_number }}</td>
+            <td>
+              <v-btn
+                icon
+                flat
+                small
+                color="primary"
+                right
+                @click="deleteTemContentSingle(props.item)"
+                class="ml-3"
+              >
+                删除
+              </v-btn>
+            </td>
           </template>
         </v-data-table>
       </v-card>
@@ -276,7 +515,7 @@
                     class="white--text"
                     color="primary"
                     small
-                    @click="text = !text"
+                    @click="text = !text;tem_add = props.item.prescriptionContents"
                   >
                     保存
                   </v-btn>
@@ -334,18 +573,22 @@
 
 <script>
 export default {
-  props: ['msgfromfa', 'dialog'],
+  props: ['msgfromfa', 'record'],
   data () {
     return {
+      tem: false,
+      tem_add: [],
       selected_dia: [],
       selected_pre: [],
-      selected_con: [],
       selected_tem: [],
+      selected_con: [],
       alert_success: false,
       alert_error: false,
       search: '',
       show: false,
+      show_tem: false,
       show_pre_dia: false,
+      dialog: false,
       text: false,
       expand: false,
       expand1: true,
@@ -426,44 +669,43 @@ export default {
         },
         { text: '操作', value: 'operation', sortable: false }
       ],
-      desserts_tem: [{
-        template_name: '1'
-      }],
+      desserts_tem: [],
       headers_tem_con: [
         {
           text: '药品编号',
           align: 'left',
-          value: 'medicine_id'
+          value: 'template_medical_skill_content_unit_price'
         },
         {
           text: '药品名称',
           align: 'left',
-          value: 'medicine_name'
+          value: 'template_medicine_name'
         },
         {
           text: '规格',
-          value: 'medicine_specifications'
+          value: 'template_medicine_specification'
         },
         {
           text: '用法',
-          value: 'prescription_day'
+          value: 'template_medicine_usage'
         },
         {
           text: '用量',
-          value: 'prescription_consumption'
+          value: 'template_medicine_consumption'
         },
         {
           text: '单价',
-          value: 'medicine_unit_price'
+          value: 'template_medicine_unit_price'
         },
         {
           text: '频次',
-          value: 'prescription_frequency'
+          value: 'template_medicine_frequency'
         },
         {
           text: '数量',
-          value: 'prescription_num'
-        }
+          value: 'template_medicine_number'
+        },
+        { text: '操作', value: 'operation', sortable: false }
       ],
       desserts_tem_con: [],
       prescription_consumption: '',
@@ -481,7 +723,14 @@ export default {
       template_con_id: ''
     }
   },
-  created: function () {
+  watch: {
+    record: function (newState, oldState) {
+      this.getItem()
+      this.load_medicne()
+      this.getTem()
+    }
+  },
+  mounted: function () {
     this.getItem()
     this.load_medicne()
     this.getTem()
@@ -489,6 +738,9 @@ export default {
   computed: {
     filterDesserts () {
       return this.desserts_pre.filter(this.filterType)
+    },
+    filterDessertsTem () {
+      return this.desserts_tem.filter(this.filterType_tem)
     }
   },
   methods: {
@@ -499,7 +751,7 @@ export default {
       return value.prescription_type === '中药'
     },
     filterType_tem (value) {
-      return value.template_type === '中药' || value.template_type === '检验'
+      return value.template_type === '中药'
     },
     getTem () {
       let that = this
@@ -512,7 +764,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
-          // that.dialog = false
+          that.dialog = false
         })
     },
     deleteTem () {
@@ -583,7 +835,7 @@ export default {
     addTem () {
       let that = this
       var data = {
-        template_type: '检验',
+        template_type: '中药',
         template_name: that.template_name,
         template_range: that.template_range,
         template_doctor_id: that.msgfromfa.register_info_doctor_id
@@ -602,39 +854,43 @@ export default {
     addTemContent () {
       let that = this
       var i
-      var url = this.HOME + '/template/add-content-non-medicine'
-      for (i = 0; i < that.filterDesserts.length; i++) {
+      var url = this.HOME + '/template/add-content-medicine'
+      for (i = 0; i < that.tem_add.length; i++) {
         var data = {
           template_connect_id: that.template_con_id,
-          template_medical_skill_content_id: that.filterDesserts[i].medical_skill_content_id,
-          template_medical_skill_content_name: that.filterDesserts[i].medical_skill_name,
-          template_medical_skill_content_department_id: that.filterDesserts[i].medical_skill_urgent,
-          template_medical_skill_content_specification: that.filterDesserts[i].medical_skill_purpose,
-          template_medical_skill_content_checkpoint: that.filterDesserts[i].medical_skill_checkpoint,
-          template_medical_skill_content_department_name: that.filterDesserts[i].medical_skill_execute_department,
-          template_medical_skill_content_unit_price: that.filterDesserts[i].medical_skill_fee
+          template_medicine_name: that.tem_add[i].medicine.medicine_name,
+          template_medicine_specification: that.tem_add[i].medicine.medicine_specifications,
+          template_medicine_unit: that.tem_add[i].medicine_unit,
+          template_medicine_usage: that.tem_add[i].prescription_day,
+          template_medicine_consumption: that.tem_add[i].prescription_consumption,
+          template_medicine_frequency: that.tem_add[i].prescription_frequency,
+          template_medicine_number: that.tem_add[i].prescription_num,
+          template_medicine_unit_price: that.tem_add[i].prescription_unit_price,
+          template_medical_skill_content_unit_price: that.tem_add[i].medicine.medicine_id
         }
         console.log(data)
         this.$http.post(url, data)
           .then(function (response) {
             console.log(response.data)
             // that.dialog = true
-            // that.getItem()
+            // that.getTem()
           })
       }
     },
     addTemContentSingle (value) {
       let that = this
-      var url = this.HOME + '/template/add-content-non-medicine'
+      var url = this.HOME + '/template/add-content-medicine'
       var data = {
         template_connect_id: that.template_con_id,
-        template_medical_skill_content_id: value.medical_skill_content_id,
-        template_medical_skill_content_name: value.medical_skill_content_name,
-        template_medical_skill_content_department_id: that.medical_skill_urgent,
-        template_medical_skill_content_specification: that.medical_skill_purpose,
-        template_medical_skill_content_checkpoint: that.medical_skill_checkpoint,
-        template_medical_skill_content_department_name: '血液科',
-        template_medical_skill_content_unit_price: value.medical_skill_content_price
+        template_medicine_name: value.medicine_name,
+        template_medicine_specification: value.medicine_specifications,
+        template_medicine_unit: value.medicine_unit,
+        template_medicine_usage: that.prescription_day,
+        template_medicine_consumption: that.prescription_consumption,
+        template_medicine_frequency: that.prescription_frequency,
+        template_medicine_number: that.prescription_num,
+        template_medicine_unit_price: value.medicine_unit_price,
+        template_medical_skill_content_unit_price: value.medicine_id
       }
       console.log(value)
       that.dialog = true
@@ -694,18 +950,7 @@ export default {
           })
       }
     },
-    getItem () {
-      let that = this
-      var url = this.HOME + '/doctor/get-record'
-      var data = {
-        record_id: that.msgfromfa.register_info_id
-      }
-      this.$http.post(url, data)
-        .then(response => {
-          console.log(response.data.data)
-          that.desserts_pre = response.data.data.prescriptions
-        })
-    },
+
     addContent: function (value) {
       let that = this
       console.log(value)
@@ -747,6 +992,19 @@ export default {
           })
       }
     },
+    getItem () {
+      let that = this
+      var url = this.HOME + '/doctor/get-record'
+      var data = {
+        record_id: that.msgfromfa.register_info_id
+      }
+      this.$http.post(url, data)
+        .then(response => {
+          console.log(response.data.data)
+          that.desserts_pre = response.data.data.prescriptions
+          that.dialog = false
+        })
+    },
     addItem: function () {
       let that = this
       var data = {
@@ -760,6 +1018,8 @@ export default {
       var url = this.HOME + '/doctor/add-prescription'
       this.$http.post(url, data)
         .then(function (response) {
+          that.dialog = true
+          that.show_pre_dia = false
           console.log(response.data)
           that.getItem()
         })
@@ -769,6 +1029,7 @@ export default {
       var i
       var url = this.HOME + '/doctor/delete-prescription'
       console.log(that.selected)
+      that.dialog = true
       var data
       for (i = 0; i < that.selected_pre.length; i++) {
         data = {
@@ -778,6 +1039,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = true
           })
       }
     },

@@ -86,7 +86,7 @@
         insert into template_content (template_connect_id,template_medicine_name,
         template_medicine_specification,template_medicine_unit,template_medicine_usage,
         template_medicine_consumption,template_medicine_frequency,
-        template_medicine_number,template_medicine_unit_price)
+        template_medicine_number,template_medicine_unit_price,template_medical_skill_content_unit_price)
         values(#{template_connect_id},
         #{template_medicine_name},
         #{template_medicine_specification},
@@ -95,7 +95,8 @@
         #{template_medicine_consumption},
         #{template_medicine_frequency},
         #{template_medicine_number},
-        #{template_medicine_unit_price})
+        #{template_medicine_unit_price},
+        #{template_medical_skill_content_unit_price})
     </insert>
 
 
