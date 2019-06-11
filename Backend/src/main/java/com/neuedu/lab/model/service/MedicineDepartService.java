@@ -125,7 +125,7 @@ public class MedicineDepartService {
     public JSONObject getPrescriptionContentsByPrescriptionId(Integer prescription_id){
         List<PrescriptionContent> prescriptionContents;
         try{
-            prescriptionContents = prescriptionContentMapper.getPrescriptionContentsPart(prescription_id);
+            prescriptionContents = prescriptionContentMapper.getPrescriptionContents(prescription_id);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();

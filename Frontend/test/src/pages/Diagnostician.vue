@@ -1,30 +1,30 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <v-card>
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
           <div v-show="show" style="white-space: nowrap; width:300px">
-            <v-toolbar flat>
-              <v-flex md9 xs9>
-                <v-text-field
-                  v-model="patient_name"
-                  prepend-inner-icon="account_box"
-                  name="login"
-                  label="选择患者"
-                  type="text"
-                  disabled>
-                </v-text-field>
-              </v-flex>
-              <v-btn
-                flat
-                color="primary"
-                icon
-                @click="refresh"
-              >
-                <v-icon>cached</v-icon>
-              </v-btn>
-            </v-toolbar>
             <v-layout>
               <v-flex md10 xs10>
                 <v-text-field
@@ -142,7 +142,7 @@
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex xs12 md12>
-        <v-toolbar flat>
+        <v-toolbar flat dense>
           <v-toolbar-side-icon
             @click.stop="show = !show"
           ></v-toolbar-side-icon>
@@ -195,28 +195,28 @@
           >
             <v-card flat>
               <div v-if="item.id == 'caseHistory'">
-                <caseHistory :msgfromfa="patient_record_id"></caseHistory>
+                <caseHistory :msgfromfa="message" :dialog="dialog"></caseHistory>
               </div>
               <div v-if="item.id == 'inspect'">
-                <inspect :msgfromfa="patient_record_id"></inspect>
+                <inspect :msgfromfa="message" :dialog="dialog"></inspect>
               </div>
               <div v-if="item.id == 'jianyan'">
-                <jianyan :msgfromfa="patient_record_id"></jianyan>
+                <jianyan :msgfromfa="message" :dialog="dialog"></jianyan>
               </div>
               <div v-if="item.id == 'diagnosis'">
-                <diagnosis :msgfromfa="patient_record_id"></diagnosis>
+                <diagnosis :msgfromfa="message" :dialog="dialog"></diagnosis>
               </div>
               <div v-if="item.id == 'dispose'">
-                <dispose :msgfromfa="patient_record_id"></dispose>
+                <dispose :msgfromfa="message" :dialog="dialog"></dispose>
               </div>
               <div v-if="item.id == 'medicine'">
-                <medicine :msgfromfa="patient_record_id"></medicine>
+                <medicine :msgfromfa="message" :dialog="dialog"></medicine>
               </div>
               <div v-if="item.id == 'drug'">
-                <drug :msgfromfa="patient_record_id"></drug>
+                <drug :msgfromfa="message" :dialog="dialog"></drug>
               </div>
               <div v-if="item.id == 'cost'">
-                <cost :msgfromfa="patient_record_id"></cost>
+                <cost :msgfromfa="message" :dialog="dialog"></cost>
               </div>
               <!--<router-view name="office"></router-view name="office">-->
             </v-card>
@@ -251,6 +251,7 @@ export default {
   },
   data () {
     return {
+      dialog: false,
       e1: 1,
       disable: false,
       search: '',
@@ -283,9 +284,11 @@ export default {
         patient_address: '',
         patient_age: ''
       },
+      record_id: '',
       desserts_per: '',
       desserts_depart: '',
       steps: 8,
+      message: '',
       items1: [{
         name: '本人',
         id: 'desserts_per'
@@ -378,27 +381,32 @@ export default {
           console.log(response.data)
           that.desserts_depart = response.data.data
           console.log(that.desserts_depart)
+          that.dialog = false
         })
     },
     treat: function (value) {
       var url = this.HOME + '/doctor/treat'
-      // var that = this
+      var that = this
+      that.message = value
+      that.patient = value.patient
+      that.record_id = value.register_info_id
       var data = {
         register_id: value.register_info_id
       }
       console.log(value)
       this.$http.post(url, data)
         .then(function (response) {
+          that.dialog = true
           console.log(response.data)
-          this.load_patient_self()
-          this.load_patient_depart()
+          that.load_patient_self()
+          that.load_patient_depart()
         })
     },
     finish: function () {
       var url = this.HOME + '/doctor/finish'
-      // var that = this
+      var that = this
       var data = {
-        'register_id': '5'
+        register_id: that.record_id
       }
       this.$http.post(url, data)
         .then(function (response) {

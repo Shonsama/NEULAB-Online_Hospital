@@ -9,12 +9,12 @@
         <v-spacer/>
         <v-flex md2>
           <v-select
-            v-model="department_rule"
-            :items="items_departments"
-            item-text="department_name"
-            item-value="department_id"
-            label="科室"
-          ></v-select>
+          v-model="department_rule"
+          :items="items_departments"
+          item-text="department_name"
+          item-value="department_id"
+          label="科室"
+        ></v-select>
         </v-flex>
         <v-flex md2>
           <v-select

@@ -33,7 +33,13 @@
 
     <!--查询某模板信息,根据模板name-->
     <select id="getAllTemplates" resultType="Template">
-        select * from template
+        select distinct template.* from template,doctor_info
+        where (template.template_doctor_id = doctor_info.doctor_id
+        and doctor_info.doctor_department_id = #{department_id}
+        and template.template_range = "科室") or
+        (template_doctor_id = #{doctor_id}
+        and template.template_range = "个人") or
+        (template.template_range = "全院");
     </select>
 
     <!--查询某药品信息,根据range-->
@@ -102,10 +108,7 @@
 
     <!--查询项目内容,医技-->
     <select id="getTemplateContentNonMedicine" resultType="TemplateContent">
-        select template_medical_skill_content_id,template_medical_skill_content_name,
-         template_medical_skill_content_specification,template_medical_skill_content_checkpoint,
-         template_medical_skill_content_department_id,template_medical_skill_content_department_name,
-         template_medical_skill_content_unit_price
+        select *
          from template_content where
         template_content.template_connect_id = #{template_connect_id};
     </select>
