@@ -75,7 +75,7 @@
                 v-model="patient_name"
                 label="姓名"
                 required
-                disabled
+                readonly
               ></v-text-field>
             </v-flex>
 
@@ -88,7 +88,7 @@
                 v-model="patient_gender"
                 label="性别"
                 required
-                disabled
+                readonly
               ></v-text-field>
             </v-flex>
 
@@ -100,7 +100,7 @@
               <v-textarea
                 v-model="patient_address"
                 label="家庭住址"
-                disabled
+                readonly
                 rows="1"
               ></v-textarea>
             </v-flex>
@@ -114,7 +114,7 @@
                 v-model="patient_credit_id"
                 :counter="18"
                 label="身份证号"
-                disabled
+                readonly
                 required
               ></v-text-field>
             </v-flex>
@@ -141,7 +141,6 @@
                     label="出生日期"
                     required
                     readonly
-                    disabled
                     v-on="on"
                   ></v-text-field>
                 </template>
@@ -161,7 +160,7 @@
               <v-text-field
                 v-model="patient_age"
                 label="年龄"
-                disabled
+                readonly
                 required
               ></v-text-field>
             </v-flex>
