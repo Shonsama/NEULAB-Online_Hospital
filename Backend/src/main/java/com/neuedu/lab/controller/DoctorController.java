@@ -176,7 +176,7 @@ public class DoctorController {
     //查询患者本次看病费用记录
     @RequestMapping("/get-fee-records")
     public JSONObject fee(@RequestBody JSONObject request){
-        return ConstantUtils.responseSuccess(doctorService.getFeeRecords(request.getInteger("register_id")));
+        return doctorService.getFeeRecords(request.getInteger("register_id"));
     }
 
     //获取病人的所有处方
