@@ -89,7 +89,7 @@
 
 <script>
 export default {
-  props: ['msgfromfa', 'dialog'],
+  props: ['msgfromfa'],
   data () {
     return {
 

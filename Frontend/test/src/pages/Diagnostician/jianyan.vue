@@ -363,7 +363,7 @@
     </v-dialog>
 
     <v-layout>
-      <v-flex  lg8>
+      <v-flex  lg9>
         <v-toolbar flat dense>
           <v-toolbar-title  >合计:{{fee}}元</v-toolbar-title>
           <v-spacer/>
@@ -455,7 +455,7 @@
         </v-card-actions>
       </v-flex>
       <v-divider vertical></v-divider>
-      <v-flex lg4>
+      <v-flex lg3>
         <v-toolbar flat dense>
           <v-toolbar-title  >常用模板</v-toolbar-title>
         </v-toolbar>
@@ -499,7 +499,7 @@
 
 <script>
 export default {
-  props: ['msgfromfa'],
+  props: ['msgfromfa', 'record'],
   data () {
     return {
       tem: false,
@@ -616,6 +616,13 @@ export default {
     this.load_mediskill()
     this.getItem()
     this.getTem()
+  },
+  watch: {
+    record: function (newState, oldState) {
+      this.load_mediskill()
+      this.getItem()
+      this.getTem()
+    }
   },
   computed: {
     filterDesserts () {

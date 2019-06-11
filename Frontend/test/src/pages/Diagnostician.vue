@@ -162,10 +162,12 @@
               </template>
               <v-card>
                 <v-container>
-                  <v-switch
-                    v-model="dark"
-                    :label="`黑暗模式`"
-                  ></v-switch>
+                  <span>姓名：{{patient.patient_name}}</span><br>
+                  <span>性别：{{patient.patient_name}}</span><br>
+                  <span>年龄：{{patient.patient_name}}</span><br>
+                  <span>出生日期：{{patient.patient_name}}</span><br>
+                  <span>身份证号：{{patient.patient_name}}</span><br>
+
                 </v-container>
               </v-card>
             </v-menu>
@@ -195,28 +197,28 @@
           >
             <v-card flat>
               <div v-if="item.id == 'caseHistory'">
-                <caseHistory :msgfromfa="message" :dialog="dialog"></caseHistory>
+                <caseHistory :msgfromfa="message" :record="record"></caseHistory>
               </div>
               <div v-if="item.id == 'inspect'">
-                <inspect :msgfromfa="message" :dialog="dialog"></inspect>
+                <inspect :msgfromfa="message" :record="record"></inspect>
               </div>
               <div v-if="item.id == 'jianyan'">
-                <jianyan :msgfromfa="message" :dialog="dialog"></jianyan>
+                <jianyan :msgfromfa="message" :record="record"></jianyan>
               </div>
               <div v-if="item.id == 'diagnosis'">
-                <diagnosis :msgfromfa="message" :dialog="dialog"></diagnosis>
+                <diagnosis :msgfromfa="message" :record="record"></diagnosis>
               </div>
               <div v-if="item.id == 'dispose'">
-                <dispose :msgfromfa="message" :dialog="dialog"></dispose>
+                <dispose :msgfromfa="message" :record="record"></dispose>
               </div>
               <div v-if="item.id == 'medicine'">
-                <medicine :msgfromfa="message" :dialog="dialog"></medicine>
+                <medicine :msgfromfa="message" :record="record"></medicine>
               </div>
               <div v-if="item.id == 'drug'">
-                <drug :msgfromfa="message" :dialog="dialog"></drug>
+                <drug :msgfromfa="message" :record="record"></drug>
               </div>
               <div v-if="item.id == 'cost'">
-                <cost :msgfromfa="message" :dialog="dialog"></cost>
+                <cost :msgfromfa="message" :record="record"></cost>
               </div>
               <!--<router-view name="office"></router-view name="office">-->
             </v-card>
@@ -328,7 +330,8 @@ export default {
       {
         name: '费用查询',
         id: 'cost'
-      }]
+      }],
+      record: ''
     }
   },
   computed: {
@@ -400,6 +403,7 @@ export default {
           console.log(response.data)
           that.load_patient_self()
           that.load_patient_depart()
+          that.get()
         })
     },
     finish: function () {
@@ -414,7 +418,18 @@ export default {
         })
     },
     get: function () {
-
+      let that = this
+      var url = this.HOME + '/doctor/get-record'
+      var data = {
+        record_id: that.record_id
+      }
+      that.dialog = true
+      this.$http.post(url, data)
+        .then(response => {
+          console.log(response.data.data)
+          that.record = response.data.data
+          that.dialog = false
+        })
     },
     refresh: function () {
       this.patient_name = ''
