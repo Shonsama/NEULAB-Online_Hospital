@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -87,6 +88,35 @@ public class DoctorService {
 
     }
 
+    //查询一个医生的所有就诊过的挂号信息，用于医生对患者的费用查询
+    public JSONObject getTreatedRegisters(Integer doctor_id){
+        List<Register> registers;
+        try{
+            registers  = registerMapper.getRegisterByDoctorId(doctor_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        Iterator<Register> iterator = registers.iterator();
+        while (iterator.hasNext()){
+            if(iterator.next().getRegister_info_state().equals(REGISTER_STATE[0])){
+                iterator.remove();
+            }
+        }
+
+        for(Register register: registers){
+            //填充病人
+            try{
+                register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
+            }catch (RuntimeException e){
+                e.printStackTrace();
+                return responseFail("获取病人信息出错",null);
+            }
+        }
+
+        return responseSuccess(registers);
+
+    }
     //查询一个科室的所有挂号信息
     public JSONObject getAllDepartmentRegisters(String department_id) {
         JSONObject resultRegister = new JSONObject();

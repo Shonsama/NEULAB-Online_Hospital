@@ -25,6 +25,11 @@ public class DoctorController {
         return doctorService.getAllRegisters(request.getInteger("doctor_id"));
     }
 
+    @RequestMapping("/get-doctor-treated-registers")
+    public JSONObject getTreatedRegisters(@RequestBody JSONObject request){
+        return doctorService.getTreatedRegisters(request.getInteger("doctor_id"));
+    }
+
     @RequestMapping("/get-department-registers")
     public JSONObject getDepartmentRegisters(@RequestBody JSONObject request){
         return doctorService.getAllDepartmentRegisters(request.getString("department_id"));

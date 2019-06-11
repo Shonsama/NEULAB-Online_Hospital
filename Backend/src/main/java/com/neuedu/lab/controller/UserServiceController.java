@@ -37,21 +37,37 @@ public class UserServiceController {
 
 
 
-    //退费部分
-    @RequestMapping("/refund/medical-skill")
-    public JSONObject refundMedicalSkill(@RequestBody JSONObject request){
-        return userService.refundMedicalSkill(request.getInteger("medical_skill_id"));
+    //退号部分
+    @RequestMapping("/refund/get-paid-registers")
+    public JSONObject getPaidRegisters(@RequestBody JSONObject request){
+        return userService.getPaidRegisters(request.getInteger("patient_id"));
     }
 
+
+
+    //退费部分
+    @RequestMapping("/refund")
+    public JSONObject refund(@RequestBody JSONObject request){
+        return userService.refund(request.getString("type"),request.getInteger("id"));
+    }
+    // 退药
     @RequestMapping("/refund/return-prescription")
     public JSONObject retrunPrescription(@RequestBody JSONObject request){
         return userService.returnMedicine(request.getInteger("prescription_id"),
                 request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
     }
 
-    @RequestMapping("/refund/prescription")
-    public JSONObject refundPrescription(@RequestBody JSONObject request){
-        return userService.refundPrescription(request.getInteger("prescription_id"));
-    }
+    //以下两个注释接口已经弃用，转为上面refund接口，下面两个接口准备删除
+//    @RequestMapping("/refund/medical-skill")
+//    public JSONObject refundMedicalSkill(@RequestBody JSONObject request){
+//        return userService.refundMedicalSkill(request.getInteger("medical_skill_id"));
+//    }
+//
+//    @RequestMapping("/refund/prescription")
+//    public JSONObject refundPrescription(@RequestBody JSONObject request){
+//        return userService.refundPrescription(request.getInteger("prescription_id"));
+//    }
+
+
 
 }

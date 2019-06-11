@@ -27,9 +27,11 @@ public class MedicineDepartController {
         return medicineDepartService.getAllPatients();
     }
 
+    //发药
     @RequestMapping("/send-medicine")
     public JSONObject sendMedicine(@RequestBody JSONObject request){
-        return medicineDepartService.sendMedicine(request.getInteger("prescription_id"));
+        return medicineDepartService.sendMedicine(request.getInteger("prescription_id"),
+                request.getInteger("prescription_execute_doctor_id"));
     }
 
     @RequestMapping("/return-medicine")
