@@ -105,7 +105,9 @@
         </if>
     </select>
 
-    <select id="getDoctorsId" resultType="Integer">
-        select doctor_id from doctor_info;
+    <select id="getDoctors" resultType="Doctor">
+        select * from doctor_info;
     </select>
+
+
 </mapper>

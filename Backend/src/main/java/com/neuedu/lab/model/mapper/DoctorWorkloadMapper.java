@@ -1,5 +1,6 @@
 package com.neuedu.lab.model.mapper;
 
+import com.neuedu.lab.model.po.Doctor;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -23,5 +24,5 @@ public interface DoctorWorkloadMapper {
 
     BigDecimal getPrescriptionChinese(@Param("start_time")Date start_time,@Param("end_time")Date end_time, @Param("doctor_id")Integer doctor_id);
 
-    List<Integer> getDoctorsId();
+    List<Doctor> getDoctors();
 }
