@@ -457,13 +457,16 @@ public class DoctorService {
 
 
     //获取病人所有收费项目
-    public JSONArray getFeeRecords(Integer patient_record_id) {
-        JSONArray data = new JSONArray();
-        List<Register> registers = registerMapper.getRegistersByPatientId(patient_record_id);
-        for(int i = 0; i<registers.size();i++){
-            data.add(billMapper.getBillForOneRecord(registers.get(i).getRegister_info_id()));
+    public JSONObject getFeeRecords(Integer register_id) {
+        List<Bill> bills = new ArrayList<>();
+
+        try{
+            bills = billMapper.getBillForOneRecord(register_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            responseFail();
         }
-        return data;
+        return responseSuccess(bills);
     }
 
     //获取一个病人的所有处方记录

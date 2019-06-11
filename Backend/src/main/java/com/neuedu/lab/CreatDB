@@ -293,6 +293,7 @@ CREATE TABLE `his`.`medical_skill` (
   `medical_skill_register_info_id` INT NOT NULL,
   `medical_skill_user_id` INT NULL,
   `medical_skill_doctor_id` INT NULL,
+  `medical_skill_execute_doctor_id` INT NULL,
   `medical_skill_content_id` varchar(45) NULL,
   FOREIGN KEY  (`medical_skill_register_info_id`)  REFERENCES  `register_info` (`register_info_id`),
   PRIMARY KEY (`medical_skill_id`)

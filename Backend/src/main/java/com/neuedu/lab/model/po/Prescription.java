@@ -17,6 +17,24 @@ public class Prescription {
     private Date prescription_create_time;
     private Date prescription_pay_time;
     private Date prescription_sent_time;
+    private Integer prescription_execute_doctor_id;
+    private Doctor prescription_execute_doctor;
+
+    public Doctor getPrescription_execute_doctor() {
+        return prescription_execute_doctor;
+    }
+
+    public void setPrescription_execute_doctor(Doctor prescription_execute_doctor) {
+        this.prescription_execute_doctor = prescription_execute_doctor;
+    }
+
+    public Integer getPrescription_execute_doctor_id() {
+        return prescription_execute_doctor_id;
+    }
+
+    public void setPrescription_execute_doctor_id(Integer prescription_execute_doctor_id) {
+        this.prescription_execute_doctor_id = prescription_execute_doctor_id;
+    }
 
     public Date getPrescription_create_time() {
         return prescription_create_time;

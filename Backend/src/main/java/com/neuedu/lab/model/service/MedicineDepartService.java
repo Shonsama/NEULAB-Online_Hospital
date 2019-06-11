@@ -37,7 +37,7 @@ public class MedicineDepartService {
         return ConstantUtils.responseSuccess(prescriptionMapper.getAllPatients(PRESCRIPTION_EXECUTE_STATE[3]));
     }
 
-    public JSONObject sendMedicine(Integer prescription_id){
+    public JSONObject sendMedicine(Integer prescription_id, Integer prescription_execute_doctor_id){
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(prescription==null){
             return responseFail("无此处方记录");
@@ -49,6 +49,7 @@ public class MedicineDepartService {
             //更新状态和发药时间
             prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]);
             prescription.setPrescription_sent_time(new Date());
+            prescription.setPrescription_execute_doctor_id(prescription_execute_doctor_id);
             prescriptionMapper.updatePrescription(prescription);
             return ConstantUtils.responseSuccess(prescriptionMapper.getPrescription(prescription_id));
         }
