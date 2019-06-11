@@ -7,7 +7,16 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface DailyMapper {
-    Daily getDailyByUserId(Integer daily_user_id);
+    //获取最近一次被审核过的记录
+    Daily getDailyByUserId(@Param("daily_user_id") Integer daily_user_id,
+                           @Param("daily_pass_state0") String daily_pass_state0,
+                           @Param("daily_pass_state1") String daily_pass_state1,
+                           @Param("daily_pass_state2") String daily_pass_state2);
+
+    //删除未被审核的记录
+    void  deleteNonPassDaily(@Param("daily_user_id") Integer daily_user_id,
+                             @Param("daily_pass_state") String daily_pass_state);
+
     List<Daily> getDaily(Daily daily);
     void addDaily(Daily daily);
     void updateDailyPass(@Param("daily_id") Integer daily_id,

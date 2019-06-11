@@ -175,15 +175,40 @@ public class UserService {
 
     //收费员自己日结
     @Transactional
-    public JSONObject dailySearch(Daily daily) throws RuntimeException, ParseException {
-        Daily dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id()); //取出最后一次日结记录
-        Date end_time = dailyRecent == null ? ConstantUtils.getSystemInitializeTime() : dailyRecent.getDaily_end(); //若无记录，则按系统初始时间作为上次结束时间
+    public JSONObject dailySearch(Daily daily)  {
+        try{
+            dailyMapper.deleteNonPassDaily(daily.getDaily_user_id(),DAILY_PASS_STATE[0]);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("删除“未提交”日结记录出错",null);
+        }
+        Daily dailyRecent;
+        try{
+            dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id(),DAILY_PASS_STATE[1],DAILY_PASS_STATE[2],DAILY_PASS_STATE[3]); //取出最后一次日结记录
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取上一次日结记录出错",null);
+        }
+
+
+        Date end_time = null; //若无记录，则按系统初始时间作为上次结束时间
+        try {
+            end_time = dailyRecent == null ? ConstantUtils.getSystemInitializeTime() : dailyRecent.getDaily_end();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
         daily.setDaily_pass_state(ConstantDefinition.DAILY_PASS_STATE[0]);
 
 
         //获取发票List
-        List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+        List<Bill> bills;
+        try{
+           bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取发票List",null);
+        }
 
         //通过发票计算费用
         BigDecimal daily_sum = new BigDecimal(0);
@@ -212,7 +237,12 @@ public class UserService {
         daily.setDaily_mid_prescription_sum(daily_mid_prescription_sum);
         daily.setDaily_west_prescription_sum(daily_west_prescription_sum);
 
-        dailyMapper.addDaily(daily); //将记录插入到日结表
+        try{
+            dailyMapper.addDaily(daily); //将记录插入到日结表
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("将记录插入到日结表出错",null);
+        }
 
         //给日结表填充发票记录
         daily.setBills(bills);
