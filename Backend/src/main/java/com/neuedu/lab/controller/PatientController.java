@@ -44,10 +44,9 @@ public class PatientController {
     public JSONObject signUp(@RequestBody JSONObject request){
         return patientService.signUp(request.getString("patient_account"),request.getString("patient_password"));
     }
-    @RequestMapping("/bound-exist")
+    @RequestMapping("/bound-exist-record")
     public JSONObject boundExistedRecord(@RequestBody JSONObject request){
         return patientService.boundExistedRecord(request.getString("patient_account"),request.getInteger("patient_record_id"));
-
     }
     @RequestMapping("/create-new-record")
     public JSONObject createNewRecord(@RequestBody JSONObject request){

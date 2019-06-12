@@ -167,6 +167,16 @@ CREATE TABLE `his`.`patient_info` (
   PRIMARY KEY (`patient_record_id`)
 )default charset=utf8;
 
+drop table if exists `patient_user`;
+create table `patient_user`(
+`patient_user_id` int not null auto_increment,
+`patient_account` varchar(45) not null,
+`patient_password` varchar(45) not null,
+`patient_connect_id` int null,
+primary key(`patient_user_id`),
+foreign key(`patient_connect_id`) references patient_info(`patient_record_id`)
+)default charset=utf8;
+
 #排班规则表
 drop table  if exists `his`.`rule`;
 CREATE TABLE `his`.`rule` (
