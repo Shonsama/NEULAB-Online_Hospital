@@ -268,7 +268,6 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_refund_available_num` INT NOT NULL ,
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
-  `prescription_content_actual_unit_price` DECIMAL(8,2) NOT NULL, #实付单价
   `prescription_day` int NULL, #天数
   FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
   PRIMARY KEY (`prescription_id`)
