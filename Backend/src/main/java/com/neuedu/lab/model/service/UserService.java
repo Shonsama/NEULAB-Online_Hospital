@@ -6,14 +6,13 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
-import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -51,6 +50,10 @@ public class UserService {
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
         return userMapper.getAllUsers();
+    }
+
+    public List<User> getAllCashiers() {
+        return userMapper.getAllCashiers("挂号收费员");
     }
 
     public User getUser(String user_id) {
@@ -289,13 +292,43 @@ public class UserService {
 
     //获取日结信息
     public JSONObject dailyGet(Daily daily) {
-
         try {
             return ConstantUtils.responseSuccess(dailyMapper.getDaily(daily));
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail(null);
         }
+    }
+
+    //获取日结发票信息
+    public JSONObject getDailyBill(Integer daily_id){
+        Daily daily;
+        try{
+            daily = dailyMapper.getDailyById(daily_id);
+            daily.setBills(billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),daily.getDaily_start(),daily.getDaily_end()));
+            List<Bill> abandonBillList = new ArrayList<>();//作废
+            List<Bill> redoBillList = new ArrayList<>();//重打
+            List<Bill> overprintBillList = new ArrayList<>();//补打
+            List<Bill> flushBillList = new ArrayList<>();//对冲
+            for(Bill bill: daily.getBills()){
+                if(bill.getBill_type().equals(BILL_STATE[1])){
+                    abandonBillList.add(bill);
+                }
+                else if(bill.getBill_type().equals(BILL_STATE[2])){
+                    redoBillList.add(bill);
+                }
+                else if(bill.getBill_type().equals(BILL_STATE[3])){
+                    overprintBillList.add(bill);
+                }
+                else if(bill.getBill_type().equals(BILL_STATE[4])){
+                    flushBillList.add(bill);
+                }
+            }
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(daily);
     }
 
     //缴费部分

@@ -452,7 +452,7 @@ export default {
     },
     load_items_departments: function () {
       let that = this
-      var url = this.HOME + '/department/get-all'
+      var url = this.HOME + '/maintenance/department/get-all'
       this.$http.post(url, {
       })
         .then(function (response) {

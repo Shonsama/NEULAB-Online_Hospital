@@ -23,4 +23,5 @@ public interface UserMapper {
     public void deleteDoctor(String doctor_account);
     public void updateDoctor(Doctor doctor);
     public void updateDoctorPassword(Doctor doctor);
+    public List<User> getAllCashiers(String user_type);
 }
