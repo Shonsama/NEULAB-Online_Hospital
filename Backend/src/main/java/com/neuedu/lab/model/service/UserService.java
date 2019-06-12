@@ -569,6 +569,8 @@ public class UserService {
             prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
         }else if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1])){
             prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]); //已缴费
+        }else {
+            return responseFail("状态出错",null);
         }
         //将新纪录添加
         prescriptionMapper.addPrescription(prescriptionToAdd);
