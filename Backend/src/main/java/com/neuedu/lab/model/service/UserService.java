@@ -459,7 +459,7 @@ public class UserService {
 
     // 未领药直接退药，由收费员操作
     @Transactional
-    public JSONObject returnMedicine(Integer prescription_id, String prescription_medicine_id, Integer prescription_num) {
+    public JSONObject returnMedicine(Integer prescription_id, Integer prescription_content_id, Integer prescription_num) {
         //首先检测处方处于已退费状态或已缴费状态356
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
@@ -468,13 +468,8 @@ public class UserService {
             return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
         }
 
-        PrescriptionContent prescriptionContent = new PrescriptionContent();
-        prescriptionContent.setPrescription_id(prescription_id);
-        prescriptionContent.setPrescription_medicine_id(prescription_medicine_id);
-        prescriptionContent.setPrescription_num(prescription_num);
-
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
-        PrescriptionContent prescriptionContentBefore = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
+        PrescriptionContent prescriptionContentBefore = prescriptionContentMapper.getPrescriptionContentById(prescription_content_id);
 
         //查看药品状态应该是已缴费状态
         if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3])) {
@@ -482,13 +477,13 @@ public class UserService {
         }
 
         //查看药品数量是否满足
-        if (prescriptionContentBefore.getPrescription_refund_available_num() < prescriptionContent.getPrescription_num()) {
+        if (prescriptionContentBefore.getPrescription_refund_available_num() < prescription_num) {
             return ConstantUtils.responseFail("药品数量大于可退费数量", null);
         } else {
             try {
                 //修改可退药数量
                 prescriptionContentBefore.setPrescription_refund_available_num(
-                        prescriptionContentBefore.getPrescription_refund_available_num() - prescriptionContent.getPrescription_num()
+                        prescriptionContentBefore.getPrescription_refund_available_num() - prescription_num
                 );
 
                 //修改金额
@@ -502,10 +497,10 @@ public class UserService {
 
 
                 //再次获取最初的药品记录
-                PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
+                PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentById(prescription_content_id);
 
                 //改变数量
-                prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
+                prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescription_num));
 
 
                 //增加退药的数量为负的药品记录
@@ -514,13 +509,13 @@ public class UserService {
                 //更改原处方状态为已退药,更新药费
                 prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[5]);
                 prescription.setPrescription_fee(prescription.getPrescription_fee().subtract(
-                        prescriptionContentBefore.getPrescription_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num()))));
+                        prescriptionContentBefore.getPrescription_unit_price().multiply(new BigDecimal(prescription_num))));
                 prescriptionMapper.updatePrescription(prescription);
             } catch (RuntimeException e) {
                 e.printStackTrace();
                 return responseFail("退药失败");
             }
-            return responseSuccess(prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent));
+            return responseSuccess(prescriptionContentMapper.getPrescriptionContentById(prescription_content_id));
         }
     }
 

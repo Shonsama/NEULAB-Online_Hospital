@@ -76,7 +76,7 @@ public class UserServiceController {
     @RequestMapping("/refund/return-prescription")
     public JSONObject returnPrescription(@RequestBody JSONObject request){
         return userService.returnMedicine(request.getInteger("prescription_id"),
-                request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
+                request.getInteger("prescription_content_id"),request.getInteger("prescription_num"));
     }
 
     //以下两个注释接口已经弃用，转为上面refund接口，下面两个接口准备删除
