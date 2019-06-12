@@ -13,6 +13,16 @@ public class Schedule {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date schedule_end_date;
+    private String rule_work_time;
+
+    public String getRule_work_time() {
+        return rule_work_time;
+    }
+
+    public void setRule_work_time(String rule_work_time) {
+        this.rule_work_time = rule_work_time;
+    }
+
     private Integer schedule_id;
     private Integer schedule_doctor_id;
 
