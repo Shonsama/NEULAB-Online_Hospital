@@ -791,8 +791,9 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.dialog = true
           that.getTem()
-          that.dialog =false
+          that.dialog = false
           that.tem = false
         })
     },
@@ -806,11 +807,11 @@ export default {
         template_init_date: new Date(),
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
-      that.dialog = true
       var url = this.HOME + '/template/update-template'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.dialog = true
           that.getTem()
           that.dialog = false
           that.tem = false
@@ -845,6 +846,7 @@ export default {
             })
           console.log(response.data)
           that.getItem()
+          that.dialog = false
         })
     },
     seeTem (value) {
@@ -862,7 +864,6 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
-          that.dialog = false
         })
     },
     addTem () {
@@ -881,6 +882,7 @@ export default {
           that.template_con_id = response.data.data.template_id
           that.addTemContent()
           that.text = false
+          that.dialog = true
           that.getTem()
           that.dialog = false
 
@@ -943,6 +945,7 @@ export default {
             template_id: that.template_con_id
           }
           that.seeTem(value)
+          that.dialog = false
           that.show_tem = false
         })
     },
@@ -964,6 +967,7 @@ export default {
             template_id: that.template_con_id
           }
           that.seeTem(value)
+          that.dialog = false
         })
     },
     deleteTemContent () {
@@ -986,6 +990,7 @@ export default {
             }
             that.dialog = true
             that.seeTem(value)
+            that.dialog = false
           })
       }
     },
@@ -1026,6 +1031,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.getItem()
+          that.dialog = false
           that.show = false
         })
       that.prescription_id = ''
@@ -1049,6 +1055,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1058,12 +1065,10 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
-      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
           that.desserts_pre = response.data.data.prescriptions
-          that.dialog = false
         })
     },
     addItem: function () {
@@ -1083,10 +1088,8 @@ export default {
           that.show_pre_dia = false
           console.log(response.data)
           that.getItem()
+          that.dialog = false
         })
-    },
-    addItemByName: function (name, id) {
-
     },
     deleteItem: function () {
       let that = this
@@ -1105,6 +1108,7 @@ export default {
             that.getItem()
           })
       }
+      that.dialog = false
     },
     startItem: function () {
       let that = this
@@ -1120,6 +1124,7 @@ export default {
             that.dialog = true
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1137,6 +1142,7 @@ export default {
             that.dialog = true
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },

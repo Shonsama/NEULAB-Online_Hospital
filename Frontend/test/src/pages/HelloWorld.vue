@@ -1,5 +1,25 @@
 <template>
   <div>
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <section>
       <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
         <v-layout
@@ -86,6 +106,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      dialog: false,
       show1: false,
       isDoctor: false,
       account: '',
@@ -124,6 +145,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           var data
+          that.dialog = true
           if (!that.isDoctor) {
             data = {
               account: response.data.data.user_account,
@@ -132,7 +154,20 @@ export default {
               name: response.data.data.user_name,
               type: response.data.data.user_type
             }
-            // that.store.commit('set_user', data)
+            that.$store.commit('set_user', data)
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
+            }
           } else {
             data = {
               account: response.data.data.doctor_account,
@@ -142,8 +177,22 @@ export default {
               type: response.data.data.doctor_type
             }
             console.log(data)
-            // that.store.commit('set_user', data)
+            that.$store.commit('set_user', data)
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
+            }
           }
+          that.dialog = false
         })
     }
   }
