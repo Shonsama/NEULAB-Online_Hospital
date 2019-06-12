@@ -63,7 +63,7 @@ public class MedicineDepartService {
         //首先检测处方处于已领药状态或已退药状态45
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[4])||
-                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5]))){
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1]))){
             return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
         }
 
@@ -101,7 +101,7 @@ public class MedicineDepartService {
                 prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
 
                 //更改原处方状态为已退药,更新药费
-                prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[5]);
+                prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE_SENT[1]);
                 prescription.setPrescription_fee(prescription.getPrescription_fee().subtract(
                         prescriptionContentBefore.getPrescription_unit_price().multiply(new BigDecimal(prescription_num))));
                 prescriptionMapper.updatePrescription(prescription);
