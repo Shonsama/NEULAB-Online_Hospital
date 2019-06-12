@@ -699,7 +699,6 @@ export default {
       var data = {
         bill_actual_sum: that.bill_sum,
         bill_sum: that.bill_sum,
-        bill_time: new Date(),
         bill_type: '挂号费',
         bill_register_id: that.register_info_id,
         bill_user_id: that.$store.state.user.id,
