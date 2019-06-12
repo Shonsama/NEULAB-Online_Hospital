@@ -331,8 +331,8 @@
                   hide-details
                 ></v-checkbox>
               </td>
-              <td>{{ props.item.name }}</td>
-              <td>{{ props.item.state }}</td>
+              <td>{{ props.item.medicine.medicine_name }}</td>
+              <td>{{ props.item.prescription_medicine_id }}</td>
               <td>{{ props.item.prescription_unit_price }}</td>
               <td>
                 {{props.item.prescription_refund_available_num}}
@@ -347,7 +347,7 @@
                   color="primary"
                   @click="show = !show, medicine = props.item, quantity = props.item.prescription_refund_available_num"
                 >
-                  退费
+                  退回该药品项目
                 </v-btn>
               </td>
             </template>
@@ -407,10 +407,10 @@ export default {
         {text: '操作', value: 'operation', sortable: false}
       ],
       headers_con: [
-        {text: '名称', value: 'name'},
-        {text: '类型', value: 'type'},
-        {text: '金额', value: 'number'},
-        {text: '数量', value: 'quantity'},
+        {text: '名称', value: 'medicine.medicine_name'},
+        {text: '编码', value: 'prescription_medicine_id'},
+        {text: '金额', value: 'prescription_unit_price'},
+        {text: '数量', value: 'prescription_refund_available_num'},
         {text: '操作', value: 'operation', sortable: false}
       ],
       desserts_con: [],
@@ -507,7 +507,7 @@ export default {
       var url = this.HOME + '/user-service/refund/return-prescription'
       var data = {
         prescription_id: that.prescription.id,
-        prescription_medicine_id: that.medicine.prescription_content_id,
+        prescription_medicine_id: that.medicine.prescription_medicine_id,
         prescription_num: that.quantity_sub
       }
       that.quantity_sub = ''
