@@ -543,7 +543,6 @@ export default {
     this.load_constants()
     this.load_departs()
     this.load_registerLevels()
-    this.load_register_fee()
   },
   methods: {
     filterDepart: function (value) {

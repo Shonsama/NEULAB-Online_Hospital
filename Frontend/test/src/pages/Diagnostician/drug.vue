@@ -70,43 +70,43 @@
           </template>
           <template v-slot:expand="props">
             <div>
-            <v-layout align-center justify-center row>
-              <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="prescription_day"
-                  label="用量"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="prescription_consumption"
-                  label="用法"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="prescription_frequency"
-                  label="频次"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="prescription_num"
-                  label="数量"
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-btn
-                small
-                color="primary"
-                @click="addContent(props.item)"
-              >
-                添加
-              </v-btn>
-            </v-layout>
+              <v-layout align-center justify-center row>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_day"
+                    label="用量"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_consumption"
+                    label="用法"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_frequency"
+                    label="频次"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs2 class="mr-3">
+                  <v-text-field
+                    v-model="prescription_num"
+                    label="数量"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-btn
+                  small
+                  color="primary"
+                  @click="addContent(props.item)"
+                >
+                  添加
+                </v-btn>
+              </v-layout>
             </div>
           </template>
         </v-data-table>
@@ -452,76 +452,76 @@
             </template>
             <template v-slot:expand="props">
               <div>
-              <v-container style="max-width: 750px">
-              <v-card>
-                <v-toolbar flat dense color="white">
-                  药品
-                  <v-spacer/>
-                  <v-btn
-                    color="primary"
-                    small
-                    icon
-                    flat
-                    @click="show=!show; prescription_id = props.item.prescription_id"
-                  >
-                    <v-icon>
-                      add
-                    </v-icon>
-                  </v-btn>
-                  <v-btn
-                    color="primary"
-                    small
-                    icon
-                    flat
-                    @click="deleteContent(props.item)"
-                  >
-                    <v-icon>
-                      delete
-                    </v-icon>
-                  </v-btn>
-                </v-toolbar>
-                <v-divider/>
+                <v-container style="max-width: 750px">
+                  <v-card>
+                    <v-toolbar flat dense color="white">
+                      药品
+                      <v-spacer/>
+                      <v-btn
+                        color="primary"
+                        small
+                        icon
+                        flat
+                        @click="show=!show; prescription_id = props.item.prescription_id"
+                      >
+                        <v-icon>
+                          add
+                        </v-icon>
+                      </v-btn>
+                      <v-btn
+                        color="primary"
+                        small
+                        icon
+                        flat
+                        @click="deleteContent(props.item)"
+                      >
+                        <v-icon>
+                          delete
+                        </v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-divider/>
 
-                <v-data-table
-                  v-model="selected_con"
-                  :headers="headers_con"
-                  :items="props.item.prescriptionContents"
-                  item-key="prescription_content_id"
-                  hide-actions
-                  select-all
-                >
-                  <template v-slot:items="props">
-                    <td>
-                      <v-checkbox
-                        v-model="props.selected"
-                        primary
-                        hide-details
-                      ></v-checkbox>
-                    </td>
-                    <td>{{ props.item.prescription_medicine_id }}</td>
-                    <td>{{ props.item.medicine.medicine_name }}</td>
-                    <td>{{ props.item.medicine.medicine_specifications }}</td>
-                    <td>{{ props.item.prescription_day }}</td>
-                    <td>{{ props.item.prescription_consumption }}</td>
-                    <td>{{ props.item.prescription_unit_price }}</td>
-                    <td>{{ props.item.prescription_frequency }}</td>
-                    <td>{{ props.item.prescription_num }}</td>
-                  </template>
-                </v-data-table>
-                <v-divider/>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    class="white--text"
-                    color="primary"
-                    small
-                    @click="text = !text;tem_add = props.item.prescriptionContents"
-                  >
-                    保存
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-              </v-container>
+                    <v-data-table
+                      v-model="selected_con"
+                      :headers="headers_con"
+                      :items="props.item.prescriptionContents"
+                      item-key="prescription_content_id"
+                      hide-actions
+                      select-all
+                    >
+                      <template v-slot:items="props">
+                        <td>
+                          <v-checkbox
+                            v-model="props.selected"
+                            primary
+                            hide-details
+                          ></v-checkbox>
+                        </td>
+                        <td>{{ props.item.prescription_medicine_id }}</td>
+                        <td>{{ props.item.medicine.medicine_name }}</td>
+                        <td>{{ props.item.medicine.medicine_specifications }}</td>
+                        <td>{{ props.item.prescription_day }}</td>
+                        <td>{{ props.item.prescription_consumption }}</td>
+                        <td>{{ props.item.prescription_unit_price }}</td>
+                        <td>{{ props.item.prescription_frequency }}</td>
+                        <td>{{ props.item.prescription_num }}</td>
+                      </template>
+                    </v-data-table>
+                    <v-divider/>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        class="white--text"
+                        color="primary"
+                        small
+                        @click="text = !text;tem_add = props.item.prescriptionContents"
+                      >
+                        保存
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-container>
               </div>
             </template>
           </v-data-table>
@@ -767,7 +767,7 @@ export default {
       return value.template_type === '中药'
     },
     filterType_med (value) {
-      return value.medicine_type === '中草药' || value.medicine_type === '中成药'
+      return value.medicine_type === '中药'
     },
     getTem () {
       let that = this
@@ -791,6 +791,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.dialog = true
           that.getTem()
           that.dialog = false
           that.tem = false
@@ -806,11 +807,11 @@ export default {
         template_init_date: new Date(),
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
-      that.dialog = true
       var url = this.HOME + '/template/update-template'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.dialog = true
           that.getTem()
           that.dialog = false
           that.tem = false
@@ -845,6 +846,7 @@ export default {
             })
           console.log(response.data)
           that.getItem()
+          that.dialog = false
         })
     },
     seeTem (value) {
@@ -862,7 +864,6 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
-          that.dialog = false
         })
     },
     addTem () {
@@ -881,6 +882,7 @@ export default {
           that.template_con_id = response.data.data.template_id
           that.addTemContent()
           that.text = false
+          that.dialog = true
           that.getTem()
           that.dialog = false
         })
@@ -942,6 +944,7 @@ export default {
             template_id: that.template_con_id
           }
           that.seeTem(value)
+          that.dialog = false
           that.show_tem = false
         })
     },
@@ -963,6 +966,7 @@ export default {
             template_id: that.template_con_id
           }
           that.seeTem(value)
+          that.dialog = false
         })
     },
     deleteTemContent () {
@@ -985,6 +989,7 @@ export default {
             }
             that.dialog = true
             that.seeTem(value)
+            that.dialog = false
           })
       }
     },
@@ -1025,6 +1030,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.getItem()
+          that.dialog = false
           that.show = false
         })
       that.prescription_id = ''
@@ -1048,6 +1054,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1057,12 +1064,10 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
-      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
           that.desserts_pre = response.data.data.prescriptions
-          that.dialog = false
         })
     },
     addItem: function () {
@@ -1082,6 +1087,7 @@ export default {
           that.show_pre_dia = false
           console.log(response.data)
           that.getItem()
+          that.dialog = false
         })
     },
     deleteItem: function () {
@@ -1101,6 +1107,7 @@ export default {
             that.getItem()
           })
       }
+      that.dialog = false
     },
     startItem: function () {
       let that = this
@@ -1116,6 +1123,7 @@ export default {
             that.dialog = true
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1133,6 +1141,7 @@ export default {
             that.dialog = true
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },

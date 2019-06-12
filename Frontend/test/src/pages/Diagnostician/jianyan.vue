@@ -777,10 +777,11 @@ export default {
         .then(function (response) {
           console.log(response.data)
           var i
+          that.dialog = true
           for (i = 0; i < response.data.data.length; i++) {
             that.addItemByTem(response.data.data[i])
           }
-          // that.dialog = false
+          that.dialog = false
         })
     },
     seeTem (value) {
@@ -798,7 +799,6 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
-          that.dialog = false
         })
     },
     addTem () {
@@ -814,10 +814,12 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.dialog = true
           that.template_con_id = response.data.data.template_id
           that.addTemContent()
           that.text = false
           that.getTem()
+          that.dialog = false
         })
     },
     addTemContent () {
@@ -873,6 +875,7 @@ export default {
             template_id: that.template_con_id
           }
           that.seeTem(value)
+          that.dialog = false
           that.show_tem = false
         })
     },
@@ -925,12 +928,10 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
-      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
           that.desserts = response.data.data.medicalSkills
-          that.dialog = false
         })
     },
     addItem: function (value) {
@@ -956,6 +957,7 @@ export default {
           that.show = false
           that.dialog = true
           that.getItem()
+          that.dialog = false
         })
     },
     addItemByTem: function (value) {
@@ -981,6 +983,7 @@ export default {
           that.show = false
           that.dialog = true
           that.getItem()
+          that.dialog = false
         })
     },
     deleteItem: function () {
@@ -998,6 +1001,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1015,6 +1019,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
@@ -1032,6 +1037,7 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
+            that.dialog = false
           })
       }
     },
