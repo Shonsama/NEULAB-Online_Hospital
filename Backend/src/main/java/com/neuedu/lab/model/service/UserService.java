@@ -565,7 +565,11 @@ public class UserService {
             return responseFail("获取处方药品记录失败", null);
         }
         //更新状态
-        prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
+        if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0])){
+            prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
+        }else if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1])){
+            prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]); //已缴费
+        }
         //将新纪录添加
         prescriptionMapper.addPrescription(prescriptionToAdd);
         //将所有药品绑定到新创建的处方ID下
