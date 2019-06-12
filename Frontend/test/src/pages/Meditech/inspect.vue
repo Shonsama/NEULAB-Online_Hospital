@@ -204,6 +204,9 @@
       ]
     }),
     methods: {
+      filterDepart: function (value) {
+        return value.medical_skill_type === '检查'
+      },
       load: function () {
         let that = this
         var url = this.HOME + 'ms-doctor/get-all-patients'

@@ -119,6 +119,7 @@
           <template v-slot:items="props">
             <td>{{ props.item.medical_skill_id }}</td>
             <td>{{ props.item.medical_skill_execute_state }}</td>
+            <td>{{ props.item.medical_skill_name }}</td>
             <td>{{ props.item.medical_skill_result }}</td>
             <td>
               <v-icon
@@ -153,7 +154,7 @@
       ms_item: '',
       ms_patient_id: '',
       show: false,
-      department_default: '艾滋病科',
+      department_default: 'wp',
       userid_default: '5',
       search_patient: '',
       state: '',
@@ -190,6 +191,7 @@
           value: 'medical_skill_id'
         },
         { text: '医技状态', value: 'medical_skill_execute_state' },
+        { text: '医技状态', value: 'medical_skill_name' },
         { text: '医技结果', value: 'medical_skill_result' },
         { text: '操作', value: 'operation', sortable: false }
       ],
@@ -202,6 +204,9 @@
       ]
     }),
     methods: {
+      filterDepart: function (value) {
+        return value.medical_skill_type === '检查'
+      },
       load: function () {
         let that = this
         var url = this.HOME + 'ms-doctor/get-all-patients'
