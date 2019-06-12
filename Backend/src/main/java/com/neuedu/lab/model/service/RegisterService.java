@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.util.Date;
+
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
 import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
@@ -108,15 +110,16 @@ public class RegisterService {
     }
 
 
-    public boolean addBill(Bill bill){
+    public JSONObject addBill(Bill bill){
         try {
             bill.setBill_type(ConstantDefinition.BILL_TYPE[0]);
+            bill.setBill_time(new Date());
             billMapper.addBill(bill);
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess(bill);
     }
 
 
