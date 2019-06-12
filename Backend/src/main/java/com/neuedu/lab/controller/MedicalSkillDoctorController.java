@@ -34,7 +34,8 @@ public class MedicalSkillDoctorController {
 
     @RequestMapping("/get-all-patients")
     public JSONObject getPatients(@RequestBody JSONObject request){
-        return medicalSkillDoctorService.getPatients(request.getString("medical_skill_execute_department"));
+        return medicalSkillDoctorService.getPatients(request.getString("medical_skill_execute_department"),
+                request.getString("medical_skill_type"));
     }
 
 
