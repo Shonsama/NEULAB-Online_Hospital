@@ -410,7 +410,7 @@ export default {
     },
     load_cashiers: function () {
       let that = this
-      var url = this.HOME + '/user/get-cashiers'
+      var url = this.HOME + '/user/get-all-cashier'
       this.$http.post(url, {
       })
         .then(function (response) {

@@ -6,12 +6,10 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
-import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -52,6 +50,10 @@ public class UserService {
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
         return userMapper.getAllUsers();
+    }
+
+    public List<User> getAllCashiers() {
+        return userMapper.getAllCashiers("挂号收费员");
     }
 
     public User getUser(String user_id) {
