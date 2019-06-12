@@ -328,7 +328,7 @@
               <v-flex xs2 class="mr-3">
                 <v-select
                   v-model="department"
-                  :items="departments"
+                  :items="departments.filter(filterDepart)"
                   item-text="department_name"
                   item_value="department_id"
                   label="科室"
@@ -712,6 +712,9 @@ export default {
     },
     filterType (value) {
       return value.medical_skill_type === '检查'
+    },
+    filterDepart: function (value) {
+      return value.department_cat === '医技科室'
     },
     filterType_tem (value) {
       return value.template_type === '检查'

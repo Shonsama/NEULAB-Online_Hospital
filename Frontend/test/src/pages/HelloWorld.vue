@@ -39,6 +39,7 @@
                 </v-flex>
                 <v-flex xs12 sm10 md8 lg8 class="mr-4 ml-4">
                   <v-text-field
+                    v-model="account"
                     label="用户名"
                     prepend-inner-icon="person"
                   ></v-text-field>
@@ -55,9 +56,19 @@
                     @click:append="show1 = !show1"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 class="text-xs-center mb-3">
+                <v-flex row xs12 sm12 md12 class="mr-4 ml-4">
+                  <v-checkbox
+                    v-model="isDoctor"
+                    primary
+                    label="是否为医生"
+                    hide-details
+                  ></v-checkbox>
+                  <v-spacer/>
+                </v-flex>
+                <v-flex xs12 sm6 class="text-xs-center mb-3 mt-3">
                   <v-btn
                     color="primary"
+                    @click="checkLogin"
                   >
                     登录
                   </v-btn>
@@ -76,21 +87,9 @@ export default {
   data () {
     return {
       show1: false,
+      isDoctor: false,
+      account: '',
       password: '',
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-        }
-      ],
       route: '',
       states: [
         '门诊医生', '医技医生', '挂号收费员', '药房操作员',
@@ -106,6 +105,47 @@ export default {
   watch: {
   },
   methods: {
+    checkLogin: function () {
+      let that = this
+      var data
+      var url = this.HOME + '/user/check-valid'
+      if (!that.isDoctor) {
+        data = {
+          user_account: that.account,
+          user_password: that.password
+        }
+      } else {
+        data = {
+          doctor_account: that.account,
+          doctor_password: that.password
+        }
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          var data
+          if (!that.isDoctor) {
+            data = {
+              account: response.data.data.user_account,
+              department_id: response.data.data.user_department_id,
+              id: response.data.data.user_id,
+              name: response.data.data.user_name,
+              type: response.data.data.user_type
+            }
+            // that.store.commit('set_user', data)
+          } else {
+            data = {
+              account: response.data.data.doctor_account,
+              department_id: response.data.data.doctor_department_id,
+              id: response.data.data.doctor_id,
+              name: response.data.data.doctor_name,
+              type: response.data.data.doctor_type
+            }
+            console.log(data)
+            // that.store.commit('set_user', data)
+          }
+        })
+    }
   }
 }
 </script>
