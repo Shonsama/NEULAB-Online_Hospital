@@ -255,21 +255,20 @@
       </v-data-table>
     </v-card>
     <v-card class="scroll-y">
-      <v-toolbar flat dense>
+      <v-toolbar flat extended dense>
         <v-toolbar-title >患者收费信息</v-toolbar-title>
-        <!--<template v-slot:extension>-->
-          <!--<el-date-picker-->
-            <!--v-model="date"-->
-            <!--type="datetimerange"-->
-            <!--align="right"-->
-            <!--start-placeholder="开始日期"-->
-            <!--end-placeholder="结束日期"-->
-            <!--:default-time="['12:00:00', '08:00:00']"-->
-            <!--style="margin-right: 10px;margin-bottom: 10px"-->
-          <!--&gt;-->
-          <!--</el-date-picker>-->
-        <!--</template>-->
-        <!--{{date}}-->
+        <template v-slot:extension>
+          <el-date-picker
+            v-model="date"
+            type="datetimerange"
+            align="right"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :default-time="['12:00:00', '08:00:00']"
+            style="margin-right: 10px;margin-bottom: 10px"
+          >
+          </el-date-picker>
+        </template>
       </v-toolbar>
       <v-data-table
         v-model="selected1"
