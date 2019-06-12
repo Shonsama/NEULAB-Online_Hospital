@@ -3,7 +3,6 @@ package com.neuedu.lab.model.service;
 import com.alibaba.fastjson.JSONObject;
 
 import com.neuedu.lab.Utils.ConstantUtils;
-import com.neuedu.lab.controller.VaildService;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
@@ -52,8 +51,6 @@ public class DoctorService {
     private MedicalSkillContentMapper medicalSkillContentMapper;
 
 
-    //权限验证服务
-    private VaildService vaildService;
 
 
     //查询一个医生的所有挂号信息
@@ -175,9 +172,9 @@ public class DoctorService {
 
     //接诊
     public JSONObject treat(Integer register_id){
-        if(!vaildService.isRegisterStateRegistered(register_id,REGISTER_STATE[0])){//验证状态
-            return responseFail("当前挂号状态不允许医生接诊",null);
-        }
+//        if(vaildService.isRegisterStateRegistered(register_id,REGISTER_STATE[0])){//验证状态
+//            return responseFail("当前挂号状态不允许医生接诊",null);
+//        }
         try{
             doctorMapper.treat(register_id, REGISTER_STATE[1]);
         }catch (RuntimeException e){
@@ -190,9 +187,9 @@ public class DoctorService {
     //填写门诊病历首页
     @Transactional
     public JSONObject submitRecord(Record record){
-        if(!vaildService.isRegisterStateRegistered(record.getRecord_id(),REGISTER_STATE[1])){//验证状态
-            return responseFail("当前病历状态不允许进行此操作",null);
-        }
+//        if(!vaildService.isRegisterStateRegistered(record.getRecord_id(),REGISTER_STATE[1])){//验证状态
+//            return responseFail("当前病历状态不允许进行此操作",null);
+//        }
         try {
             String record_state = recordMapper.getRecordStateById(record.getRecord_id());
             if(record_state == null){
