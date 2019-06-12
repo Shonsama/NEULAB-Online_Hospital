@@ -21,6 +21,7 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               style="margin-top: 10px"
+              value-format= "yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
             </v-flex>
@@ -201,7 +202,7 @@
             <div v-show="expand_again">
               <v-data-table
                 class="ml-5 elevation-1 mb-4"
-                :headers="headers_again"
+                :headers="headers_already"
                 :items="desserts_again"
                 item-key="bill_id"
               >
@@ -239,7 +240,7 @@
             <div v-show="expand_complement">
               <v-data-table
                 class="ml-5 elevation-1 mb-4"
-                :headers="headers_complement"
+                :headers="headers_already"
                 :items="desserts_complement"
                 item-key="bill_id"
               >
@@ -277,7 +278,7 @@
             <div v-show="expand_waste">
               <v-data-table
                 class="ml-5 elevation-1 mb-4"
-                :headers="headers_waste"
+                :headers="headers_already"
                 :items="desserts_waste"
                 item-key="bill_id"
               >
@@ -315,7 +316,7 @@
             <div v-show="expand_opposite">
               <v-data-table
                 class="ml-5 elevation-1 mb-4"
-                :headers="headers_opposite"
+                :headers="headers_already"
                 :items="desserts_opposite"
                 item-key="bill_id"
               >
@@ -401,6 +402,7 @@ export default {
     load: function () {
       this.time_range = this.date[0] + '-' + this.date[1]
       this.cashier = this.cashier_user_object.user_name
+      console.log('This is the format of the date')
       let that = this
       var url = this.HOME + '/user-service/daily-get'
       this.$http.post(url, {
@@ -411,14 +413,34 @@ export default {
         .then(function (response) {
           console.log(response.data)
           var list = response.data.data
-          that.daily = list[0]
+          that.daily = list[list.length-1]
           that.daily_mid_prescription_sum = that.daily.daily_mid_prescription_sum
           that.daily_west_prescription_sum= that.daily.daily_west_prescription_sum
           that.daily_register_sum = that.daily.daily_register_sum
           that.daily_ms_sum = that.daily.daily_check_sum + that.daily.daily_examine_sum + that.daily.daily_handle_sum
           that.daily_sum = that.daily_mid_prescription_sum + that.daily_west_prescription_sum + that.daily_register_sum + that.daily_ms_sum
+          that.load_bills()
+        })
+    },
+    load_bills: function (){
+      let that = this
+      var url = this.HOME + '/user-service/daily-bill-get'
+      this.$http.post(url, {
+        daily_id: that.daily.daily_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.daily = response.data.data
           that.bill_already = that.daily.bills.length
           that.desserts_already = that.daily.bills
+          that.bill_again = that.daily.redoBillList.length
+          that.desserts_again = that.daily.redoBillList
+          that.bill_complement = that.daily.overprintBillList.length
+          that.desserts_complement = that.daily.overprintBillList
+          that.bill_opposite = that.daily.flushBillList.length
+          that.desserts_opposite = that.daily.flushBillList
+          that.bill_waste = that.daily.abandonBillList.length
+          that.desserts_waste = that.daily.abandonBillList
         })
     },
     load_cashiers: function () {
