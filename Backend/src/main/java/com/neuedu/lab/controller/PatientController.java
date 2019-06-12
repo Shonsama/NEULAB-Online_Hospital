@@ -44,15 +44,21 @@ public class PatientController {
     public JSONObject signUp(@RequestBody JSONObject request){
         return patientService.signUp(request.getString("patient_account"),request.getString("patient_password"));
     }
-    @RequestMapping("/bound-exist")
+    @RequestMapping("/bound-exist-record")
     public JSONObject boundExistedRecord(@RequestBody JSONObject request){
         return patientService.boundExistedRecord(request.getString("patient_account"),request.getInteger("patient_record_id"));
-
     }
-/*    @RequestMapping("/create-new")
+    @RequestMapping("/create-new-record")
     public JSONObject createNewRecord(@RequestBody JSONObject request){
-        return patientService.createNewRecord(request.getObject("patient",Patient)
-    }*/
-
-
+        //PatientUser patientUser = new PatientUser();
+        Patient patient = new Patient();
+        //patientUser.setPatient_account(request.getString("patient_account"));
+        patient.setPatient_gender(request.getBoolean("patient_gender"));
+        patient.setPatient_name(request.getString("patient_name"));
+        patient.setPatient_credit_id(request.getString("patient_credit_id"));
+        patient.setPatient_address(request.getString("patient_address"));
+        patient.setPatient_birthDate(request.getDate("patient_birthDate"));
+        patient.setPatient_age(request.getInteger("patient_age"));
+        return patientService.createNewRecord(patient,request.getString("patient_account"));
+    }
 }
