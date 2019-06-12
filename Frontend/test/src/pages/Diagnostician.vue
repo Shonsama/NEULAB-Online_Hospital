@@ -488,6 +488,10 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          if (response.data.code === 200) {
+            that.dialog_suc = true
+            that.msg_suc = '已诊毕'
+          }
         })
     },
     get: function () {
@@ -496,12 +500,10 @@ export default {
       var data = {
         record_id: that.record_id
       }
-      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
           that.record = response.data.data
-          that.dialog = false
         })
     },
     refresh: function () {

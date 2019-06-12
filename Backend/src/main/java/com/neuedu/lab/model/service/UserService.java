@@ -46,6 +46,8 @@ public class UserService {
     private RegisterMapper registerMapper;
     @Resource
     private PatientMapper patientMapper;
+    @Resource
+    private MedicineMapper medicineMapper;
 
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
@@ -458,7 +460,13 @@ public class UserService {
     // 未领药直接退药，由收费员操作
     @Transactional
     public JSONObject returnMedicine(Integer prescription_id, String prescription_medicine_id, Integer prescription_num) {
+        //首先检测处方处于已退费状态或已缴费状态356
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
+        if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5])||
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[6]))){
+            return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
+        }
 
         PrescriptionContent prescriptionContent = new PrescriptionContent();
         prescriptionContent.setPrescription_id(prescription_id);
@@ -544,19 +552,28 @@ public class UserService {
         //获取原处方记录
         Prescription prescriptionToAdd = prescriptionMapper.getPrescription(prescription_id);
 
+        //更新原处方STATE变成已退费
+        prescriptionMapper.updatePrescriptionState(prescription_id,PRESCRIPTION_EXECUTE_STATE[6]);
+
         //重新计算处方费用
         List<PrescriptionContent> contentList;
         BigDecimal sum = new BigDecimal(0);
         try {
             contentList = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
-            System.out.println("[dddd]"+contentList.size());
+
+            //如果处方内容为空，则不需添加新的处方，直接返回退费成功
+            if(contentList.size()==0){
+                return responseSuccess(billBefore);
+            }
+
+
             for (PrescriptionContent content : contentList) {
                 sum = sum.add(content.getPrescription_content_fee());
             }
             prescriptionToAdd.setPrescription_fee(sum);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return ConstantUtils.responseFail("获取处方药品记录失败", null);
+            return responseFail("获取处方药品记录失败", null);
         }
         //更新状态
         prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
@@ -596,6 +613,10 @@ public class UserService {
             }catch (RuntimeException e){
                 e.printStackTrace();
                 return responseFail();
+            }
+            //填充药物
+            for(PrescriptionContent prescriptionContent:prescriptionContents){
+                prescriptionContent.setMedicine(medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id()));
             }
             return responseSuccess(prescriptionContents);
     }

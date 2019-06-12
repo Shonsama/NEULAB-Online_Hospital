@@ -34,12 +34,7 @@ public class RegisterController {
     @RequestMapping("/print-bill")
     public JSONObject printInvoice(@RequestBody Bill bill){
         //打印发票
-        if(registerService.addBill(bill)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return registerService.addBill(bill);
     }
 
     //退号操作
