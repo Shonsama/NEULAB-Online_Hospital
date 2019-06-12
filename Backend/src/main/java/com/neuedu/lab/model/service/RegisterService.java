@@ -119,7 +119,7 @@ public class RegisterService {
             e.printStackTrace();
             return responseFail();
         }
-        return responseSuccess(bill);
+        return responseSuccess(billMapper.getBillById(bill.getBill_id()));
     }
 
 

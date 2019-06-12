@@ -3,6 +3,7 @@ package com.neuedu.lab.model.mapper;
 import com.neuedu.lab.model.po.Bill;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface BillMapper {
     public void addBill(Bill bill);
 
     public Bill getBill(Integer register_id);
+
+    Bill getBillById(Integer bill_id);
 
     List<Bill> getBillForOneRecord(Integer register_id);
 

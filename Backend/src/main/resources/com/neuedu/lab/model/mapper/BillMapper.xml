@@ -15,6 +15,11 @@
         WHERE bill_register_id = #{register_id}
     </select>
 
+    <select id="getBillById" resultType="Bill">
+        SELECT * FROM bill
+        WHERE bill_id = #{bill_id}
+    </select>
+
     <select id="getBillForOneRecord" resultType="Bill">
         SELECT * FROM bill
         WHERE bill_register_id = #{register_id}
