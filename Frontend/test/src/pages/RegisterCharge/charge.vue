@@ -347,7 +347,7 @@
                   color="primary"
                   @click="show = !show, medicine = props.item, quantity = props.item.prescription_refund_available_num"
                 >
-                  退回该药品项目
+                  退费
                 </v-btn>
               </td>
             </template>
@@ -507,7 +507,7 @@ export default {
       var url = this.HOME + '/user-service/refund/return-prescription'
       var data = {
         prescription_id: that.prescription.id,
-        prescription_medicine_id: that.medicine.prescription_medicine_id,
+        prescription_medicine_id: that.medicine.prescription_content_id,
         prescription_num: that.quantity_sub
       }
       that.quantity_sub = ''
