@@ -13,8 +13,26 @@ public class Schedule {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date schedule_end_date;
+    private String rule_work_time;
+    private String schedule_doctor_name;
     private Integer schedule_id;
     private Integer schedule_doctor_id;
+
+    public String getSchedule_doctor_name() {
+        return schedule_doctor_name;
+    }
+
+    public void setSchedule_doctor_name(String schedule_doctor_name) {
+        this.schedule_doctor_name = schedule_doctor_name;
+    }
+
+    public String getRule_work_time() {
+        return rule_work_time;
+    }
+
+    public void setRule_work_time(String rule_work_time) {
+        this.rule_work_time = rule_work_time;
+    }
 
     public Date getSchedule_start_date() {
         return schedule_start_date;

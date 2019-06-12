@@ -52,6 +52,7 @@
                 item-text="department_name"
                 item-value="department_id"
                 label="科室"
+                placeholder="请输入科室"
               ></v-select>
               <div v-if="isDoctor">
                 <v-text-field
