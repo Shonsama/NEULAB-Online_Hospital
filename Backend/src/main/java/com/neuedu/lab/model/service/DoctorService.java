@@ -48,6 +48,9 @@ public class DoctorService {
     @Resource
     private MedicineMapper medicineMapper;
 
+    @Resource
+    private MedicalSkillContentMapper medicalSkillContentMapper;
+
 
     //查询一个医生的所有挂号信息
     public JSONObject getAllRegisters(Integer doctor_id){
@@ -479,6 +482,18 @@ public class DoctorService {
         return responseSuccess(fulfill(prescriptions));
     }
 
+    //获取一个病人的所有医技记录
+    public JSONObject getMedicalSkill(Integer register_id){
+        List<MedicalSkill> medicalSkills;
+        try{
+            medicalSkills = medicalSkillMapper.getMedicalSkillsByRegisterId(register_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(fulfillMS(medicalSkills));
+    }
+
 
     //==================私有内部方法=================
 
@@ -498,6 +513,20 @@ public class DoctorService {
             prescriptions.add(fulfill(prescription));
         }
         return prescriptions;
+    }
+
+
+    private MedicalSkill fulfillMS(MedicalSkill medicalSkill){
+        MedicalSkillContent medicalSkillContent = medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id());
+        medicalSkill.setMedicalSkillContent(medicalSkillContent);
+        return medicalSkill;
+    }
+    private List<MedicalSkill> fulfillMS(List<MedicalSkill> medicalSkills){
+        List<MedicalSkill> result = new ArrayList<>();
+        for(MedicalSkill medicalSkill : medicalSkills){
+            result.add(fulfillMS(medicalSkill));
+        }
+        return result;
     }
 
 

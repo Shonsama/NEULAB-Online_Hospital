@@ -21,4 +21,5 @@ public interface RegisterMapper {
 
     public void updateRegisterState(@Param("register_id") Integer register_id, @Param("register_info_state") String register_info_state);
 
+
 }

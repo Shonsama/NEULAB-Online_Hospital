@@ -8,11 +8,17 @@
        select * from his.doctor_info
        WHERE doctor_department_id = #{department_id}
              AND doctor_arrange_or_not = TRUE AND doctor_register_level_id = #{doctor_register_level_id}
+            AND doctor_arrange_or_not = TRUE
    </select>
 
     <update id="treat">
         UPDATE his.register_info SET register_info_state = #{state}
         WHERE register_info_id = #{register_id}
     </update>
+
+    <select id="getDoctorById" resultType="Doctor">
+        SELECT * FROM doctor_info
+        WHERE doctor_id =#{doctor_id}
+    </select>
 
 </mapper>

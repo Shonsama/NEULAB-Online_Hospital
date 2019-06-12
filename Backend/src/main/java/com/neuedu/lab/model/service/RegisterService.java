@@ -5,12 +5,18 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
+import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
+
+/**
+ * @author wp 20164917
+ */
 @Service
 public class RegisterService {
     @Resource
@@ -45,17 +51,38 @@ public class RegisterService {
         try{
             return ConstantUtils.responseSuccess(doctorMapper.getAllDoctorsByDepartment(id,register_level_id));
         }catch (Exception e){
-            return ConstantUtils.responseFail(null);
+            return responseFail(null);
         }
     }
 
+    @Transactional
     public JSONObject addRegister(Register register){
+
+        //首先查看医生是否有号
+        Doctor doctor;
         try {
+            doctor =doctorMapper.getDoctorById(register.getRegister_info_doctor_id());
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取医生信息出错");
+        }
+        if (doctor==null){
+            return responseFail("当前医生不存在");
+        }else if(!doctor.isDoctor_arrange_or_not()){
+            return responseFail("医生"+doctor.getDoctor_name()+"今天不排班");
+        }else if(doctor.getDoctor_register_num()==null || doctor.getDoctor_register_num()==0){
+            return responseFail("医生"+doctor.getDoctor_name()+"今天不排班或排班已满");
+        }
+
+        //开始挂号操作
+        try {
+            //修正挂号状态
             register.setRegister_info_state(ConstantDefinition.REGISTER_STATE[0]);
+            //检测病人是否已挂同一个医生的号
             registerMapper.addRegister(register);
         }catch (Exception e){
             e.printStackTrace();
-            return ConstantUtils.responseFail(ConstantDefinition.FAIL_INSERT_MESSAGE,null);
+            return responseFail(ConstantDefinition.FAIL_INSERT_MESSAGE,null);
         }
         register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
         return ConstantUtils.responseSuccess(register);
