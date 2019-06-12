@@ -258,6 +258,9 @@ public class DoctorService {
     public boolean addMedicalSkill(MedicalSkill medicalSkill){
         try{
             medicalSkill.setMedical_skill_execute_state(MEDICAL_SKILL_EXECUTE_STATE[0]);
+            medicalSkill.setMedical_skill_execute_department(medicalSkill.getMedical_skill_execute_department().
+                    replaceAll("\n", "").replaceAll(" ","").
+                    replaceAll("\t","").replaceAll("\r",""));
             medicalSkillMapper.addMedicalSkill(medicalSkill);
         }catch (RuntimeException e){
             e.printStackTrace();
