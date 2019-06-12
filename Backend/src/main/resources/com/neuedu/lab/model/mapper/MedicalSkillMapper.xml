@@ -7,7 +7,7 @@
         insert into medical_skill (medical_skill_execute_state, medical_skill_execute_department,
                                    medical_skill_result, medical_skill_type, medical_skill_name,
                                    medical_skill_checkpoint, medical_skill_purpose, medical_skill_urgent,
-                                   medical_skill_register_info_id,medical_skill_user_id, medical_skill_content_id,
+                                   medical_skill_register_info_id, medical_skill_content_id,
                                    medical_skill_fee)
          values (#{medical_skill_execute_state},#{medical_skill_execute_department},
                 #{medical_skill_result}, #{medical_skill_type}, #{medical_skill_name},
