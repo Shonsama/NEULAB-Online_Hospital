@@ -409,8 +409,6 @@ export default {
         })
     },
     load_cashiers: function () {
-      this.time_range = this.date[0] + '-' + this.date[1]
-      this.cashier = this.cashier_user_object.user_name
       let that = this
       var url = this.HOME + '/user/get-cashiers'
       this.$http.post(url, {
