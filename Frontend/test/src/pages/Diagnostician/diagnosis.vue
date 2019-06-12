@@ -222,7 +222,7 @@ export default {
       }
       return -1
     },
-    remove (val,val1) {
+    remove (val, val1) {
       var index = this.indexOf(val, val1)
       if (index > -1) {
         val.splice(index, 1)

@@ -753,6 +753,9 @@ export default {
     filterType_tem (value) {
       return value.template_type === '中药'
     },
+    filterType_med (value) {
+      return value.medicine_type === '中草药' || value.medicine_type === '中成药'
+    },
     getTem () {
       let that = this
       var data = {
@@ -785,9 +788,9 @@ export default {
       var data = {
         template_type: that.template_con_type,
         template_range: that.template_con_range,
-        template_id: that.template_con_id,
         template_name: that.template_con_name,
         template_init_date: new Date(),
+        template_id: that.template_con_id,
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
       var url = this.HOME + '/template/update-template'
@@ -1082,7 +1085,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts_dia = response.data.data
+          that.desserts_dia = response.data.data.filter(that.filterType_med)
         })
     }
   }

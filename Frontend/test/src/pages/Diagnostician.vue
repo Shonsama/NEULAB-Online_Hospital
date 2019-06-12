@@ -25,6 +25,30 @@
       <v-flex shrink >
         <v-expand-x-transition >
           <div v-show="show" style="white-space: nowrap; width:300px">
+            <v-flex shrink>
+              <v-expand-transition>
+                <div v-show="dialog_err" style="white-space: nowrap">
+                  <v-alert
+                    :value="true"
+                    type="error"
+                  >
+                    {{msg_err}}
+                  </v-alert>
+                </div>
+              </v-expand-transition>
+            </v-flex>
+            <v-flex shrink>
+              <v-expand-transition>
+                <div v-show="dialog_suc" style="white-space: nowrap">
+                  <v-alert
+                    :value="true"
+                    type="success"
+                  >
+                    {{msg_suc}}
+                  </v-alert>
+                </div>
+              </v-expand-transition>
+            </v-flex>
             <v-layout>
               <v-flex md10 xs10>
                 <v-text-field
@@ -171,7 +195,8 @@
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>性别:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">{{ patient.patient_gender }}</v-list-tile-content>
+                    <v-list-tile-content v-if="patient.patient_gender" class="align-end">男</v-list-tile-content>
+                    <v-list-tile-content v-else class="align-end">女</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>年龄:</v-list-tile-content>
@@ -179,7 +204,7 @@
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>出生日期:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">{{ patient.patient_birthDate }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ patient.patient_birthDate.slice(0,10) }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>身份证号:</v-list-tile-content>
@@ -270,6 +295,11 @@ export default {
   },
   data () {
     return {
+      dialog_add: false,
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       dialog: false,
       e1: 1,
       disable: false,
@@ -366,11 +396,30 @@ export default {
       return this.desserts_per.filter(this.filterState_off)
     }
   },
+  watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
+  },
   mounted: function () {
     this.load_patient_self()
     this.load_patient_depart()
   },
   methods: {
+    network_out: function () {
+      this.dialog = false
+      this.dialog_err = true
+      this.msg_err = '网络不通畅，请重新来过'
+    },
     filterState_on: function (value) {
       return value.register_info_state === '已挂号'
     },
@@ -381,8 +430,9 @@ export default {
       var url = this.HOME + '/doctor/get-all-registers'
       var that = this
       var data = {
-        'doctor_id': '1'
+        'doctor_id': this.$store.state.user.id
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
@@ -394,7 +444,7 @@ export default {
       var url = this.HOME + '/doctor/get-department-registers'
       var that = this
       var data = {
-        'department_id': 'XXGK'
+        'department_id': this.$store.state.user.department_id
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -416,11 +466,17 @@ export default {
       console.log(value)
       this.$http.post(url, data)
         .then(function (response) {
-          that.dialog = true
           console.log(response.data)
-          that.load_patient_self()
-          that.load_patient_depart()
-          that.get()
+          if (response.data.code === 200) {
+            that.load_patient_self()
+            that.load_patient_depart()
+            that.get()
+            that.dialog_suc = true
+            that.msg_suc = '接诊成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '接诊失败'
+          }
         })
     },
     finish: function () {

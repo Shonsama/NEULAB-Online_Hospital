@@ -277,7 +277,7 @@ export default {
           if (that.signal === 'SUCCESS') {
             that.load()
             that.notice_success()
-          }else {
+          } else {
             that.notice_error()
           }
         })
@@ -368,23 +368,23 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout( this.change_success, 1500)
+      var timeout_1 = window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
-      this.alert_success =! this.alert_success
+      this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout( this.change_error, 1500)
+      var timeout_2 = window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
-      this.alert_error =! this.alert_error
+      this.alert_error = !this.alert_error
     },
     delete_selected: function () {
       var count = 0
       var length = this.selected.length
       for (let i = 0; i < this.selected.length; i++) {
-        var item ={
+        var item = {
           medicine_id: this.selected[i].medicine_id
         }
         let that = this
@@ -399,10 +399,9 @@ export default {
             }
           })
       }
-      if (this.count === this.length){
+      if (this.count === this.length) {
         this.notice_success()
-      }
-      else {
+      } else {
         this.notice_error()
       }
     }

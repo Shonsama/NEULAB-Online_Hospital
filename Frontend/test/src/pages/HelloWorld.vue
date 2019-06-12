@@ -15,18 +15,19 @@
             NeuHospital
           </h1>
             <v-card
-              width="400"
+              width="350"
+              class="elevation-2"
             >
               <v-layout
                 justify-center
                 column
               >
                 <v-flex xs12 sm10 md8 lg6>
-                  <v-card-title primary-title>
                     <v-layout
                       justify-center
                       column
                       align-center
+                      class="mt-4"
                     >
                       <div>
                         <h6 class="title">登录</h6>
@@ -35,15 +36,14 @@
                         <h6 class="body-1 font-weight-regular mt-2">使用你的云医院账号</h6>
                       </div>
                     </v-layout>
-                  </v-card-title>
                 </v-flex>
-                <v-flex xs12 sm10 md8 lg8 class="mr-5 ml-5">
+                <v-flex xs12 sm10 md8 lg8 class="mr-4 ml-4">
                   <v-text-field
                     label="用户名"
                     prepend-inner-icon="person"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 class="mr-5 ml-5">
+                <v-flex xs12 sm6 class="mr-4 ml-4">
                   <v-text-field
                     v-model="password"
                     prepend-inner-icon="edit"
@@ -55,10 +55,9 @@
                     @click:append="show1 = !show1"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 class="text-xs-center mb-4">
+                <v-flex xs12 sm6 class="text-xs-center mb-3">
                   <v-btn
                     color="primary"
-
                   >
                     登录
                   </v-btn>
