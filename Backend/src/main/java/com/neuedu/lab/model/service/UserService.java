@@ -324,6 +324,12 @@ public class UserService {
                     flushBillList.add(bill);
                 }
             }
+
+            daily.setAbandonBillList(abandonBillList);
+            daily.setRedoBillList(redoBillList);
+            daily.setOverprintBillList(overprintBillList);
+            daily.setFlushBillList(flushBillList);
+            
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();
