@@ -67,10 +67,6 @@
           </v-layout>
           <v-divider></v-divider>
           <v-layout row>
-            <!--<v-flex style="margin-right: 0px" lg2 offset-xs2>-->
-              <!--<v-subheader-->
-                <!--class="mt-2">时间范围</v-subheader>-->
-            <!--</v-flex>-->
             <v-flex style="margin-right: 50px" class="mt-2" lg3 offset-xs3>
               <v-text-field
                 v-model="time_range"
@@ -78,10 +74,6 @@
                 readonly
               ></v-text-field>
             </v-flex>
-            <!--<v-flex lg2>-->
-              <!--<v-subheader-->
-                <!--class="mt-2">收款员</v-subheader>-->
-            <!--</v-flex>-->
             <v-flex class="mt-2" lg3>
               <v-text-field
                 v-model="cashier"
@@ -96,8 +88,8 @@
             </v-flex>
             <v-flex xs6>
               <v-text-field
+                v-model="daily_mid_prescription_sum"
                 label="金额"
-                value="10.00"
                 suffix="元"
               ></v-text-field>
             </v-flex>
@@ -109,7 +101,7 @@
             <v-flex xs6>
               <v-text-field
                 label="金额"
-                value="10.00"
+                v-model="daily_west_prescription_sum"
                 suffix="元"
               ></v-text-field>
             </v-flex>
@@ -121,7 +113,7 @@
             <v-flex xs6>
               <v-text-field
                 label="金额"
-                value="10.00"
+                v-model="daily_register_sum"
                 suffix="元"
               ></v-text-field>
             </v-flex>
@@ -133,7 +125,7 @@
             <v-flex xs6>
               <v-text-field
                 label="金额"
-                value="10.00"
+                v-model="daily_ms_sum"
                 suffix="元"
               ></v-text-field>
             </v-flex>
@@ -145,7 +137,7 @@
             <v-flex xs6 class="mr-4">
               <v-text-field
                 label="数量"
-                value="15"
+                v-model="bill_already"
                 suffix="张"
               ></v-text-field>
             </v-flex>
@@ -153,20 +145,36 @@
               <v-btn
                 flat
                 color="primary"
-                @click="show = !show , mode = true"
+                @click="expand_already = !expand_already"
               >
                 详细
               </v-btn>
             </v-flex>
           </v-layout>
+          <v-expand-transition>
+            <div v-show="expand_already">
+              <v-data-table
+                class="ml-5 elevation-1 mb-4"
+                :headers="headers_already"
+                :items="desserts_already"
+                item-key="bill_id"
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.bill_id }}</td>
+                  <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_num}}</td>
+                </template>
+              </v-data-table>
+            </div>
+          </v-expand-transition>
           <v-layout row>
             <v-flex xs2 offset-xs2>
-              <v-subheader>已打发票</v-subheader>
+              <v-subheader>重打发票</v-subheader>
             </v-flex>
             <v-flex xs6 class="mr-4">
               <v-text-field
                 label="数量"
-                value="15"
+                v-model="bill_again"
                 suffix="张"
               ></v-text-field>
             </v-flex>
@@ -174,20 +182,36 @@
               <v-btn
                 flat
                 color="primary"
-                @click="show = !show , mode = true"
+                @click="expand_again = !expand_again"
               >
                 详细
               </v-btn>
             </v-flex>
           </v-layout>
+          <v-expand-transition>
+            <div v-show="expand_again">
+              <v-data-table
+                class="ml-5 elevation-1 mb-4"
+                :headers="headers_again"
+                :items="desserts_again"
+                item-key="bill_id"
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.bill_id }}</td>
+                  <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_num}}</td>
+                </template>
+              </v-data-table>
+            </div>
+          </v-expand-transition>
           <v-layout row>
             <v-flex xs2 offset-xs2>
-              <v-subheader>已打发票</v-subheader>
+              <v-subheader>补打发票</v-subheader>
             </v-flex>
             <v-flex xs6 class="mr-4">
               <v-text-field
                 label="数量"
-                value="15"
+                v-model="bill_complement"
                 suffix="张"
               ></v-text-field>
             </v-flex>
@@ -195,20 +219,36 @@
               <v-btn
                 flat
                 color="primary"
-                @click="show = !show , mode = true"
+                @click="expand_complement = !expand_complement"
               >
                 详细
               </v-btn>
             </v-flex>
           </v-layout>
+          <v-expand-transition>
+            <div v-show="expand_complement">
+              <v-data-table
+                class="ml-5 elevation-1 mb-4"
+                :headers="headers_complement"
+                :items="desserts_complement"
+                item-key="bill_id"
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.bill_id }}</td>
+                  <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_num}}</td>
+                </template>
+              </v-data-table>
+            </div>
+          </v-expand-transition>
           <v-layout row>
             <v-flex xs2 offset-xs2>
-              <v-subheader>已打发票</v-subheader>
+              <v-subheader>作废发票</v-subheader>
             </v-flex>
             <v-flex xs6 class="mr-4">
               <v-text-field
                 label="数量"
-                value="15"
+                v-model="bill_waste"
                 suffix="张"
               ></v-text-field>
             </v-flex>
@@ -216,20 +256,36 @@
               <v-btn
                 flat
                 color="primary"
-                @click="show = !show , mode = true"
+                @click="expand_waste = !expand_waste"
               >
                 详细
               </v-btn>
             </v-flex>
           </v-layout>
+          <v-expand-transition>
+            <div v-show="expand_waste">
+              <v-data-table
+                class="ml-5 elevation-1 mb-4"
+                :headers="headers_waste"
+                :items="desserts_waste"
+                item-key="bill_id"
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.bill_id }}</td>
+                  <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_num}}</td>
+                </template>
+              </v-data-table>
+            </div>
+          </v-expand-transition>
           <v-layout row>
             <v-flex xs2 offset-xs2>
-              <v-subheader>已打发票</v-subheader>
+              <v-subheader>对冲发票</v-subheader>
             </v-flex>
             <v-flex xs6 class="mr-4">
               <v-text-field
                 label="数量"
-                value="15"
+                v-model="bill_opposite"
                 suffix="张"
               ></v-text-field>
             </v-flex>
@@ -237,19 +293,35 @@
               <v-btn
                 flat
                 color="primary"
-                @click="show = !show , mode = true"
+                @click="expand_opposite = !expand_opposite"
               >
                 详细
               </v-btn>
             </v-flex>
           </v-layout>
+          <v-expand-transition>
+            <div v-show="expand_opposite">
+              <v-data-table
+                class="ml-5 elevation-1 mb-4"
+                :headers="headers_opposite"
+                :items="desserts_opposite"
+                item-key="bill_id"
+              >
+                <template v-slot:items="props">
+                  <td>{{ props.item.bill_id }}</td>
+                  <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_num}}</td>
+                </template>
+              </v-data-table>
+            </div>
+          </v-expand-transition>
           <v-layout row>
             <v-flex xs2 offset-xs2>
               <v-subheader>总收入</v-subheader>
             </v-flex>
             <v-flex xs6 class="mr-4">
               <v-text-field
-                value="100"
+                v-model="daily_sum"
                 label="金额"
                 suffix="元"
                 outline
@@ -266,16 +338,51 @@
 <script>
 export default {
   data: () => ({
+    expand_already: false,
+    expand_again: false,
+    expand_waste: false,
+    expand_complement: false,
+    expand_opposite: false,
+    bill_already: '15',
+    bill_again: '2',
+    bill_waste: '3',
+    bill_complement: '5',
+    bill_opposite: '6',
     time_range: '2019.8.1-2019.9.1',
     cashier:'shuwanyang',
     daily_mid_prescription_sum: '100',
     daily_west_prescription_sum: '150',
-    daily_med_sum: '250',
     daily_register_sum: '50',
     daily_ms_sum: '30',
-    daily_cure_sum: '80',
-    bill_already: '15'
-  })
+    daily_sum: '200',
+    headers_already: [
+      {
+        text: '发票id',
+        align: 'left',
+        value: 'bill_id'
+      },
+      { text: '发票类型', value: 'bill_type' },
+      { text: '发票号', value: 'bill_num' },
+    ],
+    desserts_already: [
+      {
+        bill_id: 1,
+        bill_type: '已打',
+        bill_num: 123456
+      }
+    ],
+    headers_again: [],
+    desserts_again: [],
+    headers_waste: [],
+    desserts_waste: [],
+    headers_complement: [],
+    desserts_complement: [],
+    headers_opposite: [],
+    desserts_opposite: []
+  }),
+  methods: {
+
+  }
 }
 </script>
 
