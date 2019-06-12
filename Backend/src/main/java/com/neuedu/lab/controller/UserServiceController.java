@@ -39,6 +39,12 @@ public class UserServiceController {
         return userService.dailyGet(daily);
     }
 
+    //日结发票查询
+    @RequestMapping("/daily-bill-get")
+    public JSONObject dailyBillGet(@RequestBody JSONObject request){
+        return userService.getDailyBill(request.getInteger("daily_id"));
+    }
+
     //日结审核通过
     @RequestMapping("/daily-pass")
     public JSONObject dailyPass(@RequestBody JSONObject request){

@@ -3,6 +3,7 @@ package com.neuedu.lab.model.po;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.beans.BeanInfo;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,44 @@ public class Daily {
     private BigDecimal daily_check_sum;
     private BigDecimal daily_examine_sum;
     private BigDecimal daily_handle_sum;
+    private List<Bill> bills;
+    private List<Bill> abandonBillList;//作废
+    private List<Bill> redoBillList;//重打
+    private List<Bill> overprintBillList;//补打
+    private List<Bill> flushBillList;//对冲
+
+
+    public List<Bill> getAbandonBillList() {
+        return abandonBillList;
+    }
+
+    public void setAbandonBillList(List<Bill> abandonBillList) {
+        this.abandonBillList = abandonBillList;
+    }
+
+    public List<Bill> getRedoBillList() {
+        return redoBillList;
+    }
+
+    public void setRedoBillList(List<Bill> redoBillList) {
+        this.redoBillList = redoBillList;
+    }
+
+    public List<Bill> getOverprintBillList() {
+        return overprintBillList;
+    }
+
+    public void setOverprintBillList(List<Bill> overprintBillList) {
+        this.overprintBillList = overprintBillList;
+    }
+
+    public List<Bill> getFlushBillList() {
+        return flushBillList;
+    }
+
+    public void setFlushBillList(List<Bill> flushBillList) {
+        this.flushBillList = flushBillList;
+    }
 
     public BigDecimal getDaily_examine_sum() {
         return daily_examine_sum;
@@ -55,7 +94,7 @@ public class Daily {
         this.daily_check_sum = daily_check_sum;
     }
 
-    private List<Bill> bills;
+
 
     public String getDaily_fail_comment() {
         return daily_fail_comment;
