@@ -405,7 +405,7 @@ public class DoctorService {
         try {
             //先通过药品id确定记录单价，总价
             Medicine medicine = medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id());
-
+            prescriptionContent.setPrescription_refund_available_num(prescriptionContent.getPrescription_num());
             prescriptionContent.setPrescription_unit_price(medicine.getMedicine_unit_price());
             prescriptionContent.setPrescription_content_fee(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
             //增加药品
