@@ -95,7 +95,7 @@
             AND register_info_id = medical_skill.medical_skill_register_info_id
             AND medical_skill_execute_state = #{medical_skill_execute_state}
             AND medical_skill_execute_department = #{medical_skill_execute_department}
-            AND medcial_skill_type  = #{medcial_skill_type}
+            AND medical_skill_type  = #{medical_skill_type}
     </select>
 
     <select id="getMedicalSkillsByRegisterId" resultType="MedicalSkill">

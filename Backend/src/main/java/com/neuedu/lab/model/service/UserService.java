@@ -466,20 +466,15 @@ public class UserService {
     // 未领药直接退药，由收费员操作
     @Transactional
     public JSONObject returnMedicine(Integer prescription_id, Integer prescription_content_id, Integer prescription_num) {
-        //首先检测处方处于已退费状态或已缴费状态356
+        //首先检测处方处于已退药状态或已缴费状态35
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
-                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5]))){
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0]))){
             return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
         }
 
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
         PrescriptionContent prescriptionContentBefore = prescriptionContentMapper.getPrescriptionContentById(prescription_content_id);
-
-        //查看药品状态应该是已缴费状态
-        if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3])) {
-            return ConstantUtils.responseFail("该处方状态为[" + prescription.getPrescription_execute_state() + "],不可退药", null);
-        }
 
         //查看药品数量是否满足
         if (prescriptionContentBefore.getPrescription_refund_available_num() < prescription_num) {
@@ -512,7 +507,7 @@ public class UserService {
                 prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
 
                 //更改原处方状态为已退药,更新药费
-                prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[5]);
+                prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE_SENT[0]);
                 prescription.setPrescription_fee(prescription.getPrescription_fee().subtract(
                         prescriptionContentBefore.getPrescription_unit_price().multiply(new BigDecimal(prescription_num))));
                 prescriptionMapper.updatePrescription(prescription);
@@ -576,7 +571,13 @@ public class UserService {
             return responseFail("获取处方药品记录失败", null);
         }
         //更新状态
-        prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
+        if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0])){
+            prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
+        }else if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1])){
+            prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]); //已缴费
+        }else {
+            return responseFail("状态出错",null);
+        }
         //将新纪录添加
         prescriptionMapper.addPrescription(prescriptionToAdd);
         //将所有药品绑定到新创建的处方ID下

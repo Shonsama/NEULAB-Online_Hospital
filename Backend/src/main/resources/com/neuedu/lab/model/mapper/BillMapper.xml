@@ -52,4 +52,10 @@
         update bill set bill_num = #{bill_num}
         where bill_id = #{bill_id}
     </update>
+<!--重打-->
+    <update id="updateBillState">
+        update bill set bill_state = #{bill_state}
+        where bill_id = #{bill_id}
+    </update>
+<!--    补打-->
 </mapper>

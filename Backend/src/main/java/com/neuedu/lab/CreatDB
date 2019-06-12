@@ -196,6 +196,7 @@ CREATE TABLE `his`.`schedule` (
   `schedule_work_time` varchar(45) NOT NULL,
   `schedule_start_date` date NOT NULL,
   `schedule_end_date` date NOT NULL,
+  `schedule_doctor_id` int not null,
   `schedule_id` int not null,
   primary key(`schedule_id`)
 )default charset=utf8;

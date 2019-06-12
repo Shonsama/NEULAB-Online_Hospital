@@ -3,7 +3,8 @@ package com.neuedu.lab.model.mapper;
 import com.neuedu.lab.model.po.Bill;
 import org.apache.ibatis.annotations.Param;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public interface BillMapper {
@@ -30,4 +31,6 @@ public interface BillMapper {
     void updateBillFrozen(@Param("bill_user_id") Integer bill_user_id,
                           @Param("start_time") String start_time,
                           @Param("end_time") String end_time);
+
+    void updateBillState(@Param("bill_state") String bill_state,@Param("bill_id") Integer bill_id);
 }
