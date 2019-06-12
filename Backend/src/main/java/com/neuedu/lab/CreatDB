@@ -130,6 +130,7 @@ CREATE TABLE `his`.`doctor_info` (
   `doctor_position` VARCHAR(45) NOT NULL,#职称信息
   `doctor_arrange_or_not` boolean NOT NULL,
   `doctor_id` INT NOT NULL auto_increment,#id
+  `doctor_register_num` INT NULL ,
   #所有user均有
   `doctor_password` VARCHAR(45) NOT NULL,
   `doctor_account` VARCHAR(45)NOT NULL,#登录名
@@ -265,12 +266,11 @@ CREATE TABLE `his`.`prescription_content` (
   `prescription_medicine_id` VARCHAR(45) NULL, #药物ID
   `prescription_frequency` varchar(45) NULL, #频度
   `prescription_num` int NOT NULL, #数量
-  `prescription_refund_available_num` INT NOT NULL ,
+  `prescription_refund_available_num` INT NULL ,
   `prescription_unit_price` DECIMAL(8,2) NOT NULL,  #单价
   `prescription_content_fee` DECIMAL(8,2) NOT NULL , #总费用
   `prescription_day` int NULL, #天数
-  FOREIGN KEY  (`prescription_content_id`)  REFERENCES  `prescription` (`prescription_id`),
-  PRIMARY KEY (`prescription_id`)
+  FOREIGN KEY  (`prescription_id`)  REFERENCES  `prescription` (`prescription_id`)
 )default charset=utf8;
 #医技项目记录
 drop table  if exists `his`.`medical_skill`;
@@ -320,7 +320,7 @@ create table `his`.`template_content`(
   `template_medical_skill_content_name` varchar(45) null,
   `template_medical_skill_content_specification` varchar(45) null,
   `template_medical_skill_content_checkpoint` varchar(45) null,
-  
+
   `template_medical_skill_content_department_id` varchar(45) null,
   `template_medical_skill_content_department_name` varchar(45) null,
   `template_medical_skill_content_unit_price` decimal(8,2) unsigned NULL,

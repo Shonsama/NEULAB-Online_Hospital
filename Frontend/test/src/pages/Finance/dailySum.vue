@@ -49,7 +49,7 @@
                 icon
                 flat
                 color="primary"
-                @click="load"
+                @click="pass_daily"
                 v-on="on"
               >
                 <v-icon>
@@ -94,6 +94,7 @@
                 v-model="daily_mid_prescription_sum"
                 label="金额"
                 suffix="元"
+                readonly
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -106,6 +107,7 @@
                 label="金额"
                 v-model="daily_west_prescription_sum"
                 suffix="元"
+                readonly
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -118,6 +120,7 @@
                 label="金额"
                 v-model="daily_register_sum"
                 suffix="元"
+                readonly
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -130,6 +133,7 @@
                 label="金额"
                 v-model="daily_ms_sum"
                 suffix="元"
+                readonly
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -142,6 +146,7 @@
                 label="数量"
                 v-model="bill_already"
                 suffix="张"
+                readonly
               ></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-2">
@@ -179,6 +184,7 @@
                 label="数量"
                 v-model="bill_again"
                 suffix="张"
+                readonly
               ></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-2">
@@ -216,6 +222,7 @@
                 label="数量"
                 v-model="bill_complement"
                 suffix="张"
+                readonly
               ></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-2">
@@ -253,6 +260,7 @@
                 label="数量"
                 v-model="bill_waste"
                 suffix="张"
+                readonly
               ></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-2">
@@ -290,6 +298,7 @@
                 label="数量"
                 v-model="bill_opposite"
                 suffix="张"
+                readonly
               ></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-2">
@@ -341,10 +350,10 @@
 <script>
 export default {
   data: () => ({
+    daily_owner_id: 1,
     allCashier: [],
     cashier_user_object: '',
     date:['',''],
-    cashier_user_id: '',
     expand_already: false,
     expand_again: false,
     expand_waste: false,
@@ -395,23 +404,39 @@ export default {
       let that = this
       var url = this.HOME + '/user-service/daily-get'
       this.$http.post(url, {
-        daily_user_id: that.cashier_user_id,
+        daily_user_id: that.cashier_user_object.user_id,
         daily_start: that.date[0],
         daily_end: that.date[1]
       })
         .then(function (response) {
           console.log(response.data)
-          that.daily = response.data.data
+          var list = response.data.data
+          that.daily = list[0]
           that.daily_mid_prescription_sum = that.daily.daily_mid_prescription_sum
           that.daily_west_prescription_sum= that.daily.daily_west_prescription_sum
           that.daily_register_sum = that.daily.daily_register_sum
           that.daily_ms_sum = that.daily.daily_check_sum + that.daily.daily_examine_sum + that.daily.daily_handle_sum
+          that.daily_sum = that.daily_mid_prescription_sum + that.daily_west_prescription_sum + that.daily_register_sum + that.daily_ms_sum
+          that.bill_already = that.daily.bills.length
+          that.desserts_already = that.daily.bills
         })
     },
     load_cashiers: function () {
       let that = this
-      var url = this.HOME + '/user/get-cashiers'
+      var url = this.HOME + '/user/get-all-cashier'
       this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.allCashier = response.data.data
+        })
+    },
+    pass_daily: function () {
+      let that = this
+      var url = this.HOME + '/user-service/daily-pass'
+      this.$http.post(url, {
+        daily_id: that.daily.daily_id,
+        daily_owner_id: that.daily_owner_id
       })
         .then(function (response) {
           console.log(response.data)

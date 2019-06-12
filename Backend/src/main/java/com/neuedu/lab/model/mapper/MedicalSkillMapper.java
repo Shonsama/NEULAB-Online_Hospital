@@ -47,6 +47,8 @@ public interface MedicalSkillMapper {
                                  @Param("medical_skill_execute_state") String medical_skill_execute_state);
 
 
+    List<MedicalSkill> getMedicalSkillsByRegisterId(Integer register_id);
+
     //author: LEE
     List<MedicalSkill> getMedicalSkillsInCanceledOrPaid(Integer register_info_patient_id);
 

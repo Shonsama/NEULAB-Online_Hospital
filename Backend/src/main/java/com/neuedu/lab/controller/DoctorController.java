@@ -184,4 +184,10 @@ public class DoctorController {
     public JSONObject getPrescription(@RequestBody JSONObject request){
         return doctorService.getPrescription(request.getInteger("register_id"));
     }
+
+    //获取病人的所有医技
+    @RequestMapping("/get-all-medical-skill")
+    public JSONObject getMedicalSkill(@RequestBody JSONObject request){
+        return doctorService.getMedicalSkill(request.getInteger("register_id"));
+    }
 }

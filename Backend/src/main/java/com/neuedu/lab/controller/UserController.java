@@ -130,4 +130,11 @@ public class UserController {
             return ConstantUtils.responseFail(null);
         }
     }
+
+    @RequestMapping("/get-all-cashier")
+//    显示所有用户信息
+    public JSONObject getAllCashiers(){
+        return ConstantUtils.responseSuccess(userService.getAllCashiers());
+    }
+
 }
