@@ -13,7 +13,8 @@ public interface PrescriptionMapper {
 
     void deletePrescription(Integer prescription_id);
 
-    void updatePrescriptionState(@Param("prescription_id") Integer prescription_id,@Param("prescription_execute_state") String prescription_execute_state);
+    void updatePrescriptionState(@Param("prescription_id") Integer prescription_id,
+                                 @Param("prescription_execute_state") String prescription_execute_state);
 
     Prescription getPrescription(Integer prescription_id);
 
