@@ -96,6 +96,8 @@ export default {
     diagnosis,
     workforce
   },
+  mounted: function () {
+  },
   computed: {
   },
   watch: {

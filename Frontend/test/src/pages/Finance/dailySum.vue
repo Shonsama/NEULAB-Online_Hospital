@@ -59,43 +59,207 @@
         </v-layout>
       </v-toolbar>
 
-    <v-layout class="ml-4 mt-4">
-      <v-container>
-        <v-layout row justify-center>
-          <div class="title font-weight-light">门诊收费日结单</div>
-        </v-layout>
-        <v-divider></v-divider>
-        <v-card>
-        <v-layout wrap>
-          <v-flex xs3 offset-xs2>
-            <v-text-field
-                  class="title font-weight-light"
-                  v-model="time_range"
-                  label="时间范围"
-                  readonly
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs3 offset-xs2>
-            <v-text-field
-              class="title font-weight-light"
-              v-model="cashier"
-              label="收费员"
-              readonly
-            ></v-text-field>
-          </v-flex>
-          <v-spacer/>
-          <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">发票</h3>
-              </div>
-            </v-card-title>
-          </v-card>
-        </v-layout>
-        </v-card>
-      </v-container>
+    <v-layout class="ml-4 mt-4" justify-center>
+      <v-card style="width: 700px">
+        <v-container>
+          <v-layout row justify-center>
+            <div class="title font-weight-light">门诊收费日结单</div>
+          </v-layout>
+          <v-divider></v-divider>
+          <v-layout row>
+            <!--<v-flex style="margin-right: 0px" lg2 offset-xs2>-->
+              <!--<v-subheader-->
+                <!--class="mt-2">时间范围</v-subheader>-->
+            <!--</v-flex>-->
+            <v-flex style="margin-right: 50px" class="mt-2" lg3 offset-xs3>
+              <v-text-field
+                v-model="time_range"
+                label="时间范围"
+                readonly
+              ></v-text-field>
+            </v-flex>
+            <!--<v-flex lg2>-->
+              <!--<v-subheader-->
+                <!--class="mt-2">收款员</v-subheader>-->
+            <!--</v-flex>-->
+            <v-flex class="mt-2" lg3>
+              <v-text-field
+                v-model="cashier"
+                label="收款员"
+                readonly
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>中药费</v-subheader>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="金额"
+                value="10.00"
+                suffix="元"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>西药费</v-subheader>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="金额"
+                value="10.00"
+                suffix="元"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>挂号费</v-subheader>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="金额"
+                value="10.00"
+                suffix="元"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>医技费</v-subheader>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field
+                label="金额"
+                value="10.00"
+                suffix="元"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>已打发票</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                label="数量"
+                value="15"
+                suffix="张"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs1 class="mt-2">
+              <v-btn
+                flat
+                color="primary"
+                @click="show = !show , mode = true"
+              >
+                详细
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>已打发票</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                label="数量"
+                value="15"
+                suffix="张"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs1 class="mt-2">
+              <v-btn
+                flat
+                color="primary"
+                @click="show = !show , mode = true"
+              >
+                详细
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>已打发票</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                label="数量"
+                value="15"
+                suffix="张"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs1 class="mt-2">
+              <v-btn
+                flat
+                color="primary"
+                @click="show = !show , mode = true"
+              >
+                详细
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>已打发票</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                label="数量"
+                value="15"
+                suffix="张"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs1 class="mt-2">
+              <v-btn
+                flat
+                color="primary"
+                @click="show = !show , mode = true"
+              >
+                详细
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>已打发票</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                label="数量"
+                value="15"
+                suffix="张"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs1 class="mt-2">
+              <v-btn
+                flat
+                color="primary"
+                @click="show = !show , mode = true"
+              >
+                详细
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs2 offset-xs2>
+              <v-subheader>总收入</v-subheader>
+            </v-flex>
+            <v-flex xs6 class="mr-4">
+              <v-text-field
+                value="100"
+                label="金额"
+                suffix="元"
+                outline
+                readonly
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
     </v-layout>
-
   </v-card>
 </template>
 
@@ -103,7 +267,14 @@
 export default {
   data: () => ({
     time_range: '2019.8.1-2019.9.1',
-    cashier:'shu'
+    cashier:'shuwanyang',
+    daily_mid_prescription_sum: '100',
+    daily_west_prescription_sum: '150',
+    daily_med_sum: '250',
+    daily_register_sum: '50',
+    daily_ms_sum: '30',
+    daily_cure_sum: '80',
+    bill_already: '15'
   })
 }
 </script>

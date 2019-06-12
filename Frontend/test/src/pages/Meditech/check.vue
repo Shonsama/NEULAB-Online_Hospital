@@ -157,7 +157,7 @@ export default {
     search_patient: '',
     state: '',
     ms_id: '',
-    result:'',
+    result: '',
     signal: '',
     state_items: [
       {
@@ -240,7 +240,7 @@ export default {
           that.getPersonalMS(item)
         })
     },
-    confirmState: function (){
+    confirmState: function () {
       let that = this
       var url = this.HOME + 'ms-doctor/medical-skill/confirm'
       this.$http.post(url, {
@@ -255,7 +255,7 @@ export default {
           that.getPersonalMS(item)
         })
     },
-    cancelState: function (){
+    cancelState: function () {
       let that = this
       var url = this.HOME + 'ms-doctor/medical-skill/cancel'
       this.$http.post(url, {
