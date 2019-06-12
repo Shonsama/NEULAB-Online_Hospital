@@ -349,6 +349,7 @@ CREATE TABLE `his`.`bill` (
   `bill_time` DATETIME  NULL DEFAULT current_timestamp,
   `bill_type` varchar(45) NOT NULL,
   `bill_state` varchar(45) not null,
+  `bill_frozen` BOOLEAN NOT NULL DEFAULT FALSE ,
   #foreign key
   `bill_fee_cat_name`varchar(45) null,
   `bill_register_id` INT NOT NULL,
@@ -373,10 +374,12 @@ CREATE TABLE `his`.`daily` (
   `daily_fail_comment` VARCHAR(400) NULL ,
   `daily_owner_id` INT NULL ,
   `daily_sum` DECIMAL(8,2) NOT NULL ,
-  `daily_actual_sum` DECIMAL(8,2) NOT NULL ,
   `daily_register_sum` DECIMAL(8,2) NOT NULL ,
   `daily_mid_prescription_sum` DECIMAL(8,2) NOT NULL ,
   `daily_west_prescription_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_check_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_examine_sum` DECIMAL(8,2) NOT NULL ,
+  `daily_handle_sum` DECIMAL(8,2) NOT NULL ,
   PRIMARY KEY (`daily_id`)
 )default charset=utf8;
 
