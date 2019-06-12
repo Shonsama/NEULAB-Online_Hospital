@@ -13,4 +13,8 @@ public interface DoctorMapper {
     public void treat(@Param("register_id") Integer register_id,@Param("state") String state);
 
     Doctor getDoctorById(@Param("doctor_id") Integer doctor_id);
+
+    //更新医生号源数量
+    void updateDoctorRegisterNum(@Param("doctor_id") Integer doctor_id,
+                                 @Param("num") Integer num);
 }

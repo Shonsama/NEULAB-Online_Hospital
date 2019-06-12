@@ -21,4 +21,9 @@
         WHERE doctor_id =#{doctor_id}
     </select>
 
+    <update id="updateDoctorRegisterNum" >
+        UPDATE doctor_info SET doctor_register_num = #{num}
+        WHERE doctor_id = #{doctor_id}
+    </update>
+
 </mapper>

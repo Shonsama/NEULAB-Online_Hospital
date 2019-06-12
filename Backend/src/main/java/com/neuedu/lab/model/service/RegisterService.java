@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
 /**
  * @author wp 20164917
@@ -49,7 +50,7 @@ public class RegisterService {
 //    }
     public JSONObject getAllDoctorsByDepartment(String id,Integer register_level_id){
         try{
-            return ConstantUtils.responseSuccess(doctorMapper.getAllDoctorsByDepartment(id,register_level_id));
+            return responseSuccess(doctorMapper.getAllDoctorsByDepartment(id,register_level_id));
         }catch (Exception e){
             return responseFail(null);
         }
@@ -79,14 +80,33 @@ public class RegisterService {
             //修正挂号状态
             register.setRegister_info_state(ConstantDefinition.REGISTER_STATE[0]);
             //检测病人是否已挂同一个医生的号
-            registerMapper.addRegister(register);
-        }catch (Exception e){
+            if(registerMapper.checkVaild(register).size()>0){
+                return responseFail("该挂号已提交，请勿重复提交");
+            }
+            //将医生的号源数量减一
+            doctorMapper.updateDoctorRegisterNum(doctor.getDoctor_id(),doctor.getDoctor_register_num()-1);
+        }catch (RuntimeException e){
             e.printStackTrace();
-            return responseFail(ConstantDefinition.FAIL_INSERT_MESSAGE,null);
+            return responseFail("验证过程出错",null);
         }
-        register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
-        return ConstantUtils.responseSuccess(register);
+
+        //添加挂号记录
+        try{
+            registerMapper.addRegister(register);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("添加挂号记录过程出错",null);
+        }
+        //为挂号记录填充病人
+        try{
+            register.setPatient(patientMapper.getPatientByRecordId(register.getRegister_info_patient_id()));
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("填充病人信息过程出错",null);
+        }
+        return responseSuccess(register);
     }
+
 
     public boolean addBill(Bill bill){
         try {
@@ -98,6 +118,7 @@ public class RegisterService {
         }
         return true;
     }
+
 
     @Transactional
     public boolean refund(Integer register_id) {
