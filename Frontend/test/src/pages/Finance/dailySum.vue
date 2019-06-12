@@ -4,10 +4,13 @@
         <v-layout row>
           <v-flex xs2>
             <v-select
-              v-model="department_type"
-              :items="department_items"
+              v-model="cashier_user_object"
+              :items="allCashier"
               label="日结员"
+              item-text="user_name"
+              item-value="user_id"
               class="mr-4"
+              return-object
             ></v-select>
           </v-flex>
           <v-flex>
@@ -338,6 +341,10 @@
 <script>
 export default {
   data: () => ({
+    allCashier: [],
+    cashier_user_object: '',
+    date:['',''],
+    cashier_user_id: '',
     expand_already: false,
     expand_again: false,
     expand_waste: false,
@@ -378,10 +385,44 @@ export default {
     headers_complement: [],
     desserts_complement: [],
     headers_opposite: [],
-    desserts_opposite: []
+    desserts_opposite: [],
+    daily: ''
   }),
   methods: {
-
+    load: function () {
+      this.time_range = this.date[0] + '-' + this.date[1]
+      this.cashier = this.cashier_user_object.user_name
+      let that = this
+      var url = this.HOME + '/user-service/daily-get'
+      this.$http.post(url, {
+        daily_user_id: that.cashier_user_id,
+        daily_start: that.date[0],
+        daily_end: that.date[1]
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.daily = response.data.data
+          that.daily_mid_prescription_sum = that.daily.daily_mid_prescription_sum
+          that.daily_west_prescription_sum= that.daily.daily_west_prescription_sum
+          that.daily_register_sum = that.daily.daily_register_sum
+          that.daily_ms_sum = that.daily.daily_check_sum + that.daily.daily_examine_sum + that.daily.daily_handle_sum
+        })
+    },
+    load_cashiers: function () {
+      this.time_range = this.date[0] + '-' + this.date[1]
+      this.cashier = this.cashier_user_object.user_name
+      let that = this
+      var url = this.HOME + '/user/get-cashiers'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.allCashier = response.data.data
+        })
+    }
+  },
+  mounted: function () {
+    this.load_cashiers()
   }
 }
 </script>
