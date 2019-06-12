@@ -46,6 +46,8 @@ public class UserService {
     private RegisterMapper registerMapper;
     @Resource
     private PatientMapper patientMapper;
+    @Resource
+    private MedicineMapper medicineMapper;
 
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
@@ -611,6 +613,10 @@ public class UserService {
             }catch (RuntimeException e){
                 e.printStackTrace();
                 return responseFail();
+            }
+            //填充药物
+            for(PrescriptionContent prescriptionContent:prescriptionContents){
+                prescriptionContent.setMedicine(medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id()));
             }
             return responseSuccess(prescriptionContents);
     }
