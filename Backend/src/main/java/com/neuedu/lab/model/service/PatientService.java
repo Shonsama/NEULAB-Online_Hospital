@@ -68,9 +68,17 @@ public class PatientService {
 
 
     //登录
-/*    public JSONObject checkUserValid() {
-
-    }*/
+    public JSONObject checkUserValid(String patient_account, String patient_password) {
+        if(!checkIfExistAccount(patient_account)){
+            return ConstantUtils.responseFail("用户不存在");
+        }else{
+            if(patientMapper.getPatientUserByAccount(patient_account).getPatient_password().equals(patient_password)){
+                return ConstantUtils.responseSuccess("登录成功",patientMapper.getPatientUserByAccount(patient_account));
+            }else{
+                return ConstantUtils.responseFail("密码错误");
+            }
+        }
+    }
 
     //    注册用户
     public JSONObject signUp(String patient_account, String patient_password) {
@@ -82,7 +90,7 @@ public class PatientService {
             patientMapper.addPatientUser(patientUser);
             return ConstantUtils.responseSuccess("注册成功");
         } else {
-            return ConstantUtils.responseFail("注册失败，已有相同account存在！");
+            return ConstantUtils.responseFail("注册失败，已有相同account存在");
         }
     }
 
@@ -90,7 +98,7 @@ public class PatientService {
     public JSONObject boundExistedRecord(String patient_account, Integer patient_record_id) {
         if (checkIfExistId(patient_record_id)) {//有该病历号
             patientMapper.updatePatientUserRecordId(patient_record_id,patient_account);
-            return ConstantUtils.responseSuccess("绑定成功");
+            return ConstantUtils.responseSuccess("绑定成功",patientMapper.getPatientByRecordId(patient_record_id));
         }else//无该病历号，无法绑定
             return ConstantUtils.responseFail("绑定失败");
     }
@@ -99,7 +107,7 @@ public class PatientService {
     public JSONObject createNewRecord(Patient patient,String patient_account) {
         addPatient(patient);
         patientMapper.updatePatientUserRecordId(patient.getPatient_record_id(),patient_account);
-        return ConstantUtils.responseSuccess("新建用户成功");
+        return ConstantUtils.responseSuccess("新建用户成功",patient);
     }
 
     public PatientUser getPatientUserById(Integer patient_user_id) {
