@@ -46,7 +46,8 @@
     <!--检查-->
     <select id="getMedicalSkillInspect" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
-        where medical_skill_doctor_id = doctor_id
+        where (medical_skill_doctor_id = doctor_id
+        or medical_skill_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
         and medical_skill_type = "检查"
         <if test="start_time != null">
@@ -60,7 +61,8 @@
     <!--检验-->
     <select id="getMedicalSkillCheck" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
-        where medical_skill_doctor_id = doctor_id
+        where (medical_skill_doctor_id = doctor_id
+        or medical_skill_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
         and medical_skill_type = "检验"
         <if test="start_time != null">
@@ -73,7 +75,8 @@
     <!--处置-->
     <select id="getMedicalSkillDispose" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
-        where medical_skill_doctor_id = doctor_id
+        where (medical_skill_doctor_id = doctor_id
+        or medical_skill_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
         and medical_skill_type = "处置"
         <if test="start_time != null">
@@ -88,7 +91,8 @@
     <!--西药-->
     <select id="getPrescriptionWest" resultType="BigDecimal">
         select sum(prescription_fee) from prescription,doctor_info
-        where prescription_doctor_id = doctor_id
+        where (prescription_doctor_id = doctor_id
+        or prescription_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
         and prescription_type = "西药"
         <if test="start_time != null">
@@ -101,7 +105,8 @@
     <!--中药-->
     <select id="getPrescriptionChinese" resultType="BigDecimal">
         select sum(prescription_fee) from prescription,doctor_info
-        where prescription_doctor_id = doctor_id
+        where (prescription_doctor_id = doctor_id
+        or prescription_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
         and prescription_type = "中药"
         <if test="start_time != null">

@@ -103,10 +103,10 @@ public class MedicalSkillDoctorService {
 
     }
 
-    public JSONObject getPatients(String medical_skill_execute_department) {
+    public JSONObject getPatients(String medical_skill_execute_department,String medical_skill_type) {
         List<Patient> patients;
         try{
-           patients = medicalSkillMapper.getAllPatients(medical_skill_execute_department,MEDICAL_SKILL_EXECUTE_STATE[3]);
+           patients = medicalSkillMapper.getAllPatients(medical_skill_execute_department,MEDICAL_SKILL_EXECUTE_STATE[3],medical_skill_type);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail(e);
