@@ -4,14 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.lab.model.mapper.PrescriptionContentMapper">
     <insert id="addPrescriptionContent" parameterType="PrescriptionContent" useGeneratedKeys="true" keyProperty="prescription_content_id">
-        INSERT INTO prescription_content ( prescription_id, prescription_consumption,
-                                          prescription_medicine_id, prescription_frequency, prescription_num,prescription_refund_available_num,
-                                          prescription_day, prescription_unit_price,
-                                          prescription_content_fee, prescription_content_actual_unit_price)
-        VALUES (#{prescription_id}, #{prescription_consumption},
-                 #{prescription_medicine_id}, #{prescription_frequency}, #{prescription_num},#{prescription_refund_available_num},
-                 #{prescription_day},#{prescription_unit_price}, #{prescription_content_fee},
-                #{prescription_content_actual_unit_price})
+        INSERT INTO prescription_content ( prescription_id, prescription_consumption,prescription_medicine_id,
+                                           prescription_frequency, prescription_num,prescription_day,
+                                           prescription_unit_price,prescription_refund_available_num,prescription_content_fee)
+        VALUES (#{prescription_id}, #{prescription_consumption},#{prescription_medicine_id}, #{prescription_frequency}, #{prescription_num},
+                 #{prescription_day},#{prescription_unit_price},#{prescription_refund_available_num}, #{prescription_content_fee})
     </insert>
 
     <delete id="deletePrescriptionContents" >
@@ -44,11 +41,11 @@
 
     <select id="getPrescriptionContentsNew" resultType="PrescriptionContent">
         SELECT prescription_id, prescription_consumption, prescription_medicine_id,
-            prescription_frequency,prescription_day, prescription_content_actual_unit_price,prescription_unit_price,
+            prescription_frequency,prescription_day,prescription_unit_price,
             sum(prescription_num) AS prescription_num  FROM prescription_content
         WHERE prescription_id = #{prescription_id}
         GROUP BY prescription_id, prescription_consumption, prescription_medicine_id,
-            prescription_frequency,prescription_day, prescription_content_actual_unit_price,prescription_unit_price
+            prescription_frequency,prescription_day,prescription_unit_price
     </select>
 
     <select id="getPrescriptionContentNum" resultType="Integer">
@@ -58,17 +55,18 @@
 
     <select id="getPrescriptionContentPositive" resultType="PrescriptionContent">
         SELECT * FROM prescription_content
-        WHERE prescription_id = #{prescription_id} AND prescription_medicine_id = #{prescription_medicine_id} AND prescription_num>0
+        WHERE prescription_id = #{prescription_id} AND prescription_num>0
     </select>
 
-    <select id="getgetPrescriptionContentById" resultType="PrescriptionContent">
+    <select id="getPrescriptionContentById" resultType="PrescriptionContent">
         SELECT * FROM prescription_content
         WHERE prescription_content_id = #{prescription_content_id}
     </select>
 
     <update id="updatePrescriptionContent" parameterType="PrescriptionContent">
         UPDATE prescription_content SET
-            prescription_refund_available_num = #{prescription_refund_available_num}
+            prescription_refund_available_num = #{prescription_refund_available_num},
+            prescription_content_fee = #{prescription_content_fee}
         WHERE prescription_content_id = #{prescription_content_id}
     </update>
 
@@ -76,5 +74,11 @@
         SELECT * FROM prescription_content
         WHERE prescription_id = #{prescription_id} AND prescription_num > 0
     </select>
+
+    <update id="updatePrescriptionId">
+        UPDATE prescription_content
+        SET prescription_id = #{prescription_id}
+        WHERE prescription_id = #{prescription_id_before}
+    </update>
 
 </mapper>

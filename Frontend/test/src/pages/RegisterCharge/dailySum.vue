@@ -9,6 +9,7 @@
           class="white--text"
           color="primary"
           flat
+          @click="addDaily"
           icon
         >
           <v-icon>search</v-icon>
@@ -42,6 +43,7 @@
       <v-btn
         class="white--text"
         color="primary"
+        @click="confirmDaily"
       >
         结算
       </v-btn>
@@ -76,7 +78,8 @@ export default {
       {text: '结算类型', value: 'type'},
       {text: '收费时间', value: 'time'},
       {text: '收费金额', value: 'cost'}],
-      selected: ''
+      selected: '',
+      daily: ''
     }
   },
   created: function () {
@@ -90,6 +93,30 @@ export default {
     getDate: function () {
       this.date[0] = new Date(2019, 5, 1, 10, 10)
       this.date[1] = new Date()
+    },
+    addDaily: function () {
+      let that = this
+      var url = this.HOME + '/user-service/daily-search'
+      var data = {
+        daily_user_id: that.$store.state.user.id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.daily = response.data.data
+        })
+    },
+    confirmDaily: function () {
+      let that = this
+      var url = this.HOME + '/user-service/daily_user_id'
+      var data = {
+        daily_user_id: that.daily.daily_user_id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+        })
     }
   }
 }

@@ -22,16 +22,14 @@
 
     <select id="getBillByUserIdAndTime" resultType="Bill">
         SELECT * FROM bill
-        <where>
-            bill_user_id = #{bill_user_id}
-            <if test="end_time != null">
-                AND bill_time BETWEEN #{start_time} AND #{end_time}
-            </if>
-            <if test="end_time == null">
-                AND bill_time > #{start_time}
-            </if>
-        </where>
+        WHERE  bill_user_id = #{bill_user_id} AND bill_time BETWEEN #{start_time} AND #{end_time}
     </select>
+
+    <update id="updateBillFrozen" >
+        UPDATE FROM bill
+        SET bill_frozen = TRUE
+       WHERE bill_user_id = #{bill_user_id} AND bill_time BETWEEN #{start_time} AND #{end_time}
+    </update>
 
     <select id="getBillByMedicalSkillId" resultType="Bill">
         SELECT * FROM bill

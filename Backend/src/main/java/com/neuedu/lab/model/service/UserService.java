@@ -6,18 +6,19 @@ import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.neuedu.lab.Utils.ConstantDefinition.DAILY_PASS_STATE;
-import static com.neuedu.lab.Utils.ConstantDefinition.REFUND_TYPE;
+import static com.neuedu.lab.Utils.ConstantDefinition.*;
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
 import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
 
@@ -196,12 +197,16 @@ public class UserService {
         }
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
         daily.setDaily_pass_state(ConstantDefinition.DAILY_PASS_STATE[0]);
+        if(daily.getDaily_end()==null){
+            daily.setDaily_end(new Date());
+        }
 
 
-        //获取发票List
+        //获取发票List并将其冻结
         List<Bill> bills;
         try{
            bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+           billMapper.updateBillFrozen(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail("获取发票List",null);
@@ -213,6 +218,9 @@ public class UserService {
         BigDecimal daily_register_sum = new BigDecimal(0);
         BigDecimal daily_mid_prescription_sum = new BigDecimal(0);
         BigDecimal daily_west_prescription_sum = new BigDecimal(0);
+        BigDecimal daily_check_sum = new BigDecimal(0);
+        BigDecimal daily_examine_sum = new BigDecimal(0);
+        BigDecimal daily_handle_sum = new BigDecimal(0);
 
         for(Bill bill: bills){
             if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[0])){//挂号费
@@ -224,8 +232,19 @@ public class UserService {
             else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[5])){ //西药费
                 daily_west_prescription_sum = daily_west_prescription_sum.add(bill.getBill_sum());
             }
+            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[1])){ //检查费
+                daily_check_sum = daily_check_sum.add(bill.getBill_sum());
+            }
+            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[2])){ //检验费
+                daily_examine_sum = daily_examine_sum.add(bill.getBill_sum());
+            }
+            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[3])){ //处置费
+                daily_handle_sum = daily_handle_sum.add(bill.getBill_sum());
+            }else {
+                return responseFail("出现未知类型");
+            }
+
             daily_sum = daily_sum.add(bill.getBill_sum());
-            daily_actual_sum = daily_actual_sum.add(bill.getBill_sum());
         }
 
         daily.setDaily_sum(daily_sum);
@@ -425,20 +444,31 @@ public class UserService {
                         prescriptionContentBefore.getPrescription_refund_available_num() - prescriptionContent.getPrescription_num()
                 );
 
+                //修改金额
+                prescriptionContentBefore.setPrescription_content_fee(
+                        prescriptionContentBefore.getPrescription_unit_price().multiply
+                                (new BigDecimal(prescriptionContentBefore.getPrescription_refund_available_num())));
 
-                //更新其可退药数量
+
+                //更新其可退药数量和金额
                 prescriptionContentMapper.updatePrescriptionContent(prescriptionContentBefore);
 
 
                 //再次获取最初的药品记录
                 PrescriptionContent prescriptionContentToAdd = prescriptionContentMapper.getPrescriptionContentPositive(prescriptionContent);
 
-                //改变数量、支付时间
+                //改变数量
                 prescriptionContentToAdd.setPrescription_num(ConstantUtils.convertToNegtive(prescriptionContent.getPrescription_num()));
 
 
                 //增加退药的数量为负的药品记录
                 prescriptionContentMapper.addPrescriptionContent(prescriptionContentToAdd);
+
+                //更改原处方状态为已退药,更新药费
+                prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[5]);
+                prescription.setPrescription_fee(prescription.getPrescription_fee().subtract(
+                        prescriptionContentBefore.getPrescription_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num()))));
+                prescriptionMapper.updatePrescription(prescription);
             } catch (RuntimeException e) {
                 e.printStackTrace();
                 return responseFail("退药失败");
@@ -460,44 +490,47 @@ public class UserService {
                     + prescription.getPrescription_execute_state() + "],不可退费", null);
         }
 
-        //在处方表中新插入一条记录，并将原来的药复制绑定到新建的处方id下
-        Prescription prescriptionToAdd = prescriptionMapper.getPrescription(prescription_id);
-        prescriptionMapper.addPrescription(prescriptionToAdd);
-
         //插入发票对冲记录
         Bill billBefore;
         try {
             billBefore = billMapper.getBillByPrescriptionId(prescription_id);
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
-            billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
+            billBefore.setBill_state(BILL_STATE[4]);
             billMapper.addBill(billBefore);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("插入发票对冲记录出错", null);
         }
-        //将所有药品绑定到新创建的处方ID下
+
+        //获取原处方记录
+        Prescription prescriptionToAdd = prescriptionMapper.getPrescription(prescription_id);
+
+        //重新计算处方费用
         List<PrescriptionContent> contentList;
         BigDecimal sum = new BigDecimal(0);
         try {
-            contentList = prescriptionContentMapper.getPrescriptionContentsNew(prescription_id);
+            contentList = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
+            System.out.println("[dddd]"+contentList.size());
             for (PrescriptionContent content : contentList) {
-                content.setPrescription_id(prescriptionToAdd.getPrescription_id());
-                content.setPrescription_content_fee(content.getPrescription_unit_price().multiply(new BigDecimal(content.getPrescription_num())));
                 sum = sum.add(content.getPrescription_content_fee());
             }
+            prescriptionToAdd.setPrescription_fee(sum);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("获取处方药品记录失败", null);
         }
+        //更新状态
+        prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
+        //将新纪录添加
+        prescriptionMapper.addPrescription(prescriptionToAdd);
+        //将所有药品绑定到新创建的处方ID下
+        prescriptionContentMapper.updatePrescriptionId(prescription_id,prescriptionToAdd.getPrescription_id());
 
-        //更改新发票的金额
-        prescriptionToAdd.setPrescription_fee(sum);
-        prescriptionMapper.updatePrescriptionFee(prescriptionToAdd);
 
         //插入新的处方发票记录
         billBefore.setBill_prescription_id(prescriptionToAdd.getPrescription_id());
-        billBefore.setBill_sum(prescriptionToAdd.getPrescription_fee());
-        //billBefore.setBill_sum(prescriptionToAdd.getPrescription_fee());
+        billBefore.setBill_state(BILL_STATE[0]);
+        billBefore.setBill_sum(prescriptionMapper.getPrescription(prescriptionToAdd.getPrescription_id()).getPrescription_fee());
         billMapper.addBill(billBefore);
 
         return ConstantUtils.responseSuccess(billBefore);
@@ -506,6 +539,7 @@ public class UserService {
 
     public JSONObject refund(String type, Integer id) {
         if(type.equals(REFUND_TYPE[0]) || type.equals(REFUND_TYPE[1]) || type.equals(REFUND_TYPE[2])){
+            System.out.println(id);
             return refundMedicalSkill(id);
         }
         else if(type.equals(REFUND_TYPE[3]) || type.equals(REFUND_TYPE[4]) ){

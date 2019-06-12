@@ -27,6 +27,33 @@ public class Daily {
     private BigDecimal daily_west_prescription_sum;
     private BigDecimal daily_register_sum;
     private String daily_fail_comment;
+    private BigDecimal daily_check_sum;
+    private BigDecimal daily_examine_sum;
+    private BigDecimal daily_handle_sum;
+
+    public BigDecimal getDaily_examine_sum() {
+        return daily_examine_sum;
+    }
+
+    public void setDaily_examine_sum(BigDecimal daily_examine_sum) {
+        this.daily_examine_sum = daily_examine_sum;
+    }
+
+    public BigDecimal getDaily_handle_sum() {
+        return daily_handle_sum;
+    }
+
+    public void setDaily_handle_sum(BigDecimal daily_handle_sum) {
+        this.daily_handle_sum = daily_handle_sum;
+    }
+
+    public BigDecimal getDaily_check_sum() {
+        return daily_check_sum;
+    }
+
+    public void setDaily_check_sum(BigDecimal daily_check_sum) {
+        this.daily_check_sum = daily_check_sum;
+    }
 
     private List<Bill> bills;
 
