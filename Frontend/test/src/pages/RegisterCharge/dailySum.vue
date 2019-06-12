@@ -5,15 +5,6 @@
       <v-toolbar flat dense>
         <v-toolbar-title>日结表</v-toolbar-title>
         <v-spacer></v-spacer>
-        <el-date-picker
-          v-model="date"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          style="margin-right: 10px"
-        >
-        </el-date-picker>
         <v-btn
           class="white--text"
           color="primary"

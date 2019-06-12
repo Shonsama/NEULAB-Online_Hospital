@@ -1,5 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
+    <v-dialog
+      v-model="show"
+      max-width="400"
+    >
+      <v-card ref="form">
+        <v-card-text>
+          <v-select
+            v-model="quantity_sub"
+            :items="returnArray(quantity)"
+            label="数量"
+            required
+          ></v-select>
+        </v-card-text>
+        <v-divider class="mt-2"></v-divider>
+        <v-card-actions>
+          <v-btn flat @click="show = !show">取消</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click="returnItemMed">确定</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-card>
       <v-toolbar extended flat dense>
         <v-toolbar-title>收费信息</v-toolbar-title>
@@ -253,13 +274,64 @@
               right
               icon
               flat
+              v-if="props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置'"
               class="ml-3"
               color="primary"
               @click="returnItem(props.item)"
             >
               退费
             </v-btn>
+            <v-btn
+              v-else
+              small
+              right
+              icon
+              flat
+              @click="props.expanded = !props.expanded, getContent(props.item), prescription = props.item"
+            >
+              <v-icon>
+                remove_red_eye
+              </v-icon>
+            </v-btn>
           </td>
+        </template>
+        <template v-slot:expand="props">
+          <v-data-table
+            v-model="selected_con"
+            :headers="headers_con"
+            :items="desserts_con"
+            item-key="id"
+            select-all
+            class="elevation-1"
+          >
+            <template v-slot:items="props">
+              <td>
+                <v-checkbox
+                  v-model="props.selected"
+                  primary
+                  hide-details
+                ></v-checkbox>
+              </td>
+              <td>{{ props.item.name }}</td>
+              <td>{{ props.item.state }}</td>
+              <td>{{ props.item.type }}</td>
+              <td>{{ props.item.number }}</td>
+              <td>{{ props.item.quantity }}</td>
+              <td>
+                <v-btn
+                  small
+                  right
+                  icon
+                  flat
+                  class="ml-3"
+                  color="primary"
+                  @click="show = !show, medicine = props.item"
+                >
+                  退费
+                </v-btn>
+              </td>
+            </template>
+          </v-data-table>
         </template>
       </v-data-table>
     </v-card>
@@ -271,8 +343,10 @@ export default {
   data () {
     return {
       date: ['', ''],
+      show: false,
       selected: [],
       selected1: [],
+      selected_con: [],
       patient_record_id: '',
       patient_gender: '',
       patient_name: '',
@@ -308,7 +382,19 @@ export default {
         {text: '收费时间', value: 'time'},
         {text: '操作', value: 'operation', sortable: false}
       ],
-      content: []
+      headers_con: [
+        {text: '名称', value: 'name'},
+        {text: '类型', value: 'type'},
+        {text: '金额', value: 'number'},
+        {text: '数量', value: 'quantity'},
+        {text: '操作', value: 'operation', sortable: false}
+      ],
+      desserts_con: [],
+      content: [],
+      quantity: '',
+      quantity_sub: '',
+      medicine: '',
+      prescription: ''
     }
   },
   computed: {
@@ -319,6 +405,13 @@ export default {
   mounted: function () {
   },
   methods: {
+    returnArray: function (value) {
+      var arr = []
+      for (var i = 1; i <= value; i++) {
+        arr.push(i)
+      }
+      return arr
+    },
     filterDate: function (value) {
       return (this.date[0] <= value.time && this.date[1] >= value.time) || this.date[0] === '' || this.date[1] === ''
     },
@@ -327,8 +420,10 @@ export default {
       console.log(value)
       var url = this.HOME + '/pay/pay'
       var data = {
-        id: value.code,
-        type: value.type
+        id: value.id,
+        type: value.type,
+        user_id: this.$store.state.user.id,
+        register_id: value.code
       }
       this.$http.post(url, data)
         .then(function (response) {
@@ -350,6 +445,20 @@ export default {
           that.getItem()
         })
     },
+    returnItemMed: function () {
+      let that = this
+      var url = this.HOME + '/user-service/refund/return-prescription'
+      var data = {
+        prescription_id: that.prescription.id,
+        prescription_medicine_id: that.medicine.id,
+        prescription_num: that.prescription.code
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+        })
+    },
     getContent: function (value) {
       console.log(value)
       let that = this
@@ -360,6 +469,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          that.desserts_con = response.data.data
         })
     },
     getItem: function () {
@@ -421,6 +531,7 @@ export default {
           var i
           for (i = 0; i < response.data.data.length; i++) {
             var data = {
+              id: response.data.data[i].medical_skill_id,
               code: response.data.data[i].medical_skill_register_info_id,
               name: response.data.data[i].medical_skill_name,
               state: response.data.data[i].medical_skill_execute_state,
@@ -437,6 +548,7 @@ export default {
           var i
           for (i = 0; i < response.data.data.length; i++) {
             var data = {
+              id: response.data.data[i].prescription_id,
               code: response.data.data[i].prescription_register_info_id,
               name: response.data.data[i].prescription_name,
               state: response.data.data[i].prescription_execute_state,

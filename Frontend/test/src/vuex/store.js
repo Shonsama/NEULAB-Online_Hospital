@@ -6,9 +6,9 @@ export default new Vuex.Store({
   state: {
     doctor: '',
     user: {
-      id: '',
-      department_id: '',
-      type: ''
+      id: '1',
+      department_id: 'AZBK',
+      type: '挂号收费员'
     },
     isLogin: false
   },

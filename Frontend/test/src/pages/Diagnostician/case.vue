@@ -22,7 +22,7 @@
     </v-dialog>
     <v-dialog
       v-model="show"
-      max-width="400"
+      max-width="600"
     >
       <v-card>
         <v-toolbar flat dense>
@@ -38,7 +38,7 @@
           v-model="selected_dia"
           :headers="headers_dia"
           :items="desserts_dia"
-          item-key="disease_icd"
+          item-key="disease_id"
           select-all
         >
           <template v-slot:items="props">
@@ -49,13 +49,37 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.disease_icd }}</td>
+            <td>{{ props.item.disease_id }}</td>
             <td>{{ props.item.disease_name }}</td>
             <td>{{ props.item.disease_type }}</td>
           </template>
         </v-data-table>
       </v-card>
     </v-dialog>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-toolbar flat dense >
       <v-layout align-center justify-space-around row fill-height>
       <v-btn small color="primary" @click="save">
@@ -160,7 +184,7 @@
                <v-btn   flat icon color="primary" @click="show = !show">
                  <v-icon> add</v-icon>
                </v-btn>
-               <v-btn   flat icon color="primary" @click="expand = !expand">
+               <v-btn   flat icon color="primary" @click="deleteItem">
                  <v-icon>delete</v-icon>
                </v-btn>
              </v-toolbar>
@@ -168,7 +192,7 @@
                v-model="selected"
                :headers="headers"
                :items="desserts"
-               item-key="diagnose_id"
+               item-key="diagnose_disease_id"
                select-all
                class="elevation-1"
                style="margin-bottom: 20px"
@@ -198,7 +222,7 @@
                 <v-btn   flat icon color="primary" @click="show = !show">
                   <v-icon> add</v-icon>
                 </v-btn>
-                <v-btn   flat icon color="primary" @click="expand = !expand">
+                <v-btn   flat icon color="primary" @click="deleteItem">
                   <v-icon>delete</v-icon>
                 </v-btn>
               </v-toolbar>
@@ -252,6 +276,11 @@ export default {
   props: ['msgfromfa', 'record'],
   data () {
     return {
+      dialog_add: false,
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       dialog: false,
       selected: [],
       selected_dia: [],
@@ -307,7 +336,26 @@ export default {
     this.load_diagnosis()
     console.log(this.msgfromfa)
   },
+  watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
+    }
+  },
   methods: {
+    network_out: function () {
+      this.dialog = false
+      this.dialog_err = true
+      this.msg_err = '网络不通畅，请重新来过'
+    },
     getItem () {
       let that = this
       var url = this.HOME + ''
@@ -321,7 +369,7 @@ export default {
       var n
       for (n = 0; n < this.selected_dia.length; n++) {
         var data = {
-          diagnose_disease_id: this.selected_dia[n].disease_icd,
+          diagnose_disease_id: this.selected_dia[n].disease_id,
           diagnose_record_id: this.msgfromfa.register_info_id,
           diagnose_disease_name: this.selected_dia[n].disease_name,
           diagnose_time: new Date()
@@ -330,11 +378,18 @@ export default {
       }
     },
     submit_diagnoses () {
-      // let that = this
+      let that = this
       var url = this.HOME + '/doctor/submit-first-diagnose'
       this.$http.post(url, this.desserts)
         .then(response => {
           console.log(response.data)
+          if (response.data.code === 200) {
+            that.dialog_suc = true
+            that.msg_suc = '操作成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '诊断未成功提交，请重新来过'
+          }
         })
     },
     submit () {
@@ -392,6 +447,8 @@ export default {
         }
       }
       this.desserts = []
+      this.dialog_suc = true
+      this.msg_suc = '已清空'
     },
     save () {
       let that = this
@@ -401,22 +458,24 @@ export default {
         record_health_check: that.form.record_health_check,
         record_xianbingshi: that.form.record_xianbingshi,
         record_jiwangshi: that.form.record_jiwangshi,
+        record_patient_id: that.msgfromfa.register_info_patient_id,
+        record_doctor_id: that.msgfromfa.register_info_doctor_id,
         record_cure_situation: that.form.record_cure_situation,
         record_allergy_his: that.form.record_allergy_his,
         record_suggestion: that.form.record_suggestion,
         record_attention: that.form.record_attention,
-        record_patient_id: that.msgfromfa.register_info_patient_id,
-        record_doctor_id: that.msgfromfa.register_info_doctor_id,
         record_id: that.msgfromfa.register_info_id,
         record_doctor_type: that.form.diagnosis.cate
       }
-      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data)
-          that.submit_diagnoses()
-          that.dialog = false
-          // that.desserts = response.data
+          if (response.data.code === 200) {
+            that.submit_diagnoses()
+          } else {
+            that.dialog_err = true
+            that.msg_err = '暂存操作未成功，请重新来过'
+          }
         })
     },
     load_diagnosis () {
@@ -437,32 +496,48 @@ export default {
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
-          that.form.record_syndrome = response.data.data.record_syndrome
-          that.form.record_health_check = response.data.data.record_health_check
-          that.form.record_xianbingshi = response.data.data.record_xianbingshi
-          that.form.record_jiwangshi = response.data.data.record_jiwangshi
-          that.form.record_cure_situation = response.data.data.record_cure_situation
-          that.form.record_allergy_his = response.data.data.record_allergy_his
-          that.form.record_suggestion = response.data.data.record_suggestion
-          that.form.record_attention = response.data.data.record_attention
-          that.form.diagnosis.cate = response.data.data.record_doctor_type
-          var i
-          for (i = 0; i < response.data.data.firstDiagnoses.length; i++) {
-            var data = {
-              diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
-              diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
-              diagnose_id: response.data.data.firstDiagnoses[i].diagnose_id,
-              diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19))
+          if (response.data.code === 200) {
+            that.form.record_syndrome = response.data.data.record_syndrome
+            that.form.record_health_check = response.data.data.record_health_check
+            that.form.record_xianbingshi = response.data.data.record_xianbingshi
+            that.form.record_jiwangshi = response.data.data.record_jiwangshi
+            that.form.record_cure_situation = response.data.data.record_cure_situation
+            that.form.record_allergy_his = response.data.data.record_allergy_his
+            that.form.record_suggestion = response.data.data.record_suggestion
+            that.form.record_attention = response.data.data.record_attention
+            that.form.diagnosis.cate = response.data.data.record_doctor_type
+            var i
+            that.desserts = []
+            for (i = 0; i < response.data.data.firstDiagnoses.length; i++) {
+              var data = {
+                diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
+                diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
+                diagnose_record_id: that.msgfromfa.register_info_id,
+                diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19))
+              }
+              that.desserts.push(data)
             }
-            that.desserts.push(data)
+            // that.desserts = response.data.data.firstDiagnoses
+            console.log(that.desserts)
+            if (that.form.diagnosis.cate === '西医') {
+              that.expand_WE = true
+              if (that.expand_CH) {
+                that.expand_CH = !that.expand_CH
+              }
+            }
+            if (that.form.diagnosis.cate === '中医') {
+              that.expand_CH = true
+              if (that.expand_WE) {
+                that.expand_WE = !that.expand_WE
+              }
+            }
+            that.dialog = false
+            that.dialog_suc = true
+            that.msg_suc = '刷新成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '刷新未成功'
           }
-          // that.desserts = response.data.data.firstDiagnoses
-          console.log(that.desserts)
-          that.expand_WE = true
-          if (that.expand_CH) {
-            that.expand_CH = !that.expand_CH
-          }
-          that.dialog = false
         })
     },
     choose_WE () {
@@ -479,6 +554,23 @@ export default {
       this.form.diagnosis.content = []
       if (this.expand_WE) {
         this.expand_WE = !this.expand_WE
+      }
+    },
+    indexOf (val, val1) {
+      for (var i = 0; i < val.length; i++) {
+        if (val[i] === val1) return i
+      }
+      return -1
+    },
+    remove (val, val1) {
+      var index = this.indexOf(val, val1)
+      if (index > -1) {
+        val.splice(index, 1)
+      }
+    },
+    deleteItem () {
+      for (var i = 0; i < this.selected.length; i++) {
+        this.remove(this.desserts, this.selected[i])
       }
     }
   }
