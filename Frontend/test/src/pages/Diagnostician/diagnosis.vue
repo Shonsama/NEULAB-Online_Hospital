@@ -244,7 +244,7 @@ export default {
               var data1 = {
                 diagnose_disease_id: response.data.data.finalDiagnoses[i].diagnose_disease_id,
                 diagnose_disease_name: response.data.data.finalDiagnoses[i].diagnose_disease_name,
-                diagnose_id: response.data.data.finalDiagnoses[i].diagnose_id,
+                diagnose_record_id: that.msgfromfa.register_info_id,
                 diagnose_time: new Date(response.data.data.finalDiagnoses[i].diagnose_time.slice(0, 19))
               }
               that.desserts.push(data1)

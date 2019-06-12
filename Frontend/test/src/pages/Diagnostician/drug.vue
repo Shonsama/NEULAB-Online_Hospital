@@ -720,7 +720,8 @@ export default {
       template_con_name: '',
       template_con_range: '',
       template_con_type: '',
-      template_con_id: ''
+      template_con_id: '',
+      new_prescription_id: ''
     }
   },
   watch: {
@@ -728,6 +729,18 @@ export default {
       this.getItem()
       this.load_medicne()
       this.getTem()
+    },
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
     }
   },
   mounted: function () {
@@ -767,7 +780,6 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
-          that.dialog = false
         })
     },
     deleteTem () {
@@ -780,41 +792,59 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.getTem()
+          that.dialog = false
           that.tem = false
         })
     },
     updateTem () {
       let that = this
       var data = {
+        template_id: that.template_con_id,
         template_type: that.template_con_type,
         template_range: that.template_con_range,
         template_name: that.template_con_name,
         template_init_date: new Date(),
-        template_id: that.template_con_id,
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
+      that.dialog = true
       var url = this.HOME + '/template/update-template'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.getTem()
+          that.dialog = false
           that.tem = false
         })
     },
     useTem (value) {
       let that = this
       var data = {
-        template_id: value.template_id
+        prescription_type: '中药',
+        prescription_doctor_id: that.msgfromfa.register_info_doctor_id,
+        prescription_register_info_id: that.msgfromfa.register_info_id,
+        prescription_name: value.template_name,
+        prescription_fee: '0'
       }
-      var url = this.HOME + '/template/get-content-non-medicine'
+      console.log(data)
+      var url = this.HOME + '/doctor/add-prescription'
       this.$http.post(url, data)
         .then(function (response) {
-          console.log(response.data)
-          var i
-          for (i = 0; i < response.data.data.length; i++) {
-            that.addItemByTem(response.data.data[i])
+          that.dialog = true
+          that.new_prescription_id = response.data.data.prescription_id
+          data = {
+            template_id: value.template_id
           }
-          // that.dialog = false
+          var url1 = that.HOME + '/template/get-content-non-medicine'
+          that.$http.post(url1, data)
+            .then(function (response) {
+              console.log(response.data)
+              var i
+              for (i = 0; i < response.data.data.length; i++) {
+                that.addContentByTem(response.data.data[i])
+              }
+            })
+          console.log(response.data)
+          that.getItem()
         })
     },
     seeTem (value) {
@@ -852,6 +882,7 @@ export default {
           that.addTemContent()
           that.text = false
           that.getTem()
+          that.dialog = false
         })
     },
     addTemContent () {
@@ -957,7 +988,25 @@ export default {
           })
       }
     },
-
+    addContentByTem: function (value) {
+      console.log(value)
+      let that = this
+      var data = {
+        prescription_id: that.new_prescription_id,
+        prescription_consumption: value.template_medicine_consumption,
+        prescription_medicine_id: value.template_medical_skill_content_department_name,
+        prescription_frequency: value.template_medicine_frequency,
+        prescription_num: value.template_medicine_number,
+        prescription_day: value.template_medicine_usage
+      }
+      var url = this.HOME + '/doctor/add-medicine'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+          that.show = false
+        })
+    },
     addContent: function (value) {
       let that = this
       console.log(value)

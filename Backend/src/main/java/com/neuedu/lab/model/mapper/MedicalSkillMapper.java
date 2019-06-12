@@ -4,6 +4,7 @@ import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Patient;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MedicalSkillMapper {
@@ -15,6 +16,10 @@ public interface MedicalSkillMapper {
     void updateMedicalSkillState(@Param("medical_skill_id") Integer medical_skill_id,
                                  @Param("medical_skill_execute_state") String medical_skill_execute_state,
                                  @Param("medical_skill_execute_doctor_id") Integer medical_skill_execute_doctor_id);
+
+    void updateMedicalSkillPaytime (@Param("medical_skill_id") Integer medical_skill_id,
+                                 @Param("medical_skill_pay_time") Date medical_skill_pay_time,
+                                 @Param("medical_skill_user_id") Integer medical_skill_user_id);
 
     MedicalSkill getMedicalSkill(Integer medical_skill_id);
 
