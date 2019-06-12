@@ -219,23 +219,28 @@
                 color="primary"
                 right
               >
-              <v-icon
-                @click="props.expanded = !props.expanded"
-                color="primary"
-              >
-                add
-              </v-icon>
+                <v-icon
+                  @click="props.expanded = !props.expanded"
+                  color="primary"
+                >
+                  add
+                </v-icon>
               </v-btn>
             </td>
           </template>
           <template v-slot:expand="props">
             <v-layout align-center justify-center row>
               <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="medical_skill_name"
-                  label="申请名称"
+                <v-select
+                  v-model="department"
+                  :items="departments"
+                  item-text="department_name"
+                  item_value="department_id"
+                  label="科室"
+                  return-object
                   required
-                ></v-text-field>
+                  placeholder="请选择科室"
+                ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">
                 <v-text-field
@@ -321,11 +326,16 @@
           <template v-slot:expand="props">
             <v-layout align-center justify-center row>
               <v-flex xs2 class="mr-3">
-                <v-text-field
-                  v-model="medical_skill_name"
-                  label="申请名称"
+                <v-select
+                  v-model="department"
+                  :items="departments.filter(filterDepart)"
+                  item-text="department_name"
+                  item_value="department_id"
+                  label="科室"
+                  return-object
                   required
-                ></v-text-field>
+                  placeholder="请选择科室"
+                ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">
                 <v-text-field
@@ -361,9 +371,32 @@
         </v-data-table>
       </v-card>
     </v-dialog>
-
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-layout>
-      <v-flex  lg9>
+      <v-flex  lg9 md9 sm9 xs9>
         <v-toolbar flat dense>
           <v-toolbar-title  >合计:{{fee}}元</v-toolbar-title>
           <v-spacer/>
@@ -403,6 +436,7 @@
           :expand=false
           item-key="medical_skill_id"
           select-all
+          class="scroll-y"
         >
           <template v-slot:items="props">
             <td>
@@ -430,14 +464,14 @@
           </template>
           <template v-slot:expand="props">
             <v-flex xs12 sm6 offset-sm1>
-            <v-card flat>
-              <v-card-title>
-                <div>
-                  <span class="grey--text">结果</span><br>
-                  <span>详情：{{props.item.medical_skill_result}}</span><br>
-                </div>
-              </v-card-title>
-            </v-card>
+              <v-card flat>
+                <v-card-title>
+                  <div>
+                    <span class="grey--text">结果</span><br>
+                    <span>详情：{{props.item.medical_skill_result}}</span><br>
+                  </div>
+                </v-card-title>
+              </v-card>
             </v-flex>
           </template>
         </v-data-table>
@@ -455,7 +489,7 @@
         </v-card-actions>
       </v-flex>
       <v-divider vertical></v-divider>
-      <v-flex lg3>
+      <v-flex lg3 md3 sm3 xs3>
         <v-toolbar flat dense>
           <v-toolbar-title  >常用模板</v-toolbar-title>
         </v-toolbar>
@@ -484,6 +518,7 @@
                 flat
                 small
                 right
+                class="ml-3"
                 @click="seeTem(props.item);"
               >
                 详情
@@ -502,6 +537,10 @@ export default {
   props: ['msgfromfa', 'record'],
   data () {
     return {
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       tem: false,
       dialog: false,
       selected_dia: [],
@@ -609,24 +648,42 @@ export default {
       template_con_name: '',
       template_con_range: '',
       template_con_type: '',
-      template_con_id: ''
+      template_con_id: '',
+      departments: [],
+      department: ''
     }
   },
   created: function () {
     this.load_mediskill()
     this.getItem()
     this.getTem()
+    this.load_departs()
   },
   watch: {
     record: function (newState, oldState) {
       this.load_mediskill()
       this.getItem()
       this.getTem()
+    },
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
     }
   },
   computed: {
     filterDesserts () {
       return this.desserts.filter(this.filterType)
+    },
+    filterDeparts () {
+      return this.departments.filter(this.filterDepart)
     },
     filterDessertsTem () {
       return this.desserts_tem.filter(this.filterType_tem)
@@ -641,8 +698,26 @@ export default {
     }
   },
   methods: {
+    network_out: function () {
+      this.dialog = false
+      this.dialog_err = true
+      this.msg_err = '网络不通畅，请重新来过'
+    },
+    load_departs: function () {
+      var that = this
+      var url = this.HOME + '/maintenance/department/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.departments = response.data.data
+        })
+    },
     filterType (value) {
       return value.medical_skill_type === '检验'
+    },
+    filterDepart: function (value) {
+      return value.department_cat === '医技科室'
     },
     filterType_tem (value) {
       return value.template_type === '检验'
@@ -650,15 +725,15 @@ export default {
     getTem () {
       let that = this
       var data = {
-        doctor_id: '1',
-        department_id: 'XXGK'
+        doctor_id: this.$store.state.user.id,
+        department_id: this.$store.state.user.department_id
       }
       var url = this.HOME + '/template/get-all'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
-          // that.dialog = false
+          that.dialog = false
         })
     },
     deleteTem () {
@@ -677,11 +752,11 @@ export default {
     updateTem () {
       let that = this
       var data = {
+        template_name: that.template_con_name,
+        template_init_date: new Date(),
         template_type: that.template_con_type,
         template_range: that.template_con_range,
         template_id: that.template_con_id,
-        template_name: that.template_con_name,
-        template_init_date: new Date(),
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
       var url = this.HOME + '/template/update-template'
@@ -779,9 +854,13 @@ export default {
         template_medical_skill_content_department_id: that.medical_skill_urgent,
         template_medical_skill_content_specification: that.medical_skill_purpose,
         template_medical_skill_content_checkpoint: that.medical_skill_checkpoint,
-        template_medical_skill_content_department_name: '血液科',
+        template_medical_skill_content_department_name: that.department.department_name,
         template_medical_skill_content_unit_price: value.medical_skill_content_price
       }
+      that.medical_skill_urgent = ''
+      that.medical_skill_purpose = ''
+      that.department.department_name = ''
+      that.medical_skill_checkpoint = ''
       console.log(value)
       that.dialog = true
       this.$http.post(url, data)
@@ -846,6 +925,7 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
@@ -866,7 +946,7 @@ export default {
         medical_skill_doctor_id: that.msgfromfa.register_info_doctor_id,
         medical_skill_content_id: value.medical_skill_content_id,
         medical_skill_fee: value.medical_skill_content_price,
-        medical_skill_execute_department: '血液科'
+        medical_skill_execute_department: that.department.department_name
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-medical-skill'

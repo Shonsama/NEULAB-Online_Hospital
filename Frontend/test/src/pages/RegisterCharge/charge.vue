@@ -21,6 +21,30 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-card>
       <v-toolbar extended flat dense>
         <v-toolbar-title>收费信息</v-toolbar-title>
@@ -197,7 +221,7 @@
         v-model="selected"
         :headers="headers"
         :items="desserts"
-        item-key="code"
+        item-key="id"
         select-all
         class="elevation-1"
       >
@@ -250,7 +274,7 @@
         v-model="selected1"
         :headers="headers1"
         :items="filterDesserts"
-        item-key="code"
+        item-key="hint"
         select-all
         class="elevation-1"
       >
@@ -281,18 +305,12 @@
             >
               退费
             </v-btn>
-            <v-btn
+            <v-icon
               v-else
-              small
-              right
-              icon
-              flat
               @click="props.expanded = !props.expanded, getContent(props.item), prescription = props.item"
             >
-              <v-icon>
-                remove_red_eye
-              </v-icon>
-            </v-btn>
+              remove_red_eye
+            </v-icon>
           </td>
         </template>
         <template v-slot:expand="props">
@@ -300,7 +318,7 @@
             v-model="selected_con"
             :headers="headers_con"
             :items="desserts_con"
-            item-key="id"
+            item-key="hint"
             select-all
             class="elevation-1"
           >
@@ -344,6 +362,10 @@ export default {
     return {
       date: ['', ''],
       show: false,
+      dialog_add: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       selected: [],
       selected1: [],
       selected_con: [],
@@ -402,6 +424,20 @@ export default {
       return this.desserts1.filter(this.filterDate)
     }
   },
+  watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog = false, this.dialog_err = true, this.msg_err = '网络环境出现了问题！'), 10000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
+  },
   mounted: function () {
   },
   methods: {
@@ -428,7 +464,17 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.getItem()
+          if (response.data.code === 200) {
+            that.dialog = true
+            that.getItem()
+            that.getItem_charge()
+            that.dialog = false
+            that.dialog_suc = true
+            that.msg_suc = '缴费成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '缴费失败'
+          }
         })
     },
     returnItem: function (value) {
@@ -442,7 +488,16 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.getItem()
+          if (response.data.code === 200) {
+            that.dialog = true
+            that.getItem()
+            that.dialog = false
+            that.dialog_suc = true
+            that.msg_suc = '退费成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '退费失败'
+          }
         })
     },
     returnItemMed: function () {
@@ -492,7 +547,8 @@ export default {
               state: response.data.data[i].medical_skill_execute_state,
               type: response.data.data[i].medical_skill_type,
               number: response.data.data[i].medical_skill_fee,
-              time: response.data.data[i].medical_skill_pay_time
+              time: response.data.data[i].medical_skill_pay_time,
+              hint: response.data.data[i].medical_skill_id + response.data.data[i].medical_skill_type
             }
             console.log(data)
             that.desserts1.push(data)
@@ -510,7 +566,8 @@ export default {
               state: response.data.data[i].prescription_execute_state,
               type: response.data.data[i].prescription_type,
               number: response.data.data[i].prescription_fee,
-              time: response.data.data[i].prescription_pay_time
+              time: response.data.data[i].prescription_pay_time,
+              hint: response.data.data[i].prescription_id + response.data.data[i].prescription_type
             }
             console.log(data)
             that.desserts1.push(data)
@@ -536,7 +593,8 @@ export default {
               name: response.data.data[i].medical_skill_name,
               state: response.data.data[i].medical_skill_execute_state,
               type: response.data.data[i].medical_skill_type,
-              number: response.data.data[i].medical_skill_fee
+              number: response.data.data[i].medical_skill_fee,
+              hint: response.data.data[i].medical_skill_id + response.data.data[i].medical_skill_type
             }
             console.log(data)
             that.desserts.push(data)
@@ -553,7 +611,8 @@ export default {
               name: response.data.data[i].prescription_name,
               state: response.data.data[i].prescription_execute_state,
               type: response.data.data[i].prescription_type,
-              number: response.data.data[i].prescription_fee
+              number: response.data.data[i].prescription_fee,
+              hint: response.data.data[i].prescription_id + response.data.data[i].prescription_type
             }
             console.log(data)
             that.desserts.push(data)

@@ -32,6 +32,11 @@
         WHERE prescription_id = #{prescription_id}
     </update>
 
+    <update id="updatePrescriptionPaytime">
+        UPDATE prescription SET prescription_pay_time = #{prescription_pay_time},
+            prescription_user_id = #{prescription_user_id}
+        WHERE prescription_id = #{prescription_id}
+    </update>
     <select id="getPrescription" resultType="Prescription">
         SELECT * FROM prescription
         WHERE prescription_id = #{prescription_id};
