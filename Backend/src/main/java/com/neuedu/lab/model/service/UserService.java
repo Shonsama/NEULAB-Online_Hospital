@@ -460,7 +460,7 @@ public class UserService {
     // 未领药直接退药，由收费员操作
     @Transactional
     public JSONObject returnMedicine(Integer prescription_id, Integer prescription_content_id, Integer prescription_num) {
-        //首先检测处方处于已退费状态或已缴费状态356
+        //首先检测处方处于已退药状态或已缴费状态35
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
                 prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5]))){
@@ -469,12 +469,7 @@ public class UserService {
 
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
         PrescriptionContent prescriptionContentBefore = prescriptionContentMapper.getPrescriptionContentById(prescription_content_id);
-
-        //查看药品状态应该是已缴费状态
-        if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3])) {
-            return ConstantUtils.responseFail("该处方状态为[" + prescription.getPrescription_execute_state() + "],不可退药", null);
-        }
-
+        
         //查看药品数量是否满足
         if (prescriptionContentBefore.getPrescription_refund_available_num() < prescription_num) {
             return ConstantUtils.responseFail("药品数量大于可退费数量", null);
