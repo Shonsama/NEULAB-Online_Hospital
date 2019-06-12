@@ -57,7 +57,7 @@
                 <v-text-field
                   ref="country"
                   v-model="doctor_register_level_id"
-                  label="医生职称"
+                  label="挂号级别ID"
                   placeholder="请输入医生挂号级别ID"
                   required
                 ></v-text-field>
@@ -71,8 +71,8 @@
                 <v-text-field
                   ref="country"
                   v-model="doctor_arrange_or_not"
-                  label="医生排班"
-                  placeholder="请输入医生排班"
+                  label="医生是否排班"
+                  placeholder="请输入医生是否排班"
                   required
                 ></v-text-field>
               </div>

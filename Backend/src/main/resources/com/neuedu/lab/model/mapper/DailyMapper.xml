@@ -20,6 +20,12 @@
             <if test="daily_pass_state != null">
                 AND daily_pass_state = #{daily_pass_state}
             </if>
+            <if test="daily_start != null">
+                AND daily_operate_time > #{daily_start}
+            </if>
+            <if test="daily_end != null">
+                AND  #{daily_end} > daily_operate_time
+            </if>
         </where>
     </select>
 
