@@ -19,6 +19,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    set_user (state, user) {
+      state.user = user
+    },
     set_token (state, token) {
       state.token = token
       sessionStorage.token = token
@@ -27,16 +30,12 @@ export default new Vuex.Store({
       state.token = ''
       sessionStorage.removeItem('token')
     },
-    showDrawer: function (state) {
-      var stateNow = state.showDrawer
-      state.showDrawer = !stateNow
-    },
-    saveForm: function (state) {
-      var stateNow = state.showDrawer
-      state.showDrawer = !stateNow
-    },
     login: function (state) {
       state.isLogin = true
+    },
+    logout: function (state) {
+      state.isLogin = false
+      state.user = ''
     }
   }
 })

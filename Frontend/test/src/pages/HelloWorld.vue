@@ -123,6 +123,27 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          var data
+          if (!that.isDoctor) {
+            data = {
+              account: response.data.data.user_account,
+              department_id: response.data.data.user_department_id,
+              id: response.data.data.user_id,
+              name: response.data.data.user_name,
+              type: response.data.data.user_type
+            }
+            // that.store.commit('set_user', data)
+          } else {
+            data = {
+              account: response.data.data.doctor_account,
+              department_id: response.data.data.doctor_department_id,
+              id: response.data.data.doctor_id,
+              name: response.data.data.doctor_name,
+              type: response.data.data.doctor_type
+            }
+            console.log(data)
+            // that.store.commit('set_user', data)
+          }
         })
     }
   }
