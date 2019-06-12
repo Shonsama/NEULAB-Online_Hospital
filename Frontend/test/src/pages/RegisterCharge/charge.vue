@@ -510,12 +510,17 @@ export default {
         prescription_medicine_id: that.medicine.prescription_content_id,
         prescription_num: that.quantity_sub
       }
+      var value = {
+        id: that.prescription.id,
+        type: that.prescription.type
+      }
       that.quantity_sub = ''
       console.log(data)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.getItem()
+          that.returnItem(value)
+          // that.getItem()
         })
     },
     getContent: function (value) {
