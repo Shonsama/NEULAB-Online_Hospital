@@ -325,7 +325,7 @@
               >
                 <v-select
                   v-model="departmentId"
-                  :items="departments"
+                  :items="departments.filter(filterDepart)"
                   item-text="department_name"
                   item_value="department_id"
                   :rules="departRules"
@@ -546,6 +546,9 @@ export default {
     this.load_register_fee()
   },
   methods: {
+    filterDepart: function (value) {
+      return value.department_cat === '临床科室'
+    },
     change: function () {
       this.disabled = !this.disabled
     },

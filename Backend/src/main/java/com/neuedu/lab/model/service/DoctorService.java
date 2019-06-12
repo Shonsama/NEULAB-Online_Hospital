@@ -337,14 +337,13 @@ public class DoctorService {
     public JSONObject addPrescription(Prescription prescription){
         try{
             prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[0]);
-            prescriptionMapper.addPrescription(prescription);
-
+            prescription.setPrescription_fee(new BigDecimal(0));
             //更新处方名称为默认值
             if(prescription.getPrescription_name()==null){
                 prescription.setPrescription_name(ADD_PRESCRIPTION_NAME+prescription.getPrescription_id());
                 prescriptionMapper.updatePrescriptionName(prescription);
             }
-
+            prescriptionMapper.addPrescription(prescription);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();
@@ -405,7 +404,6 @@ public class DoctorService {
             Medicine medicine = medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id());
 
             prescriptionContent.setPrescription_unit_price(medicine.getMedicine_unit_price());
-            prescriptionContent.setPrescription_content_actual_unit_price(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
             prescriptionContent.setPrescription_content_fee(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
             //增加药品
             prescriptionContentMapper.addPrescriptionContent(prescriptionContent);
