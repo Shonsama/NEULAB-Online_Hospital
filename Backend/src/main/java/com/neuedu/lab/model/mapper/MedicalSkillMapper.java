@@ -45,7 +45,7 @@ public interface MedicalSkillMapper {
     //用于医技部门查找所有待诊患者
     List<Patient> getAllPatients(@Param("medical_skill_execute_department") String medical_skill_execute_department,
                                  @Param("medical_skill_execute_state") String medical_skill_execute_state,
-                                 @Param("medcial_skill_type")String medcial_skill_type);
+                                 @Param("medical_skill_type")String medical_skill_type);
 
 
     List<MedicalSkill> getMedicalSkillsByRegisterId(Integer register_id);
