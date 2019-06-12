@@ -128,7 +128,7 @@
         </div>
       </v-expand-transition>
     </v-flex>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar extended flat dense>
         <v-toolbar-title>挂号信息</v-toolbar-title>
         <template v-slot:extension>
@@ -386,7 +386,7 @@
         </v-form>
       </v-layout>
     </v-card>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar flat dense>
         <v-toolbar-title>挂号信息列表</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -397,7 +397,7 @@
         :items="register_items"
         item-key="register_info_id"
         select-all
-        class="elevation-1"
+        class="elevation-1 "
       >
         <template v-slot:items="props">
           <td>
@@ -543,7 +543,6 @@ export default {
     this.load_constants()
     this.load_departs()
     this.load_registerLevels()
-    this.load_register_fee()
   },
   methods: {
     filterDepart: function (value) {
@@ -700,7 +699,6 @@ export default {
       var data = {
         bill_actual_sum: that.bill_sum,
         bill_sum: that.bill_sum,
-        bill_time: new Date(),
         bill_type: '挂号费',
         bill_register_id: that.register_info_id,
         bill_user_id: that.$store.state.user.id,

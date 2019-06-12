@@ -169,7 +169,7 @@
         :headers="headers"
         :items="users"
         :search="search"
-        item-key="user_id"
+        item-key="user_account"
         select-all
         class="elevation-1"
       >
@@ -181,7 +181,7 @@
               hide-details
             ></v-checkbox>
           </td>
-          <td>{{ props.item.user_id }}</td>
+          <!--<td>{{ props.item.user_id }}</td>-->
           <td>{{ props.item.user_account }}</td>
           <td>{{ props.item.user_password }}</td>
           <td>{{ props.item.user_type }}</td>
@@ -245,11 +245,11 @@ export default {
     selected: [],
     signal: '',
     headers: [
-      {
-        text: '用户ID',
-        align: 'left',
-        value: 'user_id'
-      },
+      // {
+      //   text: '用户ID',
+      //   align: 'left',
+      //   value: 'user_id'
+      // },
       { text: '用户账户', value: 'user_account' },
       { text: '用户密码', value: 'user_password' },
       { text: '用户类型', value: 'user_type' },
