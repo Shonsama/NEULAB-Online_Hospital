@@ -113,7 +113,7 @@
         </v-toolbar>
         <v-data-table
           :headers="headers_ms"
-          :items="desserts_ms"
+          :items="desserts_ms.filter(filterDepart)"
           class="elevation-1"
         >
           <template v-slot:items="props">
@@ -154,7 +154,8 @@
       ms_item: '',
       ms_patient_id: '',
       show: false,
-      department_default: 'wp',
+      type_default: '检验',
+      department_default: '艾滋病科',
       userid_default: '5',
       search_patient: '',
       state: '',
@@ -205,12 +206,13 @@
     }),
     methods: {
       filterDepart: function (value) {
-        return value.medical_skill_type === '检查'
+        return value.medical_skill_type === this.type_default
       },
       load: function () {
         let that = this
         var url = this.HOME + 'ms-doctor/get-all-patients'
-        this.$http.post(url, {medical_skill_execute_department: that.department_default
+        this.$http.post(url, {medical_skill_execute_department: that.department_default,
+          medical_skill_type:that.type_default
         })
           .then(function (response) {
             console.log(response.data)
