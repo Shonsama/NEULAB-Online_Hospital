@@ -63,7 +63,9 @@
         where register_info_patient_id = #{register_info_patient_id}
         and register_info_id = prescription.prescription_register_info_id
         and (prescription_execute_state = "已缴费"
-        or prescription_execute_state = "已退药");
+        or prescription_execute_state = "已退药"
+        or prescription_execute_state = "未领药并部分退药"
+        or prescription_execute_state = "已领药并部分退药");
     </select>
 
     <!--    获取所有已发送项目-->

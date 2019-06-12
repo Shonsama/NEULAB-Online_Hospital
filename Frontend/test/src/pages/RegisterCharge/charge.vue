@@ -386,6 +386,7 @@ export default {
       date: ['', ''],
       show: false,
       dialog_add: false,
+      dialog_err: false,
       dialog_suc: false,
       msg_suc: 'success',
       msg_err: 'error',
@@ -650,6 +651,41 @@ export default {
             that.desserts.push(data)
           }
         })
+    },
+    reprint_bill: function () {
+      let that = this
+      var url = this.HOME + '/bill/reprint'
+      var data = {
+        bill_id: that.bill.bill_id
+      }
+      if (that.bill.bill_id) {
+        this.$http.post(url, data)
+          .then(function (response) {
+            // that.dialog_bill = true
+            console.log(response.data)
+          })
+      } else {
+        this.dialog_err = true
+        this.msg_err = '发票号为空'
+      }
+    },
+    overprint: function () {
+      let that = this
+      var url = this.HOME + '/bill/overprint'
+      var data = {
+        bill_id: that.bill.bill_id
+      }
+      if (that.bill.bill_id) {
+        this.$http.post(url, data)
+          .then(function (response) {
+            that.bill = response.data.data
+            // that.dialog_bill = true
+            console.log(response.data)
+          })
+      } else {
+        this.dialog_err = true
+        this.msg_err = '发票号为空'
+      }
     },
     get_patient_register: function () {
       var url = this.HOME + '/constant/get'

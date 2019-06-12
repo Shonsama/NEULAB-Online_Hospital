@@ -189,7 +189,7 @@
             icon
             flat
             color="primary"
-            @click="disabled = !disabled"
+            @click="reprint_bill"
           >
             <v-icon>
               refresh
@@ -200,7 +200,7 @@
             icon
             flat
             color="primary"
-            @click="disabled = !disabled"
+            @click="overprint"
           >
             <v-icon>
               print
@@ -486,6 +486,7 @@
 export default {
   data: () => ({
     bill: {},
+    isPrint: false,
     dialog_bill: false,
     dialog: false,
     dialog_add: false,
@@ -556,6 +557,13 @@ export default {
     ]
   }),
   watch: {
+    bill: function (newState) {
+      if (newState.bill_id) {
+        this.isPrint = true
+      } else {
+        this.isPrint = false
+      }
+    },
     checkbox: function (newState) {
       if (newState) {
         this.bill_sum++
@@ -772,6 +780,41 @@ export default {
           // that.dialog_bill = true
           console.log(response.data)
         })
+    },
+    reprint_bill: function () {
+      let that = this
+      var url = this.HOME + '/bill/reprint'
+      var data = {
+        bill_id: that.bill.bill_id
+      }
+      if (that.bill.bill_id) {
+        this.$http.post(url, data)
+          .then(function (response) {
+            // that.dialog_bill = true
+            console.log(response.data)
+          })
+      } else {
+        this.dialog_err = true
+        this.msg_err = '发票号为空'
+      }
+    },
+    overprint: function () {
+      let that = this
+      var url = this.HOME + '/bill/overprint'
+      var data = {
+        bill_id: that.bill.bill_id
+      }
+      if (that.bill.bill_id) {
+        this.$http.post(url, data)
+          .then(function (response) {
+            that.bill = response.data.data
+            // that.dialog_bill = true
+            console.log(response.data)
+          })
+      } else {
+        this.dialog_err = true
+        this.msg_err = '发票号为空'
+      }
     },
     submit_register: function () {
       let that = this

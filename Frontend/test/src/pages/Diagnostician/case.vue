@@ -535,6 +535,7 @@ export default {
             that.dialog_suc = true
             that.msg_suc = '刷新成功'
           } else {
+            that.dialog = false
             that.dialog_err = true
             that.msg_err = '刷新未成功'
           }

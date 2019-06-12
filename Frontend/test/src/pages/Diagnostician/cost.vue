@@ -9,22 +9,24 @@
           <v-text-field
             v-model="search_patient"
             append-icon="search"
-            label="病历号"
+            label="搜索"
+            single-line
             hide-details
-            style="margin-bottom: 15px"
+            style="margin-bottom: 12px"
           ></v-text-field>
           </v-flex>
         </v-toolbar>
         <v-divider/>
         <v-data-table
           :headers="headers_patient"
-          :items="desserts_patient"
+          :items="desserts_patient.filter(filterPatients)"
           :search="search_patient"
         >
           <template v-slot:items="props">
             <td>{{ props.item.register_info_id }}</td>
             <td>{{ props.item.register_info_patient_id }}</td>
             <td>{{ props.item.patient.patient_name }}</td>
+            <td>{{ props.item.register_info_state }}</td>
             <td>
               <v-btn small right icon flat color="primary" @click="getFee(props.item)" class="ml-3">
                 查看
@@ -74,6 +76,10 @@ export default {
       {
         text: '患者',
         value: 'patient.patient_name'
+      },
+      {
+        text: '状态',
+        value: 'register_info_state'
       },
       {
         text: '操作',
@@ -130,6 +136,9 @@ export default {
   methods: {
     filterType: function (value) {
       return value.state === '已开立' || value.state === '已发送'
+    },
+    filterPatients: function (value) {
+      return value.register_info_state !== '已退号' && value.register_info_state !== '已挂号'
     },
     get: function () {
       let that = this
