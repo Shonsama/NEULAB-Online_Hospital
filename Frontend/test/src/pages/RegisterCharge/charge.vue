@@ -332,9 +332,10 @@
               </td>
               <td>{{ props.item.name }}</td>
               <td>{{ props.item.state }}</td>
-              <td>{{ props.item.type }}</td>
-              <td>{{ props.item.number }}</td>
-              <td>{{ props.item.quantity }}</td>
+              <td>{{ props.item.prescription_unit_price }}</td>
+              <td>
+                {{props.item.prescription_refund_available_num}}
+              </td>
               <td>
                 <v-btn
                   small
@@ -343,7 +344,7 @@
                   flat
                   class="ml-3"
                   color="primary"
-                  @click="show = !show, medicine = props.item"
+                  @click="show = !show, medicine = props.item, quantity = props.item.prescription_refund_available_num"
                 >
                   退费
                 </v-btn>
@@ -505,9 +506,11 @@ export default {
       var url = this.HOME + '/user-service/refund/return-prescription'
       var data = {
         prescription_id: that.prescription.id,
-        prescription_medicine_id: that.medicine.id,
-        prescription_num: that.prescription.code
+        prescription_medicine_id: that.medicine.prescription_content_id,
+        prescription_num: that.quantity_sub
       }
+      that.quantity_sub = ''
+      console.log(data)
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)

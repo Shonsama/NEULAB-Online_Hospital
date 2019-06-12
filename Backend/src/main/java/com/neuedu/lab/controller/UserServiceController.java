@@ -72,6 +72,7 @@ public class UserServiceController {
     public JSONObject getPrescriptionContent(@RequestBody JSONObject request){
         return userService.getPrescriptions(request.getInteger("prescription_id"));
     }
+
     @RequestMapping("/refund/return-prescription")
     public JSONObject retrunPrescription(@RequestBody JSONObject request){
         return userService.returnMedicine(request.getInteger("prescription_id"),
