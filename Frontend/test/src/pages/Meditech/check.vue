@@ -153,7 +153,8 @@ export default {
     ms_item: '',
     ms_patient_id: '',
     show: false,
-    department_default: '血液科',
+    department_default: '艾滋病科',
+    userid_default: '5',
     search_patient: '',
     state: '',
     ms_id: '',
@@ -244,7 +245,8 @@ export default {
       let that = this
       var url = this.HOME + 'ms-doctor/medical-skill/confirm'
       this.$http.post(url, {
-        medical_skill_id: that.ms_id
+        medical_skill_id: that.ms_id,
+        medical_skill_execute_doctor_id: that.userid_default
       })
         .then(function (response) {
           console.log(response.data)
@@ -259,7 +261,8 @@ export default {
       let that = this
       var url = this.HOME + 'ms-doctor/medical-skill/cancel'
       this.$http.post(url, {
-        medical_skill_id: that.ms_id
+        medical_skill_id: that.ms_id,
+        medical_skill_execute_doctor_id: that.userid_default
       })
         .then(function (response) {
           console.log(response.data)

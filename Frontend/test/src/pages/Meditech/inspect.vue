@@ -119,6 +119,7 @@
           <template v-slot:items="props">
             <td>{{ props.item.medical_skill_id }}</td>
             <td>{{ props.item.medical_skill_execute_state }}</td>
+            <td>{{ props.item.medical_skill_name }}</td>
             <td>{{ props.item.medical_skill_result }}</td>
             <td>
               <v-icon
@@ -153,7 +154,8 @@
       ms_item: '',
       ms_patient_id: '',
       show: false,
-      department_default: '血液科',
+      department_default: 'wp',
+      userid_default: '5',
       search_patient: '',
       state: '',
       ms_id: '',
@@ -189,6 +191,7 @@
           value: 'medical_skill_id'
         },
         { text: '医技状态', value: 'medical_skill_execute_state' },
+        { text: '医技状态', value: 'medical_skill_name' },
         { text: '医技结果', value: 'medical_skill_result' },
         { text: '操作', value: 'operation', sortable: false }
       ],
@@ -244,7 +247,8 @@
         let that = this
         var url = this.HOME + 'ms-doctor/medical-skill/confirm'
         this.$http.post(url, {
-          medical_skill_id: that.ms_id
+          medical_skill_id: that.ms_id,
+          medical_skill_execute_doctor_id: that.userid_default
         })
           .then(function (response) {
             console.log(response.data)
@@ -259,7 +263,8 @@
         let that = this
         var url = this.HOME + 'ms-doctor/medical-skill/cancel'
         this.$http.post(url, {
-          medical_skill_id: that.ms_id
+          medical_skill_id: that.ms_id,
+          medical_skill_execute_doctor_id: that.userid_default
         })
           .then(function (response) {
             console.log(response.data)
