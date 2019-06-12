@@ -172,9 +172,9 @@ public class DoctorService {
 
     //接诊
     public JSONObject treat(Integer register_id){
-//        if(vaildService.isRegisterStateRegistered(register_id,REGISTER_STATE[0])){//验证状态
-//            return responseFail("当前挂号状态不允许医生接诊",null);
-//        }
+        if(!isRegisterStateVaild(register_id,REGISTER_STATE[0])){//验证状态
+            return responseFail("当前挂号状态不允许医生接诊",null);
+        }
         try{
             doctorMapper.treat(register_id, REGISTER_STATE[1]);
         }catch (RuntimeException e){
@@ -184,12 +184,14 @@ public class DoctorService {
         return responseSuccess(registerMapper.getRegister(register_id));
     }
 
+
+
     //填写门诊病历首页
     @Transactional
     public JSONObject submitRecord(Record record){
-//        if(!vaildService.isRegisterStateRegistered(record.getRecord_id(),REGISTER_STATE[1])){//验证状态
-//            return responseFail("当前病历状态不允许进行此操作",null);
-//        }
+        if(!isRegisterStateVaild(record.getRecord_id(),REGISTER_STATE[1])){//验证状态
+            return responseFail("当前病历状态不允许进行此操作",null);
+        }
         try {
             String record_state = recordMapper.getRecordStateById(record.getRecord_id());
             if(record_state == null){
@@ -237,6 +239,10 @@ public class DoctorService {
 
     //确认初诊完毕
     public JSONObject confirmFirstDiagnose(Integer record_id){
+        //安全校验
+        if(!isRegisterStateVaild(record_id,REGISTER_STATE[1]) || !isRecordVaild(record_id,RECORD_STATE[0])){
+            return responseFail("当前挂号状态或病历状态非法,不可提交初诊",null);
+        }
         try{
             recordMapper.updateRecordStateById(record_id,RECORD_STATE[1]);
         }catch (RuntimeException e){
@@ -502,10 +508,40 @@ public class DoctorService {
     }
 
 
-    //==================私有内部方法=================
+    //====================================================私有内部方法==========================
 
 
-    //验证状态是否
+    //验证挂号状态是否合格
+    private boolean isRegisterStateVaild(Integer register_id, String REGISTER_STATE) {
+        Register register;
+        try{
+            register = registerMapper.getRegister(register_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return false;
+        }
+        return register.getRegister_info_state().equals(REGISTER_STATE);
+    }
+
+    //验证病历状态是否合格
+    private boolean isRecordVaild(Integer record_id, String RECORD_STATE){
+        Record record;
+        try{
+            record = recordMapper.getRecordById(record_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return false;
+        }
+        return record.getRecord_state().equals(RECORD_STATE);
+    }
+
+
+
+
+
+
+
+
     //获取一个处方的所有内容及药品
     private Prescription fulfill(Prescription prescription){
         List<PrescriptionContent> contentList;
