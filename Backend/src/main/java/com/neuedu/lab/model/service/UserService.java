@@ -463,8 +463,7 @@ public class UserService {
         //首先检测处方处于已退费状态或已缴费状态356
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
-                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5])||
-                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[6]))){
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[5]))){
             return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
         }
 

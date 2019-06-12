@@ -37,7 +37,7 @@ public class MedicineDepartController {
     @RequestMapping("/return-medicine")
     public JSONObject returnMedicine(@RequestBody JSONObject request){
         return medicineDepartService.returnMedicine(request.getInteger("prescription_id"),
-                request.getString("prescription_medicine_id"),request.getInteger("prescription_num"));
+                request.getInteger("prescription_content_id"),request.getInteger("prescription_num"));
     }
 
     @RequestMapping("/get-sent-prescription")
