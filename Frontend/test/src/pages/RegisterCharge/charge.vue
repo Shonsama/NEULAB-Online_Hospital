@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div>
+  <div class="scroll-y">
     <v-dialog
       v-model="show"
       max-width="400"
@@ -45,7 +45,7 @@
         </div>
       </v-expand-transition>
     </v-flex>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar extended flat dense>
         <v-toolbar-title>收费信息</v-toolbar-title>
         <template v-slot:extension>
@@ -213,7 +213,7 @@
         </v-container>
       </v-form>
     </v-card>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar flat dense>
         <v-toolbar-title >患者交费</v-toolbar-title>
       </v-toolbar>
@@ -254,21 +254,22 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-card>
-      <v-toolbar extended flat dense>
+    <v-card class="scroll-y">
+      <v-toolbar flat dense>
         <v-toolbar-title >患者收费信息</v-toolbar-title>
-        <template v-slot:extension>
-          <el-date-picker
-            v-model="date"
-            type="datetimerange"
-            align="right"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            :default-time="['12:00:00', '08:00:00']"
-            style="margin-right: 10px;margin-bottom: 10px"
-          >
-          </el-date-picker>
-        </template>
+        <!--<template v-slot:extension>-->
+          <!--<el-date-picker-->
+            <!--v-model="date"-->
+            <!--type="datetimerange"-->
+            <!--align="right"-->
+            <!--start-placeholder="开始日期"-->
+            <!--end-placeholder="结束日期"-->
+            <!--:default-time="['12:00:00', '08:00:00']"-->
+            <!--style="margin-right: 10px;margin-bottom: 10px"-->
+          <!--&gt;-->
+          <!--</el-date-picker>-->
+        <!--</template>-->
+        <!--{{date}}-->
       </v-toolbar>
       <v-data-table
         v-model="selected1"
@@ -276,7 +277,7 @@
         :items="filterDesserts"
         item-key="hint"
         select-all
-        class="elevation-1"
+        class="elevation-1 scroll-y"
       >
         <template v-slot:items="props">
           <td>
@@ -321,7 +322,7 @@
             item-key="hint"
             select-all
             v-if="!(props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置' || props.item.state === '已退药')"
-            class="elevation-1"
+            class="elevation-1 scroll-y"
           >
             <template v-slot:items="props">
               <td>

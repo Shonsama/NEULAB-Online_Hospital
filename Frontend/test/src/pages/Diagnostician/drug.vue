@@ -767,7 +767,7 @@ export default {
       return value.template_type === '中药'
     },
     filterType_med (value) {
-      return value.medicine_type === '中药'
+      return value.medicine_type === '中草药' || value.medicine_type === '中成药'
     },
     getTem () {
       let that = this

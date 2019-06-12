@@ -128,7 +128,7 @@
         </div>
       </v-expand-transition>
     </v-flex>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar extended flat dense>
         <v-toolbar-title>挂号信息</v-toolbar-title>
         <template v-slot:extension>
@@ -386,7 +386,7 @@
         </v-form>
       </v-layout>
     </v-card>
-    <v-card>
+    <v-card class="scroll-y">
       <v-toolbar flat dense>
         <v-toolbar-title>挂号信息列表</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -397,7 +397,7 @@
         :items="register_items"
         item-key="register_info_id"
         select-all
-        class="elevation-1"
+        class="elevation-1 "
       >
         <template v-slot:items="props">
           <td>

@@ -799,6 +799,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
+          that.dialog = false
         })
     },
     addTem () {
