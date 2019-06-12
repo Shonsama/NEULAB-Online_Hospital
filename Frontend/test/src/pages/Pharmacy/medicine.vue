@@ -255,6 +255,7 @@ export default {
           console.log(response.data)
           that.getContent(item)
           that.getSentPre({patient_record_id: that.md_patient_id})
+          that.show = !that.show
         })
     },
     getNumAvailable: function (num) {

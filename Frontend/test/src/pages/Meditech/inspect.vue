@@ -154,7 +154,7 @@
       ms_item: '',
       ms_patient_id: '',
       show: false,
-      department_default: 'wp',
+      department_default: '艾滋病科',
       userid_default: '5',
       search_patient: '',
       state: '',
