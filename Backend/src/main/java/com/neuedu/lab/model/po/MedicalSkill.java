@@ -1,5 +1,8 @@
 package com.neuedu.lab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,8 +16,14 @@ public class MedicalSkill {
     private String medical_skill_checkpoint;
     private String medical_skill_purpose;
     private boolean medical_skill_urgent;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date medical_skill_create_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date medical_skill_pay_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date medical_skill_consume_time;
     private BigDecimal medical_skill_fee;
     private Integer medical_skill_register_info_id;

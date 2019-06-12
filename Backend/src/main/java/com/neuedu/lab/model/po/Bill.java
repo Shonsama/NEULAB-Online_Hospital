@@ -1,11 +1,16 @@
 package com.neuedu.lab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class Bill {
     private Integer bill_id;
     private BigDecimal bill_sum;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bill_time;
     private String bill_type;
     private Integer bill_register_id;
