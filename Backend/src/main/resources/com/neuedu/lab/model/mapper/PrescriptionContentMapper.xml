@@ -53,11 +53,6 @@
         WHERE prescription_id = #{prescription_id} AND prescription_medicine_id = #{prescription_medicine_id}
     </select>
 
-    <select id="getPrescriptionContentPositive" resultType="PrescriptionContent">
-        SELECT * FROM prescription_content
-        WHERE prescription_id = #{prescription_id} AND prescription_num>0
-    </select>
-
     <select id="getPrescriptionContentById" resultType="PrescriptionContent">
         SELECT * FROM prescription_content
         WHERE prescription_content_id = #{prescription_content_id}
