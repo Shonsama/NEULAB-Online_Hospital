@@ -306,7 +306,7 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.template_medical_skill_content_unit_price }}</td>
+            <td>{{ props.item.template_medical_skill_content_department_name }}</td>
             <td>{{ props.item.template_medicine_name }}</td>
             <td>{{ props.item.template_medicine_specification }}</td>
             <td>{{ props.item.template_medicine_usage }}</td>
@@ -674,7 +674,7 @@ export default {
         {
           text: '药品编号',
           align: 'left',
-          value: 'template_medical_skill_content_unit_price'
+          value: 'template_medical_skill_content_department_name'
         },
         {
           text: '药品名称',
@@ -759,8 +759,8 @@ export default {
     getTem () {
       let that = this
       var data = {
-        doctor_id: '1',
-        department_id: 'XXGK'
+        department_id: this.$store.state.user.department_id,
+        doctor_id: this.$store.state.user.id
       }
       var url = this.HOME + '/template/get-all'
       this.$http.post(url, data)
@@ -823,10 +823,10 @@ export default {
       var data = {
         template_id: value.template_id
       }
+      that.template_con_id = value.template_id
       that.template_con_name = value.template_name
       that.template_con_range = value.template_range
       that.template_con_type = value.template_type
-      that.template_con_id = value.template_id
       var url = this.HOME + '/template/get-content-non-medicine'
       this.$http.post(url, data)
         .then(function (response) {
@@ -860,16 +860,16 @@ export default {
       var url = this.HOME + '/template/add-content-medicine'
       for (i = 0; i < that.tem_add.length; i++) {
         var data = {
+          template_medicine_unit_price: that.tem_add[i].prescription_unit_price,
+          template_medicine_consumption: that.tem_add[i].prescription_consumption,
+          template_medicine_unit: that.tem_add[i].medicine_unit,
           template_connect_id: that.template_con_id,
           template_medicine_name: that.tem_add[i].medicine.medicine_name,
           template_medicine_specification: that.tem_add[i].medicine.medicine_specifications,
-          template_medicine_unit: that.tem_add[i].medicine_unit,
           template_medicine_usage: that.tem_add[i].prescription_day,
-          template_medicine_consumption: that.tem_add[i].prescription_consumption,
-          template_medicine_frequency: that.tem_add[i].prescription_frequency,
           template_medicine_number: that.tem_add[i].prescription_num,
-          template_medicine_unit_price: that.tem_add[i].prescription_unit_price,
-          template_medical_skill_content_unit_price: that.tem_add[i].medicine.medicine_id
+          template_medicine_frequency: that.tem_add[i].prescription_frequency,
+          template_medical_skill_content_department_name: that.tem_add[i].medicine.medicine_id
         }
         console.log(data)
         this.$http.post(url, data)
@@ -893,8 +893,12 @@ export default {
         template_medicine_frequency: that.prescription_frequency,
         template_medicine_number: that.prescription_num,
         template_medicine_unit_price: value.medicine_unit_price,
-        template_medical_skill_content_unit_price: value.medicine_id
+        template_medical_skill_content_department_name: value.medicine_id
       }
+      that.prescription_day = ''
+      that.prescription_consumption = ''
+      that.prescription_num = ''
+      that.prescription_frequency = ''
       console.log(value)
       that.dialog = true
       this.$http.post(url, data)
@@ -966,11 +970,13 @@ export default {
         prescription_day: that.prescription_day
       }
       console.log(data)
+      that.dialog = true
       var url = this.HOME + '/doctor/add-medicine'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.getItem()
+          that.show = false
         })
       that.prescription_id = ''
       that.prescription_consumption = ''
@@ -983,6 +989,7 @@ export default {
       var i
       var url = this.HOME + '/doctor/delete-medicine'
       console.log(that.selected_con)
+      that.dialog = true
       var data
       for (i = 0; i < that.selected_con.length; i++) {
         data = {
@@ -1001,6 +1008,7 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
@@ -1014,8 +1022,8 @@ export default {
         prescription_type: '中药',
         prescription_doctor_id: that.msgfromfa.register_info_doctor_id,
         prescription_register_info_id: that.msgfromfa.register_info_id,
-        prescription_name: that.prescription_name
-
+        prescription_name: that.prescription_name,
+        prescription_fee: '0'
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-prescription'
@@ -1042,7 +1050,6 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
-            that.dialog = true
           })
       }
     },
@@ -1057,6 +1064,7 @@ export default {
         }
         this.$http.post(url, data)
           .then(function (response) {
+            that.dialog = true
             console.log(response.data)
             that.getItem()
           })
@@ -1073,6 +1081,7 @@ export default {
         }
         this.$http.post(url, data)
           .then(function (response) {
+            that.dialog = true
             console.log(response.data)
             that.getItem()
           })

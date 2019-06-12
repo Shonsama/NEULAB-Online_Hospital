@@ -682,6 +682,9 @@ export default {
     filterDesserts () {
       return this.desserts.filter(this.filterType)
     },
+    filterDeparts () {
+      return this.departments.filter(this.filterDepart)
+    },
     filterDessertsTem () {
       return this.desserts_tem.filter(this.filterType_tem)
     },
@@ -725,7 +728,6 @@ export default {
         doctor_id: this.$store.state.user.id,
         department_id: this.$store.state.user.department_id
       }
-      that.dialog = true
       var url = this.HOME + '/template/get-all'
       this.$http.post(url, data)
         .then(function (response) {
@@ -750,11 +752,11 @@ export default {
     updateTem () {
       let that = this
       var data = {
+        template_name: that.template_con_name,
+        template_init_date: new Date(),
         template_type: that.template_con_type,
         template_range: that.template_con_range,
         template_id: that.template_con_id,
-        template_name: that.template_con_name,
-        template_init_date: new Date(),
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
       var url = this.HOME + '/template/update-template'
@@ -855,6 +857,10 @@ export default {
         template_medical_skill_content_department_name: that.department.department_name,
         template_medical_skill_content_unit_price: value.medical_skill_content_price
       }
+      that.medical_skill_urgent = ''
+      that.medical_skill_purpose = ''
+      that.department.department_name = ''
+      that.medical_skill_checkpoint = ''
       console.log(value)
       that.dialog = true
       this.$http.post(url, data)
