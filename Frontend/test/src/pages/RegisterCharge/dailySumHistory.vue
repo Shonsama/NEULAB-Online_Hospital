@@ -68,6 +68,60 @@
 
 <script>
 export default {
+  data () {
+    return {
+      date: ['', ''],
+      desserts: [{
+        code: '1',
+        cost: '11',
+        state: '1',
+        type: '1',
+        time: '1'
+      },
+      {
+        code: '11',
+        cost: '111',
+        state: '11',
+        type: '11',
+        time: '1'
+      }],
+      headers: [{
+        text: '发票号',
+        align: 'left',
+        value: 'code'
+      },
+      {text: '结算类型', value: 'type'},
+      {text: '收费时间', value: 'time'},
+      {text: '收费金额', value: 'cost'}],
+      selected: '',
+      daily: ''
+    }
+  },
+  created: function () {
+    this.getDate()
+  },
+  computed: {
+  },
+  mounted: function () {
+  },
+  methods: {
+    getDate: function () {
+      this.date[0] = new Date(2019, 5, 1, 10, 10)
+      this.date[1] = new Date()
+    },
+    getDaily: function () {
+      let that = this
+      var url = this.HOME + '/user-service/daily-search'
+      var data = {
+        daily_user_id: that.$store.state.user.id
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.daily = response.data.data
+        })
+    }
+  }
 }
 </script>
 

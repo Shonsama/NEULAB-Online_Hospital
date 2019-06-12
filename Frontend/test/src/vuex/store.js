@@ -5,6 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     doctor: '',
+    token: '',
     user: {
       id: '1',
       department_id: 'AZBK',
@@ -18,6 +19,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    set_token (state, token) {
+      state.token = token
+      sessionStorage.token = token
+    },
+    del_token (state) {
+      state.token = ''
+      sessionStorage.removeItem('token')
+    },
     showDrawer: function (state) {
       var stateNow = state.showDrawer
       state.showDrawer = !stateNow
