@@ -248,7 +248,7 @@ export default {
       var url = this.HOME + 'md-doctor/return-medicine'
       this.$http.post(url, {
         prescription_id: item.prescription_id,
-        prescription_medicine_id: item.prescription_medicine_id,
+        prescription_content_id: item.prescription_content_id,
         prescription_num: that.refund_num
       })
         .then(function (response) {
