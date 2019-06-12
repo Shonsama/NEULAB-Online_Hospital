@@ -2,6 +2,7 @@ package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Prescription;
 import com.neuedu.lab.model.po.PrescriptionContent;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -36,4 +37,8 @@ public interface PrescriptionContentMapper {
 
     //供退药使用， 更新内容
     void updatePrescriptionContent(PrescriptionContent prescriptionContent);
+
+    //供退药使用，更新处方ID
+    void updatePrescriptionId(@Param("prescription_id_before") Integer prescription_id_before,
+                              @Param("prescription_id") Integer prescription_id);
 }

@@ -14,7 +14,6 @@ public class PrescriptionContent {
     private Integer prescription_day;
     private BigDecimal prescription_unit_price;
     private BigDecimal prescription_content_fee;
-    private BigDecimal prescription_content_actual_unit_price;
     private Medicine medicine;
 
     public Medicine getMedicine() {
@@ -31,14 +30,6 @@ public class PrescriptionContent {
 
     public void setPrescription_refund_available_num(Integer prescription_refund_available_num) {
         this.prescription_refund_available_num = prescription_refund_available_num;
-    }
-
-    public BigDecimal getPrescription_content_actual_unit_price() {
-        return prescription_content_actual_unit_price;
-    }
-
-    public void setPrescription_content_actual_unit_price(BigDecimal prescription_content_actual_unit_price) {
-        this.prescription_content_actual_unit_price = prescription_content_actual_unit_price;
     }
 
     public BigDecimal getPrescription_unit_price() {

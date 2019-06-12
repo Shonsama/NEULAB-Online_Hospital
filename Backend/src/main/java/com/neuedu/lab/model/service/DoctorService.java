@@ -405,7 +405,6 @@ public class DoctorService {
             Medicine medicine = medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id());
 
             prescriptionContent.setPrescription_unit_price(medicine.getMedicine_unit_price());
-            prescriptionContent.setPrescription_content_actual_unit_price(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
             prescriptionContent.setPrescription_content_fee(medicine.getMedicine_unit_price().multiply(new BigDecimal(prescriptionContent.getPrescription_num())));
             //增加药品
             prescriptionContentMapper.addPrescriptionContent(prescriptionContent);

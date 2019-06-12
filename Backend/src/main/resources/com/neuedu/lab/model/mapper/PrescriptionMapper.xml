@@ -7,18 +7,18 @@
         <if test="prescription_create_time == null">
             INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
             prescription_doctor_id, prescription_register_info_id, prescription_name,
-            prescription_pay_time,prescription_sent_time)
+            prescription_pay_time,prescription_sent_time,prescription_fee)
             VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
             #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name},
-            #{prescription_pay_time},#{prescription_sent_time})
+            #{prescription_pay_time},#{prescription_sent_time},#{prescription_fee})
         </if>
         <if test="prescription_create_time != null">
             INSERT INTO prescription ( prescription_execute_state, prescription_type, prescription_user_id,
             prescription_doctor_id, prescription_register_info_id, prescription_name,
-            prescription_create_time,prescription_pay_time,prescription_sent_time)
+            prescription_create_time,prescription_pay_time,prescription_sent_time,prescription_fee)
             VALUES (#{prescription_execute_state},#{prescription_type},#{prescription_user_id},
             #{prescription_doctor_id},#{prescription_register_info_id},#{prescription_name},
-            #{prescription_create_time},#{prescription_pay_time},#{prescription_sent_time})
+            #{prescription_create_time},#{prescription_pay_time},#{prescription_sent_time},#{prescription_fee})
         </if>
 
     </insert>
