@@ -1,6 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="scroll-y">
     <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-dialog
       v-model="show"
       max-width="400"
     >
@@ -50,7 +70,7 @@
         <v-toolbar-title>收费信息</v-toolbar-title>
         <template v-slot:extension>
           <v-flex xs2>
-            <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text"
+            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
                           :disabled="disabled"></v-text-field>
           </v-flex>
           <v-btn
@@ -265,7 +285,7 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             :default-time="['12:00:00', '08:00:00']"
-            style="margin-right: 10px;margin-bottom: 10px"
+            style="margin-right: 5px;margin-bottom: 10px"
           >
           </el-date-picker>
         </template>
@@ -362,6 +382,7 @@
 export default {
   data () {
     return {
+      bill: {},
       date: ['', ''],
       show: false,
       dialog_add: false,
@@ -433,7 +454,7 @@ export default {
     },
     dialog (val) {
       if (!val) return
-      setTimeout(() => (this.dialog = false, this.dialog_err = true, this.msg_err = '网络环境出现了问题！'), 10000)
+      setTimeout(() => (this.dialog = false), 3000)
     },
     dialog_err (val) {
       if (!val) return
@@ -451,7 +472,7 @@ export default {
       return arr
     },
     filterDate: function (value) {
-      return (this.date[0] <= value.time && this.date[1] >= value.time) || this.date[0] === '' || this.date[1] === ''
+      return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '') && value.number !== 0
     },
     chargeItem: function (value) {
       let that = this
@@ -468,6 +489,7 @@ export default {
           console.log(response.data)
           if (response.data.code === 200) {
             that.dialog = true
+            that.bill = response.data.data
             that.getItem()
             that.getItem_charge()
             that.dialog = false
@@ -492,6 +514,7 @@ export default {
           console.log(response.data)
           if (response.data.code === 200) {
             that.dialog = true
+            that.bill = response.data.data
             that.getItem()
             that.dialog = false
             that.dialog_suc = true
@@ -507,7 +530,7 @@ export default {
       var url = this.HOME + '/user-service/refund/return-prescription'
       var data = {
         prescription_id: that.prescription.id,
-        prescription_medicine_id: that.medicine.prescription_content_id,
+        prescription_content_id: that.medicine.prescription_content_id,
         prescription_num: that.quantity_sub
       }
       var value = {

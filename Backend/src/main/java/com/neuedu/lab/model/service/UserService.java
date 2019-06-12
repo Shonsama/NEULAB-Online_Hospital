@@ -1,6 +1,7 @@
 package com.neuedu.lab.model.service;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -48,6 +50,9 @@ public class UserService {
     private PatientMapper patientMapper;
     @Resource
     private MedicineMapper medicineMapper;
+
+    private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     /*获取所有用户信息*/
     public List<User> getAllUsers() {
@@ -210,8 +215,8 @@ public class UserService {
         //获取发票List并将其冻结
         List<Bill> bills;
         try{
-           bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
-           billMapper.updateBillFrozen(daily.getDaily_user_id(), daily.getDaily_start(), daily.getDaily_end());
+           bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
+           billMapper.updateBillFrozen(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail("获取发票List",null);
@@ -219,7 +224,6 @@ public class UserService {
 
         //通过发票计算费用
         BigDecimal daily_sum = new BigDecimal(0);
-        BigDecimal daily_actual_sum = new BigDecimal(0);
         BigDecimal daily_register_sum = new BigDecimal(0);
         BigDecimal daily_mid_prescription_sum = new BigDecimal(0);
         BigDecimal daily_west_prescription_sum = new BigDecimal(0);
@@ -253,10 +257,12 @@ public class UserService {
         }
 
         daily.setDaily_sum(daily_sum);
-        daily.setDaily_actual_sum(daily_actual_sum);
         daily.setDaily_register_sum(daily_register_sum);
         daily.setDaily_mid_prescription_sum(daily_mid_prescription_sum);
         daily.setDaily_west_prescription_sum(daily_west_prescription_sum);
+        daily.setDaily_check_sum(daily_check_sum);
+        daily.setDaily_examine_sum(daily_examine_sum);
+        daily.setDaily_handle_sum(daily_handle_sum);
 
         try{
             dailyMapper.addDaily(daily); //将记录插入到日结表
@@ -307,7 +313,7 @@ public class UserService {
         Daily daily;
         try{
             daily = dailyMapper.getDailyById(daily_id);
-            daily.setBills(billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),daily.getDaily_start(),daily.getDaily_end()));
+            daily.setBills(billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end())));
             List<Bill> abandonBillList = new ArrayList<>();//作废
             List<Bill> redoBillList = new ArrayList<>();//重打
             List<Bill> overprintBillList = new ArrayList<>();//补打

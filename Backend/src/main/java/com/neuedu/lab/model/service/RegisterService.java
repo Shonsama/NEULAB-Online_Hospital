@@ -113,7 +113,7 @@ public class RegisterService {
     public JSONObject addBill(Bill bill){
         try {
             bill.setBill_type(ConstantDefinition.BILL_TYPE[0]);
-            bill.setBill_time(new Date());
+            bill.setBill_time(new java.sql.Date(new Date().getTime()));
             billMapper.addBill(bill);
         }catch (Exception e){
             e.printStackTrace();

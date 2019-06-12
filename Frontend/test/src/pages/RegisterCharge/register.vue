@@ -1,24 +1,52 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-dialog
-      v-model="dialog"
+      v-model="dialog_bill"
       hide-overlay
       persistent
-      width="300"
+      width="400"
     >
-      <v-card
-        color="primary"
-        dark
-      >
-        <v-card-text>
-          请稍等
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
+      <v-layout justify-center>
+        <v-flex>
+          <v-card>
+            <v-card-title>
+              发票
+            </v-card-title>
+            <v-card-text>
+              <v-text-field
+                v-model="bill.bill_id"
+                label="发票号"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_register_id"
+                label="挂号ID"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_sum"
+                label="发票总额"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_time"
+                label="打印时间"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_type"
+                label="收费类别"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_user_id"
+                label="收费员ID"
+                readonly
+              ></v-text-field>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-dialog>
     <v-dialog
       v-model="dialog_add"
@@ -129,11 +157,31 @@
       </v-expand-transition>
     </v-flex>
     <v-card class="scroll-y">
+      <v-dialog
+        v-model="dialog"
+        hide-overlay
+        persistent
+        width="300"
+      >
+        <v-card
+          color="primary"
+          dark
+        >
+          <v-card-text>
+            请稍等
+            <v-progress-linear
+              indeterminate
+              color="white"
+              class="mb-0"
+            ></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <v-toolbar extended flat dense>
         <v-toolbar-title>挂号信息</v-toolbar-title>
         <template v-slot:extension>
           <v-flex xs2>
-            <v-text-field prepend-inner-icon="assignment" name="login" label="发票号" type="text"
+            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
                           :disabled="disabled"></v-text-field>
           </v-flex>
           <v-btn
@@ -437,6 +485,8 @@
 <script>
 export default {
   data: () => ({
+    bill: {},
+    dialog_bill: false,
     dialog: false,
     dialog_add: false,
     dialog_suc: false,
@@ -530,10 +580,10 @@ export default {
       if (!val) return
       setTimeout(() => (this.dialog_suc = false), 1000)
     },
-    dialog (val) {
-      if (!val) return
-      setTimeout(() => (this.dialog = false, this.dialog_err = true, this.msg_err = '网络环境出现了问题！'), 10000)
-    },
+    // dialog (val) {
+    //   if (!val) return
+    //   setTimeout(() => (this.dialog = false), 10000)
+    // },
     dialog_err (val) {
       if (!val) return
       setTimeout(() => (this.dialog_err = false), 1000)
@@ -614,9 +664,9 @@ export default {
             that.msg_err = '不存在该病人，请添加'
             that.patient_gender = ''
             that.patient_name = ''
+            that.patient_age = ''
             that.patient_credit_id = ''
             that.patient_birthDate = ''
-            that.patient_age = ''
             that.patient_address = ''
           } else {
             if (response.data.data.patient_gender) {
@@ -631,7 +681,9 @@ export default {
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true
             that.msg_suc = '患者信息已显示'
+            that.dialog = true
             that.get_patient_register()
+            that.dialog = false
           }
         })
     },
@@ -686,11 +738,21 @@ export default {
       var data = {
         'register_id': id
       }
+      that.dialog = true
       var url = this.HOME + '/register/refund'
       this.$http.post(url, data)
         .then(function (response) {
-          console.log(response.data)
-          that.get_patient_register()
+          if (response.data.code === 200) {
+            console.log(response.data)
+            that.dialog_suc = true
+            that.msg_suc = '退号成功'
+            that.get_patient_register()
+            that.dialog = false
+          } else {
+            that.dialog_err = true
+            that.msg_err = '退号失败'
+            that.dialog = false
+          }
         })
     },
     print_bill: function () {
@@ -702,10 +764,12 @@ export default {
         bill_type: '挂号费',
         bill_register_id: that.register_info_id,
         bill_user_id: that.$store.state.user.id,
-        bill_state: '1'
+        bill_state: '正常'
       }
       this.$http.post(url, data)
         .then(function (response) {
+          that.bill = response.data.data
+          // that.dialog_bill = true
           console.log(response.data)
         })
     },
@@ -732,9 +796,18 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          that.register_info_id = response.data.data.register_info_id
-          that.print_bill()
-          that.get_patient_register()
+          if (response.data.code === 200) {
+            that.dialog_suc = true
+            that.msg_suc = '挂号成功'
+            that.register_info_id = response.data.data.register_info_id
+            that.dialog = true
+            that.print_bill()
+            that.get_patient_register()
+          } else {
+            that.dialog_err = true
+            that.msg_err = '挂号失败'
+          }
+          that.dialog = false
         })
     }
   }

@@ -3,8 +3,7 @@ package com.neuedu.lab.model.mapper;
 import com.neuedu.lab.model.po.Bill;
 import org.apache.ibatis.annotations.Param;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface BillMapper {
@@ -17,8 +16,8 @@ public interface BillMapper {
     List<Bill> getBillForOneRecord(Integer register_id);
 
     List<Bill> getBillByUserIdAndTime(@Param("bill_user_id") Integer bill_user_id,
-                                      @Param("start_time") Date start_time,
-                                      @Param("end_time") Date end_time);
+                                      @Param("start_time") String start_time,
+                                      @Param("end_time") String end_time);
 
     //供退费使用
     List<Bill> getBillByMedicalSkillId(Integer bill_medical_skill_id);
@@ -29,6 +28,6 @@ public interface BillMapper {
 
     //日结冻结发票
     void updateBillFrozen(@Param("bill_user_id") Integer bill_user_id,
-                          @Param("start_time") Date start_time,
-                          @Param("end_time") Date end_time);
+                          @Param("start_time") String start_time,
+                          @Param("end_time") String end_time);
 }
