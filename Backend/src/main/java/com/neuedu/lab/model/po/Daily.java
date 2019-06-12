@@ -19,7 +19,8 @@ public class Daily {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date daily_end;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date daily_operate_time;
     private Integer daily_user_id;
     private String daily_pass_state; //是否审核通过

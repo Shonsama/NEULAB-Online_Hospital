@@ -1,6 +1,10 @@
 package com.neuedu.lab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Register {
     private Integer register_info_id;
@@ -11,10 +15,20 @@ public class Register {
     private Integer register_info_patient_id;
     private Integer register_info_user_id;
     private Boolean register_info_records_book;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date register_info_time;
     private Doctor doctor;
     private Patient patient;
     private User user;
 
+    public Date getRegister_info_time() {
+        return register_info_time;
+    }
+
+    public void setRegister_info_time(Date register_info_time) {
+        this.register_info_time = register_info_time;
+    }
 
     public Boolean getRegister_info_records_book() {
         return register_info_records_book;
