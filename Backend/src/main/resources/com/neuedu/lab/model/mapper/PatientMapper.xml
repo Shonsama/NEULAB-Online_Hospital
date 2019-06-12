@@ -36,20 +36,20 @@
         select * from patient_info
     </select>
 
-    <!--查询某药品信息,根据患者病历号-->
+    <!--查询患者所有信息，根据病历号-->
     <select id="getPatientByRecordId" resultType="Patient">
         select * from patient_info
         where patient_record_id = #{patient_record_id}
     </select>
 
-    <!--查询某药品信息,根据医生id-->
+    <!--查询患者所有信息，根据医生id-->
     <select id="getPatientByDoctorId" resultType="Patient">
         select patient_info.* from patient_info,register_info
         where patient_info.patient_record_id = register_info.register_info_patient_id
         and register_info.register_info_doctor_id = #{register_info_doctor_id};
     </select>
 
-    <!--查询某药品信息,根据科室id-->
+    <!--查询患者所有信息,根据科室id-->
     <select id="getPatientByDepartmentId" resultType="Patient">
         select patient_info.* from patient_info,register_info,doctor_info
         where patient_info.patient_record_id = register_info.register_info_patient_id
