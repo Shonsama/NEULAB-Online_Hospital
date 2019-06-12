@@ -1,18 +1,15 @@
 package com.neuedu.lab.model.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
-import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.model.po.Bill;
+import com.neuedu.lab.model.po.Register;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class RegisterService {
@@ -87,7 +84,7 @@ public class RegisterService {
             try{
                 registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[3]);
                 Bill bill = billMapper.getBill(register_id);
-                bill.setBill_actual_sum(ConstantUtils.convertToNegtive(bill.getBill_actual_sum()));
+                bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 billMapper.addBill(bill);
             }catch (Exception e){

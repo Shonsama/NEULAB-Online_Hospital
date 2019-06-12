@@ -22,12 +22,7 @@ public class PatientController {
 
     @RequestMapping("/add")
     public JSONObject addPatient(@RequestBody Patient patient){
-        if(patientService.addPatient(patient)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return patientService.addPatient(patient);
     }
 
     @RequestMapping("/get-by-patient-id")
