@@ -329,7 +329,7 @@ public class UserService {
             daily.setRedoBillList(redoBillList);
             daily.setOverprintBillList(overprintBillList);
             daily.setFlushBillList(flushBillList);
-            
+
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();

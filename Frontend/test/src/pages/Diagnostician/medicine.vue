@@ -306,7 +306,7 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.template_medical_skill_content_unit_price }}</td>
+            <td>{{ props.item.template_medical_skill_content_department_name }}</td>
             <td>{{ props.item.template_medicine_name }}</td>
             <td>{{ props.item.template_medicine_specification }}</td>
             <td>{{ props.item.template_medicine_usage }}</td>
@@ -580,8 +580,8 @@ export default {
       tem_add: [],
       selected_dia: [],
       selected_pre: [],
-      selected_con: [],
       selected_tem: [],
+      selected_con: [],
       alert_success: false,
       alert_error: false,
       search: '',
@@ -674,7 +674,7 @@ export default {
         {
           text: '药品编号',
           align: 'left',
-          value: 'template_medical_skill_content_unit_price'
+          value: 'template_medical_skill_content_department_name'
         },
         {
           text: '药品名称',
@@ -720,10 +720,30 @@ export default {
       template_con_name: '',
       template_con_range: '',
       template_con_type: '',
-      template_con_id: ''
+      template_con_id: '',
+      new_prescription_id: ''
     }
   },
-  created: function () {
+  watch: {
+    record: function (newState, oldState) {
+      this.getItem()
+      this.load_medicne()
+      this.getTem()
+    },
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
+    }
+  },
+  mounted: function () {
     this.getItem()
     this.load_medicne()
     this.getTem()
@@ -736,13 +756,6 @@ export default {
       return this.desserts_tem.filter(this.filterType_tem)
     }
   },
-  watch: {
-    record: function (newState, oldState) {
-      this.getItem()
-      this.load_medicne()
-      this.getTem()
-    }
-  },
   methods: {
     notice_success: function () {
       window.setTimeout(this.change_success, 1500)
@@ -753,18 +766,20 @@ export default {
     filterType_tem (value) {
       return value.template_type === '西药'
     },
+    filterType_med (value) {
+      return value.medicine_type === '西药'
+    },
     getTem () {
       let that = this
       var data = {
-        doctor_id: '1',
-        department_id: 'XXGK'
+        department_id: this.$store.state.user.department_id,
+        doctor_id: this.$store.state.user.id
       }
       var url = this.HOME + '/template/get-all'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
-          that.dialog = false
         })
     },
     deleteTem () {
@@ -777,41 +792,59 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.getTem()
+          that.dialog =false
           that.tem = false
         })
     },
     updateTem () {
       let that = this
       var data = {
+        template_id: that.template_con_id,
         template_type: that.template_con_type,
         template_range: that.template_con_range,
-        template_id: that.template_con_id,
         template_name: that.template_con_name,
         template_init_date: new Date(),
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
+      that.dialog = true
       var url = this.HOME + '/template/update-template'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.getTem()
+          that.dialog = false
           that.tem = false
         })
     },
     useTem (value) {
       let that = this
       var data = {
-        template_id: value.template_id
+        prescription_type: '西药',
+        prescription_doctor_id: that.msgfromfa.register_info_doctor_id,
+        prescription_register_info_id: that.msgfromfa.register_info_id,
+        prescription_name: value.template_name,
+        prescription_fee: '0'
       }
-      var url = this.HOME + '/template/get-content-non-medicine'
+      console.log(data)
+      var url = this.HOME + '/doctor/add-prescription'
       this.$http.post(url, data)
         .then(function (response) {
-          console.log(response.data)
-          var i
-          for (i = 0; i < response.data.data.length; i++) {
-            that.addItemByTem(response.data.data[i])
+          that.dialog = true
+          that.new_prescription_id = response.data.data.prescription_id
+          data = {
+            template_id: value.template_id
           }
-          // that.dialog = false
+          var url1 = that.HOME + '/template/get-content-non-medicine'
+          that.$http.post(url1, data)
+            .then(function (response) {
+              console.log(response.data)
+              var i
+              for (i = 0; i < response.data.data.length; i++) {
+                that.addContentByTem(response.data.data[i])
+              }
+            })
+          console.log(response.data)
+          that.getItem()
         })
     },
     seeTem (value) {
@@ -820,10 +853,10 @@ export default {
       var data = {
         template_id: value.template_id
       }
+      that.template_con_id = value.template_id
       that.template_con_name = value.template_name
       that.template_con_range = value.template_range
       that.template_con_type = value.template_type
-      that.template_con_id = value.template_id
       var url = this.HOME + '/template/get-content-non-medicine'
       this.$http.post(url, data)
         .then(function (response) {
@@ -849,6 +882,8 @@ export default {
           that.addTemContent()
           that.text = false
           that.getTem()
+          that.dialog = false
+
         })
     },
     addTemContent () {
@@ -857,16 +892,16 @@ export default {
       var url = this.HOME + '/template/add-content-medicine'
       for (i = 0; i < that.tem_add.length; i++) {
         var data = {
+          template_medicine_unit_price: that.tem_add[i].prescription_unit_price,
+          template_medicine_consumption: that.tem_add[i].prescription_consumption,
+          template_medicine_unit: that.tem_add[i].medicine_unit,
           template_connect_id: that.template_con_id,
           template_medicine_name: that.tem_add[i].medicine.medicine_name,
           template_medicine_specification: that.tem_add[i].medicine.medicine_specifications,
-          template_medicine_unit: that.tem_add[i].medicine_unit,
           template_medicine_usage: that.tem_add[i].prescription_day,
-          template_medicine_consumption: that.tem_add[i].prescription_consumption,
-          template_medicine_frequency: that.tem_add[i].prescription_frequency,
           template_medicine_number: that.tem_add[i].prescription_num,
-          template_medicine_unit_price: that.tem_add[i].prescription_unit_price,
-          template_medical_skill_content_unit_price: that.tem_add[i].medicine.medicine_id
+          template_medicine_frequency: that.tem_add[i].prescription_frequency,
+          template_medical_skill_content_department_name: that.tem_add[i].medicine.medicine_id
         }
         console.log(data)
         this.$http.post(url, data)
@@ -890,8 +925,12 @@ export default {
         template_medicine_frequency: that.prescription_frequency,
         template_medicine_number: that.prescription_num,
         template_medicine_unit_price: value.medicine_unit_price,
-        template_medical_skill_content_unit_price: value.medicine_id
+        template_medical_skill_content_department_name: value.medicine_id
       }
+      that.prescription_day = ''
+      that.prescription_consumption = ''
+      that.prescription_num = ''
+      that.prescription_frequency = ''
       console.log(value)
       that.dialog = true
       this.$http.post(url, data)
@@ -950,7 +989,25 @@ export default {
           })
       }
     },
-
+    addContentByTem: function (value) {
+      console.log(value)
+      let that = this
+      var data = {
+        prescription_id: that.new_prescription_id,
+        prescription_consumption: value.template_medicine_consumption,
+        prescription_medicine_id: value.template_medical_skill_content_department_name,
+        prescription_frequency: value.template_medicine_frequency,
+        prescription_num: value.template_medicine_number,
+        prescription_day: value.template_medicine_usage
+      }
+      var url = this.HOME + '/doctor/add-medicine'
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.getItem()
+          that.show = false
+        })
+    },
     addContent: function (value) {
       let that = this
       console.log(value)
@@ -963,11 +1020,13 @@ export default {
         prescription_day: that.prescription_day
       }
       console.log(data)
+      that.dialog = true
       var url = this.HOME + '/doctor/add-medicine'
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           that.getItem()
+          that.show = false
         })
       that.prescription_id = ''
       that.prescription_consumption = ''
@@ -980,6 +1039,7 @@ export default {
       var i
       var url = this.HOME + '/doctor/delete-medicine'
       console.log(that.selected_con)
+      that.dialog = true
       var data
       for (i = 0; i < that.selected_con.length; i++) {
         data = {
@@ -998,6 +1058,7 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
@@ -1008,11 +1069,11 @@ export default {
     addItem: function () {
       let that = this
       var data = {
-        prescription_type: '中药',
+        prescription_type: '西药',
         prescription_doctor_id: that.msgfromfa.register_info_doctor_id,
         prescription_register_info_id: that.msgfromfa.register_info_id,
-        prescription_name: that.prescription_name
-
+        prescription_name: that.prescription_name,
+        prescription_fee: '0'
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-prescription'
@@ -1023,6 +1084,9 @@ export default {
           console.log(response.data)
           that.getItem()
         })
+    },
+    addItemByName: function (name, id) {
+
     },
     deleteItem: function () {
       let that = this
@@ -1039,7 +1103,6 @@ export default {
           .then(function (response) {
             console.log(response.data)
             that.getItem()
-            that.dialog = true
           })
       }
     },
@@ -1054,6 +1117,7 @@ export default {
         }
         this.$http.post(url, data)
           .then(function (response) {
+            that.dialog = true
             console.log(response.data)
             that.getItem()
           })
@@ -1070,6 +1134,7 @@ export default {
         }
         this.$http.post(url, data)
           .then(function (response) {
+            that.dialog = true
             console.log(response.data)
             that.getItem()
           })
@@ -1082,7 +1147,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.desserts_dia = response.data.data
+          that.desserts_dia = response.data.data.filter(that.filterType_med)
         })
     }
   }

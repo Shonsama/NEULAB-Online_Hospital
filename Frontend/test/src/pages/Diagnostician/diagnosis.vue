@@ -20,6 +20,30 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-dialog
       v-model="show"
       max-width="400"
@@ -100,6 +124,10 @@ export default {
   props: ['msgfromfa', 'record'],
   data () {
     return {
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       selected: [],
       selected_dia: [],
       dialog: false,
@@ -142,15 +170,34 @@ export default {
   watch: {
     record: function (newState, oldState) {
       this.get()
+    },
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
     }
   },
   methods: {
     submit_diagnoses () {
-      // let that = this
+      let that = this
       var url = this.HOME + '/doctor/submit-final-diagnose'
       this.$http.post(url, this.desserts)
         .then(response => {
           console.log(response.data)
+          if (response.data.code === 200) {
+            that.dialog_suc = true
+            that.msg_suc = '提交成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '提交失败'
+          }
         })
     },
     addItem () {
@@ -184,7 +231,7 @@ export default {
               var data = {
                 diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
                 diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
-                diagnose_id: response.data.data.firstDiagnoses[i].diagnose_id,
+                diagnose_record_id: that.msgfromfa.register_info_id,
                 diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19))
               }
               that.desserts.push(data)
@@ -197,7 +244,7 @@ export default {
               var data1 = {
                 diagnose_disease_id: response.data.data.finalDiagnoses[i].diagnose_disease_id,
                 diagnose_disease_name: response.data.data.finalDiagnoses[i].diagnose_disease_name,
-                diagnose_id: response.data.data.finalDiagnoses[i].diagnose_id,
+                diagnose_record_id: that.msgfromfa.register_info_id,
                 diagnose_time: new Date(response.data.data.finalDiagnoses[i].diagnose_time.slice(0, 19))
               }
               that.desserts.push(data1)

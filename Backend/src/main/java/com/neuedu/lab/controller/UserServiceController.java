@@ -26,7 +26,6 @@ public class UserServiceController {
         return userService.dailySearch(daily);
     }
 
-
     //日结结算
     @RequestMapping("/daily-submit")
     public JSONObject dailySubmit(@RequestBody JSONObject request) {

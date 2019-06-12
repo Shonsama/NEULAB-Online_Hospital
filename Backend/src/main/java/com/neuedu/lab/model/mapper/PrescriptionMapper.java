@@ -16,6 +16,10 @@ public interface PrescriptionMapper {
     void updatePrescriptionState(@Param("prescription_id") Integer prescription_id,
                                  @Param("prescription_execute_state") String prescription_execute_state);
 
+    void updatePrescriptionPaytime(@Param("prescription_id") Integer prescription_id,
+                                 @Param("prescription_pay_time") Date prescription_pay_time,
+                                   @Param("prescription_user_id") Integer medical_skill_user_id);
+
     Prescription getPrescription(Integer prescription_id);
 
     List<Prescription> getPrescriptionByRegisterId(Integer prescription_register_info_id);

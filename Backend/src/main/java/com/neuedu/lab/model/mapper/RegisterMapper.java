@@ -21,4 +21,8 @@ public interface RegisterMapper {
 
     public void updateRegisterState(@Param("register_id") Integer register_id, @Param("register_info_state") String register_info_state);
 
+
+    //校验方法
+    //校验同一患者是否在同一天挂了同一医生的号
+    List<Register> checkVaild (Register register);
 }

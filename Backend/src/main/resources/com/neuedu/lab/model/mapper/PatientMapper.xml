@@ -56,4 +56,48 @@
         and register_info.register_info_doctor_id = doctor_info.doctor_id
         and doctor_info.doctor_department_id = #{doctor_department_id};
     </select>
+
+<!--    增加患者用户-->
+    <insert id="addPatientUser" parameterType="PatientUser" useGeneratedKeys="true"
+            keyProperty="patient_user_id">
+        insert into patient_user (patient_account,patient_password,patient_connect_id)
+        values(#{patient_account},
+        #{patient_password},
+        #{patient_connect_id})
+    </insert>
+<!--查询患者用户-->
+    <select id="getPatientUserById" resultType="PatientUser">
+        select * from patient_user where patient_id = #{patient_id};
+    </select>
+
+    <select id="getPatientUserByAccount" resultType="PatientUser">
+        select * from patient_user where patient_account = #{patient_account};
+    </select>
+
+<!--    删除患者用户-->
+    <delete id="deletePatientUser" parameterType="PatientUser">
+        delete from patient_user where patient_user_id = #{patient_user_id}
+    </delete>
+
+<!--    修改患者信息-->
+    <update id="updatePatientUser">
+        update patient_user  set
+        patient_account = #{patient_account},
+        patient_password = #{patient_password}
+        where patient_user_id = #{patient_user_id}
+    </update>
+
+    <select id="getAllAccounts" resultType="String">
+        select patient_account from patient_user
+    </select>
+
+    <select id="getAllPatientRecordIds" resultType="Integer">
+        select patient_record_id from patient_info
+    </select>
+
+    <update id="updatePatientUserRecordId">
+        update patient_user set
+        patient_connect_id = #{patient_connect_id}
+        where patient_account = #{patient_account}
+    </update>
 </mapper>

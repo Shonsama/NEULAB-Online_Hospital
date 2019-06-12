@@ -40,4 +40,19 @@ public class PatientController {
         return ConstantUtils.responseSuccess(patientService.getPatientByDepartmentId(request.getString("doctor_department_id")));
     }
 
+    @RequestMapping("/sign-up")
+    public JSONObject signUp(@RequestBody JSONObject request){
+        return patientService.signUp(request.getString("patient_account"),request.getString("patient_password"));
+    }
+    @RequestMapping("/bound-exist")
+    public JSONObject boundExistedRecord(@RequestBody JSONObject request){
+        return patientService.boundExistedRecord(request.getString("patient_account"),request.getInteger("patient_record_id"));
+
+    }
+/*    @RequestMapping("/create-new")
+    public JSONObject createNewRecord(@RequestBody JSONObject request){
+        return patientService.createNewRecord(request.getObject("patient",Patient)
+    }*/
+
+
 }

@@ -10,6 +10,9 @@ import java.util.List;
 
 public class Daily {
     private Integer daily_id;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date daily_start;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
