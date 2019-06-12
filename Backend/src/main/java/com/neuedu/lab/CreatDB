@@ -316,10 +316,14 @@ create table `his`.`template_content`(
   `template_content_id` int not null auto_increment,
   `template_connect_id` int not null,
   #非药品
-  `template_non_medicine_id` varchar(45) null,
-  `template_non_medicine_name` varchar(45) null,
-  `template_non_medicine_specification` varchar(45) null,
-  `template_non_medicine_checkpoint` varchar(45) null,
+  `template_medical_skill_content_id` varchar(45) null,
+  `template_medical_skill_content_name` varchar(45) null,
+  `template_medical_skill_content_specification` varchar(45) null,
+  `template_medical_skill_content_checkpoint` varchar(45) null,
+  
+  `template_medical_skill_content_department_id` varchar(45) null,
+  `template_medical_skill_content_department_name` varchar(45) null,
+  `template_medical_skill_content_unit_price` decimal(8,2) unsigned NULL,
   #药品
   `template_medicine_name` varchar(45) null,
   `template_medicine_specification` varchar(45) null,
@@ -327,6 +331,9 @@ create table `his`.`template_content`(
   `template_medicine_usage` varchar(45) null,
   `template_medicine_consumption` varchar(45) null,
   `template_medicine_frequency` varchar(45) null,
+
+  `template_medicine_number` int null,
+  `template_medicine_unit_price` decimal(8,2) unsigned NULL,
   primary key(`template_content_id`),
   foreign key(`template_connect_id`) references `template`(`template_id`)
 )default charset=utf8;
