@@ -22,7 +22,7 @@ public interface BillMapper {
 
     Bill getBillByPrescriptionId(Integer bill_prescription_id);
 
-    void updateBillNum(String bill_num,Integer bill_id);
+    void updateBillNum(@Param("bill_num") String bill_num,@Param("bill_id")Integer bill_id);
 
     //日结冻结发票
     void updateBillFrozen(@Param("bill_user_id") Integer bill_user_id,

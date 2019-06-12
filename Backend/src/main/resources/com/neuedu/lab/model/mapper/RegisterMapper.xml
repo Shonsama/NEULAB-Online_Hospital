@@ -42,4 +42,12 @@
         WHERE register_info_patient_id = #{register_info_patient_id}
     </select>
 
+
+    <!--校验-->
+    <select id="checkVaild" parameterType="Register">
+        SELECT * FROM register_info
+        WHERE register_info_patient_id = #{register_info_patient_id} AND register_info_doctor_id = #{register_info_doctor_id}
+            AND date_format(register_info_time,'%Y-%m-%d') = date_format(#{register_info_time},'%Y-%m-%d')
+    </select>
+
 </mapper>

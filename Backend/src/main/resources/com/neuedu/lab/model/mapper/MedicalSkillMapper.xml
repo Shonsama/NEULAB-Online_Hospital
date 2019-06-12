@@ -26,6 +26,12 @@
         WHERE medical_skill_id = #{medical_skill_id}
     </update>
 
+    <update id="updateMedicalSkillPaytime">
+        UPDATE medical_skill SET medical_skill_pay_time = #{medical_skill_pay_time},
+            medical_skill_user_id = #{medical_skill_user_id}
+        WHERE medical_skill_id = #{medical_skill_id}
+    </update>
+
     <select id="getMedicalSkill" resultType="MedicalSkill">
         SELECT * FROM medical_skill
         WHERE medical_skill_id = #{medical_skill_id}
@@ -91,5 +97,9 @@
             AND medical_skill_execute_department = #{medical_skill_execute_department}
     </select>
 
+    <select id="getMedicalSkillsByRegisterId" resultType="MedicalSkill">
+        SELECT * FROM medical_skill
+        WHERE medical_skill_register_info_id = #{register_id}
+    </select>
 
 </mapper>

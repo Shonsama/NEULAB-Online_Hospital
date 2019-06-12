@@ -10,6 +10,15 @@ public class Doctor {
     private Integer doctor_register_level_id;
     private Integer doctor_id;
     private String doctor_department_id;
+    private Integer doctor_register_num;
+
+    public Integer getDoctor_register_num() {
+        return doctor_register_num;
+    }
+
+    public void setDoctor_register_num(Integer doctor_register_num) {
+        this.doctor_register_num = doctor_register_num;
+    }
 
     public String getDoctor_position() {
         return doctor_position;

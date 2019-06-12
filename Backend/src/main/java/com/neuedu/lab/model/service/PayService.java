@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,6 +59,7 @@ public class PayService {
             if (medicalSkillMapper.getMedicalSkill(id).getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[1])) {
                 //更改medicalSkill缴费状态
                 medicalSkillMapper.updateMedicalSkillState(id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3], null);
+                medicalSkillMapper.updateMedicalSkillPaytime(id,new Date(),user_id);
                 //增加发票
                 bill.setBill_type(medicalSkillMapper.getMedicalSkill(id).getMedical_skill_type());
                 bill.setBill_fee_cat_name(medicalSkillMapper.getMedicalSkill(id).getMedical_skill_type());
@@ -74,6 +76,8 @@ public class PayService {
         } else if (type.equals("西药") || type.equals("中药")) {//处方
             if (prescriptionMapper.getPrescription(id).getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[1])) {
                 prescriptionMapper.updatePrescriptionState(id, ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[3]);
+                prescriptionMapper.updatePrescriptionPaytime(id,new Date(),user_id);
+
                 //增加发票
                 bill.setBill_type(prescriptionMapper.getPrescription(id).getPrescription_type());
                 bill.setBill_fee_cat_name(prescriptionMapper.getPrescription(id).getPrescription_type());
