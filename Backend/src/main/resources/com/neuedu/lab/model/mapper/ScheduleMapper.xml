@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.lab.model.mapper.RecordMapper">
+    <insert id="addRecord">
+        INSERT INTO record (record_patient_id, record_doctor_id, record_id,
+         record_syndrome, record_health_check, record_xianbingshi, record_jiwangshi, record_cure_situation,
+         record_allergy_his, record_state, record_suggestion, record_attention, record_doctor_type)
+        VALUES (#{record_patient_id}, #{record_doctor_id}, #{record_id}, #{record_syndrome}, #{record_health_check},
+                #{record_xianbingshi}, #{record_jiwangshi}, #{record_cure_situation},
+                #{record_allergy_his}, #{record_state},#{record_suggestion}, #{record_attention},#{record_doctor_type})
+    </insert>
+
+    <update id="updateRecord">
+        UPDATE record SET
+        record_syndrome = #{record_syndrome},
+        record_health_check = #{record_health_check},
+        record_xianbingshi = #{record_xianbingshi},
+        record_jiwangshi = #{record_jiwangshi},
+        record_cure_situation = #{record_cure_situation},
+        record_allergy_his = #{record_allergy_his},
+        record_state = #{record_state},
+        record_attention = #{rerecord_attention},
+        record_suggestion = #{record_suggestion},
+        record_doctor_type = #{record_doctor_type}
+        WHERE record_id = #{record_id}
+    </update>
+
+    <select id="getRecordStateById" resultType="String">
+        SELECT record_state FROM  record
+        WHERE record_id = #{record_id}
+    </select>
+    <select id="getRecordById" resultType="Record">
+        SELECT * FROM  record
+        WHERE record_id = #{record_id}
+    </select>
+
+
+    <update id="updateRecordStateById">
+        UPDATE record SET record_state = #{record_state}
+        WHERE record_id = #{record_id}
+    </update>
+</mapper>
