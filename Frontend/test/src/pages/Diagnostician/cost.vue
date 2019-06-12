@@ -2,7 +2,7 @@
   <div>
     <v-layout>
       <v-flex xs4>
-        <v-toolbar flat dense>
+        <v-toolbar flat>
           <v-toolbar-title>患者查询</v-toolbar-title>
           <v-spacer/>
           <v-flex md6>
@@ -35,27 +35,20 @@
       </v-flex>
       <v-divider vertical></v-divider>
       <v-flex>
-        <v-toolbar flat dense>
+        <v-toolbar flat>
           <v-toolbar-title>检验项目</v-toolbar-title>
         </v-toolbar>
         <v-divider/>
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="desserts.filter(filterType)"
         >
           <template v-slot:items="props">
-            <td>{{ props.item.medical_skill_id }}</td>
-            <td>{{ props.item.medical_skill_execute_state }}</td>
-            <td>{{ props.item.medical_skill_result }}</td>
-            <td>
-              <v-icon
-                small
-                class="mr-2"
-                @click="show =! show , fillForm(props.item)"
-              >
-                edit
-              </v-icon>
-            </td>
+            <td>{{ props.item.code }}</td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.state }}</td>
+            <td>{{ props.item.type }}</td>
+            <td>{{ props.item.number}}</td>
           </template>
         </v-data-table>
       </v-flex>
@@ -68,7 +61,7 @@ export default {
   props: ['msgfromfa', 'record'],
   data () {
     return {
-      search_patient: '',
+      search_patient: this.msgfromfa.register_info_id,
       headers_patient: [{
         text: '挂号ID',
         align: 'left',
@@ -89,7 +82,7 @@ export default {
       desserts_patient: [],
       headers: [
         {
-          text: '挂号ID',
+          text: 'ID',
           align: 'left',
           value: 'code'
         },
@@ -112,14 +105,21 @@ export default {
         text: '分类',
         value: 'disease_type'
       }],
-      desserts_dia: []
+      desserts_dia: [],
+      sum: ''
     }
   },
   mounted: function () {
     this.get()
   },
   computed: {
-
+    returnSum: function () {
+      var sum = 0
+      for (var i = 0; i < this.desserts; i++) {
+        sum = sum + this.desserts[i].number
+      }
+      return sum
+    }
   },
   watch: {
     record: function (newState, oldState) {
@@ -127,6 +127,9 @@ export default {
     }
   },
   methods: {
+    filterType: function (value) {
+      return value.state === '已开立' || value.state === '已发送'
+    },
     get: function () {
       let that = this
       var url = this.HOME + '/doctor/get-doctor-treated-registers'
@@ -141,14 +144,40 @@ export default {
     },
     getFee: function (value) {
       let that = this
-      var url = this.HOME + '/doctxor/get-fee-records'
+      var url = this.HOME + '/doctor/get-all-prescription'
       console.log(value)
       var data = {
         register_id: value.register_info_id
       }
+      that.desserts = []
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data)
+          for (var i = 0; i < response.data.data.length; i++) {
+            var name = {
+              code: response.data.data[i].prescription_id,
+              name: response.data.data[i].prescription_name,
+              state: response.data.data[i].prescription_execute_state,
+              type: response.data.data[i].prescription_type,
+              number: response.data.data[i].prescription_fee
+            }
+            that.desserts.push(name)
+          }
+        })
+      var url1 = this.HOME + '/doctor/get-all-medical-skill'
+      this.$http.post(url1, data)
+        .then(response => {
+          console.log(response.data)
+          for (var i = 0; i < response.data.data.length; i++) {
+            var name = {
+              code: response.data.data[i].medical_skill_id,
+              name: response.data.data[i].medical_skill_name,
+              state: response.data.data[i].medical_skill_execute_state,
+              type: response.data.data[i].medical_skill_type,
+              number: response.data.data[i].medical_skill_fee
+            }
+            that.desserts.push(name)
+          }
         })
     }
   }

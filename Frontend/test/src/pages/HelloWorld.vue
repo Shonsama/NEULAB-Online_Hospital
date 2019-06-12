@@ -132,6 +132,19 @@ export default {
               name: response.data.data.user_name,
               type: response.data.data.user_type
             }
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
+            }
             // that.store.commit('set_user', data)
           } else {
             data = {
@@ -142,6 +155,19 @@ export default {
               type: response.data.data.doctor_type
             }
             console.log(data)
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
+            }
             // that.store.commit('set_user', data)
           }
         })

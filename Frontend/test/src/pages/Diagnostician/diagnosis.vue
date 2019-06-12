@@ -84,6 +84,9 @@
       <v-toolbar flat dense>
         <v-toolbar-title>{{type}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn   flat icon color="primary"  @click="get">
+          <v-icon> refresh</v-icon>
+        </v-btn>
         <v-btn   flat icon color="primary"  @click="show = !show">
           <v-icon> add</v-icon>
         </v-btn>
@@ -164,7 +167,6 @@ export default {
     }
   },
   mounted: function () {
-    this.get()
     this.load_diagnosis()
   },
   watch: {

@@ -298,7 +298,7 @@
               right
               icon
               flat
-              v-if="props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置'"
+              v-if="props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置' || props.item.state === '已退药'"
               class="ml-3"
               color="primary"
               @click="returnItem(props.item)"
@@ -320,6 +320,7 @@
             :items="desserts_con"
             item-key="hint"
             select-all
+            v-if="!(props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置' || props.item.state === '已退药')"
             class="elevation-1"
           >
             <template v-slot:items="props">
