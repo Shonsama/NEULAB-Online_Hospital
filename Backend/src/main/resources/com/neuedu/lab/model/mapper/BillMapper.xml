@@ -10,9 +10,10 @@
           #{bill_medical_skill_id}, #{bill_user_id},#{bill_fee_cat_name})
     </insert>
 
-    <select id="getBill" resultType="Bill">
+    <select id="getRegisterBillForRefund" resultType="Bill">
         SELECT * FROM his.bill
-        WHERE bill_register_id = #{register_id}
+        WHERE bill_register_id = #{register_id} and
+        (bill_state = #{bill_state0} or bill_state = #{bill_state2} or bill_state = #{bill_state3})
     </select>
 
     <select id="getBillById" resultType="Bill">

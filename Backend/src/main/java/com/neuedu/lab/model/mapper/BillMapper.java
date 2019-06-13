@@ -10,7 +10,10 @@ import java.util.List;
 public interface BillMapper {
     public void addBill(Bill bill);
 
-    public Bill getBill(Integer register_id);
+    public Bill getRegisterBillForRefund(@Param("register_id") Integer register_id,
+                                         @Param("bill_state0") String bill_state0,
+                                         @Param("bill_state2") String bill_state2,
+                                         @Param("bill_state3") String bill_state3);
 
     Bill getBillById(Integer bill_id);
 

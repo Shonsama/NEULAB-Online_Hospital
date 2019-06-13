@@ -473,7 +473,7 @@ export default {
       return arr
     },
     filterDate: function (value) {
-      return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '') && (value.state !== '已缴费' && value.number !== 0)
+      return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '')
     },
     chargeItem: function (value) {
       let that = this
@@ -664,6 +664,8 @@ export default {
           .then(function (response) {
             // that.dialog_bill = true
             console.log(response.data)
+            that.dialog_suc = true
+            that.msg_suc = '发票号重打成功'
           })
       } else {
         this.dialog_err = true
@@ -681,6 +683,8 @@ export default {
           .then(function (response) {
             that.bill = response.data.data
             // that.dialog_bill = true
+            that.dialog_suc = true
+            that.msg_suc = '发票号补打成功'
             console.log(response.data)
           })
       } else {

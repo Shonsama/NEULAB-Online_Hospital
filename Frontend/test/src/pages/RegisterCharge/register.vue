@@ -759,6 +759,7 @@ export default {
           } else {
             that.dialog_err = true
             that.msg_err = '退号失败'
+            that.get_patient_register()
             that.dialog = false
           }
         })
@@ -792,6 +793,8 @@ export default {
           .then(function (response) {
             // that.dialog_bill = true
             console.log(response.data)
+            that.dialog_suc = true
+            that.msg_suc = '发票号补打成功'
           })
       } else {
         this.dialog_err = true
@@ -810,6 +813,8 @@ export default {
             that.bill = response.data.data
             // that.dialog_bill = true
             console.log(response.data)
+            that.dialog_suc = true
+            that.msg_suc = '发票号重打成功'
           })
       } else {
         this.dialog_err = true

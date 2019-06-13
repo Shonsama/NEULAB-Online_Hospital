@@ -133,7 +133,8 @@ public class RegisterService {
         else {
             try{
                 registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[3]);
-                bill = billMapper.getBill(register_id);
+                bill = billMapper.getRegisterBillForRefund(register_id,ConstantDefinition.BILL_STATE[0],
+                        ConstantDefinition.BILL_STATE[2],ConstantDefinition.BILL_STATE[3]);
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 billMapper.addBill(bill);
