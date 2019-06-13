@@ -560,7 +560,7 @@ export default {
           console.log(response.data)
           that.signal = response.data.msg
           if (that.signal === 'SUCCESS') {
-            that.load_schedule()
+            // that.load_schedule()
             that.load_rule()
             that.notice_success()
           } else {
