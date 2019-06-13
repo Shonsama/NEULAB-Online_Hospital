@@ -454,7 +454,7 @@ public class UserService {
 
         //增加对冲发票
         bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
-        bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
+        bill.setBill_state(ConstantDefinition.BILL_STATE[4]);
         try {
             billMapper.addBill(bill);
         } catch (RuntimeException e) {
