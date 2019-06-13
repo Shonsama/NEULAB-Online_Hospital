@@ -527,7 +527,8 @@ public class UserService {
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if (prescription == null) {
             return ConstantUtils.responseFail("不存在该处方", null);
-        } else if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[5])) {
+        } else if (!(prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[0])
+        || prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[1]))) {
             return ConstantUtils.responseFail("该处方状态为["
                     + prescription.getPrescription_execute_state() + "],不可退费", null);
         }
@@ -556,15 +557,16 @@ public class UserService {
         try {
             contentList = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
 
-            //如果处方内容为空，则不需添加新的处方，直接返回退费成功
-            if(contentList.size()==0){
-                return responseSuccess(billBefore);
-            }
 
 
             for (PrescriptionContent content : contentList) {
                 sum = sum.add(content.getPrescription_content_fee());
             }
+            //如果处方药品全退，则不需添加新的处方，直接返回退费成功
+            if(sum.compareTo(new BigDecimal(0))==0){
+                return responseSuccess(billBefore);
+            }
+
             prescriptionToAdd.setPrescription_fee(sum);
         } catch (RuntimeException e) {
             e.printStackTrace();
