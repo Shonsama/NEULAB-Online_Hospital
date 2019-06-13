@@ -1,5 +1,29 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-flex
     >
       <v-toolbar flat dense>
@@ -54,6 +78,10 @@ export default {
   data () {
     return {
       date: '',
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       desserts: [{
         code: '1',
         cost: '11',
@@ -86,6 +114,16 @@ export default {
   },
   computed: {
   },
+  watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
+  },
   mounted: function () {
   },
   methods: {
@@ -113,8 +151,14 @@ export default {
       }
       this.$http.post(url, data)
         .then(function (response) {
-          console.log(response.data)
-          that.getItem()
+          if (response.data.code === 200) {
+            console.log(response.data)
+            that.dialog_suc = true
+            that.msg_suc = '确认成功'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '确认失败'
+          }
         })
     }
   }

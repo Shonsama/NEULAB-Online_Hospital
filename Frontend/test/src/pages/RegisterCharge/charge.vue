@@ -37,7 +37,7 @@
         <v-card-actions>
           <v-btn flat @click="show = !show">取消</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="returnItemMed">确定</v-btn>
+          <v-btn color="primary" flat @click="returnItemMed,show = !show">确定</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -78,7 +78,7 @@
             icon
             flat
             color="primary"
-            @click="disabled = !disabled"
+            @click="reprint_bill"
           >
             <v-icon>
               refresh
@@ -89,7 +89,7 @@
             icon
             color="primary"
             flat
-            @click="disabled = !disabled"
+            @click="overprint"
           >
             <v-icon>
               print
