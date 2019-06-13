@@ -456,7 +456,7 @@
             <td>{{ props.item.medical_skill_fee }}</td>
             <td>
               <v-icon
-                @click="props.expanded = !props.expanded"
+                @click="props.expanded = !props.expanded,getItem()"
               >
                 remove_red_eye
               </v-icon>
