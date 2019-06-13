@@ -168,7 +168,7 @@
                 <template v-slot:items="props">
                   <td>{{ props.item.bill_id }}</td>
                   <td>{{ props.item.bill_type }}</td>
-                  <td>{{ props.item.bill_num}}</td>
+                  <!--<td>{{ props.item.bill_num}}</td>-->
                 </template>
               </v-data-table>
             </div>
@@ -376,7 +376,7 @@ export default {
         value: 'bill_id'
       },
       { text: '发票类型', value: 'bill_type' },
-      { text: '发票号', value: 'bill_num' },
+      // { text: '发票号', value: 'bill_num' },
     ],
     desserts_already: [
       {
