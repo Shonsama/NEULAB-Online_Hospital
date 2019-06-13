@@ -1,7 +1,6 @@
 package com.neuedu.lab.model.service;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.Utils.ConstantDefinition;
 import com.neuedu.lab.Utils.ConstantUtils;
@@ -22,12 +21,6 @@ import java.util.List;
 import static com.neuedu.lab.Utils.ConstantDefinition.*;
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
 import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
-
-/**
- * @author wp
- * 主要提供收费员的接口
- * 包括日结、退号、退费
- */
 
 
 @Service
