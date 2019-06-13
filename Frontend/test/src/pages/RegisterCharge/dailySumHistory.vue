@@ -51,7 +51,7 @@
       <v-data-table
         v-model="selected"
         :headers="headers"
-        :items="daily"
+        :items="daily.filter(filterDate)"
         item-key="daily_id"
         class="elevation-1"
       >
@@ -104,7 +104,6 @@ export default {
     }
   },
   created: function () {
-    this.getDate()
   },
   computed: {
   },
@@ -123,10 +122,6 @@ export default {
   methods: {
     filterDate: function (value) {
       return ((this.date[0] <= new Date(value.daily_operate_time) && this.date[1] >= new Date(value.daily_operate_time)) || this.date[0] === '' || this.date[1] === '') && value.daily_pass_state !== '未确认状态'
-    },
-    getDate: function () {
-      this.date[0] = new Date(2019, 5, 1, 10, 10)
-      this.date[1] = new Date()
     },
     getDaily: function () {
       let that = this

@@ -22,7 +22,7 @@
     </v-dialog>
     <v-dialog
       v-model="show"
-      max-width="400"
+      max-width="100"
     >
       <v-card ref="form">
         <v-card-text>
@@ -37,7 +37,7 @@
         <v-card-actions>
           <v-btn flat @click="show = !show">取消</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="returnItemMed,show = !show">确定</v-btn>
+          <v-btn color="primary" flat @click="returnItemMed">确定</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -318,7 +318,7 @@
               right
               icon
               flat
-              v-if="props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置' || props.item.state === '已退药'"
+              v-if="props.item.type === '检查' || props.item.type === '检验' || props.item.type === '处置' || props.item.state === '已退药' || props.item.state === '已领药并部分退药' || props.item.state === '未领药并部分退药'"
               class="ml-3"
               color="primary"
               @click="returnItem(props.item)"
@@ -473,7 +473,7 @@ export default {
       return arr
     },
     filterDate: function (value) {
-      return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '') && value.number !== 0
+      return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '') && (value.state !== '已缴费' && value.number !== 0)
     },
     chargeItem: function (value) {
       let that = this
@@ -544,6 +544,7 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.returnItem(value)
+          that.show = !that.show
           // that.getItem()
         })
     },
