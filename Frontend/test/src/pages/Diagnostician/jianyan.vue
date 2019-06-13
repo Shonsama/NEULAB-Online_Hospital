@@ -328,7 +328,7 @@
               <v-flex xs2 class="mr-3">
                 <v-select
                   v-model="department"
-                  :items="departments.filter(filterDepart)"
+                  :items="departments"
                   item-text="department_name"
                   item_value="department_id"
                   label="科室"
@@ -862,7 +862,6 @@ export default {
       }
       that.medical_skill_urgent = ''
       that.medical_skill_purpose = ''
-      that.department.department_name = ''
       that.medical_skill_checkpoint = ''
       console.log(value)
       that.dialog = true
