@@ -35,7 +35,8 @@ public interface PrescriptionMapper {
 
     //通过patient_id找到所有已经缴费prescription
     List<Prescription> getPrescriptionByPatientIdBySentTime(@Param("register_info_patient_id") Integer register_info_patient_id,
-                                                  @Param("prescription_execute_state") String prescription_execute_state,
+                                                  @Param("prescription_execute_state_1") String prescription_execute_state_1,
+                                                            @Param("prescription_execute_state_2") String prescription_execute_state_2,
                                                   @Param("start_time") Date start_time,
                                                   @Param("end_time" )Date end_time);
     List<Prescription> getPrescriptionByPatientIdByPayTime(@Param("register_info_patient_id") Integer register_info_patient_id,
