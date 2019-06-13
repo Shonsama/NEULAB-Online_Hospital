@@ -290,6 +290,75 @@
         </el-date-picker>
         <v-btn color="primary" @click="add_schedule">保存</v-btn>
     </v-card-actions>
+    <v-layout justify-center>
+      <v-card style="width: 800px">
+        <v-layout>
+          <v-flex>
+            <v-sheet height="500">
+              <v-calendar
+                :now="today"
+                :value="today"
+                color="primary"
+              >
+                <template v-slot:day="{ date }">
+                  <template v-for="event in eventsMap[date]">
+                    <v-menu
+                      :key="event.title"
+                      v-model="event.open"
+                      full-width
+                      offset-x
+                    >
+                      <template v-slot:activator="{ on }">
+                        <div
+                          v-if="!event.time"
+                          v-ripple
+                          class="my-event"
+                          v-on="on"
+                          v-html="event.title"
+                        ></div>
+                      </template>
+                      <v-card
+                        color="grey lighten-4"
+                        min-width="350px"
+                        flat
+                      >
+                        <v-toolbar
+                          color="primary"
+                          dark
+                        >
+                          <v-btn icon>
+                            <v-icon>edit</v-icon>
+                          </v-btn>
+                          <v-toolbar-title v-html="event.title"></v-toolbar-title>
+                          <v-spacer></v-spacer>
+                          <v-btn icon>
+                            <v-icon>favorite</v-icon>
+                          </v-btn>
+                          <v-btn icon>
+                            <v-icon>more_vert</v-icon>
+                          </v-btn>
+                        </v-toolbar>
+                        <v-card-title primary-title>
+                          <span v-html="event.details"></span>
+                        </v-card-title>
+                        <v-card-actions>
+                          <v-btn
+                            flat
+                            color="secondary"
+                          >
+                            Cancel
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-menu>
+                  </template>
+                </template>
+              </v-calendar>
+            </v-sheet>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-layout>
   </v-card>
 </template>
 
@@ -297,6 +366,8 @@
 export default {
   name: 'workforce',
   data: () => ({
+    allSchedule: [],
+    today: '2019-06-13',
     alert_success: false,
     alert_error: false,
     signal: '',
@@ -368,7 +439,14 @@ export default {
       {text: '医生名称', value: 'doctor_name'},
       {text: '时间', value: 'rule_work_time'},
       {text: '操作', value: 'operation'}
-
+    ],
+    events: [
+      {
+        title: 'Vacation',
+        details: 'Going to the beach!',
+        date: '2019-06-16',
+        open: false
+      }
     ]
   }),
   mounted: function () {
@@ -377,6 +455,9 @@ export default {
     this.load_doctor()
   },
   methods: {
+    open (event) {
+      alert(event.title)
+    },
     load_rule: function () {
       let that = this
       that.desserts_scheduling = []
@@ -479,6 +560,7 @@ export default {
           console.log(response.data)
           that.signal = response.data.msg
           if (that.signal === 'SUCCESS') {
+            // that.load_schedule()
             that.load_rule()
             that.notice_success()
           } else {
@@ -486,8 +568,31 @@ export default {
           }
         })
       console.log(this.signal)
-    },
 
+    },
+    load_schedule: function (){
+      let that = this
+      var url = this.HOME + '/schedule/get-all'
+      this.$http.post(url, {})
+        .then(function (response) {
+          that.allSchedule = response.data.data
+          console.log(response.data)
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.event = []
+            console.log('!!!!!!!!!!!!!!!!!!')
+            console.log(that.allSchedule.length)
+            for (let i = 0; i < that.allSchedule.length; i++) {
+              console.log('?????????????????')
+              var curTime = new Date(that.allSchedule[i].schedule_start_date.getTime()).format("yyyy-MM-dd")
+              console.log(curTime)
+            }
+          } else {
+            that.notice_error()
+          }
+        })
+
+    },
     updateItem: function () {
       var rule = {
         rule_id: this.rule_id,
@@ -596,6 +701,14 @@ export default {
       if (newState === false) {
         this.eraseForm_add()
       }
+    }
+  },
+  computed: {
+    // convert the list of events into a map of lists keyed by date
+    eventsMap () {
+      const map = {}
+      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
+      return map
     }
   }
 }
