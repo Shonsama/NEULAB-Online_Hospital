@@ -440,7 +440,8 @@ public class UserService {
         try {
             MedicalSkill medicalSkilBefore = medicalSkillMapper.getMedicalSkill(medical_skill_id);
             //如果医技项目不是已缴费状态，不能退费
-            if (!medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3])) {
+            if (!(medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3])
+                    || medicalSkilBefore.getMedical_skill_execute_state().equals(ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[7]))) {
                 return ConstantUtils.responseFail("当前医技项目状态为["
                         + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
             } else {
