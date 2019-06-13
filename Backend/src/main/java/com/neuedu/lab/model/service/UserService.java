@@ -313,22 +313,29 @@ public class UserService {
         Daily daily;
         try{
             daily = dailyMapper.getDailyById(daily_id);
-            daily.setBills(billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end())));
+            if(daily == null){
+                return responseFail("当前id不存在",null);
+            }
+            List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
+            if(bills.size()==0){
+                return responseSuccess(daily);
+            }
+            daily.setBills(bills);
             List<Bill> abandonBillList = new ArrayList<>();//作废
             List<Bill> redoBillList = new ArrayList<>();//重打
             List<Bill> overprintBillList = new ArrayList<>();//补打
             List<Bill> flushBillList = new ArrayList<>();//对冲
             for(Bill bill: daily.getBills()){
-                if(bill.getBill_type().equals(BILL_STATE[1])){
+                if(bill.getBill_state().equals(BILL_STATE[1])){
                     abandonBillList.add(bill);
                 }
-                else if(bill.getBill_type().equals(BILL_STATE[2])){
+                else if(bill.getBill_state().equals(BILL_STATE[2])){
                     redoBillList.add(bill);
                 }
-                else if(bill.getBill_type().equals(BILL_STATE[3])){
+                else if(bill.getBill_state().equals(BILL_STATE[3])){
                     overprintBillList.add(bill);
                 }
-                else if(bill.getBill_type().equals(BILL_STATE[4])){
+                else if(bill.getBill_state().equals(BILL_STATE[4])){
                     flushBillList.add(bill);
                 }
             }
