@@ -397,7 +397,6 @@ export default {
   }),
   methods: {
     load: function () {
-      this.time_range = this.date[0] + '-' + this.date[1]
       this.cashier = this.cashier_user_object.user_name
       console.log('This is the format of the date')
       let that = this
@@ -411,6 +410,9 @@ export default {
           console.log(response.data)
           var list = response.data.data
           that.daily = list[list.length-1]
+          that.date[0] = that.daily.daily_start
+          that.date[1] = that.daily.daily_end
+          that.time_range = that.date[0] + '-' + that.date[1]
           that.daily_mid_prescription_sum = that.daily.daily_mid_prescription_sum
           that.daily_west_prescription_sum= that.daily.daily_west_prescription_sum
           that.daily_register_sum = that.daily.daily_register_sum
