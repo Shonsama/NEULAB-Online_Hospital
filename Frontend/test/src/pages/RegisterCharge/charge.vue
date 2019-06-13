@@ -22,7 +22,7 @@
     </v-dialog>
     <v-dialog
       v-model="show"
-      max-width="100"
+      max-width="300"
     >
       <v-card ref="form">
         <v-card-text>
@@ -385,6 +385,7 @@ export default {
       bill: {},
       date: ['', ''],
       show: false,
+      dialog: '',
       dialog_add: false,
       dialog_err: false,
       dialog_suc: false,
@@ -485,11 +486,11 @@ export default {
         user_id: this.$store.state.user.id,
         register_id: value.code
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
-            that.dialog = true
             that.bill = response.data.data
             that.getItem()
             that.getItem_charge()
@@ -510,11 +511,11 @@ export default {
         id: value.id,
         type: value.type
       }
+      that.dialog = true
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
-            that.dialog = true
             that.bill = response.data.data
             that.getItem()
             that.dialog = false

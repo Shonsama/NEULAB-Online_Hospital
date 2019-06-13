@@ -13,6 +13,7 @@
               return-object
             ></v-select>
           </v-flex>
+          <v-spacer></v-spacer>
           <v-flex>
             <el-date-picker
               v-model="date"
@@ -24,28 +25,29 @@
               value-format= "yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  large
+                  icon
+                  flat
+                  color="primary"
+                  @click="load"
+                  v-on="on"
+                >
+                  <v-icon>
+                    search
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>搜索日结信息</span>
+            </v-tooltip>
             </v-flex>
-          <v-spacer/>
+
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn
-                large
-                icon
-                flat
-                color="primary"
-                @click="load"
-                v-on="on"
-              >
-                <v-icon>
-                  search
-                </v-icon>
-              </v-btn>
-            </template>
-            <span>搜索日结信息</span>
-          </v-tooltip>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
+                style="margin-top: 15px"
                 color="primary"
                 @click="pass_daily"
                 v-on="on"
@@ -166,7 +168,7 @@
                 <template v-slot:items="props">
                   <td>{{ props.item.bill_id }}</td>
                   <td>{{ props.item.bill_type }}</td>
-                  <td>{{ props.item.bill_num}}</td>
+                  <!--<td>{{ props.item.bill_num}}</td>-->
                 </template>
               </v-data-table>
             </div>
@@ -374,7 +376,7 @@ export default {
         value: 'bill_id'
       },
       { text: '发票类型', value: 'bill_type' },
-      { text: '发票号', value: 'bill_num' },
+      // { text: '发票号', value: 'bill_num' },
     ],
     desserts_already: [
       {
@@ -457,7 +459,6 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.allCashier = ''
         })
     }
   },

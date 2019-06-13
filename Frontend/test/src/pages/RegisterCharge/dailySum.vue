@@ -55,6 +55,7 @@
           <td>{{ props.item.bill_id }}</td>
           <td>{{ props.item.bill_type }}</td>
           <td>{{ props.item.bill_time }}</td>
+          <td>{{ props.item.bill_state }}</td>
           <td>{{ props.item.bill_sum }}</td>
         </template>
       </v-data-table>
@@ -103,6 +104,7 @@ export default {
       },
       {text: '结算类型', value: 'bill_type'},
       {text: '收费时间', value: 'bill_time'},
+      {text: '发票状态', value: 'bill_state'},
       {text: '收费金额', value: 'bill_sum'}],
       selected: '',
       daily: '',
