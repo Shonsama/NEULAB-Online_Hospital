@@ -79,7 +79,7 @@
             <where>
                 AND register_info_patient_id = #{register_info_patient_id}
                 AND register_info_id = prescription_register_info_id
-                AND prescription_execute_state = #{prescription_execute_state}
+                AND (prescription_execute_state = #{prescription_execute_state_1} or prescription_execute_state = #{prescription_execute_state_2})
                 <if test="start_time != null">
                     AND unix_timestamp(prescription_sent_time) > unix_timestamp(#{start_time})
                 </if>

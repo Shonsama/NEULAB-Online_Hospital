@@ -47,13 +47,14 @@
         <id property="rule_id" column="rule_id" />
         <result property="rule_name" column="rule_name" />
         <result property="rule_work_time" column="rule_work_time" />
+        <result property="doctor_id" column="doctor_id" />
         <result property="doctor_name" column="doctor_name" />
         <result property="department_name" column="department_name" />
     </resultMap>
 
 
     <select id="getNames" resultMap="rule_schedule" >
-        select rul.rule_id, rul.rule_name, rul.rule_work_time , doc.doctor_name, department_name
+        select rul.rule_id, rul.rule_name, rul.rule_work_time , doc.doctor_name, department_name , doc.doctor_id
         from rule rul, doctor_info doc, department_info dep
         where rul.rule_doctor_id = doc.doctor_id and doc.doctor_department_id = dep.department_id
     </select>

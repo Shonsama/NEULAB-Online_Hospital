@@ -252,6 +252,7 @@
           </td>
           <td>{{ props.item.rule_id }}</td>
           <td>{{ props.item.rule_name }}</td>
+          <td>{{ props.item.doctor_id }}</td>
           <td>{{ props.item.department_name }}</td>
           <td>{{ props.item.doctor_name }}</td>
           <td>{{ props.item.rule_work_time }}</td>
@@ -284,6 +285,7 @@
           start-placeholder="开始日期"
           end-placeholder="结束日期"
           style="margin-right: 10px"
+          value-format= "yyyy-MM-dd HH:mm:ss"
         >
         </el-date-picker>
         <v-btn color="primary" @click="add_schedule">保存</v-btn>
@@ -466,7 +468,9 @@ export default {
       var data = {
         schedule_start_date: this.date[0],
         schedule_end_date: this.date[1],
-        schedule_rule_id: this.selected_scheduling[0].rule_id
+        schedule_work_time: this.selected_scheduling[0].rule_work_time,
+        schedule_doctor_name: this.selected_scheduling[0].doctor_name,
+        schedule_doctor_id: this.selected_scheduling[0].doctor_id,
       }
       let that = this
       var url = this.HOME + '/schedule/add'
