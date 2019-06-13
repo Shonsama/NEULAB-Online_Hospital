@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-
 /**
  * 日结是系统管理员的接口， 退费是收费员的接口
  */
@@ -39,7 +37,7 @@ public class UserServiceController {
     }
 
     //日结发票查询
-    @RequestMapping("/daily-bill-get")
+    @RequestMapping("/daily-billx-get")
     public JSONObject dailyBillGet(@RequestBody JSONObject request){
         return userService.getDailyBill(request.getInteger("daily_id"));
     }
