@@ -794,7 +794,7 @@ export default {
             // that.dialog_bill = true
             console.log(response.data)
             that.dialog_suc = true
-            that.msg_suc = '发票号补打成功'
+            that.msg_suc = '发票号重打成功'
           })
       } else {
         this.dialog_err = true
@@ -814,7 +814,7 @@ export default {
             // that.dialog_bill = true
             console.log(response.data)
             that.dialog_suc = true
-            that.msg_suc = '发票号重打成功'
+            that.msg_suc = '发票号补打成功'
           })
       } else {
         this.dialog_err = true
