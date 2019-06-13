@@ -34,7 +34,7 @@ public class ConstantDefinition {
     public static final Integer FAIL_CODE = 500;
 
 
-    public static final String[] BILL_TYPE = {"挂号费", "检查费", "检验费", "处置费","中药费","西药费"};
+    public static final String[] BILL_TYPE = {"挂号费", "检查", "检验", "处置","中药","西药"};
     public static final String[] REFUND_TYPE = {"检查","检验","处置","中药","西药"};
     //Token失效时间
     public static final Long EXPIRY_TIME = 2000 * 3600L;  //过期时间2小时

@@ -5,6 +5,12 @@
       <v-toolbar flat dense>
         <v-toolbar-title>日结表</v-toolbar-title>
         <v-spacer></v-spacer>
+        <el-date-picker
+          v-model="date"
+          type="datetime"
+          placeholder="选择日期时间"
+          >
+        </el-date-picker>
         <v-btn
           class="white--text"
           color="primary"
@@ -18,22 +24,14 @@
       <v-data-table
         v-model="selected"
         :headers="headers"
-        :items="desserts"
-        item-key="code"
-        select-all
+        :items="desserts_daily"
+        item-key="bill_id"
       >
         <template v-slot:items="props">
-          <td>
-            <v-checkbox
-              v-model="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
-          </td>
-          <td>{{ props.item.code }}</td>
-          <td>{{ props.item.type }}</td>
-          <td>{{ props.item.time }}</td>
-          <td>{{ props.item.cost }}</td>
+          <td>{{ props.item.bill_id }}</td>
+          <td>{{ props.item.bill_type }}</td>
+          <td>{{ props.item.bill_time }}</td>
+          <td>{{ props.item.bill_sum }}</td>
         </template>
       </v-data-table>
     </v-flex>
@@ -55,7 +53,7 @@
 export default {
   data () {
     return {
-      date: ['', ''],
+      date: '',
       desserts: [{
         code: '1',
         cost: '11',
@@ -73,13 +71,14 @@ export default {
       headers: [{
         text: '发票号',
         align: 'left',
-        value: 'code'
+        value: 'bill_id'
       },
-      {text: '结算类型', value: 'type'},
-      {text: '收费时间', value: 'time'},
-      {text: '收费金额', value: 'cost'}],
+      {text: '结算类型', value: 'bill_type'},
+      {text: '收费时间', value: 'bill_time'},
+      {text: '收费金额', value: 'bill_sum'}],
       selected: '',
-      daily: ''
+      daily: '',
+      desserts_daily: []
     }
   },
   created: function () {
@@ -91,8 +90,7 @@ export default {
   },
   methods: {
     getDate: function () {
-      this.date[0] = new Date(2019, 5, 1, 10, 10)
-      this.date[1] = new Date()
+      this.date = new Date()
     },
     addDaily: function () {
       let that = this
@@ -104,13 +102,14 @@ export default {
         .then(function (response) {
           console.log(response.data)
           that.daily = response.data.data
+          that.desserts_daily = response.data.data.bills
         })
     },
     confirmDaily: function () {
       let that = this
-      var url = this.HOME + '/user-service/daily_user_id'
+      var url = this.HOME + '/user-service/daily-submit'
       var data = {
-        daily_user_id: that.daily.daily_user_id
+        daily_id: that.daily.daily_id
       }
       this.$http.post(url, data)
         .then(function (response) {
