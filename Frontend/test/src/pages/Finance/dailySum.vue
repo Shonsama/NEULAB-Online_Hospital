@@ -46,16 +46,11 @@
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn
-                large
-                icon
-                flat
                 color="primary"
                 @click="pass_daily"
                 v-on="on"
               >
-                <v-icon>
-                  save
-                </v-icon>
+                核对通过
               </v-btn>
             </template>
             <span>核对通过</span>
@@ -462,7 +457,7 @@ export default {
       })
         .then(function (response) {
           console.log(response.data)
-          that.allCashier = response.data.data
+          that.allCashier = ''
         })
     }
   },
