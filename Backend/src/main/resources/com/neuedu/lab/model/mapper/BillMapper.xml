@@ -27,13 +27,13 @@
 
     <select id="getBillByUserIdAndTime" resultType="Bill">
         SELECT * FROM bill
-        WHERE  bill_user_id = #{bill_user_id} AND bill_time BETWEEN #{start_time} AND #{end_time}
+        WHERE  bill_user_id = #{bill_user_id} AND unix_timestamp(bill_time) > unix_timestamp(#{start_time}) AND unix_timestamp(#{end_time}) > unix_timestamp(bill_time)
     </select>
 
     <update id="updateBillFrozen" >
-        UPDATE FROM bill
+        UPDATE bill
         SET bill_frozen = TRUE
-       WHERE bill_user_id = #{bill_user_id} AND bill_time BETWEEN #{start_time} AND #{end_time}
+       WHERE bill_user_id = #{bill_user_id} AND unix_timestamp(bill_time) > unix_timestamp(#{start_time}) AND unix_timestamp(#{end_time}) > unix_timestamp(bill_time)
     </update>
 
     <select id="getBillByMedicalSkillId" resultType="Bill">
@@ -52,4 +52,10 @@
         update bill set bill_num = #{bill_num}
         where bill_id = #{bill_id}
     </update>
+<!--重打-->
+    <update id="updateBillState">
+        update bill set bill_state = #{bill_state}
+        where bill_id = #{bill_id}
+    </update>
+<!--    补打-->
 </mapper>

@@ -36,7 +36,7 @@
       <v-divider vertical></v-divider>
       <v-flex>
         <v-toolbar flat>
-          <v-toolbar-title>检验项目</v-toolbar-title>
+          <v-toolbar-title>项目明细</v-toolbar-title>
         </v-toolbar>
         <v-divider/>
         <v-data-table
@@ -111,6 +111,7 @@ export default {
   },
   mounted: function () {
     this.get()
+    this.search_patient = this.msgfromfa.register_info_id
   },
   computed: {
     returnSum: function () {

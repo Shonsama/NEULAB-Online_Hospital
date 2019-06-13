@@ -113,7 +113,7 @@ public class RegisterService {
     public JSONObject addBill(Bill bill){
         try {
             bill.setBill_type(ConstantDefinition.BILL_TYPE[0]);
-            bill.setBill_time(new Date());
+            bill.setBill_time(new java.sql.Date(new Date().getTime()));
             billMapper.addBill(bill);
         }catch (Exception e){
             e.printStackTrace();
@@ -124,25 +124,24 @@ public class RegisterService {
 
 
     @Transactional
-    public boolean refund(Integer register_id) {
+    public JSONObject refund(Integer register_id) {
         Register register = registerMapper.getRegister(register_id);
+        Bill bill;
         if(!register.getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])){
-            System.out.println(register.getRegister_info_state());
-            System.out.println("不满足退号条件");
-            return false;
+            return responseFail("不满足退号条件");
         }
         else {
             try{
                 registerMapper.updateRegisterState(register_id,ConstantDefinition.REGISTER_STATE[3]);
-                Bill bill = billMapper.getBill(register_id);
+                bill = billMapper.getBill(register_id);
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 billMapper.addBill(bill);
             }catch (Exception e){
                 e.printStackTrace();
-                return false;
+                return responseFail();
             }
-            return true;
+            return responseSuccess(billMapper.getBillById(bill.getBill_id()));
         }
     }
 }

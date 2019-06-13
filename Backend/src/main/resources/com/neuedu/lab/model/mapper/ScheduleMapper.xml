@@ -2,43 +2,25 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.lab.model.mapper.RecordMapper">
-    <insert id="addRecord">
-        INSERT INTO record (record_patient_id, record_doctor_id, record_id,
-         record_syndrome, record_health_check, record_xianbingshi, record_jiwangshi, record_cure_situation,
-         record_allergy_his, record_state, record_suggestion, record_attention, record_doctor_type)
-        VALUES (#{record_patient_id}, #{record_doctor_id}, #{record_id}, #{record_syndrome}, #{record_health_check},
-                #{record_xianbingshi}, #{record_jiwangshi}, #{record_cure_situation},
-                #{record_allergy_his}, #{record_state},#{record_suggestion}, #{record_attention},#{record_doctor_type})
+<mapper namespace="com.neuedu.lab.model.mapper.ScheduleMapper">
+    <insert id="addSchedule" parameterType="Schedule" useGeneratedKeys="true" keyProperty="schedule_id">
+        INSERT INTO schedule (schedule_start_date,schedule_end_date,schedule_work_time,schedule_doctor_name,schedule_doctor_id)
+        VALUES (#{schedule_start_date}, #{schedule_end_date}, #{schedule_work_time}, #{schedule_doctor_name}, #{schedule_doctor_id})
     </insert>
 
-    <update id="updateRecord">
-        UPDATE record SET
-        record_syndrome = #{record_syndrome},
-        record_health_check = #{record_health_check},
-        record_xianbingshi = #{record_xianbingshi},
-        record_jiwangshi = #{record_jiwangshi},
-        record_cure_situation = #{record_cure_situation},
-        record_allergy_his = #{record_allergy_his},
-        record_state = #{record_state},
-        record_attention = #{rerecord_attention},
-        record_suggestion = #{record_suggestion},
-        record_doctor_type = #{record_doctor_type}
-        WHERE record_id = #{record_id}
+    <delete id="deleteSchedule" parameterType="Schedule">
+        DELETE FROM schedule
+        where schedule_id = #{schedule_id}
+    </delete>
+
+    <update id="updateSchedule">
+        UPDATE schedule SET
+        schedule_start_date = #{schedule_start_date},
+        schedule_end_date = #{schedule_end_date}
+        WHERE schedule_id = #{schedule_id}
     </update>
 
-    <select id="getRecordStateById" resultType="String">
-        SELECT record_state FROM  record
-        WHERE record_id = #{record_id}
+    <select id="getAllSchedules" resultType="Schedule">
+        SELECT * from schedule
     </select>
-    <select id="getRecordById" resultType="Record">
-        SELECT * FROM  record
-        WHERE record_id = #{record_id}
-    </select>
-
-
-    <update id="updateRecordStateById">
-        UPDATE record SET record_state = #{record_state}
-        WHERE record_id = #{record_id}
-    </update>
 </mapper>

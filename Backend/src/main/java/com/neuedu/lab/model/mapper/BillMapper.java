@@ -17,8 +17,8 @@ public interface BillMapper {
     List<Bill> getBillForOneRecord(Integer register_id);
 
     List<Bill> getBillByUserIdAndTime(@Param("bill_user_id") Integer bill_user_id,
-                                      @Param("start_time") Date start_time,
-                                      @Param("end_time") Date end_time);
+                                      @Param("start_time") String start_time,
+                                      @Param("end_time") String end_time);
 
     //供退费使用
     List<Bill> getBillByMedicalSkillId(Integer bill_medical_skill_id);
@@ -29,6 +29,8 @@ public interface BillMapper {
 
     //日结冻结发票
     void updateBillFrozen(@Param("bill_user_id") Integer bill_user_id,
-                          @Param("start_time") Date start_time,
-                          @Param("end_time") Date end_time);
+                          @Param("start_time") String start_time,
+                          @Param("end_time") String end_time);
+
+    void updateBillState(@Param("bill_state") String bill_state,@Param("bill_id") Integer bill_id);
 }

@@ -1,7 +1,6 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.model.service.RegisterService;
@@ -40,12 +39,7 @@ public class RegisterController {
     //退号操作
     @RequestMapping("/refund")
     public JSONObject registerRefund(@RequestBody JSONObject request){
-        if(registerService.refund(request.getInteger("register_id"))){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return registerService.refund(request.getInteger("register_id"));
     }
 
 

@@ -20,35 +20,35 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <v-card>
     <v-layout>
       <v-flex shrink >
         <v-expand-x-transition >
           <div v-show="show" style="white-space: nowrap; width:300px">
-            <v-flex shrink>
-              <v-expand-transition>
-                <div v-show="dialog_err" style="white-space: nowrap">
-                  <v-alert
-                    :value="true"
-                    type="error"
-                  >
-                    {{msg_err}}
-                  </v-alert>
-                </div>
-              </v-expand-transition>
-            </v-flex>
-            <v-flex shrink>
-              <v-expand-transition>
-                <div v-show="dialog_suc" style="white-space: nowrap">
-                  <v-alert
-                    :value="true"
-                    type="success"
-                  >
-                    {{msg_suc}}
-                  </v-alert>
-                </div>
-              </v-expand-transition>
-            </v-flex>
             <v-layout>
               <v-flex md10 xs10>
                 <v-text-field
