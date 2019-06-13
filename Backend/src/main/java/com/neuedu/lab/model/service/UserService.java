@@ -521,7 +521,8 @@ public class UserService {
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
         if (prescription == null) {
             return ConstantUtils.responseFail("不存在该处方", null);
-        } else if (!prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE[5])) {
+        } else if (!(prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[0])
+        || prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[1]))) {
             return ConstantUtils.responseFail("该处方状态为["
                     + prescription.getPrescription_execute_state() + "],不可退费", null);
         }
