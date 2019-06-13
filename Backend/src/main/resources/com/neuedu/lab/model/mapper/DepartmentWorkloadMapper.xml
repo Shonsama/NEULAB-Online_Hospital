@@ -44,7 +44,7 @@
 
 
     <!--检查-->
-    <select id="getMedicalSkillInspect" resultType="BigDecimal">
+<!--    <select id="getMedicalSkillInspect" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
         where (medical_skill_doctor_id = doctor_id
         or medical_skill_execute_doctor_id = doctor_id)
@@ -56,10 +56,22 @@
         <if test="end_time != null">
             and medical_skill_create_time &lt; #{end_time}
         </if>
+    </select>-->
+
+    <select id="getMedicalSkillInspect" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_execute_department = #{department_id}
+        and medical_skill_type = "检查"
+        <if test="start_time != null">
+            and medical_skill_create_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and medical_skill_create_time &lt; #{end_time}
+        </if>
     </select>
 
     <!--检验-->
-    <select id="getMedicalSkillCheck" resultType="BigDecimal">
+<!--    <select id="getMedicalSkillCheck" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
         where (medical_skill_doctor_id = doctor_id
         or medical_skill_execute_doctor_id = doctor_id)
@@ -71,13 +83,37 @@
         <if test="end_time != null">
             and medical_skill_create_time &lt; #{end_time}
         </if>
+    </select>-->
+
+    <select id="getMedicalSkillCheck" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_execute_department = #{department_id}
+        and medical_skill_type = "检验"
+        <if test="start_time != null">
+            and medical_skill_create_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and medical_skill_create_time &lt; #{end_time}
+        </if>
     </select>
     <!--处置-->
-    <select id="getMedicalSkillDispose" resultType="BigDecimal">
+    <!--<select id="getMedicalSkillDispose" resultType="BigDecimal">
         select sum(medical_skill_fee) from medical_skill,doctor_info
         where (medical_skill_doctor_id = doctor_id
         or medical_skill_execute_doctor_id = doctor_id)
         and doctor_department_id = #{department_id}
+        and medical_skill_type = "处置"
+        <if test="start_time != null">
+            and medical_skill_create_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and medical_skill_create_time &lt; #{end_time}
+        </if>
+    </select>-->
+
+    <select id="getMedicalSkillDispose" resultType="BigDecimal">
+        select sum(medical_skill_fee) from medical_skill
+        where medical_skill_execute_department = #{department_id}
         and medical_skill_type = "处置"
         <if test="start_time != null">
             and medical_skill_create_time &gt; #{start_time}
