@@ -411,10 +411,28 @@ export default {
     }
   },
   mounted: function () {
+    this.Check()
     this.load_patient_self()
     this.load_patient_depart()
   },
   methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '门诊医生') {
+        this.$router.push('/Diagnostician')
+      } else if (this.$store.state.user.type === '医技医生') {
+        this.$router.push('/Meditech')
+      } else if (this.$store.state.user.type === '医院管理员') {
+        this.$router.push('/BasicInfoManage')
+      } else if (this.$store.state.user.type === '挂号收费员') {
+        this.$router.push('/RegisterCharge')
+      } else if (this.$store.state.user.type === '药房操作员') {
+        this.$router.push('/Pharmacy')
+      } else if (this.$store.state.user.type === '财务管理员') {
+        this.$router.push('/Finance')
+      }
+    },
     network_out: function () {
       this.dialog = false
       this.dialog_err = true

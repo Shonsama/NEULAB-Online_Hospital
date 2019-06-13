@@ -178,6 +178,7 @@ export default {
             }
             console.log(data)
             that.$store.commit('set_user', data)
+            that.$store.commit('login')
             if (data.type === '挂号收费员') {
               that.$router.push('/RegisterCharge')
             } else if (data.type === '门诊医生') {
