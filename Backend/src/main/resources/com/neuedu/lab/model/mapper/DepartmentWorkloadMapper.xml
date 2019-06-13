@@ -119,11 +119,11 @@
 
     <select id="getDepartmentsClinical" resultType="Department">
         select * from department_info
-        where department_type = "临床科室";
+        where department_cat = "临床科室";
     </select>
 
     <select id="getDepartmentsMedicalSkill" resultType="Department">
         select * from department_info
-        where department_type = "医技科室";
+        where department_cat = "医技科室";
     </select>
 </mapper>
