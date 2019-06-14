@@ -11,7 +11,7 @@
         dark
       >
         <v-card-text>
-          Please stand by
+          请稍等
           <v-progress-linear
             indeterminate
             color="white"
@@ -239,7 +239,6 @@
                   label="科室"
                   return-object
                   required
-                  placeholder="请选择科室"
                 ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">
@@ -334,7 +333,6 @@
                   label="科室"
                   return-object
                   required
-                  placeholder="请选择科室"
                 ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">

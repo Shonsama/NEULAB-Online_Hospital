@@ -7,6 +7,7 @@ import Diagnostician from '@/pages/Diagnostician'
 import Meditech from '@/pages/Meditech'
 import Pharmacy from '@/pages/Pharmacy'
 import Finance from '@/pages/Finance'
+import error from '@/pages/error'
 
 Vue.use(Router)
 
@@ -15,7 +16,8 @@ const router = new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      alias: '/login'
     },
     {
       path: '/BasicInfo',
@@ -46,8 +48,12 @@ const router = new Router({
       path: '/Finance',
       name: 'Finance',
       component: Finance
+    },
+    {
+      path: '/error',
+      name: 'error',
+      component: error
     }
   ]
 })
-
 export default router

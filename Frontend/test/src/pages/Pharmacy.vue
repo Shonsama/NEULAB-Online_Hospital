@@ -50,6 +50,20 @@ export default {
         id: 'itemManage'
       }]
     }
+  },
+  mounted: function () {
+    this.Check()
+  },
+  methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '药房操作员') {
+        this.$router.push('/Pharmacy')
+      } else {
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>

@@ -351,7 +351,7 @@ export default {
     daily_owner_id: 1,
     allCashier: [],
     cashier_user_object: '',
-    date:['',''],
+    date: ['', ''],
     expand_already: false,
     expand_again: false,
     expand_waste: false,
@@ -363,7 +363,7 @@ export default {
     bill_complement: '5',
     bill_opposite: '6',
     time_range: '2019.8.1-2019.9.1',
-    cashier:'shuwanyang',
+    cashier: 'shuwanyang',
     daily_mid_prescription_sum: '100',
     daily_west_prescription_sum: '150',
     daily_register_sum: '50',
@@ -375,7 +375,7 @@ export default {
         align: 'left',
         value: 'bill_id'
       },
-      { text: '发票类型', value: 'bill_type' },
+      { text: '发票类型', value: 'bill_type' }
       // { text: '发票号', value: 'bill_num' },
     ],
     desserts_already: [
@@ -397,7 +397,6 @@ export default {
   }),
   methods: {
     load: function () {
-      this.time_range = this.date[0] + '-' + this.date[1]
       this.cashier = this.cashier_user_object.user_name
       console.log('This is the format of the date')
       let that = this
@@ -410,16 +409,19 @@ export default {
         .then(function (response) {
           console.log(response.data)
           var list = response.data.data
-          that.daily = list[list.length-1]
+          that.daily = list[list.length - 1]
+          that.date[0] = that.daily.daily_start
+          that.date[1] = that.daily.daily_end
+          that.time_range = that.date[0] + '-' + that.date[1]
           that.daily_mid_prescription_sum = that.daily.daily_mid_prescription_sum
-          that.daily_west_prescription_sum= that.daily.daily_west_prescription_sum
+          that.daily_west_prescription_sum = that.daily.daily_west_prescription_sum
           that.daily_register_sum = that.daily.daily_register_sum
           that.daily_ms_sum = that.daily.daily_check_sum + that.daily.daily_examine_sum + that.daily.daily_handle_sum
           that.daily_sum = that.daily_mid_prescription_sum + that.daily_west_prescription_sum + that.daily_register_sum + that.daily_ms_sum
           that.load_bills()
         })
     },
-    load_bills: function (){
+    load_bills: function () {
       let that = this
       var url = this.HOME + '/user-service/daily-bill-get'
       this.$http.post(url, {

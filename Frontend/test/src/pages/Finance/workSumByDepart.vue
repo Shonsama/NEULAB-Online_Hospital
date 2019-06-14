@@ -95,64 +95,64 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      department_type: '',
-      department_items: [
-        {text: '开单科室'},
-        {text: '执行科室'}
-      ],
-      dialog: false,
-      date: ['', ''],
-      search: '',
-      expand: false,
-      selected: [],
-      signal: '',
-      headers: [
-        {
-          text: '科室名称',
-          align: 'left',
-          value: 'getDepartmentName'
-        },
-        { text: '看诊人次', value: 'getVisitorsNum' },
-        { text: '发票数量', value: 'getBillsNum' },
-        { text: '挂号费', value: 'getRegisterFee' },
-        { text: '检验费', value: 'getMedicalSkillCheck' },
-        { text: '检查费', value: 'getMedicalSkillInspect' },
-        { text: '处置费', value: 'getMedicalSkillDispose' },
-        { text: '西药费', value: 'getPrescriptionWest' },
-        { text: '中药费', value: 'getPrescriptionChinese' },
-      ],
-      desserts: []
-    }),
-    methods: {
-      load: function () {
-        var url = ''
-        if (this.department_type !== ''){
-          if (this.department_type === '开单科室') {
-            url = this.HOME + '/workload/get-department-draw'
-          } else{
-            url = this.HOME + '/workload/get-department-execute'
-          }
-          let that = this
-          that.dialog = true
-          this.$http.post(url, {
-            start_time: that.date[0],
-            end_time: that.date[1]
-          })
-            .then(function (response) {
-              console.log(response.data)
-              that.dialog = false
-              that.desserts = response.data.data
-            })
+export default {
+  data: () => ({
+    department_type: '',
+    department_items: [
+      {text: '开单科室'},
+      {text: '执行科室'}
+    ],
+    dialog: false,
+    date: ['', ''],
+    search: '',
+    expand: false,
+    selected: [],
+    signal: '',
+    headers: [
+      {
+        text: '科室名称',
+        align: 'left',
+        value: 'getDepartmentName'
+      },
+      { text: '看诊人次', value: 'getVisitorsNum' },
+      { text: '发票数量', value: 'getBillsNum' },
+      { text: '挂号费', value: 'getRegisterFee' },
+      { text: '检验费', value: 'getMedicalSkillCheck' },
+      { text: '检查费', value: 'getMedicalSkillInspect' },
+      { text: '处置费', value: 'getMedicalSkillDispose' },
+      { text: '西药费', value: 'getPrescriptionWest' },
+      { text: '中药费', value: 'getPrescriptionChinese' }
+    ],
+    desserts: []
+  }),
+  methods: {
+    load: function () {
+      var url = ''
+      if (this.department_type !== '') {
+        if (this.department_type === '开单科室') {
+          url = this.HOME + '/workload/get-department-draw'
+        } else {
+          url = this.HOME + '/workload/get-department-execute'
         }
+        let that = this
+        that.dialog = true
+        this.$http.post(url, {
+          start_time: that.date[0],
+          end_time: that.date[1]
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.dialog = false
+            that.desserts = response.data.data
+          })
       }
-    },
-    computed: {
-    },
-    watch: {
     }
+  },
+  computed: {
+  },
+  watch: {
   }
+}
 </script>
 
 <style scoped>

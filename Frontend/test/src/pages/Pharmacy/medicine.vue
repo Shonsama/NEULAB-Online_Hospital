@@ -179,7 +179,7 @@ export default {
     md_patient_id: '',
     show: false,
     department_default: '艾滋病科',
-    userid_default:'4',
+    userid_default: '4',
     search_patient: '',
     state: '',
     md_id: '',

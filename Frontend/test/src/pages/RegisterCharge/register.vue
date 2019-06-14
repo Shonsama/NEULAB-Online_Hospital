@@ -210,7 +210,7 @@
         </template>
       </v-toolbar>
       <v-divider></v-divider>
-      <v-layout class="ml-4">
+      <v-layout style="margin-left: 35px">
         <v-form v-model="valid">
           <v-container>
             <v-layout>

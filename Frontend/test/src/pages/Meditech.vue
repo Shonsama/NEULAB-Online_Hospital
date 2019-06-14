@@ -67,6 +67,20 @@ export default {
         id: 'itemManage'
       }]
     }
+  },
+  mounted: function () {
+    this.Check()
+  },
+  methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '医技医生') {
+        this.$router.push('/Meditech')
+      } else {
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>

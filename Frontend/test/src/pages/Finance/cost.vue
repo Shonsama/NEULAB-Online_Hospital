@@ -151,41 +151,128 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      alert_success: false,
-      alert_error: false,
-      mode: true,
-      fee_cat_id: '',
-      fee_cat_name: '',
-      show: false,
-      search: '',
-      expand: false,
-      selected: [],
-      signal: '',
-      headers: [
-        {
-          text: '费用科目编码',
-          align: 'left',
-          value: 'fee_cat_id'
-        },
-        { text: '费用科目名称', value: 'fee_cat_name' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts: []
-    }),
-    methods: {
-      load: function () {
-        let that = this
-        var url = this.HOME + '/maintenance/fee-cat/get-all'
-        this.$http.post(url, {
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts = response.data.data
-          })
+export default {
+  data: () => ({
+    alert_success: false,
+    alert_error: false,
+    mode: true,
+    fee_cat_id: '',
+    fee_cat_name: '',
+    show: false,
+    search: '',
+    expand: false,
+    selected: [],
+    signal: '',
+    headers: [
+      {
+        text: '费用科目编码',
+        align: 'left',
+        value: 'fee_cat_id'
       },
-      deleteItem: function (item) {
+      { text: '费用科目名称', value: 'fee_cat_name' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts: []
+  }),
+  methods: {
+    load: function () {
+      let that = this
+      var url = this.HOME + '/maintenance/fee-cat/get-all'
+      this.$http.post(url, {
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts = response.data.data
+        })
+    },
+    deleteItem: function (item) {
+      let that = this
+      var url = this.HOME + '/maintenance/fee-cat/delete'
+      this.$http.post(url, {fee_cat_id: item.fee_cat_id})
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load()
+            that.notice_success()
+          } else {
+            that.notice_error()
+          }
+        })
+      console.log(this.signal)
+    },
+    addItem: function () {
+      var feeCat = {
+        fee_cat_id: this.fee_cat_id,
+        fee_cat_name: this.fee_cat_name
+      }
+      let that = this
+      var url = this.HOME + '/maintenance/fee-cat/add'
+      this.$http.post(url, feeCat)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load()
+            that.show = !that.show
+            that.notice_success()
+          } else {
+            that.notice_error()
+          }
+        })
+      console.log(this.signal)
+    },
+    updateItem: function () {
+      var feeCat = {
+        fee_cat_id: this.fee_cat_id,
+        fee_cat_name: this.fee_cat_name
+      }
+      let that = this
+      var url = this.HOME + '/maintenance/fee-cat/update'
+      this.$http.post(url, feeCat)
+        .then(function (response) {
+          console.log(response.data)
+          that.signal = response.data.msg
+          if (that.signal === 'SUCCESS') {
+            that.load()
+            that.show = !that.show
+            that.eraseForm()
+            that.notice_success()
+          } else {
+            that.notice_error()
+          }
+        })
+      console.log(this.signal)
+    },
+    fillForm: function (item) {
+      this.fee_cat_id = item.fee_cat_id
+      this.fee_cat_name = item.fee_cat_name
+    },
+    eraseForm: function () {
+      this.fee_cat_id = ''
+      this.fee_cat_name = ''
+    },
+    notice_success: function () {
+      this.change_success()
+      var timeout_1 = window.setTimeout(this.change_success, 1500)
+    },
+    change_success: function () {
+      this.alert_success = !this.alert_success
+    },
+    notice_error: function () {
+      this.change_error()
+      var timeout_2 = window.setTimeout(this.change_error, 1500)
+    },
+    change_error: function () {
+      this.alert_error = !this.alert_error
+    },
+    delete_selected: function () {
+      var count = 0
+      var length = this.selected.length
+      for (let i = 0; i < this.selected.length; i++) {
+        var item = {
+          fee_cat_id: this.selected[i].fee_cat_id
+        }
         let that = this
         var url = this.HOME + '/maintenance/fee-cat/delete'
         this.$http.post(url, {fee_cat_id: item.fee_cat_id})
@@ -194,118 +281,30 @@
             that.signal = response.data.msg
             if (that.signal === 'SUCCESS') {
               that.load()
-              that.notice_success()
-            }else {
-              that.notice_error()
+              count = count + 1
             }
           })
-        console.log(this.signal)
-      },
-      addItem: function () {
-        var feeCat = {
-          fee_cat_id: this.fee_cat_id,
-          fee_cat_name: this.fee_cat_name
-        }
-        let that = this
-        var url = this.HOME + '/maintenance/fee-cat/add'
-        this.$http.post(url, feeCat)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data.msg
-            if (that.signal === 'SUCCESS') {
-              that.load()
-              that.show = !that.show
-              that.notice_success()
-            }else {
-              that.notice_error()
-            }
-          })
-        console.log(this.signal)
-      },
-      updateItem: function () {
-        var feeCat = {
-          fee_cat_id: this.fee_cat_id,
-          fee_cat_name: this.fee_cat_name,
-        }
-        let that = this
-        var url = this.HOME + '/maintenance/fee-cat/update'
-        this.$http.post(url, feeCat)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data.msg
-            if (that.signal === 'SUCCESS') {
-              that.load()
-              that.show = !that.show
-              that.eraseForm()
-              that.notice_success()
-            }else {
-              that.notice_error()
-            }
-          })
-        console.log(this.signal)
-      },
-      fillForm: function (item) {
-        this.fee_cat_id = item.fee_cat_id
-        this.fee_cat_name = item.fee_cat_name
-      },
-      eraseForm: function () {
-        this.fee_cat_id = ''
-        this.fee_cat_name = ''
-      },
-      notice_success: function () {
-        this.change_success()
-        var timeout_1 = window.setTimeout( this.change_success, 1500)
-      },
-      change_success: function () {
-        this.alert_success =! this.alert_success
-      },
-      notice_error: function () {
-        this.change_error()
-        var timeout_2 = window.setTimeout( this.change_error, 1500)
-      },
-      change_error: function () {
-        this.alert_error =! this.alert_error
-      },
-      delete_selected: function () {
-        var count = 0
-        var length = this.selected.length
-        for (let i = 0; i < this.selected.length; i++) {
-          var item ={
-            fee_cat_id: this.selected[i].fee_cat_id
-          }
-          let that = this
-          var url = this.HOME + '/maintenance/fee-cat/delete'
-          this.$http.post(url, {fee_cat_id: item.fee_cat_id})
-            .then(function (response) {
-              console.log(response.data)
-              that.signal = response.data.msg
-              if (that.signal === 'SUCCESS') {
-                that.load()
-                count = count + 1
-              }
-            })
-        }
-        if (this.count === this.length){
-          this.notice_success()
-        }
-        else {
-          this.notice_error()
-        }
       }
-    },
-    mounted: function () {
-      this.load()
-    },
-    computed: {
-    },
-    watch: {
-      show: function (newState, oldState) {
-        if (newState === false) {
-          this.eraseForm()
-        }
+      if (this.count === this.length) {
+        this.notice_success()
+      } else {
+        this.notice_error()
+      }
+    }
+  },
+  mounted: function () {
+    this.load()
+  },
+  computed: {
+  },
+  watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
       }
     }
   }
+}
 </script>
 
 <style scoped>

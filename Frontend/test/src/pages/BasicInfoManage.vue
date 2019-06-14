@@ -97,12 +97,22 @@ export default {
     workforce
   },
   mounted: function () {
+    this.Check()
   },
   computed: {
   },
   watch: {
   },
   methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '医院管理员') {
+        this.$router.push('/BasicInfoManage')
+      } else {
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>
