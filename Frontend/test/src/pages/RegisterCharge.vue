@@ -68,6 +68,20 @@ export default {
         id: 'dailySumHistory'
       }]
     }
+  },
+  mounted: function () {
+    this.Check()
+  },
+  methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '挂号收费员') {
+        this.$router.push('/RegisterCharge')
+      } else {
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>

@@ -68,6 +68,18 @@ export default {
         id: 'workSumByDoctor'
       }]
     }
+  },
+  mounted: function () {
+    this.Check()
+  },
+  methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '财务管理员') {
+        this.$router.push('/Finance')
+      }
+    }
   }
 }
 </script>

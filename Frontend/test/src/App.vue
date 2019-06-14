@@ -89,12 +89,12 @@ export default {
     return {
       item_now: '',
       items: [
-        {title: '基础信息维护', icon: 'dashboard', id: '/BasicInfo'},
-        {title: '门诊挂号收费', icon: 'account_box', id: '/RegisterCharge'},
-        {title: '门诊医生工作站', icon: 'assignment', id: '/Diagnostician'},
-        {title: '门诊医技工作站', icon: 'credit_card', id: '/Meditech'},
-        {title: '门诊药房工作站', icon: 'card_travel', id: '/Pharmacy'},
-        {title: '门诊财务管理', icon: 'calendar_today', id: '/Finance'}
+        {title: '医院管理员', icon: 'dashboard', id: '/BasicInfo'},
+        {title: '挂号收费员', icon: 'account_box', id: '/RegisterCharge'},
+        {title: '门诊医生', icon: 'assignment', id: '/Diagnostician'},
+        {title: '医技医生', icon: 'credit_card', id: '/Meditech'},
+        {title: '药房操作员', icon: 'card_travel', id: '/Pharmacy'},
+        {title: '财务管理员', icon: 'calendar_today', id: '/Finance'}
       ],
       right: null,
       dark: false,

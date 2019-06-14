@@ -11,7 +11,7 @@
         dark
       >
         <v-card-text>
-          Please stand by
+          请稍等
           <v-progress-linear
             indeterminate
             color="white"
@@ -345,9 +345,9 @@
         </v-card-text>
         <v-divider class="mt-2"></v-divider>
         <v-card-actions>
-          <v-btn flat @click="show_pre_dia = !show_pre_dia">Cancel</v-btn>
+          <v-btn flat @click="show_pre_dia = !show_pre_dia">取消</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="addItem">Submit</v-btn>
+          <v-btn color="primary" flat @click="addItem">确定</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -557,6 +557,7 @@
                   flat
                   small
                   right
+                  class="ml-3"
                   @click="seeTem(props.item);"
                 >
                   详情

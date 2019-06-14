@@ -108,7 +108,7 @@ export default {
       { text: '检查费', value: 'getMedicalSkillInspect' },
       { text: '处置费', value: 'getMedicalSkillDispose' },
       { text: '西药费', value: 'getPrescriptionWest' },
-      { text: '中药费', value: 'getPrescriptionChinese' },
+      { text: '中药费', value: 'getPrescriptionChinese' }
     ],
     desserts: []
   }),
@@ -132,7 +132,7 @@ export default {
   },
   watch: {
   }
-  }
+}
 </script>
 
 <style scoped>

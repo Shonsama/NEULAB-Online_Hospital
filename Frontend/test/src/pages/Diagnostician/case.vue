@@ -80,6 +80,7 @@
         </div>
       </v-expand-transition>
     </v-flex>
+    <v-card>
     <v-toolbar flat dense >
       <v-layout align-center justify-space-around row fill-height>
       <v-btn small color="primary" @click="save">
@@ -100,7 +101,7 @@
       <v-flex xs12>
       <v-form
         class="pa-3 pt-4 scroll-y"
-        style="max-height: 600px"
+        style="max-height: 480px"
       >
         <v-card-title primary-title>
           <div>
@@ -268,6 +269,7 @@
       </v-form>
       </v-flex>
     </v-layout>
+    </v-card>
   </div>
 </template>
 

@@ -11,7 +11,7 @@
         dark
       >
         <v-card-text>
-          Please stand by
+          请稍等
           <v-progress-linear
             indeterminate
             color="white"
@@ -27,7 +27,7 @@
     >
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title >医技模板详情</v-toolbar-title>
+          <v-toolbar-title>医技模板详情</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -187,7 +187,7 @@
     >
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title  >医技项目目录</v-toolbar-title>
+          <v-toolbar-title>医技项目目录</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-flex xs3>
             <v-text-field
@@ -201,7 +201,7 @@
         <v-data-table
           :headers="headers_dia"
           :items="desserts_dia"
-          :expand="expand_dia"
+          :expand=false
           :search="search"
           item-key="medical_skill_content_id"
           class="elevation-1"
@@ -239,7 +239,6 @@
                   label="科室"
                   return-object
                   required
-                  placeholder="请选择科室"
                 ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">
@@ -282,7 +281,7 @@
     >
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title  >医技项目目录</v-toolbar-title>
+          <v-toolbar-title>医技项目目录</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-flex xs3>
             <v-text-field
@@ -296,10 +295,9 @@
         <v-data-table
           :headers="headers_dia"
           :items="desserts_dia"
-          :expand="expand_dia"
+          :expand=false
           :search="search"
           item-key="medical_skill_content_id"
-          class="elevation-1"
         >
           <template v-slot:items="props">
             <td>{{ props.item.medical_skill_content_id }}</td>
@@ -334,7 +332,6 @@
                   label="科室"
                   return-object
                   required
-                  placeholder="请选择科室"
                 ></v-select>
               </v-flex>
               <v-flex xs2 class="mr-3">
@@ -395,141 +392,142 @@
         </div>
       </v-expand-transition>
     </v-flex>
-    <v-layout>
-      <v-flex  lg9 md9 sm9 xs9>
-        <v-toolbar flat dense>
-          <v-toolbar-title  >合计:{{fee}}元</v-toolbar-title>
-          <v-spacer/>
-          <v-btn
-            small
-            @click="show = !show"
-            color="primary"
+    <v-form>
+      <v-layout>
+        <v-flex lg9 md9 sm9 xs9>
+          <v-toolbar flat dense>
+            <v-toolbar-title>合计:{{fee}}元</v-toolbar-title>
+            <v-spacer/>
+            <v-btn
+              small
+              @click="show = !show"
+              color="primary"
+            >
+              新增
+            </v-btn>
+            <v-btn
+              small
+              @click="deleteItem"
+              color="primary"
+            >
+              删除
+            </v-btn>
+            <v-btn
+              small
+              @click="startItem"
+              color="primary"
+            >
+              开立
+            </v-btn>
+            <v-btn
+              small
+              @click="endItem"
+              color="primary"
+            >
+              作废
+            </v-btn>
+          </v-toolbar>
+          <v-data-table
+            v-model="selected"
+            :headers="headers"
+            :items="filterDesserts"
+            :expand=false
+            item-key="medical_skill_id"
+            select-all
           >
-            新增
-          </v-btn>
-          <v-btn
-            small
-            @click="deleteItem"
-            color="primary"
+            <template v-slot:items="props">
+              <td>
+                <v-checkbox
+                  v-model="props.selected"
+                  primary
+                  hide-details
+                ></v-checkbox>
+              </td>
+              <td>{{ props.item.medical_skill_name }}</td>
+              <td>{{ props.item.medical_skill_execute_department }}</td>
+              <td>{{ props.item.medical_skill_execute_state }}</td>
+              <td>{{ props.item.medical_skill_fee }}</td>
+              <td>
+                <v-icon
+                  @click="props.expanded = !props.expanded,getItem()"
+                >
+                  remove_red_eye
+                </v-icon>
+              </td>
+            </template>
+            <template v-slot:expand="props">
+              <v-flex xs12 sm6 offset-sm1>
+                <v-card flat>
+                  <v-card-title>
+                    <div>
+                      <span>
+                        <div v-if="props.item.medical_skill_urgent">加急：是</div><div v-else>加急：否</div>
+                      </span>
+                      <span>检查部位：{{ props.item.medical_skill_checkpoint }}</span><br>
+                      <span>目的：{{ props.item.medical_skill_purpose}}</span><br>
+                      <span class="font-weight-regular">结果</span><br>
+                      <span>详情：{{props.item.medical_skill_result}}</span><br>
+                    </div>
+                  </v-card-title>
+                </v-card>
+              </v-flex>
+            </template>
+          </v-data-table>
+          <v-divider/>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              class="white--text"
+              color="primary"
+              small
+              @click="text = !text"
+            >
+              保存
+            </v-btn>
+          </v-card-actions>
+        </v-flex>
+        <v-divider vertical></v-divider>
+        <v-flex lg3 md3 sm3 xs3>
+          <v-toolbar flat dense>
+            <v-toolbar-title>常用模板</v-toolbar-title>
+          </v-toolbar>
+          <v-data-table
+            :headers="headers_tem"
+            :items="filterDessertsTem"
+            item-key="template_id"
           >
-            删除
-          </v-btn>
-          <v-btn
-            small
-            @click="startItem"
-            color="primary"
-          >
-            开立
-          </v-btn>
-          <v-btn
-            small
-            @click="endItem"
-            color="primary"
-          >
-            作废
-          </v-btn>
-        </v-toolbar>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="filterDesserts"
-          :expand=false
-          item-key="medical_skill_id"
-          select-all
-          class="scroll-y"
-        >
-          <template v-slot:items="props">
-            <td>
-              <v-checkbox
-                v-model="props.selected"
-                primary
-                hide-details
-              ></v-checkbox>
-            </td>
-            <td>{{ props.item.medical_skill_name }}</td>
-            <td>{{ props.item.medical_skill_execute_department }}</td>
-            <td>{{ props.item.medical_skill_execute_state }}</td>
-            <td>{{ props.item.medical_skill_checkpoint }}</td>
-            <td>{{ props.item.medical_skill_purpose }}</td>
-            <td v-if="props.item.medical_skill_urgent">是</td>
-            <td v-else>否</td>
-            <td>{{ props.item.medical_skill_fee }}</td>
-            <td>
-              <v-icon
-                @click="props.expanded = !props.expanded,getItem()"
-              >
-                remove_red_eye
-              </v-icon>
-            </td>
-          </template>
-          <template v-slot:expand="props">
-            <v-flex xs12 sm6 offset-sm1>
-              <v-card flat>
-                <v-card-title>
-                  <div>
-                    <span class="grey--text">结果</span><br>
-                    <span>详情：{{props.item.medical_skill_result}}</span><br>
-                  </div>
-                </v-card-title>
-              </v-card>
-            </v-flex>
-          </template>
-        </v-data-table>
-        <v-divider/>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            class="white--text"
-            color="primary"
-            small
-            @click="text = !text"
-          >
-            保存
-          </v-btn>
-        </v-card-actions>
-      </v-flex>
-      <v-divider vertical></v-divider>
-      <v-flex lg3 md3 sm3 xs3>
-        <v-toolbar flat dense>
-          <v-toolbar-title  >常用模板</v-toolbar-title>
-        </v-toolbar>
-        <v-data-table
-          :headers="headers_tem"
-          :items="filterDessertsTem"
-          item-key="template_id"
-        >
-          <template v-slot:items="props">
-            <td>{{ props.item.template_name }}</td>
-            <td>
-              <v-btn
-                icon
-                color="primary"
-                flat
-                right
-                small
-                class="ml-3"
-                @click="useTem(props.item)"
-              >
-                使用
-              </v-btn>
-              <v-btn
-                icon
-                color="primary"
-                flat
-                small
-                right
-                class="ml-3"
-                @click="seeTem(props.item);"
-              >
-                详情
-              </v-btn>
-            </td>
-          </template>
-        </v-data-table>
-      </v-flex>
-    </v-layout>
-    <v-divider/>
-  </div >
+            <template v-slot:items="props">
+              <td>{{ props.item.template_name }}</td>
+              <td>
+                <v-btn
+                  icon
+                  color="primary"
+                  flat
+                  right
+                  small
+                  class="ml-3"
+                  @click="useTem(props.item)"
+                >
+                  使用
+                </v-btn>
+                <v-btn
+                  icon
+                  color="primary"
+                  flat
+                  small
+                  right
+                  class="ml-3"
+                  @click="seeTem(props.item);"
+                >
+                  详情
+                </v-btn>
+              </td>
+            </template>
+          </v-data-table>
+        </v-flex>
+      </v-layout>
+    </v-form>
+  </div>
 </template>
 
 <script>
@@ -563,11 +561,11 @@ export default {
           align: 'left',
           value: 'medical_skill_content_id'
         },
-        { text: '项目名称', value: 'medical_skill_content_name' },
-        { text: '父级编码', value: 'medical_skill_content_father' },
-        { text: '单位', value: 'medical_skill_content_unit' },
-        { text: '单价', value: 'medical_skill_content_price' },
-        { text: '操作', value: 'operation' }],
+        {text: '项目名称', value: 'medical_skill_content_name'},
+        {text: '父级编码', value: 'medical_skill_content_father'},
+        {text: '单位', value: 'medical_skill_content_unit'},
+        {text: '单价', value: 'medical_skill_content_price'},
+        {text: '操作', value: 'operation'}],
       desserts_dia: [],
       headers: [
         {
@@ -583,22 +581,10 @@ export default {
           value: 'medical_skill_execute_state'
         },
         {
-          text: '检查部位',
-          value: 'medical_skill_checkpoint'
-        },
-        {
-          text: '目的',
-          value: 'medical_skill_purpose'
-        },
-        {
-          text: '是否加急',
-          value: 'medical_skill_urgent'
-        },
-        {
           text: '单价',
           value: 'medical_skill_fee'
         },
-        { text: '操作', value: 'operation' }
+        {text: '操作', value: 'operation'}
       ],
       desserts: [],
       headers_tem: [
@@ -607,7 +593,7 @@ export default {
           align: 'left',
           value: 'template_name'
         },
-        { text: '操作', value: 'operation', sortable: false }
+        {text: '操作', value: 'operation', sortable: false}
       ],
       headers_tem_con: [
         {
@@ -634,7 +620,7 @@ export default {
           text: '单价',
           value: 'template_medical_skill_content_unit_price'
         },
-        { text: '操作', value: 'operation' }
+        {text: '操作', value: 'operation'}
       ],
       desserts_tem: [],
       desserts_tem_con: [],
@@ -706,8 +692,7 @@ export default {
     load_departs: function () {
       var that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
-      })
+      this.$http.post(url, {})
         .then(function (response) {
           console.log(response.data)
           that.departments = response.data.data
@@ -1044,8 +1029,7 @@ export default {
     load_mediskill: function () {
       let that = this
       var url = this.HOME + '/maintenance/medical-skill-content/get-all'
-      this.$http.post(url, {
-      })
+      this.$http.post(url, {})
         .then(function (response) {
           console.log(response.data)
           that.desserts_dia = response.data.data

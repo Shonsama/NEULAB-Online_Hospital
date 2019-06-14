@@ -1,27 +1,51 @@
 <template>
   <div>
-    <v-dialog
-      v-model="dialog"
-      hide-overlay
-      persistent
-      width="300"
-    >
-      <v-card
-        color="primary"
-        dark
-      >
-        <v-card-text>
-          请稍等
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
     <section>
       <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
+        <v-dialog
+          v-model="dialog"
+          hide-overlay
+          persistent
+          width="300"
+        >
+          <v-card
+            color="primary"
+            dark
+          >
+            <v-card-text>
+              请稍等
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <v-flex shrink>
+          <v-expand-transition>
+            <div v-show="dialog_err" style="white-space: nowrap">
+              <v-alert
+                :value="true"
+                type="error"
+              >
+                {{msg_err}}
+              </v-alert>
+            </div>
+          </v-expand-transition>
+        </v-flex>
+        <v-flex shrink>
+          <v-expand-transition>
+            <div v-show="dialog_suc" style="white-space: nowrap">
+              <v-alert
+                :value="true"
+                type="success"
+              >
+                {{msg_suc}}
+              </v-alert>
+            </div>
+          </v-expand-transition>
+        </v-flex>
         <v-layout
           column
           align-center
@@ -109,6 +133,10 @@ export default {
       dialog: false,
       show1: false,
       isDoctor: false,
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       account: '',
       password: '',
       route: '',
@@ -124,6 +152,18 @@ export default {
   computed: {
   },
   watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
   },
   methods: {
     checkLogin: function () {
@@ -145,7 +185,8 @@ export default {
         .then(function (response) {
           console.log(response.data)
           var data
-          that.dialog = true
+          that.dialog_suc = true
+          that.msg_suc = '登陆成功'
           if (!that.isDoctor) {
             data = {
               account: response.data.data.user_account,
@@ -155,6 +196,7 @@ export default {
               type: response.data.data.user_type
             }
             that.$store.commit('set_user', data)
+            that.$store.commit('login')
             if (data.type === '挂号收费员') {
               that.$router.push('/RegisterCharge')
             } else if (data.type === '门诊医生') {
@@ -178,6 +220,7 @@ export default {
             }
             console.log(data)
             that.$store.commit('set_user', data)
+            that.$store.commit('login')
             if (data.type === '挂号收费员') {
               that.$router.push('/RegisterCharge')
             } else if (data.type === '门诊医生') {
@@ -192,7 +235,10 @@ export default {
               that.$router.push('/BasicInfo')
             }
           }
-          that.dialog = false
+        })
+        .catch(function (response) {
+          that.dialog_err = true
+          that.msg_err = '用户名或密码不正确'
         })
     }
   }

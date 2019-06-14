@@ -1,11 +1,10 @@
 package com.neuedu.lab.Utils;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
+import com.neuedu.lab.LabApplication;
 import com.neuedu.lab.Token.Tokenizer;
-
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +12,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+
 public class ConstantUtils {
+    private static Logger logger = LogManager.getLogger(LabApplication.class);
+
     public static BigDecimal convertToNegtive(BigDecimal source){
         return source.multiply(new BigDecimal(-1));
     }
@@ -68,6 +73,7 @@ public class ConstantUtils {
         result.put("code", ConstantDefinition.FAIL_CODE);
         result.put("data", data);
         result.put("msg",msg);
+        logger.info(msg);
         return result;
     }
 
@@ -90,9 +96,5 @@ public class ConstantUtils {
         String date = "2019-06-01 00:00:00";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return new Date(String.valueOf(format.parse(date)));
-    }
-
-    public static void printInfo(String s){
-        System.out.println("[INFO]"+s);
     }
 }

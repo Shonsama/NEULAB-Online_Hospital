@@ -115,13 +115,28 @@
                     </v-toolbar>
                     <v-data-table
                       :search="search"
-                      :headers="headers1"
-                      :items="desserts_per.YiZhenBi"
+                      :headers="headers"
+                      :items="desserts_per.YiJiuZhen"
                       class="elevation-1"
                     >
                       <template v-slot:items="props">
                         <td>{{ props.item.patient.patient_record_id }}</td>
                         <td>{{ props.item.patient.patient_name }}</td>
+                        <td>
+                          <v-btn
+                            color="primary"
+                            small
+                            flat
+                            icon
+                            right
+                            :disabled = "disable"
+                            append-icon="search"
+                            class="ml-3"
+                            @click="getValue(props.item)"
+                          >
+                            接诊
+                          </v-btn>
+                        </td>
                       </template>
                     </v-data-table>
                   </v-card>
@@ -150,7 +165,7 @@
                       <v-data-table
                         :search="search"
                         :headers="headers1"
-                        :items="desserts_depart.YiZhenBi"
+                        :items="desserts_depart.YiJiuZhen"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
@@ -223,21 +238,33 @@
             诊毕
           </v-btn>
         </v-toolbar>
-        <v-tabs
-          v-model="active1"
-        >
-          <v-tab
-            v-for="item in items"
-            :key="item"
-            ripple
-          >
-            {{item.name}}
-          </v-tab>
-          <v-tab-item
-            v-for="item in items"
-            :key="item"
-          >
-            <v-card flat>
+        <v-stepper v-model="e1" flat>
+          <v-stepper-header>
+            <template v-for="(item,index) in items">
+              <v-stepper-step
+                :key="item.id"
+                :complete="e1 > index+1"
+                :step="index+1"
+                editable
+                edit-icon = "check"
+              >
+                {{ item.name }}
+              </v-stepper-step>
+
+              <v-divider
+                v-if="index+1 !== items.length"
+                :key="index+1"
+              ></v-divider>
+            </template>
+          </v-stepper-header>
+          <v-stepper-items>
+            <v-stepper-content
+              v-for="(item,index) in items"
+              :key="item.id"
+              :step="index+1"
+              class="pa-0"
+            >
+              <v-card>
               <div v-if="item.id == 'caseHistory'">
                 <caseHistory :msgfromfa="message" :record="record"></caseHistory>
               </div>
@@ -262,10 +289,10 @@
               <div v-if="item.id == 'cost'">
                 <cost :msgfromfa="message" :record="record"></cost>
               </div>
-              <!--<router-view name="office"></router-view name="office">-->
-            </v-card>
-          </v-tab-item>
-        </v-tabs>
+              </v-card>
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
       </v-flex>
       </v-layout>
     </v-card>
@@ -281,7 +308,6 @@ import medicine from '@/pages/Diagnostician/medicine'
 import drug from '@/pages/Diagnostician/drug'
 import cost from '@/pages/Diagnostician/cost'
 import jianyan from '@/pages/Diagnostician/jianyan'
-
 export default {
   components: {
     caseHistory,
@@ -411,10 +437,20 @@ export default {
     }
   },
   mounted: function () {
+    this.Check()
     this.load_patient_self()
     this.load_patient_depart()
   },
   methods: {
+    Check: function () {
+      if (!this.$store.state.isLogin) {
+        this.$router.push('/login')
+      } else if (this.$store.state.user.type === '门诊医生') {
+        this.$router.push('/Diagnostician')
+      } else {
+        this.$router.push('/login')
+      }
+    },
     network_out: function () {
       this.dialog = false
       this.dialog_err = true
@@ -424,7 +460,7 @@ export default {
       return value.register_info_state === '已挂号'
     },
     filterState_off: function (value) {
-      return value.register_info_state === '诊毕'
+      return value.register_info_state === '已就诊'
     },
     load_patient_self: function () {
       var url = this.HOME + '/doctor/get-all-registers'
@@ -490,7 +526,15 @@ export default {
           console.log(response.data)
           if (response.data.code === 200) {
             that.dialog_suc = true
+            that.load_patient_self()
+            that.load_patient_depart()
+            that.get()
+            that.message = ''
+            that.patient = ''
             that.msg_suc = '已诊毕'
+          } else {
+            that.dialog_err = true
+            that.msg_err = '诊毕失败'
           }
         })
     },
@@ -500,6 +544,22 @@ export default {
       var data = {
         record_id: that.record_id
       }
+      this.$http.post(url, data)
+        .then(response => {
+          console.log(response.data.data)
+          that.record = response.data.data
+        })
+    },
+    getValue: function (value) {
+      let that = this
+      console.log(value)
+      var url = this.HOME + '/doctor/get-record'
+      var data = {
+        record_id: value.register_info_id
+      }
+      that.record_id = value.register_info_id
+      that.message = value
+      that.patient = value.patient
       this.$http.post(url, data)
         .then(response => {
           console.log(response.data.data)
