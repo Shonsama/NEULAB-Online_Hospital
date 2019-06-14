@@ -32,7 +32,8 @@
         <el-date-picker
           v-model="date"
           type="datetime"
-          placeholder="选择日期时间"
+          placeholder="选择截止日期时间"
+          value-format="yyyy-MM-dd hh:mm:ss"
           >
         </el-date-picker>
         <v-btn
@@ -112,7 +113,6 @@ export default {
     }
   },
   created: function () {
-    this.getDate()
   },
   computed: {
   },
@@ -129,14 +129,12 @@ export default {
   mounted: function () {
   },
   methods: {
-    getDate: function () {
-      this.date = new Date()
-    },
     addDaily: function () {
       let that = this
       var url = this.HOME + '/user-service/daily-search'
       var data = {
-        daily_user_id: that.$store.state.user.id
+        daily_user_id: that.$store.state.user.id,
+        daily_end: that.date
       }
       this.$http.post(url, data)
         .then(function (response) {

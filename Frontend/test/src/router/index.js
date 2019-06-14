@@ -14,9 +14,10 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      alias: '/login'
     },
     {
       path: '/BasicInfo',

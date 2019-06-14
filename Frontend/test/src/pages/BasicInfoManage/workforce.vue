@@ -551,7 +551,7 @@ export default {
         schedule_end_date: this.date[1],
         schedule_work_time: this.selected_scheduling[0].rule_work_time,
         schedule_doctor_name: this.selected_scheduling[0].doctor_name,
-        schedule_doctor_id: this.selected_scheduling[0].doctor_id,
+        schedule_doctor_id: this.selected_scheduling[0].doctor_id
       }
       let that = this
       var url = this.HOME + '/schedule/add'
@@ -568,9 +568,8 @@ export default {
           }
         })
       console.log(this.signal)
-
     },
-    load_schedule: function (){
+    load_schedule: function () {
       let that = this
       var url = this.HOME + '/schedule/get-all'
       this.$http.post(url, {})
@@ -584,14 +583,13 @@ export default {
             console.log(that.allSchedule.length)
             for (let i = 0; i < that.allSchedule.length; i++) {
               console.log('?????????????????')
-              var curTime = new Date(that.allSchedule[i].schedule_start_date.getTime()).format("yyyy-MM-dd")
+              var curTime = new Date(that.allSchedule[i].schedule_start_date.getTime()).format('yyyy-MM-dd')
               console.log(curTime)
             }
           } else {
             that.notice_error()
           }
         })
-
     },
     updateItem: function () {
       var rule = {

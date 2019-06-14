@@ -1,51 +1,51 @@
 <template>
   <div>
-    <v-dialog
-      v-model="dialog"
-      hide-overlay
-      persistent
-      width="300"
-    >
-      <v-card
-        color="primary"
-        dark
-      >
-        <v-card-text>
-          请稍等
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <v-flex shrink>
-      <v-expand-transition>
-        <div v-show="dialog_err" style="white-space: nowrap">
-          <v-alert
-            :value="true"
-            type="error"
-          >
-            {{msg_err}}
-          </v-alert>
-        </div>
-      </v-expand-transition>
-    </v-flex>
-    <v-flex shrink>
-      <v-expand-transition>
-        <div v-show="dialog_suc" style="white-space: nowrap">
-          <v-alert
-            :value="true"
-            type="success"
-          >
-            {{msg_suc}}
-          </v-alert>
-        </div>
-      </v-expand-transition>
-    </v-flex>
     <section>
       <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
+        <v-dialog
+          v-model="dialog"
+          hide-overlay
+          persistent
+          width="300"
+        >
+          <v-card
+            color="primary"
+            dark
+          >
+            <v-card-text>
+              请稍等
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        <v-flex shrink>
+          <v-expand-transition>
+            <div v-show="dialog_err" style="white-space: nowrap">
+              <v-alert
+                :value="true"
+                type="error"
+              >
+                {{msg_err}}
+              </v-alert>
+            </div>
+          </v-expand-transition>
+        </v-flex>
+        <v-flex shrink>
+          <v-expand-transition>
+            <div v-show="dialog_suc" style="white-space: nowrap">
+              <v-alert
+                :value="true"
+                type="success"
+              >
+                {{msg_suc}}
+              </v-alert>
+            </div>
+          </v-expand-transition>
+        </v-flex>
         <v-layout
           column
           align-center
@@ -184,61 +184,61 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          if (response.data.code === 200) {
-            var data
-            that.dialog_suc = true
-            that.msg_suc = '登陆成功'
-            if (!that.isDoctor) {
-              data = {
-                account: response.data.data.user_account,
-                department_id: response.data.data.user_department_id,
-                id: response.data.data.user_id,
-                name: response.data.data.user_name,
-                type: response.data.data.user_type
-              }
-              that.$store.commit('set_user', data)
-              if (data.type === '挂号收费员') {
-                that.$router.push('/RegisterCharge')
-              } else if (data.type === '门诊医生') {
-                that.$router.push('/Diagnostician')
-              } else if (data.type === '医技医生') {
-                that.$router.push('/Meditech')
-              } else if (data.type === '药房操作员') {
-                that.$router.push('/Pharmacy')
-              } else if (data.type === '财务管理员') {
-                that.$router.push('/Finance')
-              } else if (data.type === '医院管理员') {
-                that.$router.push('/BasicInfo')
-              }
-            } else {
-              data = {
-                account: response.data.data.doctor_account,
-                department_id: response.data.data.doctor_department_id,
-                id: response.data.data.doctor_id,
-                name: response.data.data.doctor_name,
-                type: response.data.data.doctor_type
-              }
-              console.log(data)
-              that.$store.commit('set_user', data)
-              that.$store.commit('login')
-              if (data.type === '挂号收费员') {
-                that.$router.push('/RegisterCharge')
-              } else if (data.type === '门诊医生') {
-                that.$router.push('/Diagnostician')
-              } else if (data.type === '医技医生') {
-                that.$router.push('/Meditech')
-              } else if (data.type === '药房操作员') {
-                that.$router.push('/Pharmacy')
-              } else if (data.type === '财务管理员') {
-                that.$router.push('/Finance')
-              } else if (data.type === '医院管理员') {
-                that.$router.push('/BasicInfo')
-              }
+          var data
+          that.dialog_suc = true
+          that.msg_suc = '登陆成功'
+          if (!that.isDoctor) {
+            data = {
+              account: response.data.data.user_account,
+              department_id: response.data.data.user_department_id,
+              id: response.data.data.user_id,
+              name: response.data.data.user_name,
+              type: response.data.data.user_type
+            }
+            that.$store.commit('set_user', data)
+            that.$store.commit('login')
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
             }
           } else {
-            that.dialog_err = true
-            that.msg_err = '登录失败'
+            data = {
+              account: response.data.data.doctor_account,
+              department_id: response.data.data.doctor_department_id,
+              id: response.data.data.doctor_id,
+              name: response.data.data.doctor_name,
+              type: response.data.data.doctor_type
+            }
+            console.log(data)
+            that.$store.commit('set_user', data)
+            that.$store.commit('login')
+            if (data.type === '挂号收费员') {
+              that.$router.push('/RegisterCharge')
+            } else if (data.type === '门诊医生') {
+              that.$router.push('/Diagnostician')
+            } else if (data.type === '医技医生') {
+              that.$router.push('/Meditech')
+            } else if (data.type === '药房操作员') {
+              that.$router.push('/Pharmacy')
+            } else if (data.type === '财务管理员') {
+              that.$router.push('/Finance')
+            } else if (data.type === '医院管理员') {
+              that.$router.push('/BasicInfo')
+            }
           }
+        })
+        .catch(function (response) {
+          that.dialog_err = true
+          that.msg_err = '用户名或密码不正确'
         })
     }
   }
