@@ -11,7 +11,7 @@
         dark
       >
         <v-card-text>
-          Please stand by
+          请稍等
           <v-progress-linear
             indeterminate
             color="white"
@@ -395,6 +395,7 @@
         </div>
       </v-expand-transition>
     </v-flex>
+    <v-card class="scroll-x-transition">
     <v-layout>
       <v-flex  lg9 md9 sm9 xs9>
         <v-toolbar flat dense>
@@ -528,6 +529,7 @@
         </v-data-table>
       </v-flex>
     </v-layout>
+    </v-card>
     <v-divider/>
   </div >
 </template>

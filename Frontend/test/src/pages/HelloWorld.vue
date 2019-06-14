@@ -20,6 +20,30 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
     <section>
       <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
         <v-layout
@@ -109,6 +133,10 @@ export default {
       dialog: false,
       show1: false,
       isDoctor: false,
+      dialog_err: false,
+      dialog_suc: false,
+      msg_suc: 'success',
+      msg_err: 'error',
       account: '',
       password: '',
       route: '',
@@ -124,6 +152,18 @@ export default {
   computed: {
   },
   watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.network_out), 10000)
+    },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
   },
   methods: {
     checkLogin: function () {
@@ -144,56 +184,61 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          var data
-          that.dialog = true
-          if (!that.isDoctor) {
-            data = {
-              account: response.data.data.user_account,
-              department_id: response.data.data.user_department_id,
-              id: response.data.data.user_id,
-              name: response.data.data.user_name,
-              type: response.data.data.user_type
-            }
-            that.$store.commit('set_user', data)
-            if (data.type === '挂号收费员') {
-              that.$router.push('/RegisterCharge')
-            } else if (data.type === '门诊医生') {
-              that.$router.push('/Diagnostician')
-            } else if (data.type === '医技医生') {
-              that.$router.push('/Meditech')
-            } else if (data.type === '药房操作员') {
-              that.$router.push('/Pharmacy')
-            } else if (data.type === '财务管理员') {
-              that.$router.push('/Finance')
-            } else if (data.type === '医院管理员') {
-              that.$router.push('/BasicInfo')
+          if (response.data.code === 200) {
+            var data
+            that.dialog_suc = true
+            that.msg_suc = '登陆成功'
+            if (!that.isDoctor) {
+              data = {
+                account: response.data.data.user_account,
+                department_id: response.data.data.user_department_id,
+                id: response.data.data.user_id,
+                name: response.data.data.user_name,
+                type: response.data.data.user_type
+              }
+              that.$store.commit('set_user', data)
+              if (data.type === '挂号收费员') {
+                that.$router.push('/RegisterCharge')
+              } else if (data.type === '门诊医生') {
+                that.$router.push('/Diagnostician')
+              } else if (data.type === '医技医生') {
+                that.$router.push('/Meditech')
+              } else if (data.type === '药房操作员') {
+                that.$router.push('/Pharmacy')
+              } else if (data.type === '财务管理员') {
+                that.$router.push('/Finance')
+              } else if (data.type === '医院管理员') {
+                that.$router.push('/BasicInfo')
+              }
+            } else {
+              data = {
+                account: response.data.data.doctor_account,
+                department_id: response.data.data.doctor_department_id,
+                id: response.data.data.doctor_id,
+                name: response.data.data.doctor_name,
+                type: response.data.data.doctor_type
+              }
+              console.log(data)
+              that.$store.commit('set_user', data)
+              that.$store.commit('login')
+              if (data.type === '挂号收费员') {
+                that.$router.push('/RegisterCharge')
+              } else if (data.type === '门诊医生') {
+                that.$router.push('/Diagnostician')
+              } else if (data.type === '医技医生') {
+                that.$router.push('/Meditech')
+              } else if (data.type === '药房操作员') {
+                that.$router.push('/Pharmacy')
+              } else if (data.type === '财务管理员') {
+                that.$router.push('/Finance')
+              } else if (data.type === '医院管理员') {
+                that.$router.push('/BasicInfo')
+              }
             }
           } else {
-            data = {
-              account: response.data.data.doctor_account,
-              department_id: response.data.data.doctor_department_id,
-              id: response.data.data.doctor_id,
-              name: response.data.data.doctor_name,
-              type: response.data.data.doctor_type
-            }
-            console.log(data)
-            that.$store.commit('set_user', data)
-            that.$store.commit('login')
-            if (data.type === '挂号收费员') {
-              that.$router.push('/RegisterCharge')
-            } else if (data.type === '门诊医生') {
-              that.$router.push('/Diagnostician')
-            } else if (data.type === '医技医生') {
-              that.$router.push('/Meditech')
-            } else if (data.type === '药房操作员') {
-              that.$router.push('/Pharmacy')
-            } else if (data.type === '财务管理员') {
-              that.$router.push('/Finance')
-            } else if (data.type === '医院管理员') {
-              that.$router.push('/BasicInfo')
-            }
+            that.dialog_err = true
+            that.msg_err = '登录失败'
           }
-          that.dialog = false
         })
     }
   }

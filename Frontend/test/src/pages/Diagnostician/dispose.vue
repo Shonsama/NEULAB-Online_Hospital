@@ -11,7 +11,7 @@
         dark
       >
         <v-card-text>
-          Please stand by
+          请稍等
           <v-progress-linear
             indeterminate
             color="white"
