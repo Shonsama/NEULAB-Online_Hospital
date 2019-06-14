@@ -434,7 +434,6 @@
           :expand=false
           item-key="medical_skill_id"
           select-all
-          class="scroll-y"
         >
           <template v-slot:items="props">
             <td>
@@ -447,10 +446,6 @@
             <td>{{ props.item.medical_skill_name }}</td>
             <td>{{ props.item.medical_skill_execute_department }}</td>
             <td>{{ props.item.medical_skill_execute_state }}</td>
-            <td>{{ props.item.medical_skill_checkpoint }}</td>
-            <td>{{ props.item.medical_skill_purpose }}</td>
-            <td v-if="props.item.medical_skill_urgent">是</td>
-            <td v-else>否</td>
             <td>{{ props.item.medical_skill_fee }}</td>
             <td>
               <v-icon
@@ -465,7 +460,12 @@
               <v-card flat>
                 <v-card-title>
                   <div>
-                    <span class="grey--text">结果</span><br>
+                      <span>
+                        <div v-if="props.item.medical_skill_urgent">加急：是</div><div v-else>加急：否</div>
+                      </span>
+                    <span>检查部位：{{ props.item.medical_skill_checkpoint }}</span><br>
+                    <span>目的：{{ props.item.medical_skill_purpose}}</span><br>
+                    <span class="font-weight-regular">结果</span><br>
                     <span>详情：{{props.item.medical_skill_result}}</span><br>
                   </div>
                 </v-card-title>
@@ -579,18 +579,6 @@ export default {
         {
           text: '执行状态',
           value: 'medical_skill_execute_state'
-        },
-        {
-          text: '检查部位',
-          value: 'medical_skill_checkpoint'
-        },
-        {
-          text: '目的',
-          value: 'medical_skill_purpose'
-        },
-        {
-          text: '是否加急',
-          value: 'medical_skill_urgent'
         },
         {
           text: '单价',

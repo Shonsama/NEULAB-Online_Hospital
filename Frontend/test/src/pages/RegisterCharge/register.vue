@@ -109,10 +109,10 @@
                     placeholder="请选择出生日期"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="patient_birthDate" no-title scrollable>
+                <v-date-picker v-model="patient_birthDate" no-title scrollable locale="zh-cn">
                   <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">OK</v-btn>
+                  <v-btn flat color="primary" @click="menu = false">取消</v-btn>
+                  <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">确定</v-btn>
                 </v-date-picker>
               </v-menu>
               <v-text-field
@@ -778,7 +778,7 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           that.bill = response.data.data
-          // that.dialog_bill = true
+          that.dialog_bill = true
           console.log(response.data)
         })
     },
@@ -815,6 +815,7 @@ export default {
             console.log(response.data)
             that.dialog_suc = true
             that.msg_suc = '发票号补打成功'
+            that.dialog_bill = true
           })
       } else {
         this.dialog_err = true

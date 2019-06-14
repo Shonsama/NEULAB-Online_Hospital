@@ -238,21 +238,33 @@
             诊毕
           </v-btn>
         </v-toolbar>
-        <v-tabs
-          v-model="active1"
-        >
-          <v-tab
-            v-for="item in items"
-            :key="item"
-            ripple
-          >
-            {{item.name}}
-          </v-tab>
-          <v-tab-item
-            v-for="item in items"
-            :key="item"
-          >
-            <v-card flat>
+        <v-stepper v-model="e1" flat>
+          <v-stepper-header>
+            <template v-for="(item,index) in items">
+              <v-stepper-step
+                :key="item.id"
+                :complete="e1 > index+1"
+                :step="index+1"
+                editable
+                edit-icon = "check"
+              >
+                {{ item.name }}
+              </v-stepper-step>
+
+              <v-divider
+                v-if="index+1 !== items.length"
+                :key="index+1"
+              ></v-divider>
+            </template>
+          </v-stepper-header>
+          <v-stepper-items>
+            <v-stepper-content
+              v-for="(item,index) in items"
+              :key="item.id"
+              :step="index+1"
+              class="pa-0"
+            >
+              <v-card>
               <div v-if="item.id == 'caseHistory'">
                 <caseHistory :msgfromfa="message" :record="record"></caseHistory>
               </div>
@@ -277,10 +289,10 @@
               <div v-if="item.id == 'cost'">
                 <cost :msgfromfa="message" :record="record"></cost>
               </div>
-              <!--<router-view name="office"></router-view name="office">-->
-            </v-card>
-          </v-tab-item>
-        </v-tabs>
+              </v-card>
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
       </v-flex>
       </v-layout>
     </v-card>
@@ -296,7 +308,6 @@ import medicine from '@/pages/Diagnostician/medicine'
 import drug from '@/pages/Diagnostician/drug'
 import cost from '@/pages/Diagnostician/cost'
 import jianyan from '@/pages/Diagnostician/jianyan'
-
 export default {
   components: {
     caseHistory,
