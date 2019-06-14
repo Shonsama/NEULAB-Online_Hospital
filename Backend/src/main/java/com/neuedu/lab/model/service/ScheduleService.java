@@ -24,7 +24,8 @@ public class ScheduleService {
             getAllSchedules();
             scheduleMapper.addSchedule(schedule);
             for(Schedule temp:allSchedules){
-                if (temp.getSchedule_end_date().after(schedule.getSchedule_start_date()) && temp.getSchedule_end_date().before(schedule.getSchedule_end_date())
+                if ((temp.getSchedule_end_date().after(schedule.getSchedule_start_date()) || temp.getSchedule_end_date().compareTo(schedule.getSchedule_start_date()) == 0) &&
+                        (temp.getSchedule_end_date().before(schedule.getSchedule_end_date()) || temp.getSchedule_end_date().compareTo(schedule.getSchedule_end_date()) == 0)
                 && temp.getSchedule_start_date().before(schedule.getSchedule_start_date())){
                     temp.setSchedule_end_date(new Date(schedule.getSchedule_start_date().getTime()-1000*3600*24));
                     updateSchedule(temp);
@@ -46,10 +47,13 @@ public class ScheduleService {
                     scheduleMapper.addSchedule(temp_left);
                     scheduleMapper.addSchedule(temp_right);
                 }
-                else if(temp.getSchedule_end_date().before(schedule.getSchedule_end_date()) && temp.getSchedule_start_date().after(schedule.getSchedule_start_date())){
+                else if((temp.getSchedule_end_date().before(schedule.getSchedule_end_date()) || temp.getSchedule_end_date().compareTo(schedule.getSchedule_end_date()) == 0)
+                        && (temp.getSchedule_start_date().after(schedule.getSchedule_start_date()) || temp.getSchedule_end_date().compareTo(schedule.getSchedule_start_date()) == 0)
+                 ){
                     deleteSchedule(temp.getSchedule_id());
                 }
-                else if(temp.getSchedule_start_date().after(schedule.getSchedule_start_date()) && temp.getSchedule_start_date().before(schedule.getSchedule_end_date())
+                else if((temp.getSchedule_start_date().after(schedule.getSchedule_start_date()) || temp.getSchedule_start_date().compareTo(schedule.getSchedule_start_date()) ==0) &&
+                        (temp.getSchedule_start_date().before(schedule.getSchedule_end_date()) || temp.getSchedule_start_date().compareTo(schedule.getSchedule_end_date()) == 0)
                         && temp.getSchedule_end_date().after(schedule.getSchedule_end_date())){
                     temp.setSchedule_start_date(new Date(schedule.getSchedule_end_date().getTime()+1000*3600*24));
                     updateSchedule(temp);

@@ -194,8 +194,8 @@ drop table  if exists `his`.`schedule`;
 CREATE TABLE `his`.`schedule` (
   `schedule_doctor_name` varchar(45) NOT NULL,
   `schedule_work_time` varchar(45) NOT NULL,
-  `schedule_start_date` date NOT NULL,
-  `schedule_end_date` date NOT NULL,
+  `schedule_start_date` DATETIME NOT NULL,
+  `schedule_end_date` DATETIME NOT NULL,
   `schedule_doctor_id` int not null,
   `schedule_id` int not null,
   primary key(`schedule_id`)

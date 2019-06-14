@@ -292,12 +292,17 @@
     </v-card-actions>
     <v-layout justify-center>
       <v-card style="width: 800px">
-        <v-layout>
-          <v-flex>
+        <v-layout wrap>
+          <v-flex
+            xs12
+            class="mb-3"
+          >
             <v-sheet height="500">
               <v-calendar
-                :now="today"
-                :value="today"
+                ref="calendar"
+                v-model="start"
+                :end="end"
+                :type="type"
                 color="primary"
               >
                 <template v-slot:day="{ date }">
@@ -356,6 +361,38 @@
               </v-calendar>
             </v-sheet>
           </v-flex>
+          <v-flex
+            sm4
+            xs12
+            offset-xs1
+            class="text-sm-left text-xs-center"
+          >
+            <v-btn @click="$refs.calendar.prev()">
+              <v-icon
+                dark
+                left
+              >
+                keyboard_arrow_left
+              </v-icon>
+              Prev
+            </v-btn>
+          </v-flex>
+          <v-flex
+            sm4
+            xs12
+            offset-xs2
+            class="text-sm-right text-xs-center"
+          >
+            <v-btn @click="$refs.calendar.next()">
+              Next
+              <v-icon
+                right
+                dark
+              >
+                keyboard_arrow_right
+              </v-icon>
+            </v-btn>
+          </v-flex>
         </v-layout>
       </v-card>
     </v-layout>
@@ -366,8 +403,10 @@
 export default {
   name: 'workforce',
   data: () => ({
+    type: 'month',
     allSchedule: [],
-    today: '2019-06-13',
+    start: '2019-06-13',
+    end: '2019-06-20',
     alert_success: false,
     alert_error: false,
     signal: '',
@@ -470,6 +509,7 @@ export default {
         })
     },
     load: function () {
+      this.load_schedule()
       this.items_departments = []
       this.items_register_level = []
       let that = this
@@ -560,7 +600,7 @@ export default {
           console.log(response.data)
           that.signal = response.data.msg
           if (that.signal === 'SUCCESS') {
-            // that.load_schedule()
+            that.load_schedule()
             that.load_rule()
             that.notice_success()
           } else {
@@ -571,6 +611,7 @@ export default {
 
     },
     load_schedule: function (){
+      this.events = []
       let that = this
       var url = this.HOME + '/schedule/get-all'
       this.$http.post(url, {})
@@ -579,19 +620,101 @@ export default {
           console.log(response.data)
           that.signal = response.data.msg
           if (that.signal === 'SUCCESS') {
-            that.event = []
             console.log('!!!!!!!!!!!!!!!!!!')
             console.log(that.allSchedule.length)
             for (let i = 0; i < that.allSchedule.length; i++) {
+              var start_time = that.allSchedule[i].schedule_start_date.substring(0,10)
+              var end_time = that.allSchedule[i].schedule_end_date.substring(0,10)
+              start_time = start_time.replace(/-/g, '/')
+              end_time = end_time.replace(/-/g, '/')
               console.log('?????????????????')
-              var curTime = new Date(that.allSchedule[i].schedule_start_date.getTime()).format("yyyy-MM-dd")
-              console.log(curTime)
+              that.getDiffDate(start_time, end_time, that.allSchedule[i].schedule_doctor_name, that.allSchedule[i].schedule_work_time)
             }
           } else {
             that.notice_error()
           }
         })
+    },
+    getDiffDate: function (start, end, doctor_name, work_time) {
+      var startTime = new Date(start)
 
+      var endTime = new Date(end)
+
+      var dateArr = []
+
+      var week_duty = work_time.split('')
+
+      console.log(week_duty)
+      while ((endTime.getTime() - startTime.getTime()) > 0) {
+
+        var year = startTime.getFullYear();
+
+        var month = startTime.getMonth().toString().length === 1 ? "0" + (parseInt(startTime.getMonth().toString(),10) + 1) : (startTime.getMonth() + 1);
+
+        var day = startTime.getDate().toString().length === 1 ? "0" + startTime.getDate() : startTime.getDate();
+
+        var date_temp = year + "-" + month + "-" + day
+
+        dateArr.push(date_temp);
+
+        var week_day = startTime.getDay()
+        if (week_duty[week_day*2-2] === "1" && week_duty[week_day*2-1] === "1"){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '上午和下午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        } else if (week_duty[week_day*2-2] === "1"){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '上午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        }else if (week_duty[week_day*2-1] === "1"){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '下午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        } else if (week_duty[12] === "1" && week_day === 0 && week_duty[13] === "1"){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '上午和下午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        } else if (week_duty[12] === "1" && week_day === 0){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '上午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        } else if(week_duty[13] === "1" && week_day === 0){
+          this.events.push(
+            {
+              title: doctor_name,
+              details: '下午排班',
+              date: date_temp,
+              open: false
+            }
+          )
+        }
+        startTime.setDate(startTime.getDate() + 1);
+      }
     },
     updateItem: function () {
       var rule = {
@@ -715,5 +838,18 @@ export default {
 </script>
 
 <style scoped>
-
+  .my-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 2px;
+    background-color: #1867c0;
+    color: #ffffff;
+    border: 1px solid #1867c0;
+    width: 100%;
+    font-size: 12px;
+    padding: 3px;
+    cursor: pointer;
+    margin-bottom: 1px;
+  }
 </style>
