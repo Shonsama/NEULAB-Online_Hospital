@@ -2,18 +2,17 @@ package com.neuedu.lab.Utils;
 
 
 import com.alibaba.fastjson.JSONObject;
-
 import com.neuedu.lab.LabApplication;
-import com.neuedu.lab.Token.Tokenizer;
+import com.neuedu.lab.token.Tokenizer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 
 public class ConstantUtils {
@@ -36,7 +35,7 @@ public class ConstantUtils {
         JSONObject result = new JSONObject();
         result.put("code", ConstantDefinition.SUCCESS_CODE);
         result.put("data", data);
-        result.put("msg", ConstantDefinition.SUCCESS_MESSAGE);
+        result.put("msg",ConstantDefinition.SUCCESS_MESSAGE);
         return result;
     }
     public static JSONObject responseSuccess(String msg, Object data) {
