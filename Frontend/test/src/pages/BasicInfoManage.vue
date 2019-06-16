@@ -108,7 +108,7 @@ export default {
       if (!this.$store.state.isLogin) {
         this.$router.push('/login')
       } else if (this.$store.state.user.type === '医院管理员') {
-        this.$router.push('/BasicInfoManage')
+        this.$router.push('/BasicInfo')
       } else {
         this.$router.push('/login')
       }
