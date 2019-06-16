@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
@@ -35,21 +37,10 @@ public class RegisterService {
     @Resource
     private PatientMapper patientMapper;
 
-/*    public List<Department> getAllDepartments(){
-        return departmentMapper.getAllDepartments();
-    }*/
+    private Calendar c = Calendar.getInstance();
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-//    public JSONArray getAllDoctorsByDepartment(String id){
-//        List<RegisterLevel> levelList = registerLevelMapper.getAllRegisterLevels();
-//        JSONArray result = new JSONArray();
-//        for(RegisterLevel registerLevel:levelList){
-//            JSONObject doctorRegisterLevel  = new JSONObject();
-//            doctorRegisterLevel.put("register_level",registerLevel);
-//            doctorRegisterLevel.put("doctor",doctorMapper.getAllDoctorsByDepartment(id,registerLevel.getRegister_level_id()));
-//            result.add(doctorRegisterLevel);
-//        }
-//        return result;
-//    }
+
     public JSONObject getAllDoctorsByDepartment(String id,Integer register_level_id){
         try{
             return responseSuccess(doctorMapper.getAllDoctorsByDepartment(id,register_level_id));
@@ -115,6 +106,8 @@ public class RegisterService {
             bill.setBill_type(ConstantDefinition.BILL_TYPE[0]);
             bill.setBill_time(new java.sql.Date(new Date().getTime()));
             billMapper.addBill(bill);
+            String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
+            billMapper.updateBillNum(billNum,bill.getBill_id());
         }catch (Exception e){
             e.printStackTrace();
             return responseFail();
@@ -136,8 +129,9 @@ public class RegisterService {
                 bill = billMapper.getRegisterBillForRefund(register_id,ConstantDefinition.BILL_STATE[0],
                         ConstantDefinition.BILL_STATE[2],ConstantDefinition.BILL_STATE[3]);
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
-                bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 billMapper.addBill(bill);
+                String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
+                billMapper.updateBillNum(billNum,bill.getBill_id());
             }catch (Exception e){
                 e.printStackTrace();
                 return responseFail();
