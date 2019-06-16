@@ -41,6 +41,7 @@
           start-placeholder="开始日期"
           end-placeholder="结束日期"
           style="margin-right: 10px"
+          value-format= "yyyy-MM-dd HH:mm:ss"
         >
         </el-date-picker>
         <v-btn

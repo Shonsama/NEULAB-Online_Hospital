@@ -37,7 +37,7 @@ public class UserServiceController {
     }
 
     //日结发票查询
-    @RequestMapping("/daily-billx-get")
+    @RequestMapping("/daily-bill-get")
     public JSONObject dailyBillGet(@RequestBody JSONObject request){
         return userService.getDailyBill(request.getInteger("daily_id"));
     }

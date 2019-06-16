@@ -78,6 +78,8 @@ export default {
         this.$router.push('/login')
       } else if (this.$store.state.user.type === '财务管理员') {
         this.$router.push('/Finance')
+      } else {
+        this.$router.push('/login')
       }
     }
   }

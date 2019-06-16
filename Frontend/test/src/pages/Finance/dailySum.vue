@@ -168,6 +168,7 @@
                 <template v-slot:items="props">
                   <td>{{ props.item.bill_id }}</td>
                   <td>{{ props.item.bill_type }}</td>
+                  <td>{{ props.item.bill_state }}</td>
                   <!--<td>{{ props.item.bill_num}}</td>-->
                 </template>
               </v-data-table>
@@ -375,7 +376,8 @@ export default {
         align: 'left',
         value: 'bill_id'
       },
-      { text: '发票类型', value: 'bill_type' }
+      { text: '发票类型', value: 'bill_type' },
+      { text: '发票状态', value: 'bill_state' }
       // { text: '发票号', value: 'bill_num' },
     ],
     desserts_already: [
@@ -404,7 +406,8 @@ export default {
       this.$http.post(url, {
         daily_user_id: that.cashier_user_object.user_id,
         daily_start: that.date[0],
-        daily_end: that.date[1]
+        daily_end: that.date[1],
+        daily_pass_state: '已确认提交'
       })
         .then(function (response) {
           console.log(response.data)
