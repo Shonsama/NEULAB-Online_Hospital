@@ -136,7 +136,7 @@ public class RegisterService {
                 bill = billMapper.getRegisterBillForRefund(register_id,ConstantDefinition.BILL_STATE[0],
                         ConstantDefinition.BILL_STATE[2],ConstantDefinition.BILL_STATE[3]);
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
-                bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
+                bill.setBill_state(ConstantDefinition.BILL_STATE[4]);
                 billMapper.addBill(bill);
             }catch (Exception e){
                 e.printStackTrace();
