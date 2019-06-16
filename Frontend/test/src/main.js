@@ -28,7 +28,7 @@ import 'echarts-gl'
 //
 // Vue.use(axios, instance)
 // Vue.prototype.HOME = 'http://www.wangpeng.pub'
-Vue.prototype.HOME = 'http://localhost:8080/'
+Vue.prototype.HOME = 'http://localhost:8080'
 // Vue.prototype.HOME = 'http://lcoalhost:80/'
 
 Vue.prototype.$http = axios
