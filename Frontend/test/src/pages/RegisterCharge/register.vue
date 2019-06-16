@@ -3,7 +3,6 @@
     <v-dialog
       v-model="dialog_bill"
       hide-overlay
-      persistent
       width="400"
     >
       <v-layout justify-center>
@@ -647,7 +646,7 @@ export default {
         })
     },
     get_patient_register: function () {
-      var url = this.HOME + 'user-service/refund/get-paid-registers'
+      var url = this.HOME + '/user-service/refund/get-paid-registers'
       var that = this
       var data = {
         patient_id: that.patient_record_id
@@ -689,9 +688,10 @@ export default {
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true
             that.msg_suc = '患者信息已显示'
-            that.dialog = true
             that.get_patient_register()
-            that.dialog = false
+            //
+            // that.dialog = true
+            // that.dialog = false
           }
         })
     },
@@ -752,9 +752,10 @@ export default {
         .then(function (response) {
           if (response.data.code === 200) {
             console.log(response.data)
-            that.bill = response.data.data.bill
+            that.bill = response.data.data
             that.dialog_suc = true
             that.msg_suc = '退号成功'
+            that.dialog_bill = true
             that.get_patient_register()
             that.dialog = false
           } else {
@@ -812,6 +813,8 @@ export default {
         this.$http.post(url, data)
           .then(function (response) {
             that.bill = response.data.data
+            that.dialog_bill = true
+
             // that.dialog_bill = true
             console.log(response.data)
             that.dialog_suc = true

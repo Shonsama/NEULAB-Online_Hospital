@@ -34,7 +34,7 @@
             </v-card-text>
             <!--<v-divider class="mt-5"></v-divider>-->
             <v-card-actions>
-              <v-btn flat @click="show =!show">Cancel</v-btn>
+              <v-btn flat @click="show =!show">取消</v-btn>
               <v-spacer></v-spacer>
               <v-slide-x-reverse-transition>
                 <v-tooltip
@@ -55,10 +55,10 @@
                 </v-tooltip>
               </v-slide-x-reverse-transition>
               <div v-if="mode">
-                <v-btn color="primary" flat @click="addItem">add</v-btn>
+                <v-btn color="primary" flat @click="addItem">确定</v-btn>
               </div>
               <div v-else>
-                <v-btn color="primary" flat @click="updateItem">update</v-btn>
+                <v-btn color="primary" flat @click="updateItem">确定</v-btn>
               </div>
 
             </v-card-actions>
