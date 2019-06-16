@@ -211,7 +211,7 @@
     >
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title >医技模板详情</v-toolbar-title>
+          <v-toolbar-title >处方模板详情</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon

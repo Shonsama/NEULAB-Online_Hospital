@@ -28,6 +28,11 @@
                 readonly
               ></v-text-field>
               <v-text-field
+                v-model="bill.bill_state"
+                label="发票类型"
+                readonly
+              ></v-text-field>
+              <v-text-field
                 v-model="bill.bill_time"
                 label="打印时间"
                 readonly
@@ -209,7 +214,6 @@
         </template>
       </v-toolbar>
       <v-divider></v-divider>
-      <v-layout style="margin-left: 35px">
         <v-form v-model="valid">
           <v-container>
             <v-layout>
@@ -431,7 +435,6 @@
             </v-layout>
           </v-container>
         </v-form>
-      </v-layout>
     </v-card>
     <v-card class="scroll-y">
       <v-toolbar flat dense>
@@ -443,17 +446,9 @@
         :headers="headers"
         :items="register_items"
         item-key="register_info_id"
-        select-all
         class="elevation-1 "
       >
         <template v-slot:items="props">
-          <td>
-            <v-checkbox
-              v-model="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
-          </td>
           <td>{{ props.item.register_info_id }}</td>
           <td>{{ props.item.register_info_patient_id }}</td>
           <td>{{ props.item.register_info_state }}</td>
@@ -794,7 +789,9 @@ export default {
         this.$http.post(url, data)
           .then(function (response) {
             // that.dialog_bill = true
+            that.bill = response.data.data
             console.log(response.data)
+            that.dialog_bill = true
             that.dialog_suc = true
             that.msg_suc = '发票号重打成功'
           })

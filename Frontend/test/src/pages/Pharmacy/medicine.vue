@@ -241,10 +241,13 @@ export default {
       }
     ]
   }),
+  mounted: function () {
+    this.load()
+  },
   methods: {
     returnMedicine: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/return-medicine'
+      var url = this.HOME + '/md-doctor/return-medicine'
       this.$http.post(url, {
         prescription_id: item.prescription_id,
         prescription_content_id: item.prescription_content_id,
@@ -266,7 +269,7 @@ export default {
     },
     load: function () {
       let that = this
-      var url = this.HOME + 'md-doctor/get-all-patients'
+      var url = this.HOME + '/md-doctor/get-all-patients'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -277,7 +280,7 @@ export default {
     getPayPre: function (item) {
       this.md_patient_id = item.patient_record_id
       let that = this
-      var url = this.HOME + 'md-doctor/get-prescription-by-patient'
+      var url = this.HOME + '/md-doctor/get-prescription-by-patient'
       this.$http.post(url, {
         register_info_patient_id: item.patient_record_id,
         start_time: that.date[0],
@@ -291,7 +294,7 @@ export default {
     getSentPre: function (item) {
       this.md_patient_id = item.patient_record_id
       let that = this
-      var url = this.HOME + 'md-doctor/get-sent-prescription'
+      var url = this.HOME + '/md-doctor/get-sent-prescription'
       this.$http.post(url, {
         patient_id: item.patient_record_id,
         start_time: that.date[0],
@@ -304,7 +307,7 @@ export default {
     },
     sendMedicine: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/send-medicine'
+      var url = this.HOME + '/md-doctor/send-medicine'
       this.$http.post(url, {
         prescription_id: item.prescription_id,
         prescription_execute_doctor_id: that.$store.state.user.id
@@ -319,7 +322,7 @@ export default {
     },
     getContent: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/get-prescription-contents'
+      var url = this.HOME + '/md-doctor/get-prescription-contents'
       this.$http.post(url, {
         prescription_id: item.prescription_id
       })
@@ -340,9 +343,6 @@ export default {
       this.result = item.medical_skill_result
       this.state = item.medical_skill_execute_state
     }
-  },
-  mounted: function () {
-    this.load()
   },
   watch: {
     show: function (newState, oldState) {

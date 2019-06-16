@@ -69,7 +69,7 @@ public class PayService {
                 String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
                 billMapper.updateBillNum(billNum,bill.getBill_id());
                 //返回成功
-                return ConstantUtils.responseSuccess("医技项目缴费成功",bill);
+                return ConstantUtils.responseSuccess("医技项目缴费成功",billMapper.getBillById(bill.getBill_id()));
             } else {
                 return ConstantUtils.responseFail("该医技项目不允许缴费");
             }
@@ -86,7 +86,7 @@ public class PayService {
                 billMapper.addBill(bill);
                 String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
                 billMapper.updateBillNum(billNum,bill.getBill_id());
-                return ConstantUtils.responseSuccess("处方项目缴费成功",bill);
+                return ConstantUtils.responseSuccess("处方项目缴费成功",billMapper.getBillById(bill.getBill_id()));
             } else {
                 return ConstantUtils.responseFail("该处方项目不允许缴费");
             }

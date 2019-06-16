@@ -1,6 +1,50 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card flat>
-      <v-toolbar flat>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_err" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="error"
+          >
+            {{msg_err}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-flex shrink>
+      <v-expand-transition>
+        <div v-show="dialog_suc" style="white-space: nowrap">
+          <v-alert
+            :value="true"
+            type="success"
+          >
+            {{msg_suc}}
+          </v-alert>
+        </div>
+      </v-expand-transition>
+    </v-flex>
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <v-toolbar flat>
         <v-layout row>
           <v-flex xs2>
             <v-select
@@ -350,9 +394,14 @@
 export default {
   data: () => ({
     allCashier: [],
+    dialog: false,
     cashier_user_object: '',
     date: ['', ''],
     expand_already: false,
+    dialog_err: false,
+    dialog_suc: false,
+    msg_suc: 'success',
+    msg_err: 'error',
     expand_again: false,
     expand_waste: false,
     expand_complement: false,
@@ -396,6 +445,20 @@ export default {
     desserts_opposite: [],
     daily: ''
   }),
+  watch: {
+    dialog_suc (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_suc = false), 1000)
+    },
+    // dialog (val) {
+    //   if (!val) return
+    //   setTimeout(() => (this.dialog = false), 10000)
+    // },
+    dialog_err (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog_err = false), 1000)
+    }
+  },
   methods: {
     load: function () {
       this.cashier = this.cashier_user_object.user_name
@@ -462,7 +525,14 @@ export default {
         daily_owner_id: that.$store.state.user.id
       })
         .then(function (response) {
-          console.log(response.data)
+          if(response.data.code === 200) {
+            that.dialog_suc = true
+            that.msg_suc = '核对成功'
+            console.log(response.data)
+          } else {
+            that.dialog_err = true
+            that.msg_err = '核对失败'
+          }
         })
     }
   },
