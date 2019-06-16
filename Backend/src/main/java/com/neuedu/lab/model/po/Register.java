@@ -16,7 +16,7 @@ public class Register {
     private Integer register_info_user_id;
     private Boolean register_info_records_book;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Date register_info_time;
     private Doctor doctor;
     private Patient patient;
