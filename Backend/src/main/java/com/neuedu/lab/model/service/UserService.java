@@ -309,6 +309,7 @@ public class UserService {
             if(daily == null){
                 return responseFail("当前id不存在",null);
             }
+
             List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
             if(bills.size()==0){
                 return responseSuccess(daily);
