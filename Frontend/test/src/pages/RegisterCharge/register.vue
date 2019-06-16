@@ -752,6 +752,7 @@ export default {
         .then(function (response) {
           if (response.data.code === 200) {
             console.log(response.data)
+            that.bill = response.data.data.bill
             that.dialog_suc = true
             that.msg_suc = '退号成功'
             that.get_patient_register()
