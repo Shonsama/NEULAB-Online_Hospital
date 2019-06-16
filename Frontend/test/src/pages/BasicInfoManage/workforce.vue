@@ -170,7 +170,7 @@
             </v-card-text>
             <!--<v-divider class="mt-5"></v-divider>-->
             <v-card-actions>
-              <v-btn flat @click="edit_show =!edit_show">Cancel</v-btn>
+              <v-btn flat @click="edit_show =!edit_show">取消</v-btn>
               <v-spacer></v-spacer>
               <v-slide-x-reverse-transition>
                 <v-tooltip
@@ -191,7 +191,7 @@
                 </v-tooltip>
               </v-slide-x-reverse-transition>
               <div>
-                <v-btn color="primary" flat @click="updateItem">update</v-btn>
+                <v-btn color="primary" flat @click="updateItem">确定</v-btn>
               </div>
             </v-card-actions>
           </v-card>
@@ -277,6 +277,7 @@
     </v-flex>
     <v-divider></v-divider>
     <v-card-actions>
+      <v-btn color="primary" @click="show_calendar =! show_calendar">显示排班</v-btn>
       <v-spacer/>
         <el-date-picker
           v-model="date"
@@ -290,112 +291,117 @@
         </el-date-picker>
         <v-btn color="primary" @click="add_schedule">保存</v-btn>
     </v-card-actions>
-    <v-layout justify-center>
-      <v-card style="width: 800px">
-        <v-layout wrap>
-          <v-flex
-            xs12
-            class="mb-3"
-          >
-            <v-sheet height="500">
-              <v-calendar
-                ref="calendar"
-                v-model="start"
-                :end="end"
-                :type="type"
-                color="primary"
-              >
-                <template v-slot:day="{ date }">
-                  <template v-for="event in eventsMap[date]">
-                    <v-menu
-                      :key="event.title"
-                      v-model="event.open"
-                      full-width
-                      offset-x
-                    >
-                      <template v-slot:activator="{ on }">
-                        <div
-                          v-if="!event.time"
-                          v-ripple
-                          class="my-event"
-                          v-on="on"
-                          v-html="event.title"
-                        ></div>
-                      </template>
-                      <v-card
-                        color="grey lighten-4"
-                        min-width="350px"
-                        flat
+    <v-dialog
+      v-model="show_calendar"
+      width="800px"
+    >
+      <v-layout justify-center>
+        <v-card style="width: 800px">
+          <v-layout wrap>
+            <v-flex
+              xs12
+              class="mb-3"
+            >
+              <v-sheet height="500">
+                <v-calendar
+                  ref="calendar"
+                  v-model="start"
+                  :end="end"
+                  :type="type"
+                  color="primary"
+                >
+                  <template v-slot:day="{ date }">
+                    <template v-for="event in eventsMap[date]">
+                      <v-menu
+                        :key="event.title"
+                        v-model="event.open"
+                        full-width
+                        offset-x
                       >
-                        <v-toolbar
-                          color="primary"
-                          dark
+                        <template v-slot:activator="{ on }">
+                          <div
+                            v-if="!event.time"
+                            v-ripple
+                            class="my-event"
+                            v-on="on"
+                            v-html="event.title"
+                          ></div>
+                        </template>
+                        <v-card
+                          color="grey lighten-4"
+                          min-width="350px"
+                          flat
                         >
-                          <v-btn icon>
-                            <v-icon>edit</v-icon>
-                          </v-btn>
-                          <v-toolbar-title v-html="event.title"></v-toolbar-title>
-                          <v-spacer></v-spacer>
-                          <v-btn icon>
-                            <v-icon>favorite</v-icon>
-                          </v-btn>
-                          <v-btn icon>
-                            <v-icon>more_vert</v-icon>
-                          </v-btn>
-                        </v-toolbar>
-                        <v-card-title primary-title>
-                          <span v-html="event.details"></span>
-                        </v-card-title>
-                        <v-card-actions>
-                          <v-btn
-                            flat
-                            color="secondary"
+                          <v-toolbar
+                            color="primary"
+                            dark
                           >
-                            Cancel
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-menu>
+                            <v-btn icon>
+                              <v-icon>edit</v-icon>
+                            </v-btn>
+                            <v-toolbar-title v-html="event.title"></v-toolbar-title>
+                            <v-spacer></v-spacer>
+                            <v-btn icon>
+                              <v-icon>favorite</v-icon>
+                            </v-btn>
+                            <v-btn icon>
+                              <v-icon>more_vert</v-icon>
+                            </v-btn>
+                          </v-toolbar>
+                          <v-card-title primary-title>
+                            <span v-html="event.details"></span>
+                          </v-card-title>
+                          <v-card-actions>
+                            <v-btn
+                              flat
+                              color="secondary"
+                            >
+                              取消
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-menu>
+                    </template>
                   </template>
-                </template>
-              </v-calendar>
-            </v-sheet>
-          </v-flex>
-          <v-flex
-            sm4
-            xs12
-            offset-xs1
-            class="text-sm-left text-xs-center"
-          >
-            <v-btn @click="$refs.calendar.prev()">
-              <v-icon
-                dark
-                left
-              >
-                keyboard_arrow_left
-              </v-icon>
-              Prev
-            </v-btn>
-          </v-flex>
-          <v-flex
-            sm4
-            xs12
-            offset-xs2
-            class="text-sm-right text-xs-center"
-          >
-            <v-btn @click="$refs.calendar.next()">
-              Next
-              <v-icon
-                right
-                dark
-              >
-                keyboard_arrow_right
-              </v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </v-layout>
+                </v-calendar>
+              </v-sheet>
+            </v-flex>
+            <v-flex
+              sm4
+              xs12
+              offset-xs1
+              class="text-sm-left text-xs-center"
+            >
+              <v-btn @click="$refs.calendar.prev()">
+                <v-icon
+                  dark
+                  left
+                >
+                  keyboard_arrow_left
+                </v-icon>
+                前一月
+              </v-btn>
+            </v-flex>
+            <v-flex
+              sm4
+              xs12
+              offset-xs2
+              class="text-sm-right text-xs-center"
+            >
+              <v-btn @click="$refs.calendar.next()">
+                后一月
+                <v-icon
+                  right
+                  dark
+                >
+                  keyboard_arrow_right
+                </v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -403,6 +409,7 @@
 export default {
   name: 'workforce',
   data: () => ({
+    show_calendar: false,
     type: 'month',
     allSchedule: [],
     start: '2019-06-13',

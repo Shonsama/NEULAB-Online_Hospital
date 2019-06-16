@@ -211,8 +211,8 @@
                 </template>
                 <v-date-picker v-model="patient_birthDate" no-title scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                  <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">OK</v-btn>
+                  <v-btn flat color="primary" @click="menu = false">取消</v-btn>
+                  <v-btn flat color="primary" @click="$refs.menu.save(patient_birthDate)">确定</v-btn>
                 </v-date-picker>
               </v-menu>
             </v-flex>

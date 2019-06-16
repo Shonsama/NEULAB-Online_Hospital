@@ -179,8 +179,6 @@ export default {
     md_item: '',
     md_patient_id: '',
     show: false,
-    department_default: '艾滋病科',
-    userid_default: '4',
     search_patient: '',
     state: '',
     md_id: '',
@@ -308,7 +306,8 @@ export default {
       let that = this
       var url = this.HOME + 'md-doctor/send-medicine'
       this.$http.post(url, {
-        prescription_id: item.prescription_id
+        prescription_id: item.prescription_id,
+        prescription_execute_doctor_id: that.$store.state.user.id
       })
         .then(function (response) {
           console.log(response.data)

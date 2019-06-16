@@ -13,7 +13,7 @@
               flat
               v-on="on"
             >
-              我的身份
+              我的身份：{{$store.state.user.type}}
               <v-icon
               >
                 arrow_drop_down

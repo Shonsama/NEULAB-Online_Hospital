@@ -95,6 +95,7 @@
     </v-flex>
     <v-flex>
       <v-chart
+        style="width: 100%"
         :options="bar"
         :init-options="initOptions"
         ref="bar"
@@ -110,9 +111,6 @@ import Schart from 'vue-schart'
 import qs from 'qs'
 
 export default {
-  components:{
-    Schart
-  },
   data () {
   //   canvasId: 'myCanvas',
   //   type: 'bar',
@@ -144,11 +142,21 @@ export default {
         dataset: {
           // Provide data.
           source: [
-            ['Product', '2015', '2016', '2017'],
-            ['Matcha Latte', '2015', '2016', '2017'],
-            ['Milk Tea', '2015', '2016', '2017'],
-            ['Cheese Cocoa', '2015', '2016', '2017'],
-            ['Walnut Brownie', '2015', '2016', '2017']
+            ['Product', '看诊人次', '发票数量', '总收费'],
+            ['1', '2015', '2016', '2017'],
+            ['2', '2015', '2016', '2017'],
+            ['3', '2015', '2016', '2017'],
+            ['3', '2015', '2016', '2017'],
+            ['4', '2015', '2016', '2017'],
+            ['5', '2015', '2016', '2017'],
+            ['6', '2015', '2016', '2017'],
+            ['11', '2015', '2016', '2017'],
+            ['12', '2015', '2016', '2017'],
+            ['13', '2015', '2016', '2017'],
+            ['13', '2015', '2016', '2017'],
+            ['14', '2015', '2016', '2017'],
+            ['15', '2015', '2016', '2017'],
+            ['16', '2015', '2016', '2017']
           ]
         },
         // Declare X axis, which is a category axis, mapping
@@ -209,13 +217,26 @@ export default {
             that.dialog = false
             that.desserts = response.data.data
 
-            that.bar.dataset.source = [
-              ['Product', '2015', '2016', '2017'],
-              ['Matcha Latte', '2015', '2016', '2017'],
-              ['Milk Tea', '1000', '2016', '2017'],
-              ['Cheese Cocoa', '2015', '2016', '2017'],
-              ['Walnut Brownie', '2015', '2016', '2017']
-            ]
+            that.bar.dataset.source = []
+            var cat = ['Product', '看诊人次', '发票数量', '总收费']
+            that.bar.dataset.source.push(cat)
+            for (let i = 0; i < that.desserts.length; i++) {
+              var temp_data = []
+              var cost_total = that.desserts[i].getRegisterFee + that.desserts[i].getMedicalSkillCheck + that.desserts[i].getMedicalSkillInspect + that.desserts[i].getMedicalSkillDispose + that.desserts[i].getPrescriptionWest + that.desserts[i].getPrescriptionChinese
+              temp_data.push(that.desserts[i].getDepartmentName)
+              temp_data.push(that.desserts[i].getVisitorsNum)
+              temp_data.push(that.desserts[i].getBillsNum)
+              temp_data.push(cost_total)
+              that.bar.dataset.source.push(temp_data)
+            }
+            console.log(that.bar.dataset.source)
+            // that.bar.dataset.source = [
+            //   ['Product', '2015', '2016', '2017'],
+            //   ['Matcha Latte', '2015', '2016', '2017'],
+            //   ['Milk Tea', '1000', '2016', '2017'],
+            //   ['Cheese Cocoa', '2015', '2016', '2017'],
+            //   ['Walnut Brownie', '2015', '2016', '2017']
+            // ]
           })
       }
     }

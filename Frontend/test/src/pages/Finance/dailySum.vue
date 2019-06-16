@@ -349,7 +349,6 @@
 <script>
 export default {
   data: () => ({
-    daily_owner_id: 1,
     allCashier: [],
     cashier_user_object: '',
     date: ['', ''],
@@ -460,7 +459,7 @@ export default {
       var url = this.HOME + '/user-service/daily-pass'
       this.$http.post(url, {
         daily_id: that.daily.daily_id,
-        daily_owner_id: that.daily_owner_id
+        daily_owner_id: that.$store.state.user.id
       })
         .then(function (response) {
           console.log(response.data)
