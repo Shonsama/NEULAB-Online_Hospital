@@ -327,7 +327,7 @@ export default {
       let that = this
       var url = ''
       var data
-      if (item.user_type === '门诊医生' || item.user_type === '医技医生') {
+      if (item.user_type === '门诊医生' || item.user_type === '医技医生' || item.user_type === '药房操作员') {
         url = this.HOME + '/user/delete-doctor'
         data = {doctor_account: item.user_account}
       } else {
@@ -348,86 +348,94 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      let that = this
-      var url
-      var user
-      if (this.user_type === '门诊医生' || this.user_type === '医技医生') {
-        user = {
-          doctor_account: this.user_account,
-          doctor_password: this.user_password,
-          doctor_type: this.user_type,
-          doctor_name: this.user_name,
-          doctor_department_id: this.user_department_id,
-          doctor_register_level_id: this.doctor_register_level_id,
-          doctor_position: this.doctor_position,
-          doctor_arrange_or_not: this.doctor_arrange_or_not
-        }
-        url = this.HOME + '/user/add-doctor'
-      } else {
-        user = {
-          user_account: this.user_account,
-          user_password: this.user_password,
-          user_type: this.user_type,
-          user_name: this.user_name,
-          user_department_id: this.user_department_id
-        }
-        url = this.HOME + '/user/add-user'
-      }
-      this.$http.post(url, user)
-        .then(function (response) {
-          console.log(response.data)
-          that.signal = response.data.msg
-          if (that.signal === 'SUCCESS') {
-            that.load()
-            that.show = !that.show
-            that.notice_success()
-          } else {
-            that.notice_error()
+      if (this.check_account_valid(this.user_account)){
+        let that = this
+        var url
+        var user
+        if (this.user_type === '门诊医生' || this.user_type === '医技医生' || this.user_type === '药房操作员') {
+          user = {
+            doctor_account: this.user_account,
+            doctor_password: this.user_password,
+            doctor_type: this.user_type,
+            doctor_name: this.user_name,
+            doctor_department_id: this.user_department_id,
+            doctor_register_level_id: this.doctor_register_level_id,
+            doctor_position: this.doctor_position,
+            doctor_arrange_or_not: this.doctor_arrange_or_not
           }
-        })
-      console.log(this.signal)
+          url = this.HOME + '/user/add-doctor'
+        } else {
+          user = {
+            user_account: this.user_account,
+            user_password: this.user_password,
+            user_type: this.user_type,
+            user_name: this.user_name,
+            user_department_id: this.user_department_id
+          }
+          url = this.HOME + '/user/add-user'
+        }
+        this.$http.post(url, user)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              that.show = !that.show
+              that.notice_success()
+            } else {
+              that.notice_error()
+            }
+          })
+        console.log(this.signal)
+      } else {
+        this.notice_error()
+      }
     },
     updateItem: function () {
-      let that = this
-      var url = ''
-      var user
-      if (this.user_type === '门诊医生' || this.user_type === '医技医生') {
-        user = {
-          doctor_id: this.user_id,
-          doctor_account: this.user_account,
-          doctor_password: this.user_password,
-          doctor_type: this.user_type,
-          doctor_name: this.user_name,
-          doctor_department_id: this.user_department_id,
-          doctor_register_level_id: this.doctor_register_level_id,
-          doctor_position: this.doctor_position,
-          doctor_arrange_or_not: this.doctor_arrange_or_not
-        }
-        url = this.HOME + '/user/update-doctor'
-      } else {
-        user = {
-          user_id: this.user_id,
-          user_account: this.user_account,
-          user_password: this.user_password,
-          user_type: this.user_type,
-          user_name: this.user_name,
-          user_department_id: this.user_department_id
-        }
-        url = this.HOME + '/user/update-user'
-      }
-      this.$http.post(url, user)
-        .then(function (response) {
-          console.log(response.data)
-          that.signal = response.data.msg
-          if (that.signal === 'SUCCESS') {
-            that.load()
-            that.show = !that.show
-            that.notice_success()
-          } else {
-            that.notice_error()
+      if (this.check_account_valid(this.user_account)){
+        let that = this
+        var url = ''
+        var user
+        if (this.user_type === '门诊医生' || this.user_type === '医技医生' || this.user_type === '药房操作员') {
+          user = {
+            doctor_id: this.user_id,
+            doctor_account: this.user_account,
+            doctor_password: this.user_password,
+            doctor_type: this.user_type,
+            doctor_name: this.user_name,
+            doctor_department_id: this.user_department_id,
+            doctor_register_level_id: this.doctor_register_level_id,
+            doctor_position: this.doctor_position,
+            doctor_arrange_or_not: this.doctor_arrange_or_not
           }
-        })
-      console.log(this.signal)
+          url = this.HOME + '/user/update-doctor'
+        } else {
+          user = {
+            user_id: this.user_id,
+            user_account: this.user_account,
+            user_password: this.user_password,
+            user_type: this.user_type,
+            user_name: this.user_name,
+            user_department_id: this.user_department_id
+          }
+          url = this.HOME + '/user/update-user'
+        }
+        this.$http.post(url, user)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              that.show = !that.show
+              that.notice_success()
+            } else {
+              that.notice_error()
+            }
+          })
+        console.log(this.signal)
+      } else  {
+        this.notice_error()
+      }
     },
     fillForm: function (item) {
       this.user_id = item.user_id
@@ -475,6 +483,14 @@ export default {
     change_error: function () {
       this.alert_error = !this.alert_error
     },
+    check_account_valid: function (user_account_test) {
+      for (let i = 0; i < this.users.length; i++) {
+        if (user_account_test === this.users[i].user_account) {
+          return false
+        }
+      }
+      return true
+    },
     delete_selected: function () {
       var count = 0
       var length = this.selected.length
@@ -486,7 +502,7 @@ export default {
         let that = this
         var url = ''
         var data
-        if (item.user_type === '门诊医生' || item.user_type === '医技医生') {
+        if (item.user_type === '门诊医生' || item.user_type === '医技医生' || item.user_type === '药房操作员') {
           url = this.HOME + '/user/delete-doctor'
           data = {doctor_account: item.user_account}
         } else {
@@ -520,7 +536,7 @@ export default {
       }
     },
     user_type: function (newState, oldState) {
-      if (newState === '门诊医生' || newState === '医技医生') {
+      if (newState === '门诊医生' || newState === '医技医生' || newState === '药房操作员') {
         this.isDoctor = true
       } else {
         this.isDoctor = false
