@@ -49,10 +49,10 @@
         or medical_skill_execute_doctor_id = #{doctor_id})
         and medical_skill_type = "检查"
         <if test="start_time != null">
-            and medical_skill_create_time &gt; #{start_time}
+            and medical_skill_pay_time &gt; #{start_time}
         </if>
         <if test="end_time != null">
-            and medical_skill_create_time &lt; #{end_time}
+            and medical_skill_pay_time &lt; #{end_time}
         </if>
     </select>
 
@@ -63,10 +63,10 @@
         or medical_skill_execute_doctor_id = #{doctor_id})
         and medical_skill_type = "检验"
         <if test="start_time != null">
-            and medical_skill_create_time &gt; #{start_time}
+            and medical_skill_pay_time &gt; #{start_time}
         </if>
         <if test="end_time != null">
-            and medical_skill_create_time &lt; #{end_time}
+            and medical_skill_pay_time &lt; #{end_time}
         </if>
     </select>
 
@@ -77,10 +77,10 @@
         or medical_skill_execute_doctor_id = #{doctor_id})
         and medical_skill_type = "处置"
         <if test="start_time != null">
-            and medical_skill_create_time &gt; #{start_time}
+            and medical_skill_pay_time &gt; #{start_time}
         </if>
         <if test="end_time != null">
-            and medical_skill_create_time &lt; #{end_time}
+            and medical_skill_pay_time &lt; #{end_time}
         </if>
     </select>
     <!--西药-->
