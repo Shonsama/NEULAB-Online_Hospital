@@ -3,7 +3,6 @@
     <v-dialog
       v-model="dialog_bill"
       hide-overlay
-      persistent
       width="400"
     >
       <v-layout justify-center>
