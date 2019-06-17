@@ -1,7 +1,7 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.DepartmentWorkloadMapper;
 import com.neuedu.lab.model.mapper.DoctorWorkloadMapper;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

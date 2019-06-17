@@ -1,8 +1,8 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Doctor;
@@ -14,8 +14,8 @@ import javax.annotation.Resource;
 
 import java.util.Date;
 
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 /**
  * @author wp 20164917

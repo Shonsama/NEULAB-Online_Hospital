@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.utils;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -13,7 +13,7 @@ import java.util.Date;
 
 
 public class ConstantUtils {
-    private static Logger logger = LogManager.getLogger(LabApplication.class);
+    public static Logger logger = LogManager.getLogger(LabApplication.class);
 
     public static BigDecimal convertToNegtive(BigDecimal source){
         return source.multiply(new BigDecimal(-1));

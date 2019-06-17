@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.utils;
 
 public class ConstantDefinition {
 

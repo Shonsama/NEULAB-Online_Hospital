@@ -1,8 +1,8 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.MedicalSkillContentMapper;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PatientMapper;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static com.neuedu.lab.Utils.ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE;
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 @Service
 public class MedicalSkillDoctorService {

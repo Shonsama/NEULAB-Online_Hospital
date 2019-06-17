@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.config;
 
 import com.neuedu.lab.interceptors.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,8 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/check-valid")
                 .excludePathPatterns("/static/**")
-                .excludePathPatterns("/index.html");
+                .excludePathPatterns("/index.html")
+                .excludePathPatterns("/test/");
     }
 }
 

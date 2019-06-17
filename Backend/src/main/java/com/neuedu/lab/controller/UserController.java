@@ -2,8 +2,8 @@ package com.neuedu.lab.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;

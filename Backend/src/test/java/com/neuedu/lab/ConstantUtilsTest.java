@@ -1,6 +1,6 @@
 package com.neuedu.lab;
 
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.junit.Test;
 
 import java.text.ParseException;

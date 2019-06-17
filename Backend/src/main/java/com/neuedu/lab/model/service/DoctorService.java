@@ -2,7 +2,7 @@ package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
 
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 
 
-import static com.neuedu.lab.Utils.ConstantDefinition.*;
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantDefinition.*;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 @Service
 public class DoctorService {
