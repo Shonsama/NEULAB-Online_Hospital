@@ -1,12 +1,12 @@
 package com.neuedu.lab.model.service;
 import com.neuedu.lab.model.mapper.RegisterLevelMapper;
 import com.neuedu.lab.model.po.RegisterLevel;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 @Service
-
 public class RegisterLevelService {
     @Resource
     private RegisterLevelMapper registerLevelMapper;

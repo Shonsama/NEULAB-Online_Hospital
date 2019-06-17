@@ -9,6 +9,7 @@ import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.mapper.RegisterMapper;
 import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Patient;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

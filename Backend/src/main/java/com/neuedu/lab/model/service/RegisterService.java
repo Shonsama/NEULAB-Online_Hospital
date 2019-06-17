@@ -7,6 +7,7 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +60,7 @@ public class RegisterService {
     }
 
     @Transactional
-    public JSONObject addRegister(Register register){
+    public synchronized JSONObject addRegister(Register register){
 
         //首先查看医生是否有号
         Doctor doctor;

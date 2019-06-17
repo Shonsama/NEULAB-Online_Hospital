@@ -5,6 +5,7 @@ import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Prescription;
 import com.neuedu.lab.model.po.PrescriptionContent;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

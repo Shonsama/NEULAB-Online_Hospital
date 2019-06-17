@@ -2,17 +2,18 @@ package com.neuedu.lab.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.utils.ConstantDefinition;
-import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.*;
 
 /**
  * 将来合并的系统管理员的控制类
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -58,11 +60,17 @@ public class UserController {
     //检验登录
     public JSONObject checkValid(@RequestBody JSONObject request,  HttpSession session){
         if(request.getString("user_account") != null){
-            JSONObject response  = userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
-            if(response.getInteger("code")== ConstantDefinition.SUCCESS_CODE){
+            JSONObject data;
+            try {
+                data = userService.checkUserValid(request.getString("user_account"),request.getString("user_password")).get(ConstantDefinition.TIMEOUT_SAFE_LIMIT, TimeUnit.MILLISECONDS);
+            } catch (Exception e) {
+                e.printStackTrace();
+                data = ConstantUtils.responseFail();
+            }
+            if(data.getInteger("code")==ConstantDefinition.SUCCESS_CODE){
                 session.setAttribute("user_account",request.getString("user_account"));
             }
-            return response;
+            return data;
         }
         else{
             return userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));

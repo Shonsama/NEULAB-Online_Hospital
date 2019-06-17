@@ -39,4 +39,7 @@ public class ConstantDefinition {
 
     public static final String [] USER_TYPE = {"user","doctor"};
 
+    // 全局Controller超时安全释放时间（毫秒） 防止大规模阻塞
+    public static final Long TIMEOUT_SAFE_LIMIT = 8000L;
+
 }
