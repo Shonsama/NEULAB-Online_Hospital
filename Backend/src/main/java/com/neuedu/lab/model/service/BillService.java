@@ -17,7 +17,8 @@ public class BillService {
 //    重打
     public JSONObject rePrintBill(Integer bill_id){
         billMapper.updateBillState(ConstantDefinition.BILL_STATE[2],bill_id);
-        return ConstantUtils.responseSuccess("重打成功");
+        Bill newBill = billMapper.getBillById(bill_id);
+        return ConstantUtils.responseSuccess("重打成功",newBill);
     }
 //补打
     public JSONObject overPrintBill(Integer bill_id){

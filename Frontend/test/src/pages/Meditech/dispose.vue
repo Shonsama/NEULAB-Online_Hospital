@@ -200,16 +200,28 @@
           medical_skill_execute_state: '验血',
           medical_skill_result: '正常'
         }
-      ]
+      ],
+      department_name_default: ''
     }),
     methods: {
       filterDepart: function (value) {
         return value.medical_skill_type === this.type_default
       },
+      load_dept_name : function (){
+        let that = this
+        var url = this.HOME + '/maintenance/department/get'
+        this.$http.post(url, {department_id: that.$store.state.user.department_id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.department_name_default = response.data.data.department_name
+            that.load()
+          })
+      },
       load: function () {
         let that = this
-        var url = this.HOME + 'ms-doctor/get-all-patients'
-        this.$http.post(url, {medical_skill_execute_department: that.$store.state.user.department_id,
+        var url = this.HOME + '/ms-doctor/get-all-patients'
+        this.$http.post(url, {medical_skill_execute_department: that.department_name_default,
           medical_skill_type: that.type_default
         })
           .then(function (response) {
@@ -220,9 +232,9 @@
       getPersonalMS: function (item) {
         this.ms_patient_id = item.patient_record_id
         let that = this
-        var url = this.HOME + 'ms-doctor/medical-skill/get-by-patient'
+        var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
         this.$http.post(url, {
-          medical_skill_execute_department: that.$store.state.user.department_id,
+          medical_skill_execute_department: that.department_name_default,
           patient_id: item.patient_record_id
         })
           .then(function (response) {
@@ -232,7 +244,7 @@
       },
       setResult: function () {
         let that = this
-        var url = this.HOME + 'ms-doctor/medical-skill/add-result'
+        var url = this.HOME + '/ms-doctor/medical-skill/add-result'
         this.$http.post(url, {
           medical_skill_id: that.ms_id,
           medical_skill_result: that.result
@@ -248,7 +260,7 @@
       },
       confirmState: function () {
         let that = this
-        var url = this.HOME + 'ms-doctor/medical-skill/confirm'
+        var url = this.HOME + '/ms-doctor/medical-skill/confirm'
         this.$http.post(url, {
           medical_skill_id: that.ms_id,
           medical_skill_execute_doctor_id: that.$store.state.user.id
@@ -264,7 +276,7 @@
       },
       cancelState: function () {
         let that = this
-        var url = this.HOME + 'ms-doctor/medical-skill/cancel'
+        var url = this.HOME + '/ms-doctor/medical-skill/cancel'
         this.$http.post(url, {
           medical_skill_id: that.ms_id,
           medical_skill_execute_doctor_id: that.$store.state.user.id
@@ -306,7 +318,7 @@
       }
     },
     mounted: function () {
-      this.load()
+      this.load_dept_name()
     },
     watch: {
       show: function (newState, oldState) {

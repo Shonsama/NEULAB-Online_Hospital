@@ -41,6 +41,58 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="dialog_bill"
+      hide-overlay
+      width="400"
+    >
+      <v-layout justify-center>
+        <v-flex>
+          <v-card>
+            <v-card-title>
+              发票
+            </v-card-title>
+            <v-card-text>
+              <v-text-field
+                v-model="bill.bill_id"
+                label="发票号"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_register_id"
+                label="挂号ID"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_sum"
+                label="发票总额"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_state"
+                label="发票类型"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_time"
+                label="打印时间"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_type"
+                label="收费类别"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="bill.bill_user_id"
+                label="收费员ID"
+                readonly
+              ></v-text-field>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
     <v-flex shrink>
       <v-expand-transition>
         <div v-show="dialog_err" style="white-space: nowrap">
@@ -242,17 +294,9 @@
         :headers="headers"
         :items="desserts"
         item-key="id"
-        select-all
         class="elevation-1"
       >
         <template v-slot:items="props">
-          <td>
-            <v-checkbox
-              v-model="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
-          </td>
           <td>{{ props.item.code }}</td>
           <td>{{ props.item.name }}</td>
           <td>{{ props.item.state }}</td>
@@ -295,17 +339,9 @@
         :headers="headers1"
         :items="filterDesserts"
         item-key="hint"
-        select-all
         class="elevation-1 scroll-y"
       >
         <template v-slot:items="props">
-          <td>
-            <v-checkbox
-              v-model="props.selected"
-              primary
-              hide-details
-            ></v-checkbox>
-          </td>
           <td>{{ props.item.code }}</td>
           <td>{{ props.item.name }}</td>
           <td>{{ props.item.state }}</td>
@@ -389,6 +425,7 @@ export default {
       dialog_add: false,
       dialog_err: false,
       dialog_suc: false,
+      dialog_bill: false,
       msg_suc: 'success',
       msg_err: 'error',
       selected: [],
@@ -492,6 +529,7 @@ export default {
           console.log(response.data)
           if (response.data.code === 200) {
             that.bill = response.data.data
+            that.dialog_bill = true
             that.getItem()
             that.getItem_charge()
             that.dialog = false
@@ -517,6 +555,7 @@ export default {
           console.log(response.data)
           if (response.data.code === 200) {
             that.bill = response.data.data
+            that.dialog_bill = true
             that.getItem()
             that.dialog = false
             that.dialog_suc = true
@@ -663,8 +702,9 @@ export default {
       if (that.bill.bill_id) {
         this.$http.post(url, data)
           .then(function (response) {
-            // that.dialog_bill = true
+            that.bill = response.data.data
             console.log(response.data)
+            that.dialog_bill = true
             that.dialog_suc = true
             that.msg_suc = '发票号重打成功'
           })
@@ -683,7 +723,7 @@ export default {
         this.$http.post(url, data)
           .then(function (response) {
             that.bill = response.data.data
-            // that.dialog_bill = true
+            that.dialog_bill = true
             that.dialog_suc = true
             that.msg_suc = '发票号补打成功'
             console.log(response.data)
