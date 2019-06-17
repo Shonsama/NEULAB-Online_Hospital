@@ -31,17 +31,10 @@
             <td>{{ props.item.prescription_refund_available_num }}</td>
             <!--<td>{{ props.item.medicine_unit }}</td>-->
             <td>
-              <v-select
-                v-model="refund_num"
-                :items="getNumAvailable(props.item.prescription_refund_available_num)"
-                label="退药数量"
-              ></v-select>
-            </td>
-            <td>
               <v-icon
                 small
                 class="mr-2"
-                @click="returnMedicine(props.item)"
+                @click="medicine = props.item, return_show = !return_show"
               >
                 edit
               </v-icon>
@@ -55,7 +48,27 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    <v-dialog
+    v-model="return_show"
+    max-width="300"
+    >
+      <v-card ref="form">
+        <v-card-text>
+          <v-select
+            v-model="refund_num"
+            :items="getNumAvailable(medicine.prescription_refund_available_num)"
+            label="数量"
+            required
+          ></v-select>
+        </v-card-text>
+        <v-divider class="mt-2"></v-divider>
+        <v-card-actions>
+          <v-btn flat @click="return_show = !return_show">取消</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click="returnMedicine(medicine),return_show = !return_show">确定</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-layout>
       <v-flex xs4>
         <v-card flat>
@@ -170,7 +183,9 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
+    return_show: false,
     refund_num: '',
+    medicine: '',
     num_available: [],
     selected_prescriptionContent: '',
     desserts_prescriptionContent: [],
@@ -201,7 +216,6 @@ export default {
       { text: '处方内容id', value: 'prescription_content_id' },
       { text: '处方药品id', value: 'prescription_medicine_id' },
       { text: '可退药数量', value: 'prescription_refund_available_num' },
-      { text: '选择药数量', value: 'num' },
       { text: '操作', value: 'operation', sortable: false }
     ],
     headers_patient: [

@@ -208,7 +208,7 @@
                  </td>
                  <td>{{ props.item.diagnose_disease_id }}</td>
                  <td>{{ props.item.diagnose_disease_name }}</td>
-                 <td>{{ props.item.diagnose_time.getFullYear() + '-'}}{{ props.item.diagnose_time.getMonth() + '-'}}{{ props.item.diagnose_time.getDate()+' '}}{{ props.item.diagnose_time.getHours()+':'+props.item.diagnose_time.getMinutes()+':'+props.item.diagnose_time.getSeconds()}}</td>
+                 <td>{{ props.item.diagnose_time}}</td>
                </template>
              </v-data-table>
            </v-card>
@@ -246,7 +246,7 @@
                   </td>
                   <td>{{ props.item.diagnose_disease_id }}</td>
                   <td>{{ props.item.diagnose_disease_name }}</td>
-                  <td>{{ props.item.diagnose_time.getFullYear() + '-'}}{{ props.item.diagnose_time.getMonth() + '-'}}{{ props.item.diagnose_time.getDate()+' '}}{{ props.item.diagnose_time.getHours()+':'+props.item.diagnose_time.getMinutes()+':'+props.item.diagnose_time.getSeconds()}}</td>
+                  <td>{{ props.item.diagnose_time}}</td>
                 </template>
               </v-data-table>
             </v-card>
@@ -369,15 +369,26 @@ export default {
       this.show = !this.show
       console.log(this.selected_dia)
       var n
+      var time_now = new Date()
+      var year = time_now.getFullYear();
+
+      var month = time_now.getMonth().toString().length === 1 ? '0' + (parseInt(time_now.getMonth().toString(),10) + 1) : (time_now.getMonth() + 1);
+
+      var day = time_now.getDate().toString().length === 1 ? '0' + time_now.getDate() : time_now.getDate();
+
+      var date_temp = year + '-' + month + '-' + day + ' ' + time_now.getHours() + ':' + time_now.getMinutes() + ':' +time_now.getSeconds()
+
       for (n = 0; n < this.selected_dia.length; n++) {
         var data = {
           diagnose_disease_id: this.selected_dia[n].disease_id,
           diagnose_record_id: this.msgfromfa.register_info_id,
           diagnose_disease_name: this.selected_dia[n].disease_name,
-          diagnose_time: new Date()
+          diagnose_time: date_temp
         }
         this.desserts.push(data)
       }
+      console.log(this.desserts)
+
     },
     submit_diagnoses () {
       let that = this
@@ -515,7 +526,7 @@ export default {
                 diagnose_disease_id: response.data.data.firstDiagnoses[i].diagnose_disease_id,
                 diagnose_disease_name: response.data.data.firstDiagnoses[i].diagnose_disease_name,
                 diagnose_record_id: that.msgfromfa.register_info_id,
-                diagnose_time: new Date(response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19))
+                diagnose_time: response.data.data.firstDiagnoses[i].diagnose_time.slice(0, 19)
               }
               that.desserts.push(data)
             }
