@@ -72,7 +72,9 @@ public class ConstantUtils {
         logger.info(msg);
         return result;
     }
-//
+
+
+
 //    public static JSONObject generateToken(Integer id,String user_type) {
 //        String userId = user_type+id;
 //        //生成 token
