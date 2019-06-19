@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.concurrent.*;
 
 /**
  * 将来合并的系统管理员的控制类
@@ -62,7 +61,7 @@ public class UserController {
         if(request.getString("user_account") != null){
             JSONObject data;
             try {
-                data = userService.checkUserValid(request.getString("user_account"),request.getString("user_password")).get(ConstantDefinition.TIMEOUT_SAFE_LIMIT, TimeUnit.MILLISECONDS);
+                data = userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
             } catch (Exception e) {
                 e.printStackTrace();
                 data = ConstantUtils.responseFail();
@@ -73,7 +72,17 @@ public class UserController {
             return data;
         }
         else{
-            return userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));
+            JSONObject data;
+            try {
+                data = userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));
+            } catch (Exception e) {
+                e.printStackTrace();
+                data = ConstantUtils.responseFail();
+            }
+            if(data.getInteger("code")==ConstantDefinition.SUCCESS_CODE){
+                session.setAttribute("user_account",request.getString("doctor_account"));
+            }
+            return data;
         }
     }
 

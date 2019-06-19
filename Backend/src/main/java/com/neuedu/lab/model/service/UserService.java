@@ -6,11 +6,8 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.utils.ConstantDefinition;
 import com.neuedu.lab.utils.ConstantUtils;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -63,13 +60,12 @@ public class UserService {
     }
 
     /*检验登录*/
-    @Async("asyncServiceExecutor")
-    public ListenableFuture<JSONObject> checkUserValid(String user_account, String user_password) {
+    public JSONObject checkUserValid(String user_account, String user_password) {
         User user = userMapper.getUserByAccount(user_account);
         if (user.getUser_password().equals(user_password)) {
-            return new AsyncResult<>(ConstantUtils.responseSuccess(user));
+            return (ConstantUtils.responseSuccess(user));
         } else {
-            return new AsyncResult<>(ConstantUtils.responseFail("wrongPassword", null));
+            return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
