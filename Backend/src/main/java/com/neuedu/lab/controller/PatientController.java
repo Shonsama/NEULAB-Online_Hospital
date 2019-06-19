@@ -60,8 +60,4 @@ public class PatientController {
         return patientService.createNewRecord(patient,request.getString("patient_account"));
     }
 
-    @RequestMapping("/login")
-    public JSONObject checkUserValid(@RequestBody JSONObject request){
-        return patientService.checkUserValid(request.getString("patient_account"),request.getString("patient_password"));
-    }
 }

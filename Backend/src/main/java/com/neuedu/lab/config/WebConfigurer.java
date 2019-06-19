@@ -15,8 +15,8 @@ public class WebConfigurer implements WebMvcConfigurer {
     // 这个方法是用来配置静态资源的，比如html，js，css，等等
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/static/");
-        WebMvcConfigurer.super.addResourceHandlers(registry);
+//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/static/");
+//        WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 
     // 这个方法用来注册拦截器
@@ -27,7 +27,8 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/user/check-valid")
                 .excludePathPatterns("/static/**")
                 .excludePathPatterns("/index.html")
-                .excludePathPatterns("/test/");
+                .excludePathPatterns("/mp/**")
+                .excludePathPatterns("/helpx.html");
     }
 }
 
