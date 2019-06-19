@@ -1,5 +1,7 @@
 package com.neuedu.lab.interceptors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+    private static Logger logger = LogManager.getLogger(LoginInterceptor.class);
 
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -22,6 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (user_account == null){
             //忽略当前请求，如果一个用户调用了需要登陆才能使用的接口，如果他没有登陆这里会直接忽略掉
             //利用response给用户返回提示信息，告诉他没登陆
+            System.out.println(request.getRequestURL());
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("{\"code\":\"500\", \"msg\":\"Access Denied\"}");
