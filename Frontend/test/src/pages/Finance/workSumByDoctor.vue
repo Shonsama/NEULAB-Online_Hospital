@@ -98,8 +98,7 @@
 </template>
 
 <script>
-  import Schart from 'vue-schart'
-  import qs from 'qs'
+import qs from 'qs'
 export default {
 
   data() {
