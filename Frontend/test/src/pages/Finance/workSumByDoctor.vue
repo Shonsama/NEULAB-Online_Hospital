@@ -98,11 +98,11 @@
 </template>
 
 <script>
-  import Schart from 'vue-schart'
-  import qs from 'qs'
-export default {
+/* eslint-disable camelcase */
 
-  data() {
+import qs from 'qs'
+export default {
+  data () {
     let options = qs.parse(location.search, { ignoreQueryPrefix: true })
     return {
       // option: qs.parse(location.search, { ignoreQueryPrefix: true }),

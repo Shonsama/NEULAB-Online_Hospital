@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<scroll-view scroll-y class="scrollPage">
+<view class="UCenter-bg bg-gradual-blue">
+    <view class="text-lg">
+      <text class="text-bolds">东软云医疗</text>
+    </view>
+    <view class="margin-top-sm">
+      <text>挂号缴费小程序</text>
+    </view>
+    <image src="https://image.weilanwl.com/gif/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+  </view>
+    <view class="flex text-center text-grey bg-white shadow-warp"></view>
+  <view class='nav-list' style='margin-top:100rpx'>
+    <navigator open-type="navigate" hover-class='none' url="/pages/{{item.name}}/{{item.name}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key style='width:100%;;height:200rpx;margin-top:100rpx'>
+      <view class="nav-title">{{item.title}}</view>
+      <view class="nav-name">{{item.name}}</view>
+      <text class='cuIcon-{{item.icon}}'></text>
+    </navigator>
+  </view>
+  <view class='cu-tabbar-height'></view>
+  </scroll-view>

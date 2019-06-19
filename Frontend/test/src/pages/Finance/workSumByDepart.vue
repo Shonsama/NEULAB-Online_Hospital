@@ -107,8 +107,8 @@
 </template>
 
 <script>
-import Schart from 'vue-schart'
 import qs from 'qs'
+/* eslint-disable camelcase */
 
 export default {
   data () {

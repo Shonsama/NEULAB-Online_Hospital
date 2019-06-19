@@ -29,12 +29,10 @@ public class PatientController {
     public JSONObject getPatientByRecordId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByRecordId(request.getInteger("patient_record_id")));
     }
-
     @RequestMapping("/get-by-doctor-id")
     public JSONObject getPatientByDoctorId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByDoctorId(request.getString("register_info_doctor_id")));
     }
-
     @RequestMapping("/get-by-department-id")
     public JSONObject getPatientByDepartmentId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByDepartmentId(request.getString("doctor_department_id")));

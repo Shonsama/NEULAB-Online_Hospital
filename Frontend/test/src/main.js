@@ -19,7 +19,8 @@ import 'echarts/lib/component/tooltip'
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
 // let instance = axios.create({
-//   transformRequest: [function (data) {
+//   transfor
+// mRequest: [function (data) {
 //     data = Qs.stringify(data)
 //     return data
 //   }],

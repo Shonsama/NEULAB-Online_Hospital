@@ -525,7 +525,7 @@ export default {
         daily_owner_id: that.$store.state.user.id
       })
         .then(function (response) {
-          if(response.data.code === 200) {
+          if (response.data.code === 200) {
             that.dialog_suc = true
             that.msg_suc = '核对成功'
             console.log(response.data)

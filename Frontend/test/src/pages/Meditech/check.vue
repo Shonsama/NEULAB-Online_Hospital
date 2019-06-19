@@ -138,6 +138,8 @@
 </template>
 
 <script>
+/* eslint-disable key-spacing */
+
 export default {
   data: () => ({
     // alert_success: false,
@@ -207,7 +209,7 @@ export default {
     filterDepart: function (value) {
       return value.medical_skill_type === this.type_default
     },
-    load_dept_name : function (){
+    load_dept_name : function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get'
       this.$http.post(url, {department_id: that.$store.state.user.department_id

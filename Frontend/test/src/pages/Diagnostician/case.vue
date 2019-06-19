@@ -274,6 +274,7 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
 export default {
   props: ['msgfromfa', 'record'],
   data () {
@@ -370,13 +371,13 @@ export default {
       console.log(this.selected_dia)
       var n
       var time_now = new Date()
-      var year = time_now.getFullYear();
+      var year = time_now.getFullYear()
 
-      var month = time_now.getMonth().toString().length === 1 ? '0' + (parseInt(time_now.getMonth().toString(),10) + 1) : (time_now.getMonth() + 1);
+      var month = time_now.getMonth().toString().length === 1 ? '0' + (parseInt(time_now.getMonth().toString(), 10) + 1) : (time_now.getMonth() + 1)
 
-      var day = time_now.getDate().toString().length === 1 ? '0' + time_now.getDate() : time_now.getDate();
+      var day = time_now.getDate().toString().length === 1 ? '0' + time_now.getDate() : time_now.getDate()
 
-      var date_temp = year + '-' + month + '-' + day + ' ' + time_now.getHours() + ':' + time_now.getMinutes() + ':' +time_now.getSeconds()
+      var date_temp = year + '-' + month + '-' + day + ' ' + time_now.getHours() + ':' + time_now.getMinutes() + ':' + time_now.getSeconds()
 
       for (n = 0; n < this.selected_dia.length; n++) {
         var data = {
@@ -388,7 +389,6 @@ export default {
         this.desserts.push(data)
       }
       console.log(this.desserts)
-
     },
     submit_diagnoses () {
       let that = this

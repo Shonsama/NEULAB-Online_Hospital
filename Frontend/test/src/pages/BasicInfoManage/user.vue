@@ -113,7 +113,6 @@
     </v-dialog>
 
     <v-alert
-      transition :duration="1"
       :value="alert_success"
       type="success"
       transition="slide-y-transition"
@@ -122,7 +121,6 @@
     </v-alert>
 
     <v-alert
-      transition :duration="1"
       :value="alert_error"
       type="error"
       transition="slide-y-transition"
@@ -217,6 +215,7 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
 export default {
   data: () => ({
     alert_success: false,
@@ -348,7 +347,7 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      if (this.check_account_valid(this.user_account)){
+      if (this.check_account_valid(this.user_account)) {
         let that = this
         var url
         var user
@@ -392,7 +391,7 @@ export default {
       }
     },
     updateItem: function () {
-      if (this.check_account_valid(this.user_account)){
+      if (this.check_account_valid(this.user_account)) {
         let that = this
         var url = ''
         var user
@@ -433,7 +432,7 @@ export default {
             }
           })
         console.log(this.signal)
-      } else  {
+      } else {
         this.notice_error()
       }
     },
@@ -471,14 +470,14 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout(this.change_success, 1500)
+      window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
       this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout(this.change_error, 1500)
+      window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
       this.alert_error = !this.alert_error
@@ -493,7 +492,6 @@ export default {
     },
     delete_selected: function () {
       var count = 0
-      var length = this.selected.length
       for (let i = 0; i < this.selected.length; i++) {
         var item = {
           user_type: this.selected[i].user_type,
