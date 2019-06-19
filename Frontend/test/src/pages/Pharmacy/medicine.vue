@@ -31,17 +31,10 @@
             <td>{{ props.item.prescription_refund_available_num }}</td>
             <!--<td>{{ props.item.medicine_unit }}</td>-->
             <td>
-              <v-select
-                v-model="refund_num"
-                :items="getNumAvailable(props.item.prescription_refund_available_num)"
-                label="退药数量"
-              ></v-select>
-            </td>
-            <td>
               <v-icon
                 small
                 class="mr-2"
-                @click="returnMedicine(props.item)"
+                @click="medicine = props.item, return_show = !return_show"
               >
                 edit
               </v-icon>
@@ -55,7 +48,27 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    <v-dialog
+    v-model="return_show"
+    max-width="300"
+    >
+      <v-card ref="form">
+        <v-card-text>
+          <v-select
+            v-model="refund_num"
+            :items="getNumAvailable(medicine.prescription_refund_available_num)"
+            label="数量"
+            required
+          ></v-select>
+        </v-card-text>
+        <v-divider class="mt-2"></v-divider>
+        <v-card-actions>
+          <v-btn flat @click="return_show = !return_show">取消</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click="returnMedicine(medicine),return_show = !return_show">确定</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-layout>
       <v-flex xs4>
         <v-card flat>
@@ -144,6 +157,7 @@
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             style="margin-right: 10px"
+            value-format= "yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
           <v-btn color="primary" @click="">选定时间</v-btn>
@@ -169,7 +183,9 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
+    return_show: false,
     refund_num: '',
+    medicine: '',
     num_available: [],
     selected_prescriptionContent: '',
     desserts_prescriptionContent: [],
@@ -178,8 +194,6 @@ export default {
     md_item: '',
     md_patient_id: '',
     show: false,
-    department_default: '艾滋病科',
-    userid_default: '4',
     search_patient: '',
     state: '',
     md_id: '',
@@ -202,7 +216,6 @@ export default {
       { text: '处方内容id', value: 'prescription_content_id' },
       { text: '处方药品id', value: 'prescription_medicine_id' },
       { text: '可退药数量', value: 'prescription_refund_available_num' },
-      { text: '选择药数量', value: 'num' },
       { text: '操作', value: 'operation', sortable: false }
     ],
     headers_patient: [
@@ -242,10 +255,13 @@ export default {
       }
     ]
   }),
+  mounted: function () {
+    this.load()
+  },
   methods: {
     returnMedicine: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/return-medicine'
+      var url = this.HOME + '/md-doctor/return-medicine'
       this.$http.post(url, {
         prescription_id: item.prescription_id,
         prescription_content_id: item.prescription_content_id,
@@ -267,7 +283,7 @@ export default {
     },
     load: function () {
       let that = this
-      var url = this.HOME + 'md-doctor/get-all-patients'
+      var url = this.HOME + '/md-doctor/get-all-patients'
       this.$http.post(url, {
       })
         .then(function (response) {
@@ -278,7 +294,7 @@ export default {
     getPayPre: function (item) {
       this.md_patient_id = item.patient_record_id
       let that = this
-      var url = this.HOME + 'md-doctor/get-prescription-by-patient'
+      var url = this.HOME + '/md-doctor/get-prescription-by-patient'
       this.$http.post(url, {
         register_info_patient_id: item.patient_record_id,
         start_time: that.date[0],
@@ -292,7 +308,7 @@ export default {
     getSentPre: function (item) {
       this.md_patient_id = item.patient_record_id
       let that = this
-      var url = this.HOME + 'md-doctor/get-sent-prescription'
+      var url = this.HOME + '/md-doctor/get-sent-prescription'
       this.$http.post(url, {
         patient_id: item.patient_record_id,
         start_time: that.date[0],
@@ -305,9 +321,10 @@ export default {
     },
     sendMedicine: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/send-medicine'
+      var url = this.HOME + '/md-doctor/send-medicine'
       this.$http.post(url, {
-        prescription_id: item.prescription_id
+        prescription_id: item.prescription_id,
+        prescription_execute_doctor_id: that.$store.state.user.id
       })
         .then(function (response) {
           console.log(response.data)
@@ -319,7 +336,7 @@ export default {
     },
     getContent: function (item) {
       let that = this
-      var url = this.HOME + 'md-doctor/get-prescription-contents'
+      var url = this.HOME + '/md-doctor/get-prescription-contents'
       this.$http.post(url, {
         prescription_id: item.prescription_id
       })
@@ -340,9 +357,6 @@ export default {
       this.result = item.medical_skill_result
       this.state = item.medical_skill_execute_state
     }
-  },
-  mounted: function () {
-    this.load()
   },
   watch: {
     show: function (newState, oldState) {

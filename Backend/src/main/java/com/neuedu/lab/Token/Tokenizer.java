@@ -1,4 +1,4 @@
-package com.neuedu.lab.Token;
+package com.neuedu.lab.token;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACVerifier;

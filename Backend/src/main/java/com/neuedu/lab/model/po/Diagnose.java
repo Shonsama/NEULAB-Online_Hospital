@@ -1,5 +1,8 @@
 package com.neuedu.lab.model.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Diagnose {
@@ -8,6 +11,8 @@ public class Diagnose {
     private String diagnose_type;
     private String diagnose_disease_id;
     private String diagnose_disease_name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  timezone="GMT+8")
     private Date diagnose_time;
 
 

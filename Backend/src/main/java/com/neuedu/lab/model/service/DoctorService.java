@@ -1,14 +1,11 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -16,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
-import static com.neuedu.lab.Utils.ConstantDefinition.*;
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantDefinition.*;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 @Service
 public class DoctorService {
@@ -346,7 +342,6 @@ public class DoctorService {
                 diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[1]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
             }
-            recordMapper.updateRecordStateById(diagnoses.get(0).getDiagnose_record_id(),ConstantDefinition.RECORD_STATE[2]);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail();
@@ -465,15 +460,6 @@ public class DoctorService {
 
     //诊毕
     public JSONObject finish(Integer register_id){
-        try{
-            Register register = registerMapper.getRegister(register_id);
-            if(register==null || !register.getRegister_info_state().equals(ConstantDefinition.RECORD_STATE[2])){
-                return responseFail("该挂号状态不能不能进行诊毕");
-            }
-        }catch (RuntimeException e){
-            e.printStackTrace();
-            return responseFail("获取挂号过程失败",null);
-        }
         try{
             registerMapper.updateRegisterState(register_id, REGISTER_STATE[2]);
         }catch (RuntimeException e){

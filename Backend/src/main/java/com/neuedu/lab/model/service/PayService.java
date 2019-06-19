@@ -1,14 +1,15 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.BillMapper;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PrescriptionMapper;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Prescription;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +70,7 @@ public class PayService {
                 String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
                 billMapper.updateBillNum(billNum,bill.getBill_id());
                 //返回成功
-                return ConstantUtils.responseSuccess("医技项目缴费成功",bill);
+                return ConstantUtils.responseSuccess("医技项目缴费成功",billMapper.getBillById(bill.getBill_id()));
             } else {
                 return ConstantUtils.responseFail("该医技项目不允许缴费");
             }
@@ -86,7 +87,7 @@ public class PayService {
                 billMapper.addBill(bill);
                 String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
                 billMapper.updateBillNum(billNum,bill.getBill_id());
-                return ConstantUtils.responseSuccess("处方项目缴费成功",bill);
+                return ConstantUtils.responseSuccess("处方项目缴费成功",billMapper.getBillById(bill.getBill_id()));
             } else {
                 return ConstantUtils.responseFail("该处方项目不允许缴费");
             }

@@ -211,7 +211,7 @@
     >
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title >医技模板详情</v-toolbar-title>
+          <v-toolbar-title >处方模板详情</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -382,8 +382,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="text = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="addTem">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click="text = false">关闭</v-btn>
+          <v-btn color="blue darken-1" flat @click="addTem">保存</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -886,7 +886,6 @@ export default {
           that.dialog = true
           that.getTem()
           that.dialog = false
-
         })
     },
     addTemContent () {

@@ -1,7 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Daily;
 import com.neuedu.lab.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class UserServiceController {
     }
 
     //日结发票查询
-    @RequestMapping("/daily-billx-get")
+    @RequestMapping("/daily-bill-get")
     public JSONObject dailyBillGet(@RequestBody JSONObject request){
         return userService.getDailyBill(request.getInteger("daily_id"));
     }

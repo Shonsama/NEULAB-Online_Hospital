@@ -347,7 +347,7 @@ export default {
         },
         { text: '患者名称', value: 'patient.patient_name' }
       ],
-      active: '1',
+      active: 'desserts_per',
       active1: '1',
       show: true,
       patient: {
@@ -525,13 +525,10 @@ export default {
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
+            that.msg_suc = '已诊毕'
             that.dialog_suc = true
             that.load_patient_self()
             that.load_patient_depart()
-            that.get()
-            that.message = ''
-            that.patient = ''
-            that.msg_suc = '已诊毕'
           } else {
             that.dialog_err = true
             that.msg_err = '诊毕失败'
@@ -557,6 +554,8 @@ export default {
       var data = {
         record_id: value.register_info_id
       }
+      that.msg_suc = '已接诊'
+      that.dialog_suc = true
       that.record_id = value.register_info_id
       that.message = value
       that.patient = value.patient

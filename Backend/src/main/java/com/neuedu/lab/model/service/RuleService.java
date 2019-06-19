@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.mapper.RuleMapper;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Rule;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

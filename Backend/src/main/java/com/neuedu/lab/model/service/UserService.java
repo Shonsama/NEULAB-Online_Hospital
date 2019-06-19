@@ -2,12 +2,15 @@ package com.neuedu.lab.model.service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -15,9 +18,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.neuedu.lab.Utils.ConstantDefinition.*;
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantDefinition.*;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 
 @Service
@@ -60,13 +63,13 @@ public class UserService {
     }
 
     /*检验登录*/
-    public JSONObject checkUserValid(String user_account, String user_password) {
+    @Async("asyncServiceExecutor")
+    public ListenableFuture<JSONObject> checkUserValid(String user_account, String user_password) {
         User user = userMapper.getUserByAccount(user_account);
         if (user.getUser_password().equals(user_password)) {
-            //return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(user.getUser_id(), ConstantDefinition.USER_TYPE[0]));
-            return ConstantUtils.responseSuccess("success",user);
+            return new AsyncResult<>(ConstantUtils.responseSuccess(user));
         } else {
-            return ConstantUtils.responseFail("wrongPassword", null);
+            return new AsyncResult<>(ConstantUtils.responseFail("wrongPassword", null));
         }
     }
 
@@ -308,6 +311,7 @@ public class UserService {
             if(daily == null){
                 return responseFail("当前id不存在",null);
             }
+
             List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
             if(bills.size()==0){
                 return responseSuccess(daily);

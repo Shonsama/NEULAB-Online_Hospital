@@ -35,7 +35,7 @@
             </v-card-text>
             <!--<v-divider class="mt-5"></v-divider>-->
             <v-card-actions>
-              <v-btn flat @click="show =!show">Cancel</v-btn>
+              <v-btn flat @click="show =!show">取消</v-btn>
               <v-spacer></v-spacer>
               <!--<v-slide-x-reverse-transition>-->
               <!--<v-tooltip-->
@@ -56,7 +56,7 @@
               <!--</v-tooltip>-->
               <!--</v-slide-x-reverse-transition>-->
 
-              <v-btn color="primary" flat @click="change">add</v-btn>
+              <v-btn color="primary" flat @click="change">确定</v-btn>
 
             </v-card-actions>
           </v-card>
@@ -155,8 +155,6 @@ export default {
     ms_patient_id: '',
     show: false,
     type_default: '处置',
-    department_default: '病理科',
-    userid_default: '5',
     search_patient: '',
     state: '',
     ms_id: '',
@@ -202,16 +200,28 @@ export default {
         medical_skill_execute_state: '验血',
         medical_skill_result: '正常'
       }
-    ]
+    ],
+    department_name_default: ''
   }),
   methods: {
     filterDepart: function (value) {
       return value.medical_skill_type === this.type_default
     },
+    load_dept_name: function () {
+      let that = this
+      var url = this.HOME + '/maintenance/department/get'
+      this.$http.post(url, {department_id: that.$store.state.user.department_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.department_name_default = response.data.data.department_name
+          that.load()
+        })
+    },
     load: function () {
       let that = this
-      var url = this.HOME + 'ms-doctor/get-all-patients'
-      this.$http.post(url, {medical_skill_execute_department: that.department_default,
+      var url = this.HOME + '/ms-doctor/get-all-patients'
+      this.$http.post(url, {medical_skill_execute_department: that.department_name_default,
         medical_skill_type: that.type_default
       })
         .then(function (response) {
@@ -222,9 +232,9 @@ export default {
     getPersonalMS: function (item) {
       this.ms_patient_id = item.patient_record_id
       let that = this
-      var url = this.HOME + 'ms-doctor/medical-skill/get-by-patient'
+      var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
       this.$http.post(url, {
-        medical_skill_execute_department: that.department_default,
+        medical_skill_execute_department: that.department_name_default,
         patient_id: item.patient_record_id
       })
         .then(function (response) {
@@ -234,7 +244,7 @@ export default {
     },
     setResult: function () {
       let that = this
-      var url = this.HOME + 'ms-doctor/medical-skill/add-result'
+      var url = this.HOME + '/ms-doctor/medical-skill/add-result'
       this.$http.post(url, {
         medical_skill_id: that.ms_id,
         medical_skill_result: that.result
@@ -250,10 +260,10 @@ export default {
     },
     confirmState: function () {
       let that = this
-      var url = this.HOME + 'ms-doctor/medical-skill/confirm'
+      var url = this.HOME + '/ms-doctor/medical-skill/confirm'
       this.$http.post(url, {
         medical_skill_id: that.ms_id,
-        medical_skill_execute_doctor_id: that.userid_default
+        medical_skill_execute_doctor_id: that.$store.state.user.id
       })
         .then(function (response) {
           console.log(response.data)
@@ -266,10 +276,10 @@ export default {
     },
     cancelState: function () {
       let that = this
-      var url = this.HOME + 'ms-doctor/medical-skill/cancel'
+      var url = this.HOME + '/ms-doctor/medical-skill/cancel'
       this.$http.post(url, {
         medical_skill_id: that.ms_id,
-        medical_skill_execute_doctor_id: that.userid_default
+        medical_skill_execute_doctor_id: that.$store.state.user.id
       })
         .then(function (response) {
           console.log(response.data)
@@ -308,7 +318,7 @@ export default {
     }
   },
   mounted: function () {
-    this.load()
+    this.load_dept_name()
   },
   watch: {
     show: function (newState, oldState) {

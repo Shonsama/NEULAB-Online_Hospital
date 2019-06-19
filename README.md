@@ -3,7 +3,7 @@
 ## 1.基础信息维护
 ### 科室管理：
     1.获取所有科室信息
-    url:'Department/getAll'
+    url:'Department/getAllInfo'
     post:''
     return:
         data:[{
@@ -53,5 +53,4 @@
         price_category,//费用分类
         price,//单价
         }]
-## 2.门诊挂号收费
 
