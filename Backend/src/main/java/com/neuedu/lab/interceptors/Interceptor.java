@@ -14,6 +14,7 @@ public class Interceptor implements HandlerInterceptor{
         response.setHeader("Access-Control-Allow-Headers", "X-Requested-With, accept, content-type, xxxx");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS, PATCH");
         response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         return true;
     }

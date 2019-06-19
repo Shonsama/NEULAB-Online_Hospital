@@ -3,6 +3,7 @@ package com.neuedu.lab.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.LabApplication;
+import com.neuedu.lab.token.Tokenizer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +11,8 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ConstantUtils {
@@ -75,19 +78,18 @@ public class ConstantUtils {
 
 
 
-//    public static JSONObject generateToken(Integer id,String user_type) {
-//        String userId = user_type+id;
-//        //生成 token
-//        Map<String, Object> payload = new HashMap<>();
-//        Date date = new Date();
-//        payload.put("userID", userId);// user ID 植入token
-//        payload.put("startTime", date.getTime());//生成时间
-//        payload.put("expiryTime", date.getTime() + ConstantDefinition.EXPIRY_TIME);//过期时间1小时
-//
-//        JSONObject token = new JSONObject();
-//        token.put("token",Tokenizer.createToken(payload));
-//        return token;
-//    }
+    public static JSONObject generateToken(String id) {
+        //生成 token
+        Map<String, Object> payload = new HashMap<>();
+        Date date = new Date();
+        payload.put("user_account", id);// user ID 植入token
+        payload.put("startTime", date.getTime());//生成时间
+        payload.put("expiryTime", date.getTime() + ConstantDefinition.EXPIRY_TIME);//过期时间1小时
+
+        JSONObject token = new JSONObject();
+        token.put("token", Tokenizer.createToken(payload));
+        return token;
+    }
 
     //获取系统初始时间
     public static Date getSystemInitializeTime() throws ParseException {

@@ -31,7 +31,7 @@ public class WebConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/user/check-valid")
                 .excludePathPatterns("/static/**")
                 .excludePathPatterns("/index.html")
-                .excludePathPatterns("/mp/**")
+                .excludePathPatterns("/mp/login")
                 .excludePathPatterns("/helpx.html");
     }
 }
