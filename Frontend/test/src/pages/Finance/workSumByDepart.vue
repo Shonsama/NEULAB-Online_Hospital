@@ -108,6 +108,7 @@
 
 <script>
 import qs from 'qs'
+/* eslint-disable camelcase */
 
 export default {
   data () {

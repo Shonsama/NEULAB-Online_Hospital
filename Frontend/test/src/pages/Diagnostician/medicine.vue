@@ -886,7 +886,6 @@ export default {
           that.dialog = true
           that.getTem()
           that.dialog = false
-
         })
     },
     addTemContent () {

@@ -2,6 +2,7 @@ package com.neuedu.lab.model.service;
 
 import com.neuedu.lab.model.mapper.MedicineMapper;
 import com.neuedu.lab.model.po.Medicine;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

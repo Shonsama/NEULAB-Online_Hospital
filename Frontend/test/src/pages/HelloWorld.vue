@@ -184,6 +184,8 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
+          console.log('${session.kk}')
+          console.log(sessionStorage.kk)
           var data
           that.dialog_suc = true
           that.msg_suc = '登陆成功'

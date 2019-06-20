@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.utils;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -39,11 +39,6 @@ public class LoggerAspect {
         printInfo("RESPONSE : " + response);
     }
 
-//    @After(value = "executeService()")
-//    public void doAfter(JoinPoint joinPoint){
-//        printInfo("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-//        System.out.println("[A request end]");
-//    }
 
 
 
@@ -51,16 +46,5 @@ public class LoggerAspect {
         System.out.println("[INFO]:"+s);
     }
 
-//    @Around(value = "execution (* com.neuedu.lab.controller..*.*(..))")
-//    public Object invoke(ProceedingJoinPoint proceedingJoinPoint){
-//        try{
-//            Object res = proceedingJoinPoint.proceed();
-//            JSONObject result = new JSONObject();
-//            result.put("data",res);
-//            return result;
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
-//        return null;
-//    }
+
 }

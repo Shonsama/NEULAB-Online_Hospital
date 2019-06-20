@@ -1,7 +1,7 @@
 package com.neuedu.lab.model.service;
 
-import com.neuedu.lab.model.po.Constant;
 import com.neuedu.lab.model.mapper.ConstantMapper;
+import com.neuedu.lab.model.po.Constant;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

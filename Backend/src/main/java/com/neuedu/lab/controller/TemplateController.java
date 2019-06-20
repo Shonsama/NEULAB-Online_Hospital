@@ -1,7 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Template;
 import com.neuedu.lab.model.po.TemplateContent;
 import com.neuedu.lab.model.service.TemplateService;

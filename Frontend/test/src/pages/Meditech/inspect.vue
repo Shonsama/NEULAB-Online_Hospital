@@ -138,196 +138,196 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      // alert_success: false,
-      // alert_error: false,
-      // mode: true,
-      // department_id: '',
-      // department_name: '',
-      // department_cat: '',
-      // department_type: '',
-      // show: false,
-      // search: '',
-      // expand: false,
-      // selected: [],
-      ms_item: '',
-      ms_patient_id: '',
-      show: false,
-      type_default: '检查',
-      search_patient: '',
-      state: '',
-      ms_id: '',
-      result: '',
-      signal: '',
-      state_items: [
-        {
-          text: '已取消执行'
-        },
-        {
-          text: '已确认执行'
-        }
-      ],
-      headers_patient: [
-        {
-          text: '病人id',
-          align: 'left',
-          value: 'patient_record_id'
-        },
-        { text: '病人姓名', value: 'patient_name' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts_patient: [
-        {
-          patient_record_id: 1,
-          patient_name: 'shu'
-        }
-      ],
-      headers_ms: [
-        {
-          text: '医技id',
-          align: 'left',
-          value: 'medical_skill_id'
-        },
-        { text: '医技状态', value: 'medical_skill_execute_state' },
-        { text: '医技状态', value: 'medical_skill_name' },
-        { text: '医技结果', value: 'medical_skill_result' },
-        { text: '操作', value: 'operation', sortable: false }
-      ],
-      desserts_ms: [
-        {
-          medical_skill_id: 1,
-          medical_skill_execute_state: '验血',
-          medical_skill_result: '正常'
-        }
-      ],
-      department_name_default: ''
-    }),
-    methods: {
-      filterDepart: function (value) {
-        return value.medical_skill_type === this.type_default
+export default {
+  data: () => ({
+    // alert_success: false,
+    // alert_error: false,
+    // mode: true,
+    // department_id: '',
+    // department_name: '',
+    // department_cat: '',
+    // department_type: '',
+    // show: false,
+    // search: '',
+    // expand: false,
+    // selected: [],
+    ms_item: '',
+    ms_patient_id: '',
+    show: false,
+    type_default: '检查',
+    search_patient: '',
+    state: '',
+    ms_id: '',
+    result: '',
+    signal: '',
+    state_items: [
+      {
+        text: '已取消执行'
       },
-      load_dept_name : function (){
-        let that = this
-        var url = this.HOME + '/maintenance/department/get'
-        this.$http.post(url, {department_id: that.$store.state.user.department_id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.department_name_default = response.data.data.department_name
-            that.load()
-          })
-      },
-      load: function () {
-        let that = this
-        var url = this.HOME + '/ms-doctor/get-all-patients'
-        this.$http.post(url, {medical_skill_execute_department: that.department_name_default,
-          medical_skill_type: that.type_default
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_patient = response.data.data
-          })
-      },
-      getPersonalMS: function (item) {
-        this.ms_patient_id = item.patient_record_id
-        let that = this
-        var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
-        this.$http.post(url, {
-          medical_skill_execute_department: that.department_name_default,
-          patient_id: item.patient_record_id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.desserts_ms = response.data.data
-          })
-      },
-      setResult: function () {
-        let that = this
-        var url = this.HOME + '/ms-doctor/medical-skill/add-result'
-        this.$http.post(url, {
-          medical_skill_id: that.ms_id,
-          medical_skill_result: that.result
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.load()
-            var item = {
-              patient_record_id: that.ms_patient_id
-            }
-            that.getPersonalMS(item)
-          })
-      },
-      confirmState: function () {
-        let that = this
-        var url = this.HOME + '/ms-doctor/medical-skill/confirm'
-        this.$http.post(url, {
-          medical_skill_id: that.ms_id,
-          medical_skill_execute_doctor_id: that.$store.state.user.id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.load()
-            var item = {
-              patient_record_id: that.ms_patient_id
-            }
-            that.getPersonalMS(item)
-          })
-      },
-      cancelState: function () {
-        let that = this
-        var url = this.HOME + '/ms-doctor/medical-skill/cancel'
-        this.$http.post(url, {
-          medical_skill_id: that.ms_id,
-          medical_skill_execute_doctor_id: that.$store.state.user.id
-        })
-          .then(function (response) {
-            console.log(response.data)
-            that.load()
-            var item = {
-              patient_record_id: that.ms_patient_id
-            }
-            that.getPersonalMS(item)
-          })
-      },
-      change: function () {
-        if (this.state !== this.ms_item.medical_skill_execute_state) {
-          if (this.state === '已确认执行') {
-            this.confirmState()
-          }
-          if (this.state === '已取消执行') {
-            this.cancelState()
-          }
-        }
-        if (this.result !== this.ms_item.medical_skill_result) {
-          this.setResult()
-        }
-        this.show = !this.show
-      },
-      eraseForm: function () {
-        this.ms_id = ''
-        this.result = ''
-        this.state = ''
-        this.ms_item = ''
-      },
-      fillForm: function (item) {
-        this.ms_item = item
-        this.ms_id = item.medical_skill_id
-        this.result = item.medical_skill_result
-        this.state = item.medical_skill_execute_state
+      {
+        text: '已确认执行'
       }
+    ],
+    headers_patient: [
+      {
+        text: '病人id',
+        align: 'left',
+        value: 'patient_record_id'
+      },
+      { text: '病人姓名', value: 'patient_name' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts_patient: [
+      {
+        patient_record_id: 1,
+        patient_name: 'shu'
+      }
+    ],
+    headers_ms: [
+      {
+        text: '医技id',
+        align: 'left',
+        value: 'medical_skill_id'
+      },
+      { text: '医技状态', value: 'medical_skill_execute_state' },
+      { text: '医技状态', value: 'medical_skill_name' },
+      { text: '医技结果', value: 'medical_skill_result' },
+      { text: '操作', value: 'operation', sortable: false }
+    ],
+    desserts_ms: [
+      {
+        medical_skill_id: 1,
+        medical_skill_execute_state: '验血',
+        medical_skill_result: '正常'
+      }
+    ],
+    department_name_default: ''
+  }),
+  methods: {
+    filterDepart: function (value) {
+      return value.medical_skill_type === this.type_default
     },
-    mounted: function () {
-      this.load_dept_name()
+    load_dept_name: function () {
+      let that = this
+      var url = this.HOME + '/maintenance/department/get'
+      this.$http.post(url, {department_id: that.$store.state.user.department_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.department_name_default = response.data.data.department_name
+          that.load()
+        })
     },
-    watch: {
-      show: function (newState, oldState) {
-        if (newState === false) {
-          this.eraseForm()
+    load: function () {
+      let that = this
+      var url = this.HOME + '/ms-doctor/get-all-patients'
+      this.$http.post(url, {medical_skill_execute_department: that.department_name_default,
+        medical_skill_type: that.type_default
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_patient = response.data.data
+        })
+    },
+    getPersonalMS: function (item) {
+      this.ms_patient_id = item.patient_record_id
+      let that = this
+      var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
+      this.$http.post(url, {
+        medical_skill_execute_department: that.department_name_default,
+        patient_id: item.patient_record_id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.desserts_ms = response.data.data
+        })
+    },
+    setResult: function () {
+      let that = this
+      var url = this.HOME + '/ms-doctor/medical-skill/add-result'
+      this.$http.post(url, {
+        medical_skill_id: that.ms_id,
+        medical_skill_result: that.result
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.load()
+          var item = {
+            patient_record_id: that.ms_patient_id
+          }
+          that.getPersonalMS(item)
+        })
+    },
+    confirmState: function () {
+      let that = this
+      var url = this.HOME + '/ms-doctor/medical-skill/confirm'
+      this.$http.post(url, {
+        medical_skill_id: that.ms_id,
+        medical_skill_execute_doctor_id: that.$store.state.user.id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.load()
+          var item = {
+            patient_record_id: that.ms_patient_id
+          }
+          that.getPersonalMS(item)
+        })
+    },
+    cancelState: function () {
+      let that = this
+      var url = this.HOME + '/ms-doctor/medical-skill/cancel'
+      this.$http.post(url, {
+        medical_skill_id: that.ms_id,
+        medical_skill_execute_doctor_id: that.$store.state.user.id
+      })
+        .then(function (response) {
+          console.log(response.data)
+          that.load()
+          var item = {
+            patient_record_id: that.ms_patient_id
+          }
+          that.getPersonalMS(item)
+        })
+    },
+    change: function () {
+      if (this.state !== this.ms_item.medical_skill_execute_state) {
+        if (this.state === '已确认执行') {
+          this.confirmState()
         }
+        if (this.state === '已取消执行') {
+          this.cancelState()
+        }
+      }
+      if (this.result !== this.ms_item.medical_skill_result) {
+        this.setResult()
+      }
+      this.show = !this.show
+    },
+    eraseForm: function () {
+      this.ms_id = ''
+      this.result = ''
+      this.state = ''
+      this.ms_item = ''
+    },
+    fillForm: function (item) {
+      this.ms_item = item
+      this.ms_id = item.medical_skill_id
+      this.result = item.medical_skill_result
+      this.state = item.medical_skill_execute_state
+    }
+  },
+  mounted: function () {
+    this.load_dept_name()
+  },
+  watch: {
+    show: function (newState, oldState) {
+      if (newState === false) {
+        this.eraseForm()
       }
     }
   }
+}
 </script>
 
 <style scoped>

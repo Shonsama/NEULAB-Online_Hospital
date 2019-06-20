@@ -98,10 +98,11 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
+
 import qs from 'qs'
 export default {
-
-  data() {
+  data () {
     let options = qs.parse(location.search, { ignoreQueryPrefix: true })
     return {
       // option: qs.parse(location.search, { ignoreQueryPrefix: true }),
