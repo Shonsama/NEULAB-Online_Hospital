@@ -8,6 +8,7 @@
 		<version>2.1.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	<packaging>war</packaging>
 	<groupId>com.neuedu</groupId>
 	<artifactId>lab</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
