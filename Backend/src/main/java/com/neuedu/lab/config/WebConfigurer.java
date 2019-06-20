@@ -1,5 +1,6 @@
 package com.neuedu.lab.config;
 
+import com.neuedu.lab.interceptors.Interceptor;
 import com.neuedu.lab.interceptors.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfigurer implements WebMvcConfigurer {
     @Autowired
     private LoginInterceptor loginInterceptor;
+    @Autowired
+    private Interceptor interceptor;
 
     // 这个方法是用来配置静态资源的，比如html，js，css，等等
     @Override
@@ -22,12 +25,13 @@ public class WebConfigurer implements WebMvcConfigurer {
     // 这个方法用来注册拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(interceptor).addPathPatterns("/**");
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/check-valid")
                 .excludePathPatterns("/static/**")
                 .excludePathPatterns("/index.html")
-                .excludePathPatterns("/mp/**")
+                .excludePathPatterns("/mp/login")
                 .excludePathPatterns("/helpx.html");
     }
 }
