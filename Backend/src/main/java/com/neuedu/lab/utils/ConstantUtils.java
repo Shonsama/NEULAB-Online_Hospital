@@ -78,7 +78,7 @@ public class ConstantUtils {
 
 
 
-    public static JSONObject generateToken(String id) {
+    public static String generateToken(String id) {
         //生成 token
         Map<String, Object> payload = new HashMap<>();
         Date date = new Date();
@@ -86,9 +86,7 @@ public class ConstantUtils {
         payload.put("startTime", date.getTime());//生成时间
         payload.put("expiryTime", date.getTime() + ConstantDefinition.EXPIRY_TIME);//过期时间1小时
 
-        JSONObject token = new JSONObject();
-        token.put("token", Tokenizer.createToken(payload));
-        return token;
+        return Tokenizer.createToken(payload);
     }
 
     //获取系统初始时间
