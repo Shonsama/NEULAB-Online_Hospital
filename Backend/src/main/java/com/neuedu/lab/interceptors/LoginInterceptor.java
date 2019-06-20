@@ -28,10 +28,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getParameter("token");
         //如果session中没有user，表示没登陆
         if (user_account != null){
+            System.out.println(request.getRequestURL()+"登录：[user_account]:"+user_account);
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口
         }
         else if(token != null){
             // WeNEULogger.i("token: "+token);
+            System.out.println(request.getRequestURL()+"登录:[token]:"+token);
             Map<String, Object> result = Tokenizer.validToken(token);
             String state = (String) result.get("state");
             if (state.equals(TokenState.VALID.toString())) {
@@ -56,7 +58,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         else {
             //忽略当前请求，如果一个用户调用了需要登陆才能使用的接口，如果他没有登陆这里会直接忽略掉
             //利用response给用户返回提示信息，告诉他没登陆
-            System.out.println(request.getRequestURL());
+            System.out.println(request.getRequestURL()+"拦截 未检测到token或session");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("{\"code\":\"500\", \"msg\":\"Access Denied\"}");
