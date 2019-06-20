@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;
-import com.neuedu.lab.utils.ConstantDefinition;
 import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,30 +58,10 @@ public class UserController {
     //检验登录
     public JSONObject checkValid(@RequestBody JSONObject request,  HttpSession session){
         if(request.getString("user_account") != null){
-            JSONObject data;
-            try {
-                data = userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                data = ConstantUtils.responseFail();
-            }
-            if(data.getInteger("code")==ConstantDefinition.SUCCESS_CODE){
-                session.setAttribute("user_account",request.getString("user_account"));
-            }
-            return data;
+            return userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
         }
-        else{
-            JSONObject data;
-            try {
-                data = userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                data = ConstantUtils.responseFail();
-            }
-            if(data.getInteger("code")==ConstantDefinition.SUCCESS_CODE){
-                session.setAttribute("user_account",request.getString("doctor_account"));
-            }
-            return data;
+        else {
+            return userService.checkDoctorValid(request.getString("doctor_account"), request.getString("doctor_password"));
         }
     }
 
