@@ -21,13 +21,13 @@ Page({
     var that = this
     if (wx.getStorageSync('personInfo')) {
       that.setData({
-        record_id: wx.getStorageSync('personInfo').record_id,
-        name: wx.getStorageSync('personInfo').name,
-        gender: wx.getStorageSync('personInfo').gender,
-        address: wx.getStorageSync('personInfo').address,
-        birth: wx.getStorageSync('personInfo').birth,
-        age: wx.getStorageSync('personInfo').age,
-        id: wx.getStorageSync('personInfo').id
+        record_id: wx.getStorageSync('personInfo').patient_record_id,
+        name: wx.getStorageSync('personInfo').patient_name,
+        gender: wx.getStorageSync('personInfo').patient_gender,
+        address: wx.getStorageSync('personInfo').patient_address,
+        birth: wx.getStorageSync('personInfo').patient_birthDate,
+        age: wx.getStorageSync('personInfo').patient_age,
+        id: wx.getStorageSync('personInfo').patient_credit_id
       });
     }
   },

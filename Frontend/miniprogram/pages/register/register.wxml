@@ -7,61 +7,62 @@
 <form>
   <view class="cu-form-group margin-top">
 		<view class="title">病历号</view>
-		<input disabled value='record_id'></input>
+		<input disabled value='{{record_id}}'></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">姓名</view>
-		<input disabled value='name'></input>
+		<input disabled value='{{name}}'></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">性别</view>
-		<input disabled value='gender'></input>
+		<input wx:if="{{gender}}" disabled value='男' ></input>
+    <input wx:else disabled value='女' ></input>
 	</view>
   <view class="cu-form-group">
 		<view class="title">家庭地址</view>
-		<input disabled value='address'></input>
+		<input disabled value='{{address}}'></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">出生日期</view>
-		<input disabled value='birth'></input>
+		<input disabled value='{{birth}}'></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">年龄</view>
-		<input disabled value='age'></input>
+		<input disabled value='{{age}}'></input>
 	</view>
   <view class="cu-form-group">
 		<view class="title">身份证号</view>
-		<input disabled value='id'></input>
+		<input disabled value='{{id}}'></input>
 	</view>
   <view class="cu-form-group margin-top">
 		<view class="title">门诊科室</view>
-		<picker bindchange="PickerChange" value="{{index}}" range="{{picker_departments}}">
+		<picker bindchange="PickerChange" value="{{index}}" range="{{picker_departments}}" range-key="department_name">
 			<view class="picker">
-				{{index?picker_departments[index]:'选择门诊科室'}}
+				{{index?picker_departments[index].department_name:'选择门诊科室'}}
 			</view>
 		</picker>
 	</view>
   <view class="cu-form-group">
 		<view class="title">挂号级别</view>
-		<picker bindchange="PickerChange1" value="{{index1}}" range="{{picker_registerLevel}}">
+		<picker bindchange="PickerChange1" value="{{index1}}" range="{{picker_registerLevel}}" range-key="register_level_name">
 			<view class="picker">
-				{{index1?picker_registerLevel[index1]:'选择挂号级别'}}
+				{{index1?picker_registerLevel[index1].register_level_name:'选择挂号级别'}}
 			</view>
 		</picker>
 	</view>
   <view class="cu-form-group">
 		<view class="title">门诊医生</view>
-		<picker bindchange="PickerChange2" value="{{index2}}" range="{{picker_doctors}}">
+		<picker bindchange="PickerChange2" value="{{index2}}" range="{{picker_doctors}}"  range-key="doctor_name">
 			<view class="picker">
-				{{index2?picker_doctors[index2]:'选择门诊医生'}}
+				{{index2?picker_doctors[index2].doctor_name:'选择门诊医生'}}
 			</view>
 		</picker>
 	</view>
   <view class="cu-form-group">
 		<view class="title">结算类别</view>
-		<picker bindchange="PickerChange3" value="{{index3}}" range="{{picker_constants}}">
+		<picker bindchange="PickerChange3" value="{{index3}}" range="{{picker_constants}}" range-key="constant_name">
 			<view class="picker">
-				{{index3?picker_constants[index3]:'选择门诊医生'}}
+				{{index3?picker_constants[index3].constant_name:'选择结算类别'}}
 			</view>
 		</picker>
 	</view>

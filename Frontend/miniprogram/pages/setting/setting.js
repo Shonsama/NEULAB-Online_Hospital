@@ -5,8 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isLogin: false,
-    isBind: false,
+    isLogin: wx.getStorageSync('isLogin'),
+    isBind: wx.getStorageSync('isBind'),
     name: ''
   },
 
@@ -26,11 +26,27 @@ Page({
       modalName: null
     })
   },
+  clear() {
+    wx.clearStorage()
+    wx.reLaunch({
+      url: '../home/index',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this
+    if (wx.getStorageSync('isLogin')) {
+      that.setData({
+        isLogin: true
+      });
+    }
+    if (wx.getStorageSync('isBind')) {
+      that.setData({
+        isBind: true
+      });
+    }
   },
 
   /**
