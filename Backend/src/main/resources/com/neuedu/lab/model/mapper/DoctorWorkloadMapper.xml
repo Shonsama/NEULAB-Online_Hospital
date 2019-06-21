@@ -115,6 +115,4 @@
     <select id="getDoctors" resultType="Doctor">
         select * from doctor_info;
     </select>
-
-
 </mapper>
