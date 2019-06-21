@@ -14713,3 +14713,239 @@ com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after
 2019-06-21 17:58:18,532 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 17:58:48,537 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 17:59:18,543 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 18:08:06,943 DEBUG ResourceBundleMessageInterpolator:89 -Loaded expression factory via original TCCL
+2019-06-21 18:08:06,964 DEBUG ValidatorFactoryImpl:578 -HV000234: Using org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-06-21 18:08:06,964 DEBUG ValidatorFactoryImpl:579 -HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-06-21 18:08:06,965 DEBUG ValidatorFactoryImpl:580 -HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-06-21 18:08:06,965 DEBUG ValidatorFactoryImpl:581 -HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-06-21 18:08:06,965 DEBUG ValidatorFactoryImpl:582 -HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-06-21 18:08:06,989 INFO  LabApplication:50 -Starting LabApplication on 大朋 with PID 23548 (D:\work\Neuedu_lab\Backend\target\classes started by qw in D:\work\Neuedu_lab\Backend)
+2019-06-21 18:08:06,990 DEBUG LabApplication:53 -Running with Spring Boot v2.1.5.RELEASE, Spring v5.1.7.RELEASE
+2019-06-21 18:08:06,991 INFO  LabApplication:675 -No active profile set, falling back to default profiles: default
+2019-06-21 18:08:08,367 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\BillMapper.class]
+2019-06-21 18:08:08,367 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\ConstantMapper.class]
+2019-06-21 18:08:08,367 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DailyMapper.class]
+2019-06-21 18:08:08,368 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DepartmentMapper.class]
+2019-06-21 18:08:08,368 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DepartmentWorkloadMapper.class]
+2019-06-21 18:08:08,368 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DiagnoseMapper.class]
+2019-06-21 18:08:08,368 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DiseaseInfoMapper.class]
+2019-06-21 18:08:08,368 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DoctorMapper.class]
+2019-06-21 18:08:08,369 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\DoctorWorkloadMapper.class]
+2019-06-21 18:08:08,369 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\FeeCatMapper.class]
+2019-06-21 18:08:08,369 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\MedicalSkillContentMapper.class]
+2019-06-21 18:08:08,369 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\MedicalSkillMapper.class]
+2019-06-21 18:08:08,369 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\MedicineMapper.class]
+2019-06-21 18:08:08,370 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\NonMedicineMapper.class]
+2019-06-21 18:08:08,370 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\PatientMapper.class]
+2019-06-21 18:08:08,370 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\PrescriptionContentMapper.class]
+2019-06-21 18:08:08,371 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\PrescriptionMapper.class]
+2019-06-21 18:08:08,371 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\RecordMapper.class]
+2019-06-21 18:08:08,371 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\RegisterLevelMapper.class]
+2019-06-21 18:08:08,371 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\RegisterMapper.class]
+2019-06-21 18:08:08,371 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\RuleMapper.class]
+2019-06-21 18:08:08,372 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\ScheduleMapper.class]
+2019-06-21 18:08:08,372 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\TemplateMapper.class]
+2019-06-21 18:08:08,372 DEBUG ClassPathMapperScanner:437 -Identified candidate component class: file [D:\work\Neuedu_lab\Backend\target\classes\com\neuedu\lab\model\mapper\UserMapper.class]
+2019-06-21 18:08:08,372 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'billMapper' and 'com.neuedu.lab.model.mapper.BillMapper' mapperInterface
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'billMapper'.
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'constantMapper' and 'com.neuedu.lab.model.mapper.ConstantMapper' mapperInterface
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'constantMapper'.
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'dailyMapper' and 'com.neuedu.lab.model.mapper.DailyMapper' mapperInterface
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'dailyMapper'.
+2019-06-21 18:08:08,373 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'departmentMapper' and 'com.neuedu.lab.model.mapper.DepartmentMapper' mapperInterface
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'departmentMapper'.
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'departmentWorkloadMapper' and 'com.neuedu.lab.model.mapper.DepartmentWorkloadMapper' mapperInterface
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'departmentWorkloadMapper'.
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'diagnoseMapper' and 'com.neuedu.lab.model.mapper.DiagnoseMapper' mapperInterface
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'diagnoseMapper'.
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'diseaseInfoMapper' and 'com.neuedu.lab.model.mapper.DiseaseInfoMapper' mapperInterface
+2019-06-21 18:08:08,374 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'diseaseInfoMapper'.
+2019-06-21 18:08:08,375 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'doctorMapper' and 'com.neuedu.lab.model.mapper.DoctorMapper' mapperInterface
+2019-06-21 18:08:08,375 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'doctorMapper'.
+2019-06-21 18:08:08,375 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'doctorWorkloadMapper' and 'com.neuedu.lab.model.mapper.DoctorWorkloadMapper' mapperInterface
+2019-06-21 18:08:08,376 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'doctorWorkloadMapper'.
+2019-06-21 18:08:08,376 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'feeCatMapper' and 'com.neuedu.lab.model.mapper.FeeCatMapper' mapperInterface
+2019-06-21 18:08:08,376 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'feeCatMapper'.
+2019-06-21 18:08:08,376 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'medicalSkillContentMapper' and 'com.neuedu.lab.model.mapper.MedicalSkillContentMapper' mapperInterface
+2019-06-21 18:08:08,377 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'medicalSkillContentMapper'.
+2019-06-21 18:08:08,377 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'medicalSkillMapper' and 'com.neuedu.lab.model.mapper.MedicalSkillMapper' mapperInterface
+2019-06-21 18:08:08,377 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'medicalSkillMapper'.
+2019-06-21 18:08:08,377 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'medicineMapper' and 'com.neuedu.lab.model.mapper.MedicineMapper' mapperInterface
+2019-06-21 18:08:08,377 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'medicineMapper'.
+2019-06-21 18:08:08,378 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'nonMedicineMapper' and 'com.neuedu.lab.model.mapper.NonMedicineMapper' mapperInterface
+2019-06-21 18:08:08,378 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'nonMedicineMapper'.
+2019-06-21 18:08:08,378 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'patientMapper' and 'com.neuedu.lab.model.mapper.PatientMapper' mapperInterface
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'patientMapper'.
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'prescriptionContentMapper' and 'com.neuedu.lab.model.mapper.PrescriptionContentMapper' mapperInterface
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'prescriptionContentMapper'.
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'prescriptionMapper' and 'com.neuedu.lab.model.mapper.PrescriptionMapper' mapperInterface
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'prescriptionMapper'.
+2019-06-21 18:08:08,379 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'recordMapper' and 'com.neuedu.lab.model.mapper.RecordMapper' mapperInterface
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'recordMapper'.
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'registerLevelMapper' and 'com.neuedu.lab.model.mapper.RegisterLevelMapper' mapperInterface
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'registerLevelMapper'.
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'registerMapper' and 'com.neuedu.lab.model.mapper.RegisterMapper' mapperInterface
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'registerMapper'.
+2019-06-21 18:08:08,380 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'ruleMapper' and 'com.neuedu.lab.model.mapper.RuleMapper' mapperInterface
+2019-06-21 18:08:08,381 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'ruleMapper'.
+2019-06-21 18:08:08,381 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'scheduleMapper' and 'com.neuedu.lab.model.mapper.ScheduleMapper' mapperInterface
+2019-06-21 18:08:08,381 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'scheduleMapper'.
+2019-06-21 18:08:08,381 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'templateMapper' and 'com.neuedu.lab.model.mapper.TemplateMapper' mapperInterface
+2019-06-21 18:08:08,382 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'templateMapper'.
+2019-06-21 18:08:08,382 DEBUG ClassPathMapperScanner:180 -Creating MapperFactoryBean with name 'userMapper' and 'com.neuedu.lab.model.mapper.UserMapper' mapperInterface
+2019-06-21 18:08:08,382 DEBUG ClassPathMapperScanner:216 -Enabling autowire by type for MapperFactoryBean with name 'userMapper'.
+2019-06-21 18:08:09,374 INFO  Http11NioProtocol:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-06-21 18:08:09,386 INFO  StandardService:173 -Starting service [Tomcat]
+2019-06-21 18:08:09,386 INFO  StandardEngine:173 -Starting Servlet engine: [Apache Tomcat/9.0.19]
+2019-06-21 18:08:09,610 INFO  TldScanner:173 -At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-06-21 18:08:09,615 INFO  [/]:173 -Initializing Spring embedded WebApplicationContext
+2019-06-21 18:08:09,756 DEBUG HikariConfig:480 -Driver class com.mysql.jdbc.Driver found in Thread context class loader sun.misc.Launcher$AppClassLoader@18b4aac2
+2019-06-21 18:08:09,781 DEBUG LogFactory:135 -Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2019-06-21 18:08:09,917 DEBUG VFS:77 -Using VFS adapter org.mybatis.spring.boot.autoconfigure.SpringBootVFS
+2019-06-21 18:08:09,919 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Bill matches criteria [is assignable to Object]
+2019-06-21 18:08:09,920 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Constant matches criteria [is assignable to Object]
+2019-06-21 18:08:09,921 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Daily matches criteria [is assignable to Object]
+2019-06-21 18:08:09,921 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Department matches criteria [is assignable to Object]
+2019-06-21 18:08:09,922 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Diagnose matches criteria [is assignable to Object]
+2019-06-21 18:08:09,922 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.DiseaseInfo matches criteria [is assignable to Object]
+2019-06-21 18:08:09,923 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Doctor matches criteria [is assignable to Object]
+2019-06-21 18:08:09,924 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.FeeCat matches criteria [is assignable to Object]
+2019-06-21 18:08:09,924 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.MedicalSkill matches criteria [is assignable to Object]
+2019-06-21 18:08:09,926 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.MedicalSkillContent matches criteria [is assignable to Object]
+2019-06-21 18:08:09,928 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Medicine matches criteria [is assignable to Object]
+2019-06-21 18:08:09,929 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.NonMedicine matches criteria [is assignable to Object]
+2019-06-21 18:08:09,929 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Patient matches criteria [is assignable to Object]
+2019-06-21 18:08:09,930 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.PatientUser matches criteria [is assignable to Object]
+2019-06-21 18:08:09,931 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Prescription matches criteria [is assignable to Object]
+2019-06-21 18:08:09,931 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.PrescriptionContent matches criteria [is assignable to Object]
+2019-06-21 18:08:09,932 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Record matches criteria [is assignable to Object]
+2019-06-21 18:08:09,932 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Register matches criteria [is assignable to Object]
+2019-06-21 18:08:09,933 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.RegisterLevel matches criteria [is assignable to Object]
+2019-06-21 18:08:09,934 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Rule matches criteria [is assignable to Object]
+2019-06-21 18:08:09,934 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Schedule matches criteria [is assignable to Object]
+2019-06-21 18:08:09,934 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.Template matches criteria [is assignable to Object]
+2019-06-21 18:08:09,935 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.TemplateContent matches criteria [is assignable to Object]
+2019-06-21 18:08:09,936 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.User matches criteria [is assignable to Object]
+2019-06-21 18:08:09,937 DEBUG ResolverUtil:256 -Checking to see if class com.neuedu.lab.model.po.UsualDiagnose matches criteria [is assignable to Object]
+2019-06-21 18:08:09,938 DEBUG SqlSessionFactoryBean:437 -Scanned package: 'com.neuedu.lab.model.po' for aliases
+2019-06-21 18:08:09,939 DEBUG SqlSessionFactoryBean:534 -Property 'mapperLocations' was not specified or no matching resources found
+2019-06-21 18:08:10,714 INFO  VisiableThreadPoolTaskExecutor:171 -Initializing ExecutorService
+2019-06-21 18:08:10,716 INFO  VisiableThreadPoolTaskExecutor:171 -Initializing ExecutorService 'asyncServiceExecutor'
+2019-06-21 18:08:10,738 DEBUG TraversableResolvers:60 -Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-06-21 18:08:10,738 DEBUG ResourceBundleMessageInterpolator:89 -Loaded expression factory via original TCCL
+2019-06-21 18:08:10,741 DEBUG TraversableResolvers:60 -Cannot find javax.persistence.Persistence on classpath. Assuming non JPA 2 environment. All properties will per default be traversable.
+2019-06-21 18:08:10,742 DEBUG ConfigurationImpl:148 -Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+2019-06-21 18:08:10,742 DEBUG ConfigurationImpl:180 -Setting custom ConstraintValidatorFactory of type org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory
+2019-06-21 18:08:10,742 DEBUG ConfigurationImpl:194 -Setting custom ParameterNameProvider of type org.springframework.validation.beanvalidation.LocalValidatorFactoryBean$1
+2019-06-21 18:08:10,743 DEBUG ValidationXmlParser:120 -Trying to load META-INF/validation.xml for XML based Validator configuration.
+2019-06-21 18:08:10,743 DEBUG ResourceLoaderHelper:53 -Trying to load META-INF/validation.xml via user class loader
+2019-06-21 18:08:10,744 DEBUG ResourceLoaderHelper:60 -Trying to load META-INF/validation.xml via TCCL
+2019-06-21 18:08:10,744 DEBUG ResourceLoaderHelper:66 -Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+2019-06-21 18:08:10,744 DEBUG ValidationXmlParser:127 -No META-INF/validation.xml found. Using annotation based configuration only.
+2019-06-21 18:08:10,748 DEBUG ValidatorFactoryImpl:578 -HV000234: Using org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator as ValidatorFactory-scoped message interpolator.
+2019-06-21 18:08:10,748 DEBUG ValidatorFactoryImpl:579 -HV000234: Using org.hibernate.validator.internal.engine.resolver.TraverseAllTraversableResolver as ValidatorFactory-scoped traversable resolver.
+2019-06-21 18:08:10,748 DEBUG ValidatorFactoryImpl:580 -HV000234: Using org.hibernate.validator.internal.util.ExecutableParameterNameProvider as ValidatorFactory-scoped parameter name provider.
+2019-06-21 18:08:10,748 DEBUG ValidatorFactoryImpl:581 -HV000234: Using org.hibernate.validator.internal.engine.DefaultClockProvider as ValidatorFactory-scoped clock provider.
+2019-06-21 18:08:10,749 DEBUG ValidatorFactoryImpl:582 -HV000234: Using org.hibernate.validator.internal.engine.scripting.DefaultScriptEvaluatorFactory as ValidatorFactory-scoped script evaluator factory.
+2019-06-21 18:08:11,331 INFO  Http11NioProtocol:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-06-21 18:08:11,364 INFO  LabApplication:59 -Started LabApplication in 4.969 seconds (JVM running for 7.376)
+2019-06-21 18:08:18,714 INFO  [/]:173 -Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-06-21 18:08:27,960 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:27,964 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35156a86] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:27,972 DEBUG HikariConfig:1020 -HikariPool-1 - configuration:
+2019-06-21 18:08:27,975 DEBUG HikariConfig:1052 -allowPoolSuspension.............false
+2019-06-21 18:08:27,975 DEBUG HikariConfig:1052 -autoCommit......................true
+2019-06-21 18:08:27,976 DEBUG HikariConfig:1052 -catalog.........................none
+2019-06-21 18:08:27,976 DEBUG HikariConfig:1052 -connectionInitSql...............none
+2019-06-21 18:08:27,976 DEBUG HikariConfig:1052 -connectionTestQuery.............none
+2019-06-21 18:08:27,977 DEBUG HikariConfig:1052 -connectionTimeout...............30000
+2019-06-21 18:08:27,977 DEBUG HikariConfig:1052 -dataSource......................none
+2019-06-21 18:08:27,977 DEBUG HikariConfig:1052 -dataSourceClassName.............none
+2019-06-21 18:08:27,978 DEBUG HikariConfig:1052 -dataSourceJNDI..................none
+2019-06-21 18:08:27,978 DEBUG HikariConfig:1052 -dataSourceProperties............{password=<masked>}
+2019-06-21 18:08:27,979 DEBUG HikariConfig:1052 -driverClassName................."com.mysql.jdbc.Driver"
+2019-06-21 18:08:27,979 DEBUG HikariConfig:1052 -healthCheckProperties...........{}
+2019-06-21 18:08:27,979 DEBUG HikariConfig:1052 -healthCheckRegistry.............none
+2019-06-21 18:08:27,980 DEBUG HikariConfig:1052 -idleTimeout.....................600000
+2019-06-21 18:08:27,980 DEBUG HikariConfig:1052 -initializationFailTimeout.......1
+2019-06-21 18:08:27,980 DEBUG HikariConfig:1052 -isolateInternalQueries..........false
+2019-06-21 18:08:27,981 DEBUG HikariConfig:1052 -jdbcUrl.........................jdbc:mysql://39.108.165.56:3306/his?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+2019-06-21 18:08:27,981 DEBUG HikariConfig:1052 -leakDetectionThreshold..........0
+2019-06-21 18:08:27,982 DEBUG HikariConfig:1052 -maxLifetime.....................1800000
+2019-06-21 18:08:27,982 DEBUG HikariConfig:1052 -maximumPoolSize.................10
+2019-06-21 18:08:27,982 DEBUG HikariConfig:1052 -metricRegistry..................none
+2019-06-21 18:08:27,982 DEBUG HikariConfig:1052 -metricsTrackerFactory...........none
+2019-06-21 18:08:27,984 DEBUG HikariConfig:1052 -minimumIdle.....................10
+2019-06-21 18:08:27,984 DEBUG HikariConfig:1052 -password........................<masked>
+2019-06-21 18:08:27,985 DEBUG HikariConfig:1052 -poolName........................"HikariPool-1"
+2019-06-21 18:08:27,985 DEBUG HikariConfig:1052 -readOnly........................false
+2019-06-21 18:08:27,986 DEBUG HikariConfig:1052 -registerMbeans..................false
+2019-06-21 18:08:27,986 DEBUG HikariConfig:1052 -scheduledExecutor...............none
+2019-06-21 18:08:27,986 DEBUG HikariConfig:1052 -schema..........................none
+2019-06-21 18:08:27,986 DEBUG HikariConfig:1052 -threadFactory...................internal
+2019-06-21 18:08:27,987 DEBUG HikariConfig:1052 -transactionIsolation............default
+2019-06-21 18:08:27,987 DEBUG HikariConfig:1052 -username........................"root"
+2019-06-21 18:08:27,989 DEBUG HikariConfig:1052 -validationTimeout...............5000
+2019-06-21 18:08:27,989 INFO  HikariDataSource:110 -HikariPool-1 - Starting...
+2019-06-21 18:08:27,992 WARN  DriverDataSource:68 -Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2019-06-21 18:08:27,992 DEBUG DriverDataSource:75 -Driver class com.mysql.jdbc.Driver found in Thread context class loader TomcatEmbeddedWebappClassLoader
+  context: ROOT
+  delegate: true
+----------> Parent Classloader:
+sun.misc.Launcher$AppClassLoader@18b4aac2
+
+2019-06-21 18:08:29,194 DEBUG HikariPool:545 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@421d019
+2019-06-21 18:08:29,196 INFO  HikariDataSource:123 -HikariPool-1 - Start completed.
+2019-06-21 18:08:29,199 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@29660658 wrapping com.mysql.cj.jdbc.ConnectionImpl@421d019] will not be managed by Spring
+2019-06-21 18:08:29,203 DEBUG getUserByAccount:159 -==>  Preparing: select * from user_info where user_account=? 
+2019-06-21 18:08:29,229 DEBUG getUserByAccount:159 -==> Parameters: yangfan(String)
+2019-06-21 18:08:29,298 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2019-06-21 18:08:29,306 DEBUG getUserByAccount:159 -<==      Total: 1
+2019-06-21 18:08:29,308 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@35156a86]
+2019-06-21 18:08:29,885 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@677951cc
+2019-06-21 18:08:30,088 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:30,089 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:30,089 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@eba8c90] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:30,088 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:30,089 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@72a56a60] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:30,090 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3ead3687] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:30,090 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@669392364 wrapping com.mysql.cj.jdbc.ConnectionImpl@677951cc] will not be managed by Spring
+2019-06-21 18:08:30,092 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 18:08:30,093 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 18:08:30,145 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1259750291 wrapping com.mysql.cj.jdbc.ConnectionImpl@421d019] will not be managed by Spring
+2019-06-21 18:08:30,146 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 18:08:30,147 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 18:08:30,152 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 18:08:30,154 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@72a56a60]
+2019-06-21 18:08:30,155 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@622278939 wrapping com.mysql.cj.jdbc.ConnectionImpl@677951cc] will not be managed by Spring
+2019-06-21 18:08:30,158 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 18:08:30,159 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 18:08:30,208 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 18:08:30,208 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@eba8c90]
+2019-06-21 18:08:30,219 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 18:08:30,220 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3ead3687]
+2019-06-21 18:08:30,424 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26445bf7
+2019-06-21 18:08:31,016 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@17a8defd
+2019-06-21 18:08:31,560 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@466ba4b8
+2019-06-21 18:08:32,109 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d473f16
+2019-06-21 18:08:32,651 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@64907e81
+2019-06-21 18:08:33,184 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6e30f9a1
+2019-06-21 18:08:33,772 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1189d60d
+2019-06-21 18:08:34,373 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b75e41d
+2019-06-21 18:08:34,373 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 18:08:37,391 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:37,392 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5aabd795] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:37,446 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1181587237 wrapping com.mysql.cj.jdbc.ConnectionImpl@421d019] will not be managed by Spring
+2019-06-21 18:08:37,447 DEBUG getPatientByRecordId:159 -==>  Preparing: select * from patient_info where patient_record_id = ? 
+2019-06-21 18:08:37,447 DEBUG getPatientByRecordId:159 -==> Parameters: 5(Integer)
+2019-06-21 18:08:37,504 DEBUG getPatientByRecordId:159 -<==      Total: 1
+2019-06-21 18:08:37,505 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5aabd795]
+2019-06-21 18:08:37,594 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 18:08:37,595 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@28d22252] was not registered for synchronization because synchronization is not active
+2019-06-21 18:08:37,595 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@2022335550 wrapping com.mysql.cj.jdbc.ConnectionImpl@421d019] will not be managed by Spring
+2019-06-21 18:08:37,596 DEBUG getRegistersByPatientId:159 -==>  Preparing: SELECT * FROM register_info WHERE register_info_patient_id = ? 
+2019-06-21 18:08:37,596 DEBUG getRegistersByPatientId:159 -==> Parameters: 5(Integer)
+2019-06-21 18:08:37,656 DEBUG getRegistersByPatientId:159 -<==      Total: 3
+2019-06-21 18:08:37,657 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@28d22252]
+2019-06-21 18:08:59,299 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 18:09:29,300 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
