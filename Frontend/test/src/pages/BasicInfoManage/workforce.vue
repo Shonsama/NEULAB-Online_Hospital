@@ -508,7 +508,7 @@ export default {
       let that = this
       that.desserts_scheduling = []
       var url = this.HOME + '/rule/get-all-names'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -521,14 +521,14 @@ export default {
       this.items_register_level = []
       let that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
           that.items_departments = response.data.data
         })
       url = this.HOME + '/maintenance/register-level/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -544,7 +544,7 @@ export default {
         department_id: that.department_rule,
         register_level_id: that.register_level_rule
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.doctor_rule = response.data.data
@@ -579,7 +579,7 @@ export default {
         rule_work_time: time_string,
         rule_name: that.rule_name_create
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -602,7 +602,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/schedule/add'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -620,7 +620,7 @@ export default {
       this.events = []
       let that = this
       var url = this.HOME + '/schedule/get-all'
-      this.$http.post(url, {})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {})
         .then(function (response) {
           that.allSchedule = response.data.data
           console.log(response.data)
@@ -729,7 +729,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/rule/update'
-      this.$http.post(url, rule)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), rule)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -746,7 +746,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/rule/delete'
-      this.$http.post(url, {rule_id: item.rule_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {rule_id: item.rule_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -801,7 +801,7 @@ export default {
         }
         let that = this
         var url = this.HOME + '/rule/delete'
-        this.$http.post(url, {rule_id: item.rule_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {rule_id: item.rule_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

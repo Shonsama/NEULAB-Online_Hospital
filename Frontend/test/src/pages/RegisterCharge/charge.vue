@@ -524,7 +524,7 @@ export default {
         register_id: value.code
       }
       that.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -550,7 +550,7 @@ export default {
         type: value.type
       }
       that.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -580,7 +580,7 @@ export default {
       }
       that.quantity_sub = ''
       console.log(data)
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.returnItem(value)
@@ -595,7 +595,7 @@ export default {
       var data = {
         prescription_id: value.id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_con = response.data.data
@@ -609,7 +609,7 @@ export default {
         'register_info_patient_id': that.patient_record_id
       }
       that.desserts1 = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var i
@@ -628,7 +628,7 @@ export default {
             that.desserts1.push(data)
           }
         })
-      this.$http.post(url1, data)
+      this.$http.post(url1 + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var i
@@ -656,7 +656,7 @@ export default {
         'register_info_patient_id': that.patient_record_id
       }
       that.desserts = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var i
@@ -674,7 +674,7 @@ export default {
             that.desserts.push(data)
           }
         })
-      this.$http.post(url1, data)
+      this.$http.post(url1 + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var i
@@ -700,7 +700,7 @@ export default {
         bill_id: that.bill.bill_id
       }
       if (that.bill.bill_id) {
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             that.bill = response.data.data
             console.log(response.data)
@@ -720,7 +720,7 @@ export default {
         bill_id: that.bill.bill_id
       }
       if (that.bill.bill_id) {
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             that.bill = response.data.data
             that.dialog_bill = true
@@ -739,7 +739,7 @@ export default {
       var data = {
         'patient_record_id': that.patient_record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
         })
@@ -750,7 +750,7 @@ export default {
       var data = {
         'patient_record_id': that.patient_record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.data.patient_gender) {

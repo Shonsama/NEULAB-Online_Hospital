@@ -625,7 +625,7 @@ export default {
       }
       this.dialog_add = false
       this.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -646,7 +646,7 @@ export default {
       var data = {
         patient_id: that.patient_record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.register_items = response.data.data
@@ -658,7 +658,7 @@ export default {
       var data = {
         'patient_record_id': that.patient_record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (!response.data.data) {
@@ -696,7 +696,7 @@ export default {
       var data = {
         constant_type: 'payment_type'
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.payCates = response.data.data
@@ -705,7 +705,7 @@ export default {
     load_registerLevels: function () {
       let that = this
       var url = this.HOME + '/maintenance/register-level/get-all'
-      this.$http.post(url)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'))
         .then(function (response) {
           console.log(response.data)
           that.registers = response.data.data
@@ -714,7 +714,7 @@ export default {
     load_departs: function () {
       var that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -730,7 +730,7 @@ export default {
         register_level_id: that.register_level.register_level_id
       }
       var url = this.HOME + '/register/get-all-doctor'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.doctors = response.data.data
@@ -743,7 +743,7 @@ export default {
       }
       that.dialog = true
       var url = this.HOME + '/register/refund'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           if (response.data.code === 200) {
             console.log(response.data)
@@ -772,7 +772,7 @@ export default {
         bill_user_id: that.$store.state.user.id,
         bill_state: '正常'
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           that.bill = response.data.data
           that.dialog_bill = true
@@ -786,7 +786,7 @@ export default {
         bill_id: that.bill.bill_id
       }
       if (that.bill.bill_id) {
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             // that.dialog_bill = true
             that.bill = response.data.data
@@ -807,7 +807,7 @@ export default {
         bill_id: that.bill.bill_id
       }
       if (that.bill.bill_id) {
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             that.bill = response.data.data
             that.dialog_bill = true
@@ -843,7 +843,7 @@ export default {
         register_info_records_book: checkbox
       }
       console.log(data)
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {

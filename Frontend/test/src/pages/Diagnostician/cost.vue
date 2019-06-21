@@ -146,7 +146,7 @@ export default {
       var data = {
         doctor_id: that.msgfromfa.register_info_doctor_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           that.desserts_patient = response.data.data
           console.log(that.desserts_patient)
@@ -160,7 +160,7 @@ export default {
         register_id: value.register_info_id
       }
       that.desserts = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data)
           for (var i = 0; i < response.data.data.length; i++) {
@@ -175,7 +175,7 @@ export default {
           }
         })
       var url1 = this.HOME + '/doctor/get-all-medical-skill?token=' + sessionStorage.getItem('token')
-      this.$http.post(url1, data)
+      this.$http.post(url1 + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data)
           for (var i = 0; i < response.data.data.length; i++) {

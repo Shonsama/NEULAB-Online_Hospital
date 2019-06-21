@@ -191,7 +191,7 @@ export default {
     submit_diagnoses () {
       let that = this
       var url = this.HOME + '/doctor/submit-final-diagnose'
-      this.$http.post(url, this.desserts)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), this.desserts)
         .then(response => {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -233,7 +233,7 @@ export default {
         record_id: that.msgfromfa.register_info_id
       }
       that.desserts = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.type = response.data.data.record_doctor_type
@@ -270,7 +270,7 @@ export default {
     load_diagnosis () {
       let that = this
       var url = this.HOME + '/maintenance/disease/get-all'
-      this.$http.post(url)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'))
         .then(response => {
           that.desserts_dia = response.data.data
         })

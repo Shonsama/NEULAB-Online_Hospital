@@ -129,7 +129,7 @@ export default {
       var data = {
         daily_user_id: that.$store.state.user.id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.daily = response.data.data

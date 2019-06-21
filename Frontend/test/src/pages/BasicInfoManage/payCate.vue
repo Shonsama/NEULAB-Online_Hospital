@@ -188,7 +188,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/maintenance/constant/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -198,7 +198,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/maintenance/constant/delete'
-      this.$http.post(url, {constant_id: item.constant_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {constant_id: item.constant_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -218,7 +218,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/constant/add'
-      this.$http.post(url, constant)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -240,7 +240,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/constant/update'
-      this.$http.post(url, constant)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -286,7 +286,7 @@ export default {
         }
         let that = this
         var url = this.HOME + '/maintenance/constant/delete'
-        this.$http.post(url, {constant_id: item.constant_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {constant_id: item.constant_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
