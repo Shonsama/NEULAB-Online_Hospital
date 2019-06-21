@@ -1,11 +1,13 @@
-// pages/modify/modify.js
+// pages/setting/setting.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    isLogin: false,
+    isBind: false,
+    name: ''
   },
 
   /**
@@ -14,7 +16,16 @@ Page({
   onLoad: function (options) {
 
   },
-
+  showModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideModal(e) {
+    this.setData({
+      modalName: null
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

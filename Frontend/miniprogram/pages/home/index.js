@@ -19,6 +19,8 @@ Page({
       color: 'cyan',
       icon: 'moneybagfill'
     }],
+    isLogin: false,
+    isBind: false,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -31,6 +33,17 @@ Page({
     })
   },
   onLoad: function () {
+    var that = this
+    if (wx.getStorageSync('isLogin')){
+      that.setData({
+        isLogin: true
+      });
+    }
+    if (wx.getStorageSync('isBind')) {
+      that.setData({
+        isBind: true
+      });
+    }
   },
   getUserInfo: function(e) {
     console.log(e)

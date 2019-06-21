@@ -1,12 +1,14 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/login/login",        
+    "pages/login/login",
     "pages/setting/setting",
     "pages/register/register",
     "pages/charge/charge",
     "pages/check/check",
-    "pages/modify/modify"
+    "pages/modify/modify",
+    "pages/zhuce/zhuce",
+    "pages/zhuce1/zhuce1"
   ],
   "window": {
     "navigationBarBackgroundColor": "#39b54a",

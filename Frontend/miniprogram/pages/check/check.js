@@ -5,14 +5,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    record_id: '',
+    name: '',
+    gender: '',
+    address: '',
+    birth: '',
+    age: '',
+    id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this
+    if (wx.getStorageSync('personInfo')) {
+      that.setData({
+        record_id: wx.getStorageSync('personInfo').record_id,
+        name: wx.getStorageSync('personInfo').name,
+        gender: wx.getStorageSync('personInfo').gender,
+        address: wx.getStorageSync('personInfo').address,
+        birth: wx.getStorageSync('personInfo').birth,
+        age: wx.getStorageSync('personInfo').age,
+        id: wx.getStorageSync('personInfo').id
+      });
+    }
   },
 
   /**

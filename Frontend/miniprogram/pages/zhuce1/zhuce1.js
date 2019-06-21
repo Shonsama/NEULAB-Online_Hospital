@@ -1,13 +1,32 @@
-// pages/Check/check.js
+// pages/zhuce1/zhuce1.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userid: '',
+    passwd: '',
+    id: ''
   },
-
+  useridInput: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      userid: e.detail.value
+    })
+  },
+  passwordInput: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      passwd: e.detail.value
+    })
+  },
+  idInput: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      passwd: e.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
