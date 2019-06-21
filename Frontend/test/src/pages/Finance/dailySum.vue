@@ -465,7 +465,7 @@ export default {
       console.log('This is the format of the date')
       let that = this
       var url = this.HOME + '/user-service/daily-get'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         daily_user_id: that.cashier_user_object.user_id,
         daily_start: that.date[0],
         daily_end: that.date[1],
@@ -489,7 +489,7 @@ export default {
     load_bills: function () {
       let that = this
       var url = this.HOME + '/user-service/daily-bill-get'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         daily_id: that.daily.daily_id
       })
         .then(function (response) {
@@ -510,7 +510,7 @@ export default {
     load_cashiers: function () {
       let that = this
       var url = this.HOME + '/user/get-all-cashier'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -520,7 +520,7 @@ export default {
     pass_daily: function () {
       let that = this
       var url = this.HOME + '/user-service/daily-pass'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         daily_id: that.daily.daily_id,
         daily_owner_id: that.$store.state.user.id
       })

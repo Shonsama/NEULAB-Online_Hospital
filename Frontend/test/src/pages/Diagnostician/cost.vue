@@ -142,11 +142,11 @@ export default {
     },
     get: function () {
       let that = this
-      var url = this.HOME + '/doctor/get-doctor-treated-registers'
+      var url = this.HOME + '/doctor/get-doctor-treated-registers?token=' + sessionStorage.getItem('token')
       var data = {
         doctor_id: that.msgfromfa.register_info_doctor_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           that.desserts_patient = response.data.data
           console.log(that.desserts_patient)
@@ -154,13 +154,13 @@ export default {
     },
     getFee: function (value) {
       let that = this
-      var url = this.HOME + '/doctor/get-all-prescription'
+      var url = this.HOME + '/doctor/get-all-prescription?token=' + sessionStorage.getItem('token')
       console.log(value)
       var data = {
         register_id: value.register_info_id
       }
       that.desserts = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data)
           for (var i = 0; i < response.data.data.length; i++) {
@@ -174,8 +174,8 @@ export default {
             that.desserts.push(name)
           }
         })
-      var url1 = this.HOME + '/doctor/get-all-medical-skill'
-      this.$http.post(url1, data)
+      var url1 = this.HOME + '/doctor/get-all-medical-skill?token=' + sessionStorage.getItem('token')
+      this.$http.post(url1 + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data)
           for (var i = 0; i < response.data.data.length; i++) {

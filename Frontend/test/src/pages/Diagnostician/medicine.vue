@@ -777,7 +777,7 @@ export default {
         doctor_id: this.$store.state.user.id
       }
       var url = this.HOME + '/template/get-all'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
@@ -789,7 +789,7 @@ export default {
         template_id: that.template_con_id
       }
       var url = this.HOME + '/template/delete-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.dialog = true
@@ -809,7 +809,7 @@ export default {
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
       var url = this.HOME + '/template/update-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.dialog = true
@@ -829,7 +829,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-prescription'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           that.dialog = true
           that.new_prescription_id = response.data.data.prescription_id
@@ -837,7 +837,7 @@ export default {
             template_id: value.template_id
           }
           var url1 = that.HOME + '/template/get-content-non-medicine'
-          that.$http.post(url1, data)
+          that.$http.post(url1 + '?token=' + sessionStorage.getItem('token'), data)
             .then(function (response) {
               console.log(response.data)
               var i
@@ -861,7 +861,7 @@ export default {
       that.template_con_range = value.template_range
       that.template_con_type = value.template_type
       var url = this.HOME + '/template/get-content-non-medicine'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
@@ -877,7 +877,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/template/add-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.template_con_id = response.data.data.template_id
@@ -906,7 +906,7 @@ export default {
           template_medical_skill_content_department_name: that.tem_add[i].medicine.medicine_id
         }
         console.log(data)
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             // that.dialog = true
@@ -935,7 +935,7 @@ export default {
       that.prescription_frequency = ''
       console.log(value)
       that.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var value = {
@@ -957,7 +957,7 @@ export default {
       }
       that.dialog = true
       console.log(value)
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var value = {
@@ -979,7 +979,7 @@ export default {
           template_content_id: that.selected_tem[i].template_content_id
         }
         console.log(data)
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             var value = {
@@ -1006,7 +1006,7 @@ export default {
         prescription_day: value.template_medicine_usage
       }
       var url = this.HOME + '/doctor/add-medicine'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.getItem()
@@ -1027,7 +1027,7 @@ export default {
       console.log(data)
       that.dialog = true
       var url = this.HOME + '/doctor/add-medicine'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.getItem()
@@ -1051,7 +1051,7 @@ export default {
         data = {
           prescription_content_id: that.selected_con[i].prescription_content_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.getItem()
@@ -1065,7 +1065,7 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.desserts_pre = response.data.data.prescriptions
@@ -1082,7 +1082,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-prescription'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           that.dialog = true
           that.show_pre_dia = false
@@ -1102,7 +1102,7 @@ export default {
         data = {
           prescription_id: that.selected_pre[i].prescription_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.getItem()
@@ -1119,7 +1119,7 @@ export default {
         var data = {
           prescription_id: that.selected_pre[i].prescription_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             that.dialog = true
             console.log(response.data)
@@ -1137,7 +1137,7 @@ export default {
         var data = {
           prescription_id: that.selected_pre[i].prescription_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             that.dialog = true
             console.log(response.data)
@@ -1149,7 +1149,7 @@ export default {
     load_medicne: function () {
       let that = this
       var url = this.HOME + '/maintenance/medicine/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)

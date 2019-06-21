@@ -273,7 +273,7 @@ export default {
       let that = this
       that.users = []
       var url = this.HOME + '/user/get-all-user'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -296,7 +296,7 @@ export default {
           }
         })
       url = this.HOME + '/user/get-all-doctor'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -333,7 +333,7 @@ export default {
         url = this.HOME + '/user/delete-user'
         data = {user_account: item.user_account}
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -373,7 +373,7 @@ export default {
           }
           url = this.HOME + '/user/add-user'
         }
-        this.$http.post(url, user)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), user)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
@@ -419,7 +419,7 @@ export default {
           }
           url = this.HOME + '/user/update-user'
         }
-        this.$http.post(url, user)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), user)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
@@ -461,7 +461,7 @@ export default {
     load_items_departments: function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -507,7 +507,7 @@ export default {
           url = this.HOME + '/user/delete-user'
           data = {user_account: item.user_account}
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

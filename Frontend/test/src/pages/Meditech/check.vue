@@ -212,7 +212,7 @@ export default {
     load_dept_name : function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get'
-      this.$http.post(url, {department_id: that.$store.state.user.department_id
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: that.$store.state.user.department_id
       })
         .then(function (response) {
           console.log(response.data)
@@ -223,7 +223,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/ms-doctor/get-all-patients'
-      this.$http.post(url, {medical_skill_execute_department: that.department_name_default,
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {medical_skill_execute_department: that.department_name_default,
         medical_skill_type: that.type_default
       })
         .then(function (response) {
@@ -235,7 +235,7 @@ export default {
       this.ms_patient_id = item.patient_record_id
       let that = this
       var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         medical_skill_execute_department: that.department_name_default,
         patient_id: item.patient_record_id
       })
@@ -247,7 +247,7 @@ export default {
     setResult: function () {
       let that = this
       var url = this.HOME + '/ms-doctor/medical-skill/add-result'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         medical_skill_id: that.ms_id,
         medical_skill_result: that.result
       })
@@ -263,7 +263,7 @@ export default {
     confirmState: function () {
       let that = this
       var url = this.HOME + '/ms-doctor/medical-skill/confirm'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         medical_skill_id: that.ms_id,
         medical_skill_execute_doctor_id: that.$store.state.user.id
       })
@@ -279,7 +279,7 @@ export default {
     cancelState: function () {
       let that = this
       var url = this.HOME + '/ms-doctor/medical-skill/cancel'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         medical_skill_id: that.ms_id,
         medical_skill_execute_doctor_id: that.$store.state.user.id
       })

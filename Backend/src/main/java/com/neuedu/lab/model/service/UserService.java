@@ -63,7 +63,10 @@ public class UserService {
     public JSONObject checkUserValid(String user_account, String user_password) {
         User user = userMapper.getUserByAccount(user_account);
         if (user.getUser_password().equals(user_password)) {
-            return (ConstantUtils.responseSuccess(user));
+            JSONObject result = new JSONObject();
+            result.put("user",user);
+            result.put("token", ConstantUtils.generateToken(user_account));
+            return ConstantUtils.responseSuccess("登录成功",result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
@@ -123,8 +126,10 @@ public class UserService {
     public JSONObject checkDoctorValid(String doctor_account, String doctor_password) {
         Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
         if (doctor.getDoctor_password().equals(doctor_password)) {
-            //return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(doctor.getDoctor_id(), ConstantDefinition.USER_TYPE[1]));
-            return ConstantUtils.responseSuccess("success",doctor);
+            JSONObject result = new JSONObject();
+            result.put("doctor",doctor);
+            result.put("token", ConstantUtils.generateToken(doctor_account));
+            return ConstantUtils.responseSuccess("登录成功",result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }

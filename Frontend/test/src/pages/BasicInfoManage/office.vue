@@ -198,7 +198,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -208,7 +208,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/maintenance/department/delete'
-      this.$http.post(url, {department_id: item.department_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: item.department_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -230,7 +230,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/department/add'
-      this.$http.post(url, department)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), department)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -253,7 +253,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/department/update'
-      this.$http.post(url, department)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), department)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -302,7 +302,7 @@ export default {
         }
         let that = this
         var url = this.HOME + '/maintenance/department/delete'
-        this.$http.post(url, {department_id: item.department_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: item.department_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

@@ -136,7 +136,7 @@ export default {
         daily_user_id: that.$store.state.user.id,
         daily_end: that.date
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.daily = response.data.data
@@ -149,7 +149,7 @@ export default {
       var data = {
         daily_id: that.daily.daily_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           if (response.data.code === 200) {
             console.log(response.data)

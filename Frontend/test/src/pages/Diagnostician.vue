@@ -482,7 +482,7 @@ export default {
         'doctor_id': this.$store.state.user.id
       }
       that.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_per = response.data.data
@@ -495,7 +495,7 @@ export default {
       var data = {
         'department_id': this.$store.state.user.department_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_depart = response.data.data
@@ -513,7 +513,7 @@ export default {
         register_id: value.register_info_id
       }
       console.log(value)
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -534,7 +534,7 @@ export default {
       var data = {
         register_id: that.record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -554,7 +554,7 @@ export default {
       var data = {
         record_id: that.record_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.record = response.data.data
@@ -572,7 +572,7 @@ export default {
       that.record_id = value.register_info_id
       that.message = value
       that.patient = value.patient
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.record = response.data.data

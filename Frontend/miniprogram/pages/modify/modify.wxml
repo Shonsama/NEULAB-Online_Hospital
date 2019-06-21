@@ -1,0 +1,35 @@
+<!--pages/Check/check.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">查看个人信息</view>
+</cu-custom>
+<form>
+  <view class="cu-form-group margin-top">
+		<view class="title">病历号</view>
+		<input value='record_id'></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">姓名</view>
+		<input value='name'></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">性别</view>
+		<input value='gender'></input>
+	</view>
+  <view class="cu-form-group">
+		<view class="title">家庭地址</view>
+		<input value='address'></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">出生日期</view>
+		<input value='birth'></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">年龄</view>
+		<input value='age'></input>
+	</view>
+  <view class="cu-form-group">
+		<view class="title">身份证号</view>
+		<input value='id'></input>
+	</view>
+</form>

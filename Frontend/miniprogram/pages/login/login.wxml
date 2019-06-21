@@ -1,0 +1,45 @@
+<view class="bg-gradual-blue padding text-center shadow-blur" style="height:100%;display: flex;justify-content: center;padding-top: 40rpx;overflow: hidden;position: relative;flex-direction: column;align-items: center;">
+  <view class="radius padding" style="width:700rpx;height:600rpx;background:white">
+    <view class="text-xl">
+      <view class="text-black">登录</view>
+    </view>
+    <view class="cu-form-group margin-top ">
+      <view class="text-black"  >用户名</view>
+      <input bindinput="useridInput"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="text-black">密码</view>
+      <input password bindinput="passwordInput" ></input>
+    </view>
+    <view class="padding flex flex-direction">
+      <button class="cu-btn bg-blue lg" bindtap='bind'>登录</button>
+      <button class="cu-btn bg-cyan lg margin-top" bindtap="showModal" data-target="DialogModal1">注册</button>
+    </view>
+  </view>
+  <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+  <view class="cu-dialog">
+    <radio-group class="block" bindchange="radioChange">
+      <view class="cu-list menu text-left">
+        <view class="cu-item">
+          <label class="flex justify-between align-center flex-sub">
+            <view class="text-black">新用户（没有病历号）</view>
+            <radio value="1" class="round"></radio>
+          </label>
+        </view>
+        <view class="cu-item">
+          <label class="flex justify-between align-center flex-sub">
+            <view class="text-black">老用户（有病历号）</view>
+            <radio  value="2" class="round"></radio>
+          </label>
+        </view>
+      </view>
+    </radio-group>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="navigate">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+</view>
