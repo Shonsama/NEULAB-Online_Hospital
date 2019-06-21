@@ -12426,3 +12426,45 @@ jdk.internal.loader.ClassLoaders$AppClassLoader@4459eb14
 2019-06-21 10:42:43,938 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 10:43:13,941 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 10:43:43,952 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:44:13,959 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:44:43,964 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:45:13,970 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:45:43,973 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:46:13,976 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:46:43,980 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:47:13,985 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:47:43,989 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:48:13,995 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:48:43,997 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:49:11,956 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4b566ff5: (connection has passed maxLifetime)
+2019-06-21 10:49:12,840 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3a47e39d: (connection has passed maxLifetime)
+2019-06-21 10:49:13,658 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@536706f4
+2019-06-21 10:49:13,939 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@10782003: (connection has passed maxLifetime)
+2019-06-21 10:49:14,004 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=8, active=0, idle=8, waiting=0)
+2019-06-21 10:49:14,315 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@125a0ccf
+2019-06-21 10:49:14,315 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=9, active=0, idle=9, waiting=0)
+2019-06-21 10:49:15,540 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23023b82
+2019-06-21 10:49:15,541 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:49:19,905 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2356ffde: (connection has passed maxLifetime)
+2019-06-21 10:49:20,642 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4680f541
+2019-06-21 10:49:38,294 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4df53e1e: (connection has passed maxLifetime)
+2019-06-21 10:49:39,313 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f257e08
+2019-06-21 10:49:39,641 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6ae72e9e: (connection has passed maxLifetime)
+2019-06-21 10:49:41,765 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@46e1e9c3
+2019-06-21 10:49:44,008 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:49:45,457 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2143aa7b: (connection has passed maxLifetime)
+2019-06-21 10:49:46,419 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b2709bb
+2019-06-21 10:49:46,538 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7ab01764: (connection has passed maxLifetime)
+2019-06-21 10:49:47,399 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7cdfd57e
+2019-06-21 10:49:52,830 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@67446e6e: (connection has passed maxLifetime)
+2019-06-21 10:49:55,458 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78a9f50f
+2019-06-21 10:50:14,010 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:50:44,015 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:51:14,021 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:51:44,028 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:52:14,034 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:52:44,041 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:53:14,045 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:53:44,048 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:54:14,054 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:54:44,059 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
