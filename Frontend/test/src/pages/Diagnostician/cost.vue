@@ -142,7 +142,7 @@ export default {
     },
     get: function () {
       let that = this
-      var url = this.HOME + '/doctor/get-doctor-treated-registers'
+      var url = this.HOME + '/doctor/get-doctor-treated-registers?token=' + sessionStorage.getItem('token')
       var data = {
         doctor_id: that.msgfromfa.register_info_doctor_id
       }
@@ -154,7 +154,7 @@ export default {
     },
     getFee: function (value) {
       let that = this
-      var url = this.HOME + '/doctor/get-all-prescription'
+      var url = this.HOME + '/doctor/get-all-prescription?token=' + sessionStorage.getItem('token')
       console.log(value)
       var data = {
         register_id: value.register_info_id
@@ -174,7 +174,7 @@ export default {
             that.desserts.push(name)
           }
         })
-      var url1 = this.HOME + '/doctor/get-all-medical-skill'
+      var url1 = this.HOME + '/doctor/get-all-medical-skill?token=' + sessionStorage.getItem('token')
       this.$http.post(url1, data)
         .then(response => {
           console.log(response.data)

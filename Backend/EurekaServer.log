@@ -11401,3 +11401,559 @@ jdk.internal.loader.ClassLoaders$AppClassLoader@4459eb14
 2019-06-20 17:47:48,334 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-20 17:48:18,344 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-20 17:48:48,348 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:49:18,356 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:49:48,364 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:50:18,369 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:50:48,374 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:51:18,379 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:51:48,384 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:52:18,396 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:52:48,404 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:53:18,414 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:53:48,421 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:54:18,430 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:54:48,436 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:55:18,441 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:55:48,448 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:56:18,441 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:57:43,480 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m25s36ms).
+2019-06-20 17:57:43,481 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:58:13,484 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:58:43,488 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:59:13,494 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:59:43,501 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 17:59:43,823 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@61513146: (connection has passed maxLifetime)
+2019-06-20 17:59:44,576 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@49e5e754
+2019-06-20 17:59:46,475 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5edbe8cd: (connection has passed maxLifetime)
+2019-06-20 17:59:47,171 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f23c1b5
+2019-06-20 17:59:48,327 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@31614dc6: (connection has passed maxLifetime)
+2019-06-20 17:59:48,999 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@278b302b
+2019-06-20 17:59:56,374 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@34b755c3: (connection has passed maxLifetime)
+2019-06-20 17:59:57,072 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a54d8ec
+2019-06-20 18:00:07,813 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7f94f799: (connection has passed maxLifetime)
+2019-06-20 18:00:08,572 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1bc716d5
+2019-06-20 18:00:13,080 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2fb3be54: (connection has passed maxLifetime)
+2019-06-20 18:00:13,394 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@327b69cc: (connection has passed maxLifetime)
+2019-06-20 18:00:13,502 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=8, active=0, idle=8, waiting=0)
+2019-06-20 18:00:13,762 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@343235bf
+2019-06-20 18:00:13,789 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@62739ef5: (connection has passed maxLifetime)
+2019-06-20 18:00:14,412 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3ea9fda2: (connection has passed maxLifetime)
+2019-06-20 18:00:14,526 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f888604
+2019-06-20 18:00:14,527 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=8, active=0, idle=8, waiting=0)
+2019-06-20 18:00:15,236 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@366ea350
+2019-06-20 18:00:15,237 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=9, active=0, idle=9, waiting=0)
+2019-06-20 18:00:15,906 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11dabfe5
+2019-06-20 18:00:15,907 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:00:18,250 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@274bc3a3: (connection has passed maxLifetime)
+2019-06-20 18:00:18,966 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@66178362
+2019-06-20 18:00:43,506 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:01:13,510 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:01:43,516 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:02:13,519 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:02:43,526 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:03:13,532 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:03:43,537 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:04:13,542 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:04:43,547 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:05:13,553 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:05:43,561 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:06:13,568 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:06:43,575 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:07:13,578 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:07:43,584 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:08:13,590 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:08:43,596 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:09:13,601 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:09:43,605 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:10:13,611 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:10:43,618 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:11:13,625 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:11:43,631 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:12:13,635 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:12:43,641 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:13:13,648 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:13:43,654 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:14:13,661 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:14:43,688 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:15:13,694 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:15:43,697 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:16:13,703 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:16:43,710 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:17:13,716 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:17:43,721 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:18:13,728 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:18:43,735 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:19:13,742 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:19:43,748 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:20:13,752 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:20:43,759 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:21:13,764 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:21:43,771 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:22:13,775 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:22:43,781 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:23:13,787 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:23:43,791 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:24:13,796 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:24:43,799 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:25:13,804 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:25:43,810 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:26:13,814 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:26:43,821 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:27:13,828 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:27:43,834 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:28:13,839 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:28:43,842 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:29:13,848 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:29:34,779 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5f23c1b5: (connection has passed maxLifetime)
+2019-06-20 18:29:35,569 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2712aec5
+2019-06-20 18:29:36,654 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1a54d8ec: (connection has passed maxLifetime)
+2019-06-20 18:29:36,997 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@11dabfe5: (connection has passed maxLifetime)
+2019-06-20 18:29:37,423 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@662fa4fe
+2019-06-20 18:29:38,171 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57830260
+2019-06-20 18:29:38,171 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:29:38,324 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@49e5e754: (connection has passed maxLifetime)
+2019-06-20 18:29:39,108 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6005bb1
+2019-06-20 18:29:43,615 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@278b302b: (connection has passed maxLifetime)
+2019-06-20 18:29:43,853 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=9, active=0, idle=9, waiting=0)
+2019-06-20 18:29:44,743 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a44521
+2019-06-20 18:29:51,018 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5f888604: (connection has passed maxLifetime)
+2019-06-20 18:29:51,740 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@faeb066
+2019-06-20 18:29:57,736 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@343235bf: (connection has passed maxLifetime)
+2019-06-20 18:29:58,769 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ce57fb8
+2019-06-20 18:30:03,228 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1bc716d5: (connection has passed maxLifetime)
+2019-06-20 18:30:04,603 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2dd87583
+2019-06-20 18:30:07,052 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@366ea350: (connection has passed maxLifetime)
+2019-06-20 18:30:08,428 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cbfff32
+2019-06-20 18:30:10,870 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@66178362: (connection has passed maxLifetime)
+2019-06-20 18:30:11,911 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4df78acc
+2019-06-20 18:30:13,859 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:30:43,861 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:31:13,867 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:31:43,872 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:32:13,877 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:32:43,880 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:33:13,887 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:33:43,891 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:34:13,900 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:34:43,906 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:35:13,912 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:35:43,919 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:36:13,925 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:36:43,930 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:37:13,937 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:37:43,943 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:38:13,949 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:38:43,954 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:39:13,960 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:39:43,963 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:40:13,968 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:40:43,971 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:41:13,977 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:41:43,983 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:42:13,992 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:42:43,998 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:43:14,004 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:43:44,010 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:44:14,013 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:44:44,021 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:45:14,029 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:45:44,033 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:46:14,037 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:46:44,042 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:47:14,046 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:47:44,054 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:48:14,064 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:48:44,070 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:49:14,076 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:49:44,082 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-20 18:50:14,059 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 08:15:04,454 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13h24m50s129ms).
+2019-06-21 08:15:04,670 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 08:15:34,676 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:18:59,899 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h3m25s223ms).
+2019-06-21 09:18:59,899 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:23:18,718 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m18s819ms).
+2019-06-21 09:23:18,718 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:23:48,378 WARN  HikariPool:758 -HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s660ms), soft-evicting connections from pool.
+2019-06-21 09:23:48,569 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2712aec5: (connection evicted)
+2019-06-21 09:23:48,580 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@662fa4fe: (connection evicted)
+2019-06-21 09:23:48,581 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@57830260: (connection evicted)
+2019-06-21 09:23:48,582 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6005bb1: (connection evicted)
+2019-06-21 09:23:48,586 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3a44521: (connection evicted)
+2019-06-21 09:23:48,587 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@faeb066: (connection evicted)
+2019-06-21 09:23:48,594 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6ce57fb8: (connection evicted)
+2019-06-21 09:23:48,595 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2dd87583: (connection evicted)
+2019-06-21 09:23:48,596 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1cbfff32: (connection evicted)
+2019-06-21 09:23:48,597 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4df78acc: (connection evicted)
+2019-06-21 09:23:53,849 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fe17970
+2019-06-21 09:23:55,504 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5edc734b
+2019-06-21 09:23:56,298 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6fc88ef6
+2019-06-21 09:24:00,007 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ef38c04
+2019-06-21 09:24:02,649 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5c48a8b2
+2019-06-21 09:24:05,701 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3abd565e
+2019-06-21 09:24:18,574 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=6, active=0, idle=6, waiting=0)
+2019-06-21 09:24:28,957 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@355f3e24
+2019-06-21 09:24:38,345 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1ea0119d
+2019-06-21 09:24:46,192 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@268ca33f
+2019-06-21 09:24:48,580 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=9, active=0, idle=9, waiting=0)
+2019-06-21 09:24:50,487 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@b7f7378
+2019-06-21 09:24:50,488 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:25:18,585 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:25:48,591 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:26:18,597 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:26:48,602 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:27:18,608 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:27:48,614 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:28:18,621 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:28:48,627 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:29:18,632 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:29:48,638 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:30:18,644 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:30:48,648 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:31:18,653 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:31:48,659 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:32:18,665 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:32:48,670 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:33:18,674 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:33:48,681 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:34:18,683 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:34:48,688 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:35:18,695 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:35:48,698 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:36:18,704 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:36:48,710 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:37:18,715 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:37:48,722 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:38:18,727 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:38:48,729 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:39:18,735 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:39:48,741 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:40:18,745 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:40:48,441 WARN  HikariPool:758 -HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s696ms), soft-evicting connections from pool.
+2019-06-21 09:40:48,442 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1fe17970: (connection evicted)
+2019-06-21 09:40:48,445 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5edc734b: (connection evicted)
+2019-06-21 09:40:48,449 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6fc88ef6: (connection evicted)
+2019-06-21 09:40:48,450 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3ef38c04: (connection evicted)
+2019-06-21 09:40:48,452 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5c48a8b2: (connection evicted)
+2019-06-21 09:40:48,453 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3abd565e: (connection evicted)
+2019-06-21 09:40:48,455 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@355f3e24: (connection evicted)
+2019-06-21 09:40:48,461 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1ea0119d: (connection evicted)
+2019-06-21 09:40:48,462 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@268ca33f: (connection evicted)
+2019-06-21 09:40:48,463 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@b7f7378: (connection evicted)
+2019-06-21 09:40:51,777 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7fce54c9
+2019-06-21 09:40:57,282 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ef35ef2
+2019-06-21 09:41:04,297 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f076459
+2019-06-21 09:41:04,938 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5edca1bd
+2019-06-21 09:41:05,848 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@78bb5e56
+2019-06-21 09:41:06,596 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a929bc0
+2019-06-21 09:41:07,421 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@62b88a78
+2019-06-21 09:41:08,159 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@d9b9e5b
+2019-06-21 09:41:10,491 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@72f22c62
+2019-06-21 09:41:11,554 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ad1d9e6
+2019-06-21 09:41:11,555 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:41:18,447 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:41:48,450 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:42:18,457 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:42:48,459 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:43:18,464 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:43:48,468 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:44:18,475 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:44:48,482 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:45:18,486 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:45:48,489 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:46:18,491 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:46:48,497 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:47:18,504 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:47:48,508 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:48:18,513 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:48:48,518 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:49:18,519 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:49:48,527 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:50:18,532 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:50:48,538 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:51:18,543 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:51:48,546 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:52:18,550 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:52:48,556 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:53:18,560 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:53:48,566 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:54:18,569 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:54:48,575 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:55:18,581 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:55:48,586 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:56:18,592 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:56:48,596 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:57:18,601 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:57:48,608 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:58:18,611 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:58:48,617 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 09:59:18,453 WARN  HikariPool:758 -HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s836ms), soft-evicting connections from pool.
+2019-06-21 09:59:18,455 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7fce54c9: (connection evicted)
+2019-06-21 09:59:18,457 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3ef35ef2: (connection evicted)
+2019-06-21 09:59:18,459 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@f076459: (connection evicted)
+2019-06-21 09:59:18,460 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5edca1bd: (connection evicted)
+2019-06-21 09:59:18,461 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@78bb5e56: (connection evicted)
+2019-06-21 09:59:18,464 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5a929bc0: (connection evicted)
+2019-06-21 09:59:18,466 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@62b88a78: (connection evicted)
+2019-06-21 09:59:18,469 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@d9b9e5b: (connection evicted)
+2019-06-21 09:59:18,471 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@72f22c62: (connection evicted)
+2019-06-21 09:59:18,473 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2ad1d9e6: (connection evicted)
+2019-06-21 09:59:48,210 WARN  HikariPool:758 -HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s757ms), soft-evicting connections from pool.
+2019-06-21 09:59:50,740 DEBUG PoolBase:383 -HikariPool-1 - Failed to create/setup connection: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2019-06-21 09:59:50,745 DEBUG HikariPool:487 -HikariPool-1 - Cannot acquire connection from data source
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:835) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:455) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:240) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:706) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:692) [HikariCP-3.2.0.jar:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:488) ~[?:?]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:361) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+Caused by: javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:1058) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:973) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1402) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1429) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1413) ~[?:?]
+	at com.mysql.cj.protocol.ExportControlled.performTlsHandshake(ExportControlled.java:316) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.StandardSocketFactory.performTlsHandshake(StandardSocketFactory.java:188) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.performTlsHandshake(NativeSocketConnection.java:99) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:352) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+Caused by: java.io.EOFException: SSL peer shut down incorrectly
+	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:156) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:1031) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:973) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1402) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1429) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1413) ~[?:?]
+	at com.mysql.cj.protocol.ExportControlled.performTlsHandshake(ExportControlled.java:316) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.StandardSocketFactory.performTlsHandshake(StandardSocketFactory.java:188) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.performTlsHandshake(NativeSocketConnection.java:99) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:352) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+2019-06-21 10:00:18,214 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=0, active=0, idle=0, waiting=0)
+2019-06-21 10:00:21,065 DEBUG HikariPool:487 -HikariPool-1 - Cannot acquire connection from data source
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:835) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:455) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:240) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:706) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:692) [HikariCP-3.2.0.jar:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:488) ~[?:?]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:562) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.readServerCapabilities(NativeProtocol.java:514) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.beforeHandshake(NativeProtocol.java:404) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1450) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method) ~[?:?]
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116) ~[?:?]
+	at java.net.SocketInputStream.read(SocketInputStream.java:171) ~[?:?]
+	at java.net.SocketInputStream.read(SocketInputStream.java:141) ~[?:?]
+	at com.mysql.cj.protocol.ReadAheadInputStream.fill(ReadAheadInputStream.java:107) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:150) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.ReadAheadInputStream.read(ReadAheadInputStream.java:180) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at java.io.FilterInputStream.read(FilterInputStream.java:133) ~[?:?]
+	at com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:556) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.readServerCapabilities(NativeProtocol.java:514) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.beforeHandshake(NativeProtocol.java:404) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1450) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+2019-06-21 10:00:35,294 DEBUG HikariPool:487 -HikariPool-1 - Cannot acquire connection from data source
+com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:835) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:455) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:240) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198) ~[HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:706) [HikariCP-3.2.0.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:692) [HikariCP-3.2.0.jar:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1135) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:844) [?:?]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:488) ~[?:?]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:361) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+Caused by: javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:1058) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:973) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1402) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1429) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1413) ~[?:?]
+	at com.mysql.cj.protocol.ExportControlled.performTlsHandshake(ExportControlled.java:316) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.StandardSocketFactory.performTlsHandshake(StandardSocketFactory.java:188) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.performTlsHandshake(NativeSocketConnection.java:99) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:352) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+Caused by: java.io.EOFException: SSL peer shut down incorrectly
+	at sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:156) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:1031) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:973) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1402) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1429) ~[?:?]
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1413) ~[?:?]
+	at com.mysql.cj.protocol.ExportControlled.performTlsHandshake(ExportControlled.java:316) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.StandardSocketFactory.performTlsHandshake(StandardSocketFactory.java:188) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.performTlsHandshake(NativeSocketConnection.java:99) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.negotiateSSLConnection(NativeProtocol.java:352) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.negotiateSSLConnection(NativeAuthenticationProvider.java:777) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:486) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1452) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:165) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:955) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:825) ~[mysql-connector-java-8.0.16.jar:8.0.16]
+	... 14 more
+2019-06-21 10:00:44,623 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5202ac6d
+2019-06-21 10:00:47,510 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ef9f945
+2019-06-21 10:00:48,221 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=2, active=0, idle=2, waiting=0)
+2019-06-21 10:01:00,044 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@593401b
+2019-06-21 10:01:01,265 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@22c54487
+2019-06-21 10:01:09,103 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50fe458b
+2019-06-21 10:01:11,705 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@66cd452c
+2019-06-21 10:01:12,580 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@192dab19
+2019-06-21 10:01:13,391 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d8122c6
+2019-06-21 10:01:15,161 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7912af99
+2019-06-21 10:01:16,171 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@33e9f691
+2019-06-21 10:01:16,172 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:01:18,224 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:01:48,226 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:02:18,234 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:02:48,241 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:03:18,247 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:03:48,253 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:04:18,258 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:04:48,264 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:05:18,136 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:05:48,141 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:06:18,147 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:06:48,156 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:07:18,161 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:07:48,165 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:08:18,170 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:08:48,176 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:09:18,180 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:09:48,182 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:10:18,188 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:10:48,192 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:11:18,198 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:11:48,204 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:12:18,211 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:12:48,215 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:13:18,217 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 10:13:48,224 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
