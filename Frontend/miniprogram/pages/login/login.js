@@ -56,12 +56,16 @@ Page({
           wx.removeStorageSync('patient_password');
           wx.removeStorageSync('patient_account');
           wx.setStorage({
+            key: 'isLogin',
+            data: true,
+          })
+          wx.setStorage({
             key: 'patient_password',
             data: _this.data.passwd,
           })
           wx.setStorage({
             key: 'token',
-            data: res.data.data.token.token,
+            data: res.data.data.token,
           })
           wx.setStorage({
             key: 'patient_account',
@@ -90,10 +94,14 @@ Page({
         console.log(res.data);
         if (res.data.code === 200) {
           //清除缓存
-          wx.removeStorageSync('patient');
+          wx.removeStorageSync('personInfo');
           wx.setStorage({
-            key: 'patient',
+            key: 'personInfo',
             data: res.data.data,
+          })
+          wx.setStorage({
+            key: 'isBind',
+            data: true,
           })
           wx.switchTab({
             url: '../home/index',
