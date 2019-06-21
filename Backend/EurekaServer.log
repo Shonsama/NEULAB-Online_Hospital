@@ -14386,3 +14386,330 @@ com.mysql.cj.exceptions.ConnectionIsClosedException: No operations allowed after
 2019-06-21 16:35:03,727 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 16:35:33,731 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2019-06-21 16:36:03,736 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:36:33,740 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:37:03,745 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:37:33,750 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:38:03,755 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:38:33,760 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:38:51,826 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:38:51,828 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4bfa056a] was not registered for synchronization because synchronization is not active
+2019-06-21 16:38:51,895 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@130995506 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:38:51,897 DEBUG getAllAccounts:159 -==>  Preparing: select patient_account from patient_user 
+2019-06-21 16:38:51,899 DEBUG getAllAccounts:159 -==> Parameters: 
+2019-06-21 16:38:51,967 DEBUG getAllAccounts:159 -<==      Total: 1
+2019-06-21 16:38:51,973 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4bfa056a]
+2019-06-21 16:38:51,973 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:38:51,973 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f6d088c] was not registered for synchronization because synchronization is not active
+2019-06-21 16:38:51,974 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@883399006 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:38:51,974 DEBUG getAllAccounts:159 -==>  Preparing: select patient_account from patient_user 
+2019-06-21 16:38:51,974 DEBUG getAllAccounts:159 -==> Parameters: 
+2019-06-21 16:38:52,035 DEBUG getAllAccounts:159 -<==      Total: 1
+2019-06-21 16:38:52,037 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@2f6d088c]
+2019-06-21 16:38:52,037 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:38:52,038 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6b74616] was not registered for synchronization because synchronization is not active
+2019-06-21 16:38:52,040 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1096357668 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:38:52,041 DEBUG getPatientUserByAccount:159 -==>  Preparing: select * from patient_user where patient_account = ?; 
+2019-06-21 16:38:52,044 DEBUG getPatientUserByAccount:159 -==> Parameters: yangfan(String)
+2019-06-21 16:38:52,106 DEBUG getPatientUserByAccount:159 -<==      Total: 1
+2019-06-21 16:38:52,111 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6b74616]
+2019-06-21 16:38:52,113 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:38:52,113 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1281bf7] was not registered for synchronization because synchronization is not active
+2019-06-21 16:38:52,114 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1033071154 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:38:52,114 DEBUG getPatientUserByAccount:159 -==>  Preparing: select * from patient_user where patient_account = ?; 
+2019-06-21 16:38:52,114 DEBUG getPatientUserByAccount:159 -==> Parameters: yangfan(String)
+2019-06-21 16:38:52,176 DEBUG getPatientUserByAccount:159 -<==      Total: 1
+2019-06-21 16:38:52,177 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1281bf7]
+2019-06-21 16:38:52,557 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:38:52,558 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7786b56a] was not registered for synchronization because synchronization is not active
+2019-06-21 16:38:52,559 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@889140591 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:38:52,559 DEBUG getPatientByRecordId:159 -==>  Preparing: select * from patient_info where patient_record_id = ? 
+2019-06-21 16:38:52,561 DEBUG getPatientByRecordId:159 -==> Parameters: 5(Integer)
+2019-06-21 16:38:52,626 DEBUG getPatientByRecordId:159 -<==      Total: 1
+2019-06-21 16:38:52,627 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7786b56a]
+2019-06-21 16:39:03,765 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:39:33,772 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:40:03,776 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:40:05,578 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:40:05,578 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54cdd190] was not registered for synchronization because synchronization is not active
+2019-06-21 16:40:05,588 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:40:05,588 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@17edb457] was not registered for synchronization because synchronization is not active
+2019-06-21 16:40:05,603 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:40:05,603 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@792dedf5] was not registered for synchronization because synchronization is not active
+2019-06-21 16:40:05,769 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1728487075 wrapping com.mysql.cj.jdbc.ConnectionImpl@663dfa8f] will not be managed by Spring
+2019-06-21 16:40:05,770 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 16:40:05,770 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 16:40:05,779 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@602502545 wrapping com.mysql.cj.jdbc.ConnectionImpl@2700f0b4] will not be managed by Spring
+2019-06-21 16:40:05,779 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@2025073342 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:40:05,779 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 16:40:05,779 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 16:40:05,780 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 16:40:05,780 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 16:40:05,907 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 16:40:05,909 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@17edb457]
+2019-06-21 16:40:05,910 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 16:40:05,911 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@792dedf5]
+2019-06-21 16:40:05,911 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 16:40:05,911 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@54cdd190]
+2019-06-21 16:40:33,781 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:41:03,785 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:41:33,789 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:42:03,793 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:42:33,796 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:43:03,801 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:43:33,807 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:44:03,809 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:44:33,815 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:45:03,816 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:45:33,818 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:46:03,824 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:46:33,829 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:47:03,831 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:47:09,663 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:09,666 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@32b88353] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:09,666 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:09,666 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@33aba00a] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:09,692 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:09,692 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@56802a30] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:09,743 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1408545572 wrapping com.mysql.cj.jdbc.ConnectionImpl@663dfa8f] will not be managed by Spring
+2019-06-21 16:47:09,744 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 16:47:09,746 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@387958377 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:47:09,747 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 16:47:09,747 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 16:47:09,747 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 16:47:09,757 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1355572318 wrapping com.mysql.cj.jdbc.ConnectionImpl@2700f0b4] will not be managed by Spring
+2019-06-21 16:47:09,757 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 16:47:09,758 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 16:47:09,818 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 16:47:09,819 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 16:47:09,819 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 16:47:09,820 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@32b88353]
+2019-06-21 16:47:09,821 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@33aba00a]
+2019-06-21 16:47:09,820 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@56802a30]
+2019-06-21 16:47:19,516 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:19,517 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@16be788e] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:19,535 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:19,536 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25927cd2] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:19,555 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:19,555 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7d8404c2] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:19,579 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@60731361 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:47:19,580 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 16:47:19,580 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 16:47:19,592 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1747176283 wrapping com.mysql.cj.jdbc.ConnectionImpl@663dfa8f] will not be managed by Spring
+2019-06-21 16:47:19,592 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 16:47:19,593 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 16:47:19,614 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@2035068537 wrapping com.mysql.cj.jdbc.ConnectionImpl@2700f0b4] will not be managed by Spring
+2019-06-21 16:47:19,614 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 16:47:19,614 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 16:47:19,642 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 16:47:19,642 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@16be788e]
+2019-06-21 16:47:19,655 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 16:47:19,658 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@25927cd2]
+2019-06-21 16:47:19,675 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 16:47:19,675 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7d8404c2]
+2019-06-21 16:47:33,834 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:47:41,490 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:41,491 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@50b796f7] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:41,505 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:41,505 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1a886cdf] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:41,522 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:47:41,523 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1563acce] was not registered for synchronization because synchronization is not active
+2019-06-21 16:47:41,556 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@36077089 wrapping com.mysql.cj.jdbc.ConnectionImpl@2700f0b4] will not be managed by Spring
+2019-06-21 16:47:41,557 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 16:47:41,557 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 16:47:41,582 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1502745784 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:47:41,583 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 16:47:41,583 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 16:47:41,586 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1191614482 wrapping com.mysql.cj.jdbc.ConnectionImpl@663dfa8f] will not be managed by Spring
+2019-06-21 16:47:41,586 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 16:47:41,587 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 16:47:41,640 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 16:47:41,641 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@50b796f7]
+2019-06-21 16:47:41,649 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 16:47:41,649 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1a886cdf]
+2019-06-21 16:47:41,651 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 16:47:41,653 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1563acce]
+2019-06-21 16:48:03,836 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:48:33,838 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:48:35,821 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:48:35,821 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4dbddf5c] was not registered for synchronization because synchronization is not active
+2019-06-21 16:48:35,832 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:48:35,832 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3ccc52fd] was not registered for synchronization because synchronization is not active
+2019-06-21 16:48:35,842 DEBUG SqlSessionUtils:97 -Creating a new SqlSession
+2019-06-21 16:48:35,842 DEBUG SqlSessionUtils:148 -SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d1187af] was not registered for synchronization because synchronization is not active
+2019-06-21 16:48:35,881 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@586984974 wrapping com.mysql.cj.jdbc.ConnectionImpl@1573f0d0] will not be managed by Spring
+2019-06-21 16:48:35,882 DEBUG getConstant:159 -==>  Preparing: select * from constant where constant_type=? 
+2019-06-21 16:48:35,882 DEBUG getConstant:159 -==> Parameters: payment_type(String)
+2019-06-21 16:48:35,887 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@1559764319 wrapping com.mysql.cj.jdbc.ConnectionImpl@663dfa8f] will not be managed by Spring
+2019-06-21 16:48:35,888 DEBUG getAllDepartments:159 -==>  Preparing: select * from department_info 
+2019-06-21 16:48:35,888 DEBUG getAllDepartments:159 -==> Parameters: 
+2019-06-21 16:48:35,900 DEBUG SpringManagedTransaction:87 -JDBC Connection [HikariProxyConnection@2015701773 wrapping com.mysql.cj.jdbc.ConnectionImpl@2700f0b4] will not be managed by Spring
+2019-06-21 16:48:35,901 DEBUG getAllRegisterLevels:159 -==>  Preparing: select * from register_level ORDER BY register_level_seq_num DESC 
+2019-06-21 16:48:35,901 DEBUG getAllRegisterLevels:159 -==> Parameters: 
+2019-06-21 16:48:35,943 DEBUG getConstant:159 -<==      Total: 1
+2019-06-21 16:48:35,944 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@4dbddf5c]
+2019-06-21 16:48:35,950 DEBUG getAllDepartments:159 -<==      Total: 15
+2019-06-21 16:48:35,950 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@3ccc52fd]
+2019-06-21 16:48:35,971 DEBUG getAllRegisterLevels:159 -<==      Total: 3
+2019-06-21 16:48:35,972 DEBUG SqlSessionUtils:191 -Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@d1187af]
+2019-06-21 16:49:03,843 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:49:33,851 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:50:03,856 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:50:33,863 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:51:03,869 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:51:33,873 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:52:03,878 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:52:33,884 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:53:03,890 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:53:33,892 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:54:03,897 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:54:33,901 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:55:03,907 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:55:33,909 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:56:03,913 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:56:33,922 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:57:03,933 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:57:33,938 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:58:03,944 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:58:33,947 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:59:03,950 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 16:59:33,956 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:00:03,964 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:00:33,966 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:10:15,309 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m41s341ms).
+2019-06-21 17:10:15,309 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:10:45,302 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:13:54,894 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m9s592ms).
+2019-06-21 17:13:54,895 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:14:06,230 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@663dfa8f: (connection has passed maxLifetime)
+2019-06-21 17:14:07,013 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2902ec52
+2019-06-21 17:14:18,423 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1573f0d0: (connection has passed maxLifetime)
+2019-06-21 17:14:20,052 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54d69734
+2019-06-21 17:14:24,903 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:14:34,351 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@410cdeb7: (connection has passed maxLifetime)
+2019-06-21 17:14:34,971 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@49780e2d
+2019-06-21 17:14:48,516 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2700f0b4: (connection has passed maxLifetime)
+2019-06-21 17:14:50,083 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f24842c
+2019-06-21 17:14:54,909 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:14:55,488 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1608da87: (connection has passed maxLifetime)
+2019-06-21 17:14:55,846 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@1246a470: (connection has passed maxLifetime)
+2019-06-21 17:14:56,817 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7038d7c0
+2019-06-21 17:14:57,428 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3105ddfb
+2019-06-21 17:14:57,428 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:15:00,079 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@6ece510c: (connection has passed maxLifetime)
+2019-06-21 17:15:00,691 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fe0e34
+2019-06-21 17:15:01,200 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@72695b3f: (connection has passed maxLifetime)
+2019-06-21 17:15:01,867 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@512a22b4
+2019-06-21 17:15:12,100 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@33545104: (connection has passed maxLifetime)
+2019-06-21 17:15:13,118 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@659766f9
+2019-06-21 17:15:17,772 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@43d1af1a: (connection has passed maxLifetime)
+2019-06-21 17:15:18,432 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@24aa6cc2
+2019-06-21 17:15:24,918 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:16:18,070 WARN  HikariPool:766 -HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53s152ms).
+2019-06-21 17:16:18,072 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:16:48,077 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:17:18,083 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:17:48,087 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:18:18,092 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:18:48,096 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:19:18,102 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:19:48,108 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:20:18,114 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:20:48,118 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:21:18,121 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:21:48,125 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:22:18,130 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:22:48,134 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:23:18,141 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:23:48,147 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:24:18,150 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:24:48,155 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:25:18,159 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:25:48,164 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:26:18,169 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:26:48,174 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:27:18,182 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:27:48,188 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:28:18,193 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:28:48,198 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:29:18,202 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:29:48,205 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:30:18,207 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:30:48,210 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:31:18,214 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:31:48,218 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:32:18,220 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:32:48,222 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:33:18,227 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:33:48,231 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:34:18,233 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:34:48,237 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:35:18,243 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:35:48,249 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:36:18,255 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:36:48,262 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:37:18,269 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:37:48,274 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:38:18,281 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:38:48,288 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:39:18,294 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:39:48,298 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:40:18,304 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:40:48,305 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:41:18,312 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:41:48,318 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:42:18,320 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:42:48,325 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:43:18,333 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:43:48,356 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:44:04,702 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@54d69734: (connection has passed maxLifetime)
+2019-06-21 17:44:05,391 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b123cce
+2019-06-21 17:44:18,364 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:44:24,469 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@2902ec52: (connection has passed maxLifetime)
+2019-06-21 17:44:25,129 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@13fc635c
+2019-06-21 17:44:35,322 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@49780e2d: (connection has passed maxLifetime)
+2019-06-21 17:44:35,980 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4be9852f
+2019-06-21 17:44:36,878 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@7038d7c0: (connection has passed maxLifetime)
+2019-06-21 17:44:37,463 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ad48f14
+2019-06-21 17:44:48,370 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:44:48,614 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@512a22b4: (connection has passed maxLifetime)
+2019-06-21 17:44:49,287 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@c31f5a
+2019-06-21 17:44:52,328 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5f24842c: (connection has passed maxLifetime)
+2019-06-21 17:44:52,934 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@fe0e34: (connection has passed maxLifetime)
+2019-06-21 17:44:52,982 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@41fe1561
+2019-06-21 17:44:53,732 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7075558b
+2019-06-21 17:44:53,733 DEBUG HikariPool:411 -HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:45:01,244 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@3105ddfb: (connection has passed maxLifetime)
+2019-06-21 17:45:01,871 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@72c3a2d1
+2019-06-21 17:45:18,060 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@659766f9: (connection has passed maxLifetime)
+2019-06-21 17:45:18,376 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=9, active=0, idle=9, waiting=0)
+2019-06-21 17:45:18,626 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4b70001b
+2019-06-21 17:45:33,738 DEBUG PoolBase:129 -HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@24aa6cc2: (connection has passed maxLifetime)
+2019-06-21 17:45:34,353 DEBUG HikariPool:709 -HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c3c9f6e
+2019-06-21 17:45:48,381 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:46:18,387 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:46:48,394 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:47:18,399 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:47:48,404 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:48:18,409 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:48:48,414 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:49:18,420 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:49:48,426 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:50:18,430 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:50:48,438 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:51:18,444 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:51:48,450 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:52:18,454 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:52:48,462 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:53:18,471 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:53:48,476 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:54:18,484 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:54:48,489 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:55:18,493 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:55:48,499 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:56:18,504 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:56:48,512 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:57:18,523 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:57:48,529 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:58:18,532 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:58:48,537 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2019-06-21 17:59:18,543 DEBUG HikariPool:411 -HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
