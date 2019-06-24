@@ -122,6 +122,31 @@
       <v-flex>
         <v-toolbar flat dense>
           <v-toolbar-title>检验项目</v-toolbar-title>
+          <v-spacer/>
+          <v-card-actions>
+            <v-spacer/>
+            <el-date-picker
+              v-model="date"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              style="margin-right: 10px"
+              value-format= "yyyy-MM-dd HH:mm:ss"
+            >
+            </el-date-picker>
+            <!--<v-btn color="primary" @click="">选定时间</v-btn>-->
+            <div v-if="!mode_refund">
+              <v-btn color="primary" @click="getPayPreBetween()">
+                选定时间
+              </v-btn>
+            </div>
+            <div v-else>
+              <v-btn color="primary" @click="getSentPreBetween()">
+                选定时间
+              </v-btn>
+            </div>
+          </v-card-actions>
         </v-toolbar>
         <v-data-table
           :headers="headers_md"
@@ -148,20 +173,6 @@
           </template>
         </v-data-table>
         <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer/>
-          <el-date-picker
-            v-model="date"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            style="margin-right: 10px"
-            value-format= "yyyy-MM-dd HH:mm:ss"
-          >
-          </el-date-picker>
-          <v-btn color="primary" @click="">选定时间</v-btn>
-        </v-card-actions>
         <v-divider></v-divider>
 
       </v-flex>
@@ -304,6 +315,18 @@ export default {
           console.log(response.data)
           that.desserts_md = response.data.data
         })
+    },
+    getSentPreBetween: function () {
+      var item = {
+        patient_record_id: this.md_patient_id
+      }
+      this.getSentPre(item)
+    },
+    getPayPreBetween: function () {
+      var item = {
+        patient_record_id: this.md_patient_id
+      }
+      this.getPayPre(item)
     },
     getSentPre: function (item) {
       this.md_patient_id = item.patient_record_id

@@ -2,6 +2,7 @@ package com.neuedu.lab.model.mapper;
 
 import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.PatientUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface PatientMapper {
 
     List<String> getAllAccounts();
     List<Integer> getAllPatientRecordIds();
-    void updatePatientUserRecordId(Integer patient_connect_id, String patient_account);
+    void updatePatientUserRecordId(@Param("patient_connect_id")Integer patient_connect_id, @Param("patient_account")String patient_account);
 }
