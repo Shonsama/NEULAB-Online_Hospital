@@ -3,9 +3,9 @@
 	<view slot="backText">返回</view>
 	<view slot="content">缴费</view>
 </cu-custom>
-<view class="cu-card">
-  <view class="cu-item" wx:for="{{list}}">
-    <view class="solid-bottom text-xl padding">
+<view class="cu-list menu-avatar">
+  <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{list}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
+    <!-- <view class="solid-bottom text-xl padding">
         <text class="text-black text-bold">{{item.title}}
         </text>
       </view>
@@ -19,6 +19,18 @@
         <text class="text-price margin-xs radius">{{item.fee}}</text>
       </view>
       <button class="cu-btn bg-blue padding-sm margin-xs radius">缴费</button>
-    </view>
+    </view> -->
+    <view class="content">
+        <view class="text-grey">{{item.title}}</view>
+        <view class="text-gray text-sm">
+          <text class="cuIcon-infofill text-red"></text> 消息未送达</view>
+      </view>
+      <view class="action">
+        <view class="text-grey text-xs">22:20</view>
+        <view class="cu-tag round bg-grey sm">5</view>
+      </view>
+      <view class="move">
+        <view class="bg-blue">缴费</view>
+      </view>
   </view>
 </view>
