@@ -184,61 +184,77 @@ export default {
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
-          var data
-          that.dialog_suc = true
-          that.msg_suc = '登陆成功'
-          if (!that.isDoctor) {
-            data = {
-              account: response.data.data.user_account,
-              department_id: response.data.data.user_department_id,
-              id: response.data.data.user_id,
-              name: response.data.data.user_name,
-              type: response.data.data.user_type
-            }
-            that.$store.commit('set_user', data)
-            that.$store.commit('login')
-            if (data.type === '挂号收费员') {
-              that.$router.push('/RegisterCharge')
-            } else if (data.type === '门诊医生') {
-              that.$router.push('/Diagnostician')
-            } else if (data.type === '医技医生') {
-              that.$router.push('/Meditech')
-            } else if (data.type === '药房操作员') {
-              that.$router.push('/Pharmacy')
-            } else if (data.type === '财务管理员') {
-              that.$router.push('/Finance')
-            } else if (data.type === '医院管理员') {
-              that.$router.push('/BasicInfo')
+          if (response.data.code === 200) {
+            var data
+            var storage = window.localStorage
+            that.dialog_suc = true
+            that.msg_suc = '登陆成功'
+            if (!that.isDoctor) {
+              data = {
+                account: response.data.data.user.user_account,
+                department_id: response.data.data.user.user_department_id,
+                id: response.data.data.user.user_id,
+                name: response.data.data.user.user_name,
+                type: response.data.data.user.user_type
+              }
+              storage.clear()
+              storage.setItem('account', response.data.data.user.user_account)
+              storage.setItem('department_id', response.data.data.user.user_department_id)
+              storage.setItem('id', response.data.data.user.user_id)
+              storage.setItem('name', response.data.data.user.user_name)
+              storage.setItem('type', response.data.data.user.user_type)
+              sessionStorage.setItem('token', response.data.data.token)
+              // that.$store.commit('set_user', data)
+              // that.$store.commit('login')
+              if (data.type === '挂号收费员') {
+                that.$router.push('/RegisterCharge')
+              } else if (data.type === '门诊医生') {
+                that.$router.push('/Diagnostician')
+              } else if (data.type === '医技医生') {
+                that.$router.push('/Meditech')
+              } else if (data.type === '药房操作员') {
+                that.$router.push('/Pharmacy')
+              } else if (data.type === '财务管理员') {
+                that.$router.push('/Finance')
+              } else if (data.type === '医院管理员') {
+                that.$router.push('/BasicInfo')
+              }
+            } else {
+              data = {
+                account: response.data.data.doctor.doctor_account,
+                department_id: response.data.data.doctor.doctor_department_id,
+                id: response.data.data.doctor.doctor_id,
+                name: response.data.data.doctor.doctor_name,
+                type: response.data.data.doctor.doctor_type
+              }
+              console.log(data)
+              storage.clear()
+              storage.setItem('account', response.data.data.doctor.doctor_account)
+              storage.setItem('department_id', response.data.data.doctor.doctor_department_id)
+              storage.setItem('id', response.data.data.doctor.doctor_id)
+              storage.setItem('name', response.data.data.doctor.doctor_name)
+              storage.setItem('type', response.data.data.doctor.doctor_type)
+              sessionStorage.setItem('token', response.data.data.token)
+              // that.$store.commit('set_user', data)
+              // that.$store.commit('login')
+              if (data.type === '挂号收费员') {
+                that.$router.push('/RegisterCharge')
+              } else if (data.type === '门诊医生') {
+                that.$router.push('/Diagnostician')
+              } else if (data.type === '医技医生') {
+                that.$router.push('/Meditech')
+              } else if (data.type === '药房操作员') {
+                that.$router.push('/Pharmacy')
+              } else if (data.type === '财务管理员') {
+                that.$router.push('/Finance')
+              } else if (data.type === '医院管理员') {
+                that.$router.push('/BasicInfo')
+              }
             }
           } else {
-            data = {
-              account: response.data.data.doctor_account,
-              department_id: response.data.data.doctor_department_id,
-              id: response.data.data.doctor_id,
-              name: response.data.data.doctor_name,
-              type: response.data.data.doctor_type
-            }
-            console.log(data)
-            that.$store.commit('set_user', data)
-            that.$store.commit('login')
-            if (data.type === '挂号收费员') {
-              that.$router.push('/RegisterCharge')
-            } else if (data.type === '门诊医生') {
-              that.$router.push('/Diagnostician')
-            } else if (data.type === '医技医生') {
-              that.$router.push('/Meditech')
-            } else if (data.type === '药房操作员') {
-              that.$router.push('/Pharmacy')
-            } else if (data.type === '财务管理员') {
-              that.$router.push('/Finance')
-            } else if (data.type === '医院管理员') {
-              that.$router.push('/BasicInfo')
-            }
+            that.dialog_err = true
+            that.msg_err = '登陆失败'
           }
-        })
-        .catch(function (response) {
-          that.dialog_err = true
-          that.msg_err = '用户名或密码不正确'
         })
     }
   }

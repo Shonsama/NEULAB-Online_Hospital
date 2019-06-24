@@ -123,6 +123,7 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
 export default {
   props: ['msgfromfa', 'record'],
   data () {
@@ -190,7 +191,7 @@ export default {
     submit_diagnoses () {
       let that = this
       var url = this.HOME + '/doctor/submit-final-diagnose'
-      this.$http.post(url, this.desserts)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), this.desserts)
         .then(response => {
           console.log(response.data)
           if (response.data.code === 200) {
@@ -207,13 +208,13 @@ export default {
       console.log(this.selected_dia)
       var n
       var time_now = new Date()
-      var year = time_now.getFullYear();
+      var year = time_now.getFullYear()
 
-      var month = time_now.getMonth().toString().length === 1 ? '0' + (parseInt(time_now.getMonth().toString(),10) + 1) : (time_now.getMonth() + 1);
+      var month = time_now.getMonth().toString().length === 1 ? '0' + (parseInt(time_now.getMonth().toString(), 10) + 1) : (time_now.getMonth() + 1)
 
-      var day = time_now.getDate().toString().length === 1 ? '0' + time_now.getDate() : time_now.getDate();
+      var day = time_now.getDate().toString().length === 1 ? '0' + time_now.getDate() : time_now.getDate()
 
-      var date_temp = year + '-' + month + '-' + day + ' ' + time_now.getHours() + ':' + time_now.getMinutes() + ':' +time_now.getSeconds()
+      var date_temp = year + '-' + month + '-' + day + ' ' + time_now.getHours() + ':' + time_now.getMinutes() + ':' + time_now.getSeconds()
 
       for (n = 0; n < this.selected_dia.length; n++) {
         var data = {
@@ -232,7 +233,7 @@ export default {
         record_id: that.msgfromfa.register_info_id
       }
       that.desserts = []
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.type = response.data.data.record_doctor_type
@@ -269,7 +270,7 @@ export default {
     load_diagnosis () {
       let that = this
       var url = this.HOME + '/maintenance/disease/get-all'
-      this.$http.post(url)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'))
         .then(response => {
           that.desserts_dia = response.data.data
         })

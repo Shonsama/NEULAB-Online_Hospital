@@ -1,10 +1,10 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.PatientUser;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -72,8 +72,12 @@ public class PatientService {
         if(!checkIfExistAccount(patient_account)){
             return ConstantUtils.responseFail("用户不存在");
         }else{
+            //校验密码是否正确
             if(patientMapper.getPatientUserByAccount(patient_account).getPatient_password().equals(patient_password)){
-                return ConstantUtils.responseSuccess("登录成功",patientMapper.getPatientUserByAccount(patient_account));
+                JSONObject result = new JSONObject();
+                result.put("patient",patientMapper.getPatientUserByAccount(patient_account));
+                result.put("token", ConstantUtils.generateToken(patient_account));
+                return ConstantUtils.responseSuccess("登录成功",result);
             }else{
                 return ConstantUtils.responseFail("密码错误");
             }

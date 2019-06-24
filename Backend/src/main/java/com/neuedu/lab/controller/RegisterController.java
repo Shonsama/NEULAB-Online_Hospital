@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * 给挂号员的接口
  */
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+
+    private ThreadLocal<JSONObject> postGraduate = new ThreadLocal<>();
     @Autowired
     private RegisterService registerService;
 

@@ -694,7 +694,7 @@ export default {
     load_departs: function () {
       var that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -717,7 +717,7 @@ export default {
         department_id: this.$store.state.user.department_id
       }
       var url = this.HOME + '/template/get-all'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem = response.data.data
@@ -730,7 +730,7 @@ export default {
         template_id: that.template_con_id
       }
       var url = this.HOME + '/template/delete-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.getTem()
@@ -748,7 +748,7 @@ export default {
         template_doctor_id: that.msgfromfa.register_info_doctor_id
       }
       var url = this.HOME + '/template/update-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.getTem()
@@ -761,7 +761,7 @@ export default {
         template_id: value.template_id
       }
       var url = this.HOME + '/template/get-content-non-medicine'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var i
@@ -783,7 +783,7 @@ export default {
       that.template_con_type = value.template_type
       that.template_con_id = value.template_id
       var url = this.HOME + '/template/get-content-non-medicine'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.desserts_tem_con = response.data.data
@@ -800,7 +800,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/template/add-template'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.dialog = true
@@ -827,7 +827,7 @@ export default {
           template_medical_skill_content_unit_price: that.filterDesserts[i].medical_skill_fee
         }
         console.log(data)
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             // that.dialog = true
@@ -853,7 +853,7 @@ export default {
       that.medical_skill_checkpoint = ''
       console.log(value)
       that.dialog = true
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var value = {
@@ -875,7 +875,7 @@ export default {
       }
       that.dialog = true
       console.log(value)
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           var value = {
@@ -896,7 +896,7 @@ export default {
           template_content_id: that.selected_tem[i].template_content_id
         }
         console.log(data)
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             var value = {
@@ -916,7 +916,7 @@ export default {
       var data = {
         record_id: that.msgfromfa.register_info_id
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(response => {
           console.log(response.data.data)
           that.desserts = response.data.data.medicalSkills
@@ -939,7 +939,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-medical-skill'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.show = false
@@ -965,7 +965,7 @@ export default {
       }
       console.log(data)
       var url = this.HOME + '/doctor/add-medical-skill'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.show = false
@@ -985,7 +985,7 @@ export default {
         data = {
           medical_skill_id: that.selected[i].medical_skill_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.getItem()
@@ -1003,7 +1003,7 @@ export default {
         var data = {
           medical_skill_id: that.selected[i].medical_skill_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.getItem()
@@ -1021,7 +1021,7 @@ export default {
         var data = {
           medical_skill_id: that.selected[i].medical_skill_id
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.getItem()
@@ -1032,7 +1032,7 @@ export default {
     load_mediskill: function () {
       let that = this
       var url = this.HOME + '/maintenance/medical-skill-content/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)

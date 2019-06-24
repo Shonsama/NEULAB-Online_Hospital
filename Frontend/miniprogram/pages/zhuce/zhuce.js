@@ -90,9 +90,10 @@ Page({
   },
   register() {
     var _this = this;
+    var url = 'http://localhost:8080/patient/sign-up?token=' + wx.getStorageSync('token')
     wx.request({
       method: 'POST',
-      url: 'http://localhost:8080/patient/sign-up?token=' + wx.getStorageSync('token'),
+      url: 'http://localhost:8080/patient/sign-up',
       data: ({
         patient_account: _this.data.userid,
         patient_password: _this.data.passwd
@@ -134,9 +135,10 @@ Page({
   },
   bind() {
     var _this = this;
+    var url = 'http://localhost:8080/patient/bound-exist-record?token=' + wx.getStorageSync('token')
     wx.request({
       method: 'POST',
-      url: 'http://localhost:8080/patient/bound-exist-record?token=' + wx.getStorageSync('token'),
+      url: 'http://localhost:8080/patient/bound-exist-record',
       data: ({
         patient_account: _this.data.userid,
         patient_record_id: _this.data.connect_id
@@ -171,9 +173,10 @@ Page({
     } else {
       patientGender = 'false'
     }
+    var url = 'http://localhost:8080/patient/add?token=' + wx.getStorageSync('token')
     wx.request({
       method: 'POST',
-      url: 'http://localhost:8080/patient/add?token=' + wx.getStorageSync('token'),
+      url: 'http://localhost:8080/patient/add',
       data: ({
         patient_gender: patientGender,
         patient_name: _this.data.name,

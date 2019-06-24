@@ -98,11 +98,11 @@
 </template>
 
 <script>
-  import Schart from 'vue-schart'
-  import qs from 'qs'
-export default {
+/* eslint-disable camelcase */
 
-  data() {
+import qs from 'qs'
+export default {
+  data () {
     let options = qs.parse(location.search, { ignoreQueryPrefix: true })
     return {
       // option: qs.parse(location.search, { ignoreQueryPrefix: true }),
@@ -156,7 +156,7 @@ export default {
       let that = this
       var url = this.HOME + '/workload/get-doctor'
       that.dialog = true
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         start_time: that.date[0],
         end_time: that.date[1]
       })

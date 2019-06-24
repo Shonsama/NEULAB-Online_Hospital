@@ -1,10 +1,8 @@
-package com.neuedu.lab.Utils;
-
-import java.util.Date;
+package com.neuedu.lab.utils;
 
 public class ConstantDefinition {
 
-    public static final String URL_BASE_FRONT = "http://";
+    public static final String URL_BASE_FRONT = "http://localhost:8080/";
     public static final boolean DEBUG_MODE = true;
     public static final String[] REGISTER_STATE = {"已挂号", "已就诊", "诊毕", "已退号"};
     public static final String[] MEDICAL_SKILL_EXECUTE_STATE = {"已添加", "已开立", "已作废", "已缴费", "已消费", "已退费","已确认执行","已取消执行"};
@@ -40,5 +38,8 @@ public class ConstantDefinition {
     public static final Long EXPIRY_TIME = 2000 * 3600L;  //过期时间2小时
 
     public static final String [] USER_TYPE = {"user","doctor"};
+
+    // 全局Controller超时安全释放时间（毫秒） 防止大规模阻塞
+    public static final Long TIMEOUT_SAFE_LIMIT = 8000L;
 
 }

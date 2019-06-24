@@ -273,7 +273,7 @@ export default {
     returnMedicine: function (item) {
       let that = this
       var url = this.HOME + '/md-doctor/return-medicine'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         prescription_id: item.prescription_id,
         prescription_content_id: item.prescription_content_id,
         prescription_num: that.refund_num
@@ -295,7 +295,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/md-doctor/get-all-patients'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -306,7 +306,7 @@ export default {
       this.md_patient_id = item.patient_record_id
       let that = this
       var url = this.HOME + '/md-doctor/get-prescription-by-patient'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         register_info_patient_id: item.patient_record_id,
         start_time: that.date[0],
         end_time: that.date[1]
@@ -332,7 +332,7 @@ export default {
       this.md_patient_id = item.patient_record_id
       let that = this
       var url = this.HOME + '/md-doctor/get-sent-prescription'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         patient_id: item.patient_record_id,
         start_time: that.date[0],
         end_time: that.date[1]
@@ -345,7 +345,7 @@ export default {
     sendMedicine: function (item) {
       let that = this
       var url = this.HOME + '/md-doctor/send-medicine'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         prescription_id: item.prescription_id,
         prescription_execute_doctor_id: that.$store.state.user.id
       })
@@ -360,7 +360,7 @@ export default {
     getContent: function (item) {
       let that = this
       var url = this.HOME + '/md-doctor/get-prescription-contents'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
         prescription_id: item.prescription_id
       })
         .then(function (response) {

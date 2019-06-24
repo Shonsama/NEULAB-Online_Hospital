@@ -2,10 +2,10 @@ package com.neuedu.lab.model.service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantDefinition;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +13,11 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-import static com.neuedu.lab.Utils.ConstantDefinition.*;
-import static com.neuedu.lab.Utils.ConstantUtils.responseFail;
-import static com.neuedu.lab.Utils.ConstantUtils.responseSuccess;
+import static com.neuedu.lab.utils.ConstantDefinition.*;
+import static com.neuedu.lab.utils.ConstantUtils.responseFail;
+import static com.neuedu.lab.utils.ConstantUtils.responseSuccess;
 
 
 @Service
@@ -45,6 +42,8 @@ public class UserService {
     private MedicineMapper medicineMapper;
 
     private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Calendar c = Calendar.getInstance();
+    private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
 
     /*获取所有用户信息*/
@@ -64,8 +63,10 @@ public class UserService {
     public JSONObject checkUserValid(String user_account, String user_password) {
         User user = userMapper.getUserByAccount(user_account);
         if (user.getUser_password().equals(user_password)) {
-            //return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(user.getUser_id(), ConstantDefinition.USER_TYPE[0]));
-            return ConstantUtils.responseSuccess("success",user);
+            JSONObject result = new JSONObject();
+            result.put("user",user);
+            result.put("token", ConstantUtils.generateToken(user_account));
+            return ConstantUtils.responseSuccess("登录成功",result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
@@ -125,8 +126,10 @@ public class UserService {
     public JSONObject checkDoctorValid(String doctor_account, String doctor_password) {
         Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
         if (doctor.getDoctor_password().equals(doctor_password)) {
-            //return ConstantUtils.responseSuccess("success", ConstantUtils.generateToken(doctor.getDoctor_id(), ConstantDefinition.USER_TYPE[1]));
-            return ConstantUtils.responseSuccess("success",doctor);
+            JSONObject result = new JSONObject();
+            result.put("doctor",doctor);
+            result.put("token", ConstantUtils.generateToken(doctor_account));
+            return ConstantUtils.responseSuccess("登录成功",result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
@@ -361,34 +364,6 @@ public class UserService {
         return ConstantUtils.responseSuccess(medicalSkills);
     }
 
-    //收费
-    @Transactional
-    public JSONObject payMedicalSkillFee(List<Integer> medical_skill_ids) {
-        try {
-            for (Integer medical_skill_id : medical_skill_ids) {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[3],null);
-            }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return ConstantUtils.responseFail("收费失败", null);
-        }
-        return ConstantUtils.responseSuccess(null);
-    }
-
-    //打印发票
-    public JSONObject printBill(List<Bill> billList) {
-        try {
-            for (Bill bill : billList) {
-                billMapper.addBill(bill);
-            }
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return ConstantUtils.responseSuccess(null);
-        }
-        return ConstantUtils.responseSuccess(null);
-    }
-
-
     //退号， 获取一个病人下所有“已挂号”状态下的挂号记录
     public JSONObject getPaidRegisters(Integer patient_id){
         List<Register> registers;
@@ -458,6 +433,8 @@ public class UserService {
         bill.setBill_state(ConstantDefinition.BILL_STATE[4]);
         try {
             billMapper.addBill(bill);
+            String billNum = sdf2.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
+            billMapper.updateBillNum(billNum,bill.getBill_id());
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("增加对冲发票过程出错", null);
@@ -542,6 +519,8 @@ public class UserService {
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billBefore.setBill_state(BILL_STATE[4]);
             billMapper.addBill(billBefore);
+            String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", billBefore.getBill_id());
+            billMapper.updateBillNum(billNum,billBefore.getBill_id());
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("插入发票对冲记录出错", null);
@@ -593,6 +572,8 @@ public class UserService {
         billBefore.setBill_state(BILL_STATE[0]);
         billBefore.setBill_sum(prescriptionMapper.getPrescription(prescriptionToAdd.getPrescription_id()).getPrescription_fee());
         billMapper.addBill(billBefore);
+        String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", billBefore.getBill_id());
+        billMapper.updateBillNum(billNum,billBefore.getBill_id());
 
         return ConstantUtils.responseSuccess(billBefore);
     }

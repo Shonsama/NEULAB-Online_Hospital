@@ -68,7 +68,6 @@
     </v-dialog>
 
     <v-alert
-      transition :duration="1"
       :value="alert_success"
       type="success"
       transition="slide-y-transition"
@@ -77,7 +76,6 @@
     </v-alert>
 
     <v-alert
-      transition :duration="1"
       :value="alert_error"
       type="error"
       transition="slide-y-transition"
@@ -190,7 +188,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/maintenance/constant/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -200,7 +198,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/maintenance/constant/delete'
-      this.$http.post(url, {constant_id: item.constant_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {constant_id: item.constant_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -220,7 +218,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/constant/add'
-      this.$http.post(url, constant)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -242,7 +240,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/constant/update'
-      this.$http.post(url, constant)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), constant)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -268,14 +266,14 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout(this.change_success, 1500)
+      window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
       this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout(this.change_error, 1500)
+      window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
       this.alert_error = !this.alert_error
@@ -288,7 +286,7 @@ export default {
         }
         let that = this
         var url = this.HOME + '/maintenance/constant/delete'
-        this.$http.post(url, {constant_id: item.constant_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {constant_id: item.constant_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

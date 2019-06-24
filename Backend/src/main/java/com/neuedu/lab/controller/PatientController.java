@@ -1,7 +1,7 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
+import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,10 @@ public class PatientController {
     public JSONObject getPatientByRecordId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByRecordId(request.getInteger("patient_record_id")));
     }
-
     @RequestMapping("/get-by-doctor-id")
     public JSONObject getPatientByDoctorId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByDoctorId(request.getString("register_info_doctor_id")));
     }
-
     @RequestMapping("/get-by-department-id")
     public JSONObject getPatientByDepartmentId(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(patientService.getPatientByDepartmentId(request.getString("doctor_department_id")));
@@ -62,8 +60,4 @@ public class PatientController {
         return patientService.createNewRecord(patient,request.getString("patient_account"));
     }
 
-    @RequestMapping("/login")
-    public JSONObject checkUserValid(@RequestBody JSONObject request){
-        return patientService.checkUserValid(request.getString("patient_account"),request.getString("patient_password"));
-    }
 }

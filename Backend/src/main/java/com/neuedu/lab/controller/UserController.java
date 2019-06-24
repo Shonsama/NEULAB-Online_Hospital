@@ -2,14 +2,16 @@ package com.neuedu.lab.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.Utils.ConstantUtils;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.User;
 import com.neuedu.lab.model.service.UserService;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 将来合并的系统管理员的控制类
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -53,12 +56,12 @@ public class UserController {
 
     @RequestMapping("/check-valid")
     //检验登录
-    public JSONObject checkValid(@RequestBody JSONObject request){
+    public JSONObject checkValid(@RequestBody JSONObject request,  HttpSession session){
         if(request.getString("user_account") != null){
             return userService.checkUserValid(request.getString("user_account"),request.getString("user_password"));
         }
-        else{
-            return userService.checkDoctorValid(request.getString("doctor_account"),request.getString("doctor_password"));
+        else {
+            return userService.checkDoctorValid(request.getString("doctor_account"), request.getString("doctor_password"));
         }
     }
 

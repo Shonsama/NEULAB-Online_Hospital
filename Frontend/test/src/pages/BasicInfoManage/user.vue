@@ -113,7 +113,6 @@
     </v-dialog>
 
     <v-alert
-      transition :duration="1"
       :value="alert_success"
       type="success"
       transition="slide-y-transition"
@@ -122,7 +121,6 @@
     </v-alert>
 
     <v-alert
-      transition :duration="1"
       :value="alert_error"
       type="error"
       transition="slide-y-transition"
@@ -217,6 +215,7 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
 export default {
   data: () => ({
     alert_success: false,
@@ -274,7 +273,7 @@ export default {
       let that = this
       that.users = []
       var url = this.HOME + '/user/get-all-user'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -297,7 +296,7 @@ export default {
           }
         })
       url = this.HOME + '/user/get-all-doctor'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -334,7 +333,7 @@ export default {
         url = this.HOME + '/user/delete-user'
         data = {user_account: item.user_account}
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -348,7 +347,7 @@ export default {
       console.log(this.signal)
     },
     addItem: function () {
-      if (this.check_account_valid(this.user_account)){
+      if (this.check_account_valid(this.user_account)) {
         let that = this
         var url
         var user
@@ -374,7 +373,7 @@ export default {
           }
           url = this.HOME + '/user/add-user'
         }
-        this.$http.post(url, user)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), user)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
@@ -392,7 +391,7 @@ export default {
       }
     },
     updateItem: function () {
-      if (this.check_account_valid(this.user_account)){
+      if (this.check_account_valid(this.user_account)) {
         let that = this
         var url = ''
         var user
@@ -420,7 +419,7 @@ export default {
           }
           url = this.HOME + '/user/update-user'
         }
-        this.$http.post(url, user)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), user)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
@@ -433,7 +432,7 @@ export default {
             }
           })
         console.log(this.signal)
-      } else  {
+      } else {
         this.notice_error()
       }
     },
@@ -462,7 +461,7 @@ export default {
     load_items_departments: function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -471,14 +470,14 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout(this.change_success, 1500)
+      window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
       this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout(this.change_error, 1500)
+      window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
       this.alert_error = !this.alert_error
@@ -493,7 +492,6 @@ export default {
     },
     delete_selected: function () {
       var count = 0
-      var length = this.selected.length
       for (let i = 0; i < this.selected.length; i++) {
         var item = {
           user_type: this.selected[i].user_type,
@@ -509,7 +507,7 @@ export default {
           url = this.HOME + '/user/delete-user'
           data = {user_account: item.user_account}
         }
-        this.$http.post(url, data)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

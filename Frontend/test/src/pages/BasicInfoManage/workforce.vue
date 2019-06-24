@@ -102,7 +102,6 @@
     </v-dialog>
 
     <v-alert
-      transition :duration="1"
       :value="alert_success"
       type="success"
       transition="slide-y-transition"
@@ -111,7 +110,6 @@
     </v-alert>
 
     <v-alert
-      transition :duration="1"
       :value="alert_error"
       type="error"
       transition="slide-y-transition"
@@ -406,6 +404,8 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
+
 export default {
   name: 'workforce',
   data: () => ({
@@ -508,7 +508,7 @@ export default {
       let that = this
       that.desserts_scheduling = []
       var url = this.HOME + '/rule/get-all-names'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -521,14 +521,14 @@ export default {
       this.items_register_level = []
       let that = this
       var url = this.HOME + '/maintenance/department/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
           that.items_departments = response.data.data
         })
       url = this.HOME + '/maintenance/register-level/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -544,7 +544,7 @@ export default {
         department_id: that.department_rule,
         register_level_id: that.register_level_rule
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.doctor_rule = response.data.data
@@ -579,7 +579,7 @@ export default {
         rule_work_time: time_string,
         rule_name: that.rule_name_create
       }
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -598,11 +598,11 @@ export default {
         schedule_end_date: this.date[1],
         schedule_work_time: this.selected_scheduling[0].rule_work_time,
         schedule_doctor_name: this.selected_scheduling[0].doctor_name,
-        schedule_doctor_id: this.selected_scheduling[0].doctor_id,
+        schedule_doctor_id: this.selected_scheduling[0].doctor_id
       }
       let that = this
       var url = this.HOME + '/schedule/add'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -615,13 +615,12 @@ export default {
           }
         })
       console.log(this.signal)
-
     },
-    load_schedule: function (){
+    load_schedule: function () {
       this.events = []
       let that = this
       var url = this.HOME + '/schedule/get-all'
-      this.$http.post(url, {})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {})
         .then(function (response) {
           that.allSchedule = response.data.data
           console.log(response.data)
@@ -630,8 +629,8 @@ export default {
             console.log('!!!!!!!!!!!!!!!!!!')
             console.log(that.allSchedule.length)
             for (let i = 0; i < that.allSchedule.length; i++) {
-              var start_time = that.allSchedule[i].schedule_start_date.substring(0,10)
-              var end_time = that.allSchedule[i].schedule_end_date.substring(0,10)
+              var start_time = that.allSchedule[i].schedule_start_date.substring(0, 10)
+              var end_time = that.allSchedule[i].schedule_end_date.substring(0, 10)
               start_time = start_time.replace(/-/g, '/')
               end_time = end_time.replace(/-/g, '/')
               console.log('?????????????????')
@@ -653,19 +652,18 @@ export default {
 
       console.log(week_duty)
       while ((endTime.getTime() - startTime.getTime()) > 0) {
+        var year = startTime.getFullYear()
 
-        var year = startTime.getFullYear();
+        var month = startTime.getMonth().toString().length === 1 ? '0' + (parseInt(startTime.getMonth().toString(), 10) + 1) : (startTime.getMonth() + 1)
 
-        var month = startTime.getMonth().toString().length === 1 ? "0" + (parseInt(startTime.getMonth().toString(),10) + 1) : (startTime.getMonth() + 1);
+        var day = startTime.getDate().toString().length === 1 ? '0' + startTime.getDate() : startTime.getDate()
 
-        var day = startTime.getDate().toString().length === 1 ? "0" + startTime.getDate() : startTime.getDate();
+        var date_temp = year + '-' + month + '-' + day
 
-        var date_temp = year + "-" + month + "-" + day
-
-        dateArr.push(date_temp);
+        dateArr.push(date_temp)
 
         var week_day = startTime.getDay()
-        if (week_duty[week_day*2-2] === "1" && week_duty[week_day*2-1] === "1"){
+        if (week_duty[week_day * 2 - 2] === '1' && week_duty[week_day * 2 - 1] === '1') {
           this.events.push(
             {
               title: doctor_name,
@@ -674,7 +672,7 @@ export default {
               open: false
             }
           )
-        } else if (week_duty[week_day*2-2] === "1"){
+        } else if (week_duty[week_day * 2 - 2] === '1') {
           this.events.push(
             {
               title: doctor_name,
@@ -683,7 +681,7 @@ export default {
               open: false
             }
           )
-        }else if (week_duty[week_day*2-1] === "1"){
+        } else if (week_duty[week_day * 2 - 1] === '1') {
           this.events.push(
             {
               title: doctor_name,
@@ -692,7 +690,7 @@ export default {
               open: false
             }
           )
-        } else if (week_duty[12] === "1" && week_day === 0 && week_duty[13] === "1"){
+        } else if (week_duty[12] === '1' && week_day === 0 && week_duty[13] === '1') {
           this.events.push(
             {
               title: doctor_name,
@@ -701,7 +699,7 @@ export default {
               open: false
             }
           )
-        } else if (week_duty[12] === "1" && week_day === 0){
+        } else if (week_duty[12] === '1' && week_day === 0) {
           this.events.push(
             {
               title: doctor_name,
@@ -710,7 +708,7 @@ export default {
               open: false
             }
           )
-        } else if(week_duty[13] === "1" && week_day === 0){
+        } else if (week_duty[13] === '1' && week_day === 0) {
           this.events.push(
             {
               title: doctor_name,
@@ -720,7 +718,7 @@ export default {
             }
           )
         }
-        startTime.setDate(startTime.getDate() + 1);
+        startTime.setDate(startTime.getDate() + 1)
       }
     },
     updateItem: function () {
@@ -731,7 +729,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/rule/update'
-      this.$http.post(url, rule)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), rule)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -748,7 +746,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/rule/delete'
-      this.$http.post(url, {rule_id: item.rule_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {rule_id: item.rule_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -783,28 +781,27 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout(this.change_success, 1500)
+      window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
       this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout(this.change_error, 1500)
+      window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
       this.alert_error = !this.alert_error
     },
     delete_selected: function () {
       var count = 0
-      var length = this.selected_scheduling.length
       for (let i = 0; i < this.selected_scheduling.length; i++) {
         var item = {
           rule_id: this.selected_scheduling[i].rule_id
         }
         let that = this
         var url = this.HOME + '/rule/delete'
-        this.$http.post(url, {rule_id: item.rule_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {rule_id: item.rule_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg

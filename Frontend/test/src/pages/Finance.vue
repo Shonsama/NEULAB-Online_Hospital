@@ -74,6 +74,19 @@ export default {
   },
   methods: {
     Check: function () {
+      let that = this
+      var storage = window.localStorage
+      if (storage.getItem('type') === '财务管理员') {
+        var data = {
+          account: storage.getItem('account'),
+          department_id: storage.getItem('department_id'),
+          id: storage.getItem('id'),
+          name: storage.getItem('name'),
+          type: storage.getItem('type')
+        }
+        that.$store.commit('set_user', data)
+        that.$store.commit('login')
+      }
       if (!this.$store.state.isLogin) {
         this.$router.push('/login')
       } else if (this.$store.state.user.type === '财务管理员') {

@@ -82,7 +82,6 @@
     </v-dialog>
 
     <v-alert
-      transition :duration="1"
       :value="alert_success"
       type="success"
       transition="slide-y-transition"
@@ -91,7 +90,6 @@
     </v-alert>
 
     <v-alert
-      transition :duration="1"
       :value="alert_error"
       type="error"
       transition="slide-y-transition"
@@ -210,7 +208,7 @@ export default {
     load: function () {
       let that = this
       var url = this.HOME + '/maintenance/non-medicine/get-all'
-      this.$http.post(url, {
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
       })
         .then(function (response) {
           console.log(response.data)
@@ -220,7 +218,7 @@ export default {
     deleteItem: function (item) {
       let that = this
       var url = this.HOME + '/maintenance/non-medicine/delete'
-      this.$http.post(url, {non_medicine_id: item.non_medicine_id})
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {non_medicine_id: item.non_medicine_id})
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -243,7 +241,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/non-medicine/add'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -267,7 +265,7 @@ export default {
       }
       let that = this
       var url = this.HOME + '/maintenance/non-medicine/update'
-      this.$http.post(url, data)
+      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
           console.log(response.data)
           that.signal = response.data.msg
@@ -297,28 +295,27 @@ export default {
     },
     notice_success: function () {
       this.change_success()
-      var timeout_1 = window.setTimeout(this.change_success, 1500)
+      window.setTimeout(this.change_success, 1500)
     },
     change_success: function () {
       this.alert_success = !this.alert_success
     },
     notice_error: function () {
       this.change_error()
-      var timeout_2 = window.setTimeout(this.change_error, 1500)
+      window.setTimeout(this.change_error, 1500)
     },
     change_error: function () {
       this.alert_error = !this.alert_error
     },
     delete_selected: function () {
       var count = 0
-      var length = this.selected.length
       for (let i = 0; i < this.selected.length; i++) {
         var item = {
           non_medicine_id: this.selected[i].non_medicine_id
         }
         let that = this
         var url = this.HOME + '/maintenance/non-medicine/delete'
-        this.$http.post(url, {non_medicine_id: item.non_medicine_id})
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {non_medicine_id: item.non_medicine_id})
           .then(function (response) {
             console.log(response.data)
             that.signal = response.data.msg
