@@ -48,6 +48,11 @@
         <text class="text-grey">查看个人信息</text>
       </navigator>
     </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/bill/bill" hover-class="none">
+        <text class="text-grey">缴费记录</text>
+      </navigator>
+    </view>
   </view>
 <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
   <view class="cu-dialog">

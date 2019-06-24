@@ -6,6 +6,7 @@
     "pages/register/register",
     "pages/charge/charge",
     "pages/check/check",
+    "pages/bill/bill",
     "pages/zhuce/zhuce",
     "pages/zhuce1/zhuce1"
   ],
