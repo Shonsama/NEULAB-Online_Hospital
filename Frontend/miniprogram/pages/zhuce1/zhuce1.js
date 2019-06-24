@@ -39,10 +39,26 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        wx.showToast({
-          title: '请稍候',
-        })
         if (res.data.code === 200) {
+          wx.setStorage({
+            key: 'isLogin',
+            data: true,
+          })
+          wx.setStorage({
+            key: 'patient_password',
+            data: _this.data.passwd,
+          })
+          wx.setStorage({
+            key: 'token',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'patient_account',
+            data: _this.data.userid
+          })
+          wx.showToast({
+            title: '请稍候',
+          })
           _this.bind()
         } else {
           wx.hideToast();
@@ -67,10 +83,11 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        wx.showToast({
-          title: '请稍候',
-        })
+        
         if (res.data.code === 200) {
+          wx.showToast({
+            title: '请稍候',
+          })
         } else {
           wx.hideToast();
           app.showErrorModal("注册失败", '失败');

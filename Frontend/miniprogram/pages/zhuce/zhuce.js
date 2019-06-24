@@ -1,10 +1,13 @@
 // pages/zhuce/zhuce.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    index: null,
+    picker: ['男','女'],
     userid: '',
     passwd: '',
     name: '',
@@ -13,6 +16,7 @@ Page({
     birth: '',
     age: '',
     id: '',
+    date: '1960-01-01',
     connect_id: ''
   },
 
@@ -40,10 +44,24 @@ Page({
       name: e.detail.value
     })
   },
+  DateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
+    this.setData({
+      age: new Date().getFullYear() - this.data.date.slice(0, 4)
+    })
+  },
   genderInput: function (e) {
     console.log(e.detail.value)
     this.setData({
       gender: e.detail.value
+    })
+  },
+  PickerChange(e) {
+    console.log(e);
+    this.setData({
+      index: e.detail.value
     })
   },
   addressInput: function (e) {
@@ -85,6 +103,22 @@ Page({
           title: '请稍候',
         })
         if (res.data.code === 200) {
+          wx.setStorage({
+            key: 'isLogin',
+            data: true,
+          })
+          wx.setStorage({
+            key: 'patient_password',
+            data: _this.data.passwd,
+          })
+          wx.setStorage({
+            key: 'token',
+            data: res.data.data.token,
+          })
+          wx.setStorage({
+            key: 'patient_account',
+            data: _this.data.userid
+          })
           _this.bind()
         } else {
           wx.hideToast();
@@ -113,6 +147,10 @@ Page({
           title: '请稍候',
         })
         if (res.data.code === 200) {
+          wx.setStorage({
+            key: 'isBind',
+            data: true,
+          })
         } else {
           wx.hideToast();
           app.showErrorModal("注册失败", '失败');
@@ -128,7 +166,7 @@ Page({
   addPatient() {
     var _this = this;
     var patientGender
-    if (_this.data.patient_gender === '男') {
+    if (_this.data.picker[_this.data.index] === '男') {
       patientGender = 'true'
     } else {
       patientGender = 'false'
@@ -140,7 +178,7 @@ Page({
         patient_gender: patientGender,
         patient_name: _this.data.name,
         patient_credit_id: _this.data.id,
-        patient_birthDate: _this.data.birth,
+        patient_birthDate: _this.data.date,
         patient_address: _this.data.address,
         patient_age: _this.data.age
       }),
@@ -151,7 +189,11 @@ Page({
         })
         if (res.data.code === 200) {
           _this.setData({
-            connect_id: res.data.data
+            connect_id: res.data.data.patient_record_id
+          })
+          wx.setStorage({
+            key: 'personInfo',
+            data: res.data.data,
           })
           _this.register()
         } else {

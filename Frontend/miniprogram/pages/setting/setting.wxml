@@ -64,12 +64,12 @@
     </view>
     <view class="cu-form-group solid-bottom solid-top">
 		  <view class="title">病历号</view>
-		<input></input>
+		<input bindinput="useridInput" value="{{id}}"></input>
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">
         <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-        <button class="cu-btn bg-green margin-left" bindtap="hideModal">绑定</button>
+        <button class="cu-btn bg-green margin-left" bindtap="bind">绑定</button>
       </view>
     </view>
   </view>

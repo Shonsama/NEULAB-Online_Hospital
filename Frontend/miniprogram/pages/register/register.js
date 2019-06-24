@@ -1,4 +1,5 @@
 // pages/register/register.js
+var app = getApp();
 Page({
 
   /**
@@ -162,6 +163,40 @@ Page({
         } else {
           wx.hideToast();
           app.showErrorModal("获取医生失败", '失败');
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.hideToast();
+        app.showErrorModal("服务器繁忙，请稍后再试", '失败');
+      }
+    });
+  },
+  bind() {
+    var _this = this;
+    app.showLoadToast('挂号中');
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:8080/register/submit?token=' + wx.getStorageSync('token'),
+      data: ({
+        register_info_id: '',
+        register_info_state: '未看诊',
+        register_info_fee: _this.data.fee,
+        register_info_pay_type: _this.data.picker_constants[_this.data.index3].constant_id,
+        register_info_doctor_id: _this.data.picker_doctors[_this.data.index2].doctor_id,
+        register_info_patient_id: _this.data.record_id,
+        register_info_user_id: 1,
+        register_info_records_book: false
+      }),
+      success: function (res) {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '请稍候',
+          })
+        } else {
+          wx.hideToast();
+          app.showErrorModal("挂号失败", '失败');
         }
       },
       fail: function (res) {
