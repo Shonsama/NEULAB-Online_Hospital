@@ -26,13 +26,13 @@ public class WebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor).addPathPatterns("/**");
-        registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/user/check-valid")
-                .excludePathPatterns("/static/**")
-                .excludePathPatterns("/index.html")
-                .excludePathPatterns("/mp/login")
-                .excludePathPatterns("/helpx.html");
+//        registry.addInterceptor(loginInterceptor)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/user/check-valid")
+//                .excludePathPatterns("/static/**")
+//                .excludePathPatterns("/index.html")
+//                .excludePathPatterns("/mp/login")
+//                .excludePathPatterns("/helpx.html");
     }
 }
 
