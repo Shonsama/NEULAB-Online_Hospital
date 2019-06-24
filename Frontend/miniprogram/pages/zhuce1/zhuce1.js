@@ -1,4 +1,5 @@
 // pages/zhuce1/zhuce1.js
+var app = getApp();
 Page({
 
   /**
@@ -26,6 +27,61 @@ Page({
     this.setData({
       passwd: e.detail.value
     })
+  },
+  register() {
+    var _this = this;
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:8080/patient/sign-up?token=' + wx.getStorageSync('token'),
+      data: ({
+        patient_account: _this.data.userid,
+        patient_password: _this.data.passwd
+      }),
+      success: function (res) {
+        console.log(res.data);
+        wx.showToast({
+          title: '请稍候',
+        })
+        if (res.data.code === 200) {
+          _this.bind()
+        } else {
+          wx.hideToast();
+          app.showErrorModal("注册失败", '失败');
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.hideToast();
+        app.showErrorModal("服务器繁忙，请稍后再试", '失败');
+      }
+    });
+  },
+  bind() {
+    var _this = this;
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:8080/patient/bound-exist-record?token=' + wx.getStorageSync('token'),
+      data: ({
+        patient_account: _this.data.userid,
+        patient_record_id: _this.data.id
+      }),
+      success: function (res) {
+        console.log(res.data);
+        wx.showToast({
+          title: '请稍候',
+        })
+        if (res.data.code === 200) {
+        } else {
+          wx.hideToast();
+          app.showErrorModal("注册失败", '失败');
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.hideToast();
+        app.showErrorModal("服务器繁忙，请稍后再试", '失败');
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面加载
