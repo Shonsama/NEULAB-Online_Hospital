@@ -47,7 +47,7 @@ Page({
         console.log(res.data.data);
         if (res.data.code === 200) {
           wx.showToast({
-            title: '请稍候',
+            title: '挂号完成',
           })
           _this.setData({
             id: res.data.data.patient.patient_connect_id
