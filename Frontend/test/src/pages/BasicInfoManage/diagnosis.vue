@@ -123,6 +123,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "desserts"
+          :fields = "json_fields"
+          name = "疾病信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -181,6 +196,12 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '疾病编号': 'disease_id',
+      '疾病名称': 'disease_name',
+      '国际ICD编码': 'disease_icd',
+      '疾病类型': 'disease_type'
+    },
     headers: [
       {
         text: '疾病编号',

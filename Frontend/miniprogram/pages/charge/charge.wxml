@@ -20,10 +20,15 @@
       </view>
       <button class="cu-btn bg-blue padding-sm margin-xs radius">缴费</button>
     </view> -->
+    <view  class="cu-avatar round lg">
+      <view class="text-xl">
+        {{item.type}}
+      </view>
+    </view>
     <view class="content">
         <view class="text">{{item.title}}</view>
         <view class="text-gray text-sm">
-          <text class="text"></text> 类型：{{item.type}}</view>
+          <text class="text"></text> 状态：{{item.state}}</view>
       </view>
       <view class="action">
         <view class="text-price">{{item.fee}}</view>

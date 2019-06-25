@@ -123,6 +123,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "desserts"
+          :fields = "json_fields"
+          name = "科室信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -181,6 +196,12 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '科室编号': 'department_id',
+      '科室名称': 'department_name',
+      '科室分类': 'department_cat',
+      '科室类型': 'department_type'
+    },
     headers: [
       {
         text: '科室编号',

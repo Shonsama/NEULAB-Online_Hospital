@@ -18,6 +18,9 @@ import 'echarts/lib/component/tooltip'
 // Taking ECharts-GL as an example:
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
+import JsonExcel from 'vue-json-excel'
+
+Vue.component('downloadExcel', JsonExcel)
 // let instance = axios.create({
 //   transfor
 // mRequest: [function (data) {

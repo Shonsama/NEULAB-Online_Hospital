@@ -25,11 +25,12 @@ Page({
   idInput: function (e) {
     console.log(e.detail.value)
     this.setData({
-      passwd: e.detail.value
+      id: e.detail.value
     })
   },
   register() {
     var _this = this;
+    app.showLoadToast('注册中');
     wx.request({
       method: 'POST',
       url: 'http://localhost:8080/patient/sign-up?token=' + wx.getStorageSync('token'),
@@ -83,10 +84,12 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        
         if (res.data.code === 200) {
           wx.showToast({
             title: '请稍候',
+          })
+          wx.reLaunch({
+            url: '../home/index',
           })
         } else {
           wx.hideToast();

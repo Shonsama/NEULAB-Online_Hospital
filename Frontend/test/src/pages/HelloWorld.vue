@@ -1,7 +1,7 @@
 <template>
   <div>
     <section>
-      <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
+      <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="780">
         <v-dialog
           v-model="dialog"
           hide-overlay
