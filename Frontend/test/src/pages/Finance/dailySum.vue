@@ -460,6 +460,27 @@ export default {
     }
   },
   methods: {
+    erase: function () {
+      this.date[0] = ''
+      this.date[1] = ''
+      this.time_range = ''
+      this.daily_mid_prescription_sum = 0
+      this.daily_west_prescription_sum = 0
+      this.daily_register_sum = 0
+      this.daily_ms_sum = 0
+      this.daily_sum = 0
+      // bill 下面赋值的
+      this.bill_already = 0
+      this.desserts_already = []
+      this.bill_again = 0
+      this.desserts_again = []
+      this.bill_complement = 0
+      this.desserts_complement = []
+      this.bill_opposite = 0
+      this.desserts_opposite = []
+      this.bill_waste = 0
+      this.desserts_waste = []
+    },
     load: function () {
       this.cashier = this.cashier_user_object.user_name
       console.log('This is the format of the date')
@@ -528,6 +549,7 @@ export default {
           if (response.data.code === 200) {
             that.dialog_suc = true
             that.msg_suc = '核对成功'
+            that.erase()
             console.log(response.data)
           } else {
             that.dialog_err = true
