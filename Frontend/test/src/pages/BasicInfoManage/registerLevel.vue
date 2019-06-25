@@ -130,6 +130,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "desserts"
+          :fields = "json_fields"
+          name = "挂号级别信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -190,6 +205,13 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '挂号级别ID': 'register_level_id',
+      '顺序号': 'register_level_seq_num',
+      '挂号级别': 'register_level_name',
+      '挂号限额': 'register_level_max',
+      '挂号费用': 'register_level_fee'
+    },
     headers: [
       {
         text: '挂号级别ID',

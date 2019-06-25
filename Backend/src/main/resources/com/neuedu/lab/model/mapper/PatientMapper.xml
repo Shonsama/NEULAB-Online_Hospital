@@ -60,10 +60,9 @@
 <!--    增加患者用户-->
     <insert id="addPatientUser" parameterType="PatientUser" useGeneratedKeys="true"
             keyProperty="patient_user_id">
-        insert into patient_user (patient_account,patient_password,patient_connect_id)
+        insert into patient_user (patient_account,patient_password)
         values(#{patient_account},
-        #{patient_password},
-        #{patient_connect_id})
+        #{patient_password})
     </insert>
 <!--查询患者用户-->
     <select id="getPatientUserById" resultType="PatientUser">

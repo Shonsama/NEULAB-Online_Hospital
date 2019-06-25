@@ -116,6 +116,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "desserts"
+          :fields = "json_fields"
+          name = "缴费类别信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -172,6 +187,11 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '常数编号': 'constant_id',
+      '常数名称': 'constant_name',
+      '常数类型': 'constant_type'
+    },
     headers: [
       {
         text: '常数编号',
