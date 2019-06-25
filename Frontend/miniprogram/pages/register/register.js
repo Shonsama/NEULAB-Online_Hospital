@@ -27,7 +27,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     var that = this
     if (wx.getStorageSync('personInfo')) {
       that.setData({
@@ -185,7 +185,7 @@ Page({
         register_info_pay_type: _this.data.picker_constants[_this.data.index3].constant_id,
         register_info_doctor_id: _this.data.picker_doctors[_this.data.index2].doctor_id,
         register_info_patient_id: _this.data.record_id,
-        register_info_user_id: 1,
+        register_info_user_id: 9,
         register_info_records_book: false
       }),
       success: function (res) {

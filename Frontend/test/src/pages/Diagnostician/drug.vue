@@ -402,6 +402,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="deleteItem"
               color="primary"
             >
@@ -409,6 +410,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="startItem"
               color="primary"
             >
@@ -416,6 +418,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="endItem"
               color="primary"
             >
@@ -755,6 +758,13 @@ export default {
     },
     filterDessertsTem () {
       return this.desserts_tem.filter(this.filterType_tem)
+    },
+    isSel () {
+      if (this.selected_pre.length) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   methods: {

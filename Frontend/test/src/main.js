@@ -37,6 +37,7 @@ Vue.prototype.HOME = 'http://localhost:8080'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.component('v-chart', ECharts)
+
 Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(ElementUI)
