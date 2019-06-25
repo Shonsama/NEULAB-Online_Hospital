@@ -100,9 +100,6 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        wx.showToast({
-          title: '请稍候',
-        })
         if (res.data.code === 200) {
           wx.setStorage({
             key: 'isLogin',
@@ -145,13 +142,16 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        wx.showToast({
-          title: '请稍候',
-        })
         if (res.data.code === 200) {
+          wx.showToast({
+            title: '请稍候',
+          })
           wx.setStorage({
             key: 'isBind',
             data: true,
+          })
+          wx.reLaunch({
+            url: '../home/index',
           })
         } else {
           wx.hideToast();
@@ -174,6 +174,7 @@ Page({
       patientGender = 'false'
     }
     var url = 'http://localhost:8080/patient/add?token=' + wx.getStorageSync('token')
+    app.showLoadToast('注册中');
     wx.request({
       method: 'POST',
       url: 'http://localhost:8080/patient/add',
@@ -187,9 +188,6 @@ Page({
       }),
       success: function (res) {
         console.log(res.data);
-        wx.showToast({
-          title: '请稍候',
-        })
         if (res.data.code === 200) {
           _this.setData({
             connect_id: res.data.data.patient_record_id
