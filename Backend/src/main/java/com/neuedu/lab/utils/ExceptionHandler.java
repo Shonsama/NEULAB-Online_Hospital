@@ -1,4 +1,4 @@
-package com.neuedu.lab.Utils;
+package com.neuedu.lab.utils;
 
 public class ExceptionHandler extends Throwable {
     private Integer error_code;
@@ -15,6 +15,5 @@ public class ExceptionHandler extends Throwable {
         if(ConstantDefinition.DEBUG_MODE){
             System.out.println("[INFO]"+s);
         }
-
     }
 }

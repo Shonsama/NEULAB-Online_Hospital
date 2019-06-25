@@ -513,7 +513,7 @@ export default {
     filterDate: function (value) {
       return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '')
     },
-    chargeItem: function (value) {
+     chargeItem: function (value) {
       let that = this
       console.log(value)
       var url = this.HOME + '/pay/pay'
