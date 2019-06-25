@@ -15,6 +15,5 @@ public class ExceptionHandler extends Throwable {
         if(ConstantDefinition.DEBUG_MODE){
             System.out.println("[INFO]"+s);
         }
-
     }
 }

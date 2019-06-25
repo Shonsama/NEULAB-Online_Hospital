@@ -678,7 +678,7 @@ export default {
             }
             that.patient_name = response.data.data.patient_name
             that.patient_credit_id = response.data.data.patient_credit_id
-            that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
+            that.patient_birthDate = response.data.data.patient_birthDate
             that.patient_age = response.data.data.patient_age
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true

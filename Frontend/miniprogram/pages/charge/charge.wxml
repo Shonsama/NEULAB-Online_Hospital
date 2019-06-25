@@ -20,21 +20,41 @@
       </view>
       <button class="cu-btn bg-blue padding-sm margin-xs radius">缴费</button>
     </view> -->
-    <view  class="cu-avatar round lg">
+    <view  wx:if="{{item.type=='西药'}}" class="cu-avatar round bg-gradual-blue lg">
+      <view class="text-xl">
+        {{item.type}}
+      </view>
+    </view>
+    <view  wx:if="{{item.type=='中药'}}" class="cu-avatar round bg-gradual-blue lg">
+      <view class="text-xl">
+        {{item.type}}
+      </view>
+    </view>
+    <view  wx:if="{{item.type=='检验'}}" class="cu-avatar round bg-gradual-green lg">
+      <view class="text-xl">
+        {{item.type}}
+      </view>
+    </view>
+    <view  wx:if="{{item.type=='检查'}}" class="cu-avatar round bg-gradual-green lg">
+      <view class="text-xl">
+        {{item.type}}
+      </view>
+    </view>
+    <view  wx:if="{{item.type=='处置'}}" class="cu-avatar round bg-gradual-green lg">
       <view class="text-xl">
         {{item.type}}
       </view>
     </view>
     <view class="content">
-        <view class="text">{{item.title}}</view>
+        <view class="text">{{item.name}}</view>
         <view class="text-gray text-sm">
           <text class="text"></text> 状态：{{item.state}}</view>
       </view>
       <view class="action">
-        <view class="text-price">{{item.fee}}</view>
+        <view class="text-price text-lg">{{item.number}}</view>
       </view>
       <view class="move">
-        <view class="bg-blue">缴费</view>
+        <view class="bg-blue" bindtap='charge' data-variable="{{item}}">缴费</view>
       </view>
   </view>
 </view>
