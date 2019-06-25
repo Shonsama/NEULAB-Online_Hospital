@@ -130,6 +130,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "desserts"
+          :fields = "json_fields"
+          name = "非药品信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -190,6 +205,13 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '非药品编号': 'non_medicine_id',
+      '非药品名称': 'non_medicine_name',
+      '非药品类型': 'non_medicine_type',
+      '非药品规格': 'non_medicine_specification',
+      '单价': 'non_medicine_unit_price'
+    },
     headers: [
       {
         text: '非药品编号',

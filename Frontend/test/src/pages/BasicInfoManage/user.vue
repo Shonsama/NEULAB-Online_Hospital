@@ -161,6 +161,21 @@
             delete
           </v-icon>
         </v-btn>
+        <download-excel
+          class = "export-excel-wrapper"
+          :data = "users"
+          :fields = "json_fields"
+          name = "用户信息.xls">
+          <v-btn
+            icon
+            flat
+            color="primary"
+          >
+            <v-icon>
+              send
+            </v-icon>
+          </v-btn>
+        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -243,6 +258,16 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '用户账户': 'user_account',
+      '用户密码': 'user_password',
+      '用户类型': 'user_type',
+      '用户姓名': 'user_name',
+      '用户科室': 'user_department_id',
+      '挂号级别': 'doctor_register_level_id',
+      '医生职称': 'doctor_position',
+      '医生排班': 'doctor_arrange_or_not'
+    },
     headers: [
       // {
       //   text: '用户ID',
