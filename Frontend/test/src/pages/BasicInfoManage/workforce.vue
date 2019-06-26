@@ -481,6 +481,7 @@ export default {
         value: 'rule_id'
       },
       {text: '规则名称', value: 'rule_name'},
+      {text: '医生ID', value: 'doctor_id'},
       {text: '科室名称', value: 'department_name'},
       {text: '医生名称', value: 'doctor_name'},
       {text: '时间', value: 'rule_work_time'},

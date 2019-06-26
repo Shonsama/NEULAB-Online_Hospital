@@ -406,18 +406,18 @@ export default {
     expand_waste: false,
     expand_complement: false,
     expand_opposite: false,
-    bill_already: '15',
-    bill_again: '2',
-    bill_waste: '3',
-    bill_complement: '5',
-    bill_opposite: '6',
-    time_range: '2019.8.1-2019.9.1',
+    bill_already: '0',
+    bill_again: '0',
+    bill_waste: '0',
+    bill_complement: '0',
+    bill_opposite: '0',
+    time_range: '',
     cashier: 'shuwanyang',
-    daily_mid_prescription_sum: '100',
-    daily_west_prescription_sum: '150',
-    daily_register_sum: '50',
-    daily_ms_sum: '30',
-    daily_sum: '200',
+    daily_mid_prescription_sum: '0',
+    daily_west_prescription_sum: '0',
+    daily_register_sum: '0',
+    daily_ms_sum: '0',
+    daily_sum: '0',
     headers_already: [
       {
         text: '发票id',
@@ -428,13 +428,7 @@ export default {
       { text: '发票状态', value: 'bill_state' }
       // { text: '发票号', value: 'bill_num' },
     ],
-    desserts_already: [
-      {
-        bill_id: 1,
-        bill_type: '已打',
-        bill_num: 123456
-      }
-    ],
+    desserts_already: [],
     headers_again: [],
     desserts_again: [],
     headers_waste: [],

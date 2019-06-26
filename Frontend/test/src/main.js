@@ -19,6 +19,7 @@ import 'echarts/lib/component/tooltip'
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
 import JsonExcel from 'vue-json-excel'
+import print from './print.js'
 
 Vue.component('downloadExcel', JsonExcel)
 // let instance = axios.create({
@@ -41,7 +42,7 @@ Vue.component('v-chart', ECharts)
 Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(ElementUI)
-
+Vue.use(print)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -49,6 +49,7 @@
       <v-layout justify-center>
         <v-flex>
           <v-card>
+            <div ref="printThey">
             <v-card-title>
               发票
             </v-card-title>
@@ -89,6 +90,8 @@
                 readonly
               ></v-text-field>
             </v-card-text>
+            </div>
+            <v-btn @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
