@@ -42,6 +42,11 @@ public class RegisterController {
         return registerService.addBill(bill);
     }
 
+    @RequestMapping("/update-bill")
+    public JSONObject updateBill(@RequestBody JSONObject request){
+        return registerService.updateBill(request.getString("bill_num"),request.getInteger("bill_id"));
+    }
+
     //退号操作
     @RequestMapping("/refund")
     public JSONObject registerRefund(@RequestBody JSONObject request){

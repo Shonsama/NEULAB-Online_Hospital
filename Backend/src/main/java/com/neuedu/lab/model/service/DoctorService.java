@@ -3,11 +3,13 @@ package com.neuedu.lab.model.service;
 import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
+import com.neuedu.lab.socket.WebSocket;
 import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -168,6 +170,7 @@ public class DoctorService {
 
 
     //接诊
+    @Transactional
     public JSONObject treat(Integer register_id){
         if(!isRegisterStateVaild(register_id,REGISTER_STATE[0])){//验证状态
             return responseFail("当前挂号状态不允许医生接诊",null);
@@ -177,6 +180,20 @@ public class DoctorService {
         }catch (RuntimeException e){
             e.printStackTrace();
            return responseFail("接诊失败",null);
+        }
+        // 获取用户
+        Patient patient ;
+        try{
+            patient =  patientMapper.getPatientByRegisterId(register_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail("获取病人信息失败",null);
+        }
+        //websocket 进行群发消息
+        try{
+            WebSocket.sendInfo(patient.getPatient_name()+"请到5诊室就诊","doctor  WP");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return responseSuccess(registerMapper.getRegister(register_id));
     }

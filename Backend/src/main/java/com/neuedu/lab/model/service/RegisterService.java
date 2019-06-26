@@ -1,18 +1,16 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.utils.ConstantDefinition;
-import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
-import org.springframework.scheduling.annotation.Async;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
 import java.util.Date;
 
 import static com.neuedu.lab.utils.ConstantUtils.responseFail;
@@ -121,6 +119,16 @@ public class RegisterService {
             return responseFail();
         }
         return responseSuccess(billMapper.getBillById(bill.getBill_id()));
+    }
+
+    public JSONObject updateBill( String bill_num, Integer bill_id){
+        try{
+            billMapper.updateBillNum(bill_num,bill_id);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseFail();
+        }
+        return responseSuccess(billMapper.getBillById(bill_id));
     }
 
 
