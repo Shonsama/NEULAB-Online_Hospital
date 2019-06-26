@@ -69,46 +69,33 @@
               value-format= "yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  large
-                  icon
-                  flat
-                  color="primary"
-                  @click="load"
-                  v-on="on"
-                >
-                  <v-icon>
-                    search
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>搜索日结信息</span>
-            </v-tooltip>
-            </v-flex>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                style="margin-top: 15px"
-                color="primary"
-                @click="pass_daily"
-                v-on="on"
-              >
-                核对通过
-              </v-btn>
-            </template>
-            <span>核对通过</span>
-          </v-tooltip>
+            <v-btn
+              large
+              icon
+              flat
+              color="primary"
+              @click="load"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+          </v-flex>
+          <v-btn
+            style="margin-top: 15px"
+            color="primary"
+            @click="pass_daily"
+          >
+            核对通过
+          </v-btn>
         </v-layout>
-      </v-toolbar>
+    </v-toolbar>
 
     <v-layout class="ml-4 mt-4" justify-center>
       <v-card style="width: 700px">
         <v-container>
           <v-layout row justify-center>
-            <div class="title font-weight-light">门诊收费日结单</div>
+            <div class="title font-weight-light mb-2">门诊收费日结单</div>
           </v-layout>
           <v-divider></v-divider>
           <v-layout row>

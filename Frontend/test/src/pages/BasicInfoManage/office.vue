@@ -195,6 +195,7 @@
       <v-flex shrink>
         <v-expand-transition>
           <div v-show="show_upload" style="white-space: nowrap" class="mb-2">
+            <input style="width: 220px" type="file" @change="importf(this)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
             <v-btn
               flat
               icon
@@ -205,7 +206,6 @@
                 add
               </v-icon>
             </v-btn>
-            <input type="file" @change="importf(this)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
           </div>
         </v-expand-transition>
       </v-flex>
@@ -214,9 +214,9 @@
 </template>
 
 <script>
-  /* eslint-disable no-unused-vars */
+/* eslint-disable*/
 
-  export default {
+export default {
   data: () => ({
     accountList: [],
     alert_success: false,

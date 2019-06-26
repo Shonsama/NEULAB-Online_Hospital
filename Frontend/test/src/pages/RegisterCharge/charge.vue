@@ -56,7 +56,6 @@
               <v-text-field
                 v-model="bill.bill_id"
                 label="发票号"
-                readonly
               ></v-text-field>
               <v-text-field
                 v-model="bill.bill_register_id"
@@ -123,28 +122,26 @@
         <template v-slot:extension>
           <v-flex xs2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          ></v-text-field>
+            ></v-text-field>
           </v-flex>
           <v-btn
             small
-            icon
-            flat
             color="primary"
             @click="reprint_bill"
           >
-            <v-icon>
-              refresh
+            补打
+            <v-icon small right>
+              print
             </v-icon>
           </v-btn>
           <v-btn
             small
-            icon
             color="primary"
-            flat
             @click="overprint"
           >
-            <v-icon>
-              print
+            重打
+            <v-icon small right>
+              refresh
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>

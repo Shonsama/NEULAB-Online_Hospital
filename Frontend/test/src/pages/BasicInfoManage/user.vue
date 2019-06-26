@@ -215,7 +215,7 @@
       <v-spacer/>
       <download-excel
         class = "export-excel-wrapper"
-        :data = "desserts"
+        :data = "users"
         :fields = "json_fields"
         name = "用户信息.xls">
         <v-btn
@@ -232,7 +232,7 @@
 </template>
 
 <script>
-/* eslint-disable camelcase */
+/* eslint-disable*/
 export default {
   data: () => ({
     alert_success: false,
