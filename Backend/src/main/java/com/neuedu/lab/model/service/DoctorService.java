@@ -184,7 +184,7 @@ public class DoctorService {
         // 获取用户
         Patient patient ;
         try{
-            patient =  patientMapper.getPatientByRecordId(register_id);
+            patient =  patientMapper.getPatientByRegisterId(register_id);
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail("获取病人信息失败",null);

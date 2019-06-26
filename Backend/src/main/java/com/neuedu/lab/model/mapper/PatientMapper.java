@@ -22,4 +22,7 @@ public interface PatientMapper {
     List<String> getAllAccounts();
     List<Integer> getAllPatientRecordIds();
     void updatePatientUserRecordId(@Param("patient_connect_id")Integer patient_connect_id, @Param("patient_account")String patient_account);
+
+    //根据挂号id获取病人信息
+    Patient getPatientByRegisterId(Integer register_id);
 }
