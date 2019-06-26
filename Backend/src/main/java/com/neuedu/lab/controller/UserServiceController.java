@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.Daily;
 import com.neuedu.lab.model.service.UserService;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 日结是系统管理员的接口， 退费是收费员的接口
  */
+@RequiresRoles(logical = Logical.OR , value = {"admin","finance-admin"})
 @RestController
 @RequestMapping("/user-service")
 public class UserServiceController {

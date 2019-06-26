@@ -69,7 +69,8 @@ public class Tokenizer {
                     }
                 }
                 resultMap.put("data", jsonOBj);
-
+                resultMap.put("username",jsonOBj.getAsString("username"));
+                resultMap.put("role",jsonOBj.getAsString("usertype"));
             } else {
                 // 校验失败
                 resultMap.put("state", TokenState.INVALID.toString());

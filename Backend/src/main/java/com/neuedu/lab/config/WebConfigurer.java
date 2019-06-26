@@ -27,12 +27,15 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor).addPathPatterns("/**");
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/user/check-valid")
-                .excludePathPatterns("/static/**")
-                .excludePathPatterns("/index.html")
-                .excludePathPatterns("/mp/login")
-                .excludePathPatterns("/helpx.html");
+                .excludePathPatterns("/**");
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/user/check-valid")
+//                .excludePathPatterns("/static/**")
+//                .excludePathPatterns("/index.html")
+//                .excludePathPatterns("/img")
+//                .excludePathPatterns("/login")
+//                .excludePathPatterns("/mp/login")
+//                .excludePathPatterns("/helpx.html");
     }
 }
 
