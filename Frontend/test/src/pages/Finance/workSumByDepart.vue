@@ -36,13 +36,12 @@
 
         <v-spacer></v-spacer>
         <el-date-picker
-          class="mb-2"
           v-model="date"
           type="datetimerange"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
-          style="margin-right: 10px"
+          style="margin-right: 10px;margin-bottom: 2px"
           value-format= "yyyy-MM-dd HH:mm:ss"
         >
         </el-date-picker>
@@ -51,6 +50,7 @@
             v-model="department_type"
             :items="department_items"
             label="科室类型"
+            single-line
           ></v-select>
         </v-flex>
         <v-btn
@@ -71,7 +71,6 @@
         :search="search"
         item-key="department_id"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -93,7 +92,9 @@
         </template>
       </v-data-table>
     </v-flex>
+    <v-divider/>
     <v-flex>
+      <v-card flat class="mb-3 mt-3">
       <v-chart
         style="width: 100%"
         :options="bar"
@@ -102,6 +103,7 @@
         theme="ovilia-green"
         autoresize
       />
+      </v-card>
     </v-flex>
   </v-card>
 </template>

@@ -49,6 +49,7 @@
       <v-layout justify-center>
         <v-flex>
           <v-card>
+            <div ref="printThey">
             <v-card-title>
               发票
             </v-card-title>
@@ -56,7 +57,6 @@
               <v-text-field
                 v-model="bill.bill_id"
                 label="发票号"
-                readonly
               ></v-text-field>
               <v-text-field
                 v-model="bill.bill_register_id"
@@ -89,6 +89,8 @@
                 readonly
               ></v-text-field>
             </v-card-text>
+            </div>
+            <v-btn @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -123,28 +125,26 @@
         <template v-slot:extension>
           <v-flex xs2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          :disabled="disabled"></v-text-field>
+            ></v-text-field>
           </v-flex>
           <v-btn
             small
-            icon
-            flat
             color="primary"
             @click="reprint_bill"
           >
-            <v-icon>
-              refresh
+            补打
+            <v-icon small right>
+              print
             </v-icon>
           </v-btn>
           <v-btn
             small
-            icon
             color="primary"
-            flat
             @click="overprint"
           >
-            <v-icon>
-              print
+            重打
+            <v-icon small right>
+              refresh
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
@@ -706,7 +706,7 @@ export default {
             console.log(response.data)
             that.dialog_bill = true
             that.dialog_suc = true
-            that.msg_suc = '发票号重打成功'
+            that.msg_suc = '发票号补打成功'
           })
       } else {
         this.dialog_err = true
@@ -725,7 +725,7 @@ export default {
             that.bill = response.data.data
             that.dialog_bill = true
             that.dialog_suc = true
-            that.msg_suc = '发票号补打成功'
+            that.msg_suc = '发票号重打成功'
             console.log(response.data)
           })
       } else {

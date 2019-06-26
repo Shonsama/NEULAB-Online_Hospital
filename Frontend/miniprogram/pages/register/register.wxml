@@ -68,5 +68,5 @@
 	</view>
 </form>
 <view class="padding flex flex-direction">
-  <button class="cu-btn bg-blue lg">挂号</button>
+  <button class="cu-btn bg-blue lg" bindtap="bind">挂号</button>
 </view>

@@ -69,46 +69,33 @@
               value-format= "yyyy-MM-dd HH:mm:ss"
             >
             </el-date-picker>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  large
-                  icon
-                  flat
-                  color="primary"
-                  @click="load"
-                  v-on="on"
-                >
-                  <v-icon>
-                    search
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>搜索日结信息</span>
-            </v-tooltip>
-            </v-flex>
-
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                style="margin-top: 15px"
-                color="primary"
-                @click="pass_daily"
-                v-on="on"
-              >
-                核对通过
-              </v-btn>
-            </template>
-            <span>核对通过</span>
-          </v-tooltip>
+            <v-btn
+              large
+              icon
+              flat
+              color="primary"
+              @click="load"
+            >
+              <v-icon>
+                search
+              </v-icon>
+            </v-btn>
+          </v-flex>
+          <v-btn
+            style="margin-top: 15px"
+            color="primary"
+            @click="pass_daily"
+          >
+            核对通过
+          </v-btn>
         </v-layout>
-      </v-toolbar>
+    </v-toolbar>
 
     <v-layout class="ml-4 mt-4" justify-center>
       <v-card style="width: 700px">
         <v-container>
           <v-layout row justify-center>
-            <div class="title font-weight-light">门诊收费日结单</div>
+            <div class="title font-weight-light mb-2">门诊收费日结单</div>
           </v-layout>
           <v-divider></v-divider>
           <v-layout row>
@@ -406,18 +393,18 @@ export default {
     expand_waste: false,
     expand_complement: false,
     expand_opposite: false,
-    bill_already: '15',
-    bill_again: '2',
-    bill_waste: '3',
-    bill_complement: '5',
-    bill_opposite: '6',
-    time_range: '2019.8.1-2019.9.1',
+    bill_already: '0',
+    bill_again: '0',
+    bill_waste: '0',
+    bill_complement: '0',
+    bill_opposite: '0',
+    time_range: '',
     cashier: 'shuwanyang',
-    daily_mid_prescription_sum: '100',
-    daily_west_prescription_sum: '150',
-    daily_register_sum: '50',
-    daily_ms_sum: '30',
-    daily_sum: '200',
+    daily_mid_prescription_sum: '0',
+    daily_west_prescription_sum: '0',
+    daily_register_sum: '0',
+    daily_ms_sum: '0',
+    daily_sum: '0',
     headers_already: [
       {
         text: '发票id',
@@ -428,13 +415,7 @@ export default {
       { text: '发票状态', value: 'bill_state' }
       // { text: '发票号', value: 'bill_num' },
     ],
-    desserts_already: [
-      {
-        bill_id: 1,
-        bill_type: '已打',
-        bill_num: 123456
-      }
-    ],
+    desserts_already: [],
     headers_again: [],
     desserts_again: [],
     headers_waste: [],
@@ -460,6 +441,27 @@ export default {
     }
   },
   methods: {
+    erase: function () {
+      this.date[0] = ''
+      this.date[1] = ''
+      this.time_range = ''
+      this.daily_mid_prescription_sum = 0
+      this.daily_west_prescription_sum = 0
+      this.daily_register_sum = 0
+      this.daily_ms_sum = 0
+      this.daily_sum = 0
+      // bill 下面赋值的
+      this.bill_already = 0
+      this.desserts_already = []
+      this.bill_again = 0
+      this.desserts_again = []
+      this.bill_complement = 0
+      this.desserts_complement = []
+      this.bill_opposite = 0
+      this.desserts_opposite = []
+      this.bill_waste = 0
+      this.desserts_waste = []
+    },
     load: function () {
       this.cashier = this.cashier_user_object.user_name
       console.log('This is the format of the date')
@@ -528,6 +530,7 @@ export default {
           if (response.data.code === 200) {
             that.dialog_suc = true
             that.msg_suc = '核对成功'
+            that.erase()
             console.log(response.data)
           } else {
             that.dialog_err = true

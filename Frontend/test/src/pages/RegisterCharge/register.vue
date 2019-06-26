@@ -8,46 +8,49 @@
       <v-layout justify-center>
         <v-flex>
           <v-card>
-            <v-card-title>
-              发票
-            </v-card-title>
-            <v-card-text>
-              <v-text-field
-                v-model="bill.bill_id"
-                label="发票号"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_register_id"
-                label="挂号ID"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_sum"
-                label="发票总额"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_state"
-                label="发票类型"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_time"
-                label="打印时间"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_type"
-                label="收费类别"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_user_id"
-                label="收费员ID"
-                readonly
-              ></v-text-field>
-            </v-card-text>
+            <div ref="printThem">
+              <v-card-title>
+                发票
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                  v-model="bill.bill_id"
+                  label="发票号"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_register_id"
+                  label="挂号ID"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_sum"
+                  label="发票总额"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_state"
+                  label="发票类型"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_time"
+                  label="打印时间"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_type"
+                  label="收费类别"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  v-model="bill.bill_user_id"
+                  label="收费员ID"
+                  readonly
+                ></v-text-field>
+              </v-card-text>
+            </div>
+              <v-btn @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -678,7 +681,7 @@ export default {
             }
             that.patient_name = response.data.data.patient_name
             that.patient_credit_id = response.data.data.patient_credit_id
-            that.patient_birthDate = response.data.data.patient_birthDate.substring(0, 10)
+            that.patient_birthDate = response.data.data.patient_birthDate
             that.patient_age = response.data.data.patient_age
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true

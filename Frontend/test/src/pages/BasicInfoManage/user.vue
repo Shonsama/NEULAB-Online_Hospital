@@ -169,7 +169,6 @@
         :search="search"
         item-key="user_account"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -211,11 +210,29 @@
         </template>
       </v-data-table>
     </v-flex>
+    <v-divider/>
+    <v-card-actions>
+      <v-spacer/>
+      <download-excel
+        class = "export-excel-wrapper"
+        :data = "users"
+        :fields = "json_fields"
+        name = "用户信息.xls">
+        <v-btn
+          color="primary"
+        >
+          导出表格
+          <v-icon right>
+            cloud_download
+          </v-icon>
+        </v-btn>
+      </download-excel>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
-/* eslint-disable camelcase */
+/* eslint-disable*/
 export default {
   data: () => ({
     alert_success: false,
@@ -243,6 +260,16 @@ export default {
     expand: false,
     selected: [],
     signal: '',
+    json_fields: {
+      '用户账户': 'user_account',
+      '用户密码': 'user_password',
+      '用户类型': 'user_type',
+      '用户姓名': 'user_name',
+      '用户科室': 'user_department_id',
+      '挂号级别': 'doctor_register_level_id',
+      '医生职称': 'doctor_position',
+      '医生排班': 'doctor_arrange_or_not'
+    },
     headers: [
       // {
       //   text: '用户ID',

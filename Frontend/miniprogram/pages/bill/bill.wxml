@@ -1,33 +1,33 @@
 <!--pages/bill/bill.wxml-->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
 	<view slot="backText">返回</view>
-	<view slot="content">发票记录</view>
+	<view slot="content">缴费查询</view>
 </cu-custom>
 <view class="cu-card">
   <view class="cu-item" wx:for="{{list}}">
     <view class="cu-form-group">
     <view class="title">挂号ID</view>
-    <view class="text">{{item.state}}</view>
+    <view class="text">{{item.code}}</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">名称</view>
-		<input></input>
+    <view class="text">{{item.name}}</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">状态</view>
-		<input></input>
+    <view class="text">{{item.state}}</view>
 	</view>
   <view class="cu-form-group">
 		<view class="title">类型</view>
-		<input></input>
+    <view class="text">{{item.type}}</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">金额</view>
-		<input></input>
+    <view class="text">{{item.number}}</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">收费时间</view>
-		<input></input>
+    <view class="text">{{item.time}}</view>
 	</view>
   </view>
 </view>

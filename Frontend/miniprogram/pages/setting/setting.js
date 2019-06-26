@@ -1,4 +1,5 @@
 // pages/setting/setting.js
+var app = getApp();
 Page({
 
   /**
@@ -7,7 +8,8 @@ Page({
   data: {
     isLogin: wx.getStorageSync('isLogin'),
     isBind: wx.getStorageSync('isBind'),
-    name: ''
+    name: '',
+    id: wx.getStorageSync('personInfo').patient_record_id
   },
 
   /**
@@ -16,6 +18,12 @@ Page({
   onLoad: function (options) {
 
   },
+  useridInput: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      id: e.detail.value
+    })
+  },
   showModal(e) {
     this.setData({
       modalName: e.currentTarget.dataset.target
@@ -23,7 +31,8 @@ Page({
   },
   hideModal(e) {
     this.setData({
-      modalName: null
+      modalName: null,
+      id: wx.getStorageSync('personInfo').patient_record_id
     })
   },
   clear() {
@@ -31,6 +40,69 @@ Page({
     wx.reLaunch({
       url: '../home/index',
     })
+  },
+  bind() {
+    var _this = this;
+    app.showLoadToast('绑定中');
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:8080/patient/bound-exist-record?token=' + wx.getStorageSync('token'),
+      data: ({
+        patient_account: wx.getStorageSync('patient_account'),
+        patient_record_id: _this.data.id
+      }),
+      success: function (res) {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          wx.showToast({
+            title: '绑定成功',
+          })
+          _this.getPatient()
+        } else {
+          wx.hideToast();
+          app.showErrorModal("请核对病历号后重试", '绑定失败');
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.hideToast();
+        app.showErrorModal("服务器繁忙，请稍后再试", '失败');
+      }
+    });
+  },
+  getPatient: function () {
+    var _this = this;
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:8080/patient/get-by-patient-id?token=' + wx.getStorageSync('token'),
+      data: ({
+        patient_record_id: _this.data.id
+      }),
+      success: function (res) {
+        console.log(res.data);
+        if (res.data.code === 200) {
+          //清除缓存
+          wx.removeStorageSync('personInfo');
+          wx.setStorage({
+            key: 'personInfo',
+            data: res.data.data,
+          })
+          wx.setStorage({
+            key: 'isBind',
+            data: true,
+          })
+          _this.hideModal()
+        } else {
+          wx.hideToast();
+          app.showErrorModal("请核对病历号后重试", '绑定失败');
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        wx.hideToast();
+        app.showErrorModal("服务器繁忙，请稍后再试", '绑定失败');
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

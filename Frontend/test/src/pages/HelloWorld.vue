@@ -1,27 +1,27 @@
 <template>
   <div>
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          请稍等
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <section>
-      <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="650">
-        <v-dialog
-          v-model="dialog"
-          hide-overlay
-          persistent
-          width="300"
-        >
-          <v-card
-            color="primary"
-            dark
-          >
-            <v-card-text>
-              请稍等
-              <v-progress-linear
-                indeterminate
-                color="white"
-                class="mb-0"
-              ></v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
+      <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="780">
         <v-flex shrink>
           <v-expand-transition>
             <div v-show="dialog_err" style="white-space: nowrap">
@@ -156,10 +156,6 @@ export default {
       if (!val) return
       setTimeout(() => (this.dialog_suc = false), 1000)
     },
-    dialog (val) {
-      if (!val) return
-      setTimeout(() => (this.network_out), 10000)
-    },
     dialog_err (val) {
       if (!val) return
       setTimeout(() => (this.dialog_err = false), 1000)
@@ -181,12 +177,14 @@ export default {
           doctor_password: that.password
         }
       }
+      this.dialog = true
       this.$http.post(url, data)
         .then(function (response) {
           console.log(response.data)
           if (response.data.code === 200) {
             var data
             var storage = window.localStorage
+            that.dialog = false
             that.dialog_suc = true
             that.msg_suc = '登陆成功'
             if (!that.isDoctor) {
@@ -252,6 +250,7 @@ export default {
               }
             }
           } else {
+            that.dialog = false
             that.dialog_err = true
             that.msg_err = '登陆失败'
           }

@@ -407,6 +407,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="deleteItem"
               color="primary"
             >
@@ -414,6 +415,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="startItem"
               color="primary"
             >
@@ -421,6 +423,7 @@
             </v-btn>
             <v-btn
               small
+              :disabled="isSel"
               @click="endItem"
               color="primary"
             >
@@ -681,6 +684,13 @@ export default {
         fee = fee + this.filterDesserts[i].medical_skill_fee
       }
       return fee
+    },
+    isSel () {
+      if (this.selected.length) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   methods: {

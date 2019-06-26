@@ -84,17 +84,17 @@
       <v-toolbar flat dense>
         <v-toolbar-title>{{type}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn   flat icon color="primary"  @click="get">
-          <v-icon> refresh</v-icon>
+        <v-btn small color="primary" @click="get">
+          刷新
         </v-btn>
-        <v-btn   flat icon color="primary"  @click="show = !show">
-          <v-icon> add</v-icon>
+        <v-btn small color="primary" @click="show = !show">
+          增加
         </v-btn>
-        <v-btn   flat icon color="primary" @click="deleteItem">
-          <v-icon>delete</v-icon>
+        <v-btn small color="primary" @click="deleteItem" >
+          删除
         </v-btn>
-        <v-btn   flat icon color="primary"  @click="submit_diagnoses">
-          <v-icon>send</v-icon>
+        <v-btn small color="primary" @click="submit_diagnoses">
+          提交
         </v-btn>
       </v-toolbar>
       <v-data-table

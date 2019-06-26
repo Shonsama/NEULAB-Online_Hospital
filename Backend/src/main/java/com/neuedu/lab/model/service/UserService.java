@@ -6,6 +6,8 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.utils.ConstantDefinition;
 import com.neuedu.lab.utils.ConstantUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,8 +42,10 @@ public class UserService {
     private PatientMapper patientMapper;
     @Resource
     private MedicineMapper medicineMapper;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
-    private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Calendar c = Calendar.getInstance();
     private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -59,28 +63,58 @@ public class UserService {
         return userMapper.getUser(user_id);
     }
 
+    //    是否有重名
+    public boolean checkIfExistAccount(String user_account) {
+        boolean flag = false;
+        for (int i = 0; i < userMapper.getAllUsersAccount().size(); i++) {
+            if (userMapper.getAllUsersAccount().get(i).equals(user_account)) {
+                flag = true;
+            }
+        }
+        for (int i = 0; i < userMapper.getAllDoctorsAccount().size(); i++) {
+            if (userMapper.getAllDoctorsAccount().get(i).equals(user_account)) {
+                flag = true;
+            }
+        }
+        if (flag == false) {
+            return false;//不存在
+        } else
+            return true;//存在
+    }
+
     /*检验登录*/
     public JSONObject checkUserValid(String user_account, String user_password) {
         User user = userMapper.getUserByAccount(user_account);
         if (user.getUser_password().equals(user_password)) {
             JSONObject result = new JSONObject();
-            result.put("user",user);
+            result.put("user", user);
             result.put("token", ConstantUtils.generateToken(user_account));
-            return ConstantUtils.responseSuccess("登录成功",result);
+            return ConstantUtils.responseSuccess("登录成功", result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
-    public boolean addUser(User user) {
-        try {
+    //注册
+    public JSONObject addUser(User user) {
+            /*boolean flag = false;
+            int size = redisTemplate.opsForList().size("RegisterAccount").intValue();
+            for(int j = 0; j<size;j++){
+                if(redisTemplate.opsForList().index("RegisterAccount",j) == user.getUser_account()){
+                    flag = true;
+                    break;
+                }
+            }if(flag == false){//允许插入
+                redisTemplate.opsForList().leftPush("RegisterAccount",user.getUser_account());
+            }*/
+        if (!checkIfExistAccount(user.getUser_account())) {
             userMapper.addUser(user);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return false;
+            return ConstantUtils.responseSuccess(null);
+        }else{
+            return ConstantUtils.responseFail(null);
         }
-        return true;
     }
+
 
     public boolean deleteUser(String user_account) {
         try {
@@ -127,22 +161,21 @@ public class UserService {
         Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
         if (doctor.getDoctor_password().equals(doctor_password)) {
             JSONObject result = new JSONObject();
-            result.put("doctor",doctor);
+            result.put("doctor", doctor);
             result.put("token", ConstantUtils.generateToken(doctor_account));
-            return ConstantUtils.responseSuccess("登录成功",result);
+            return ConstantUtils.responseSuccess("登录成功", result);
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
     }
 
-    public boolean addDoctor(Doctor doctor) {
-        try {
+    public JSONObject addDoctor(Doctor doctor) {
+        if (!checkIfExistAccount(doctor.getDoctor_account())) {
             userMapper.addDoctor(doctor);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return false;
+            return ConstantUtils.responseSuccess(null);
+        }else{
+            return ConstantUtils.responseFail(null);
         }
-        return true;
     }
 
     public boolean deleteDoctor(String doctor_account) {
@@ -179,19 +212,19 @@ public class UserService {
 
     //收费员自己日结
     @Transactional
-    public JSONObject dailySearch(Daily daily)  {
-        try{
-            dailyMapper.deleteNonPassDaily(daily.getDaily_user_id(),DAILY_PASS_STATE[0]);
-        }catch (RuntimeException e){
+    public JSONObject dailySearch(Daily daily) {
+        try {
+            dailyMapper.deleteNonPassDaily(daily.getDaily_user_id(), DAILY_PASS_STATE[0]);
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("删除“未提交”日结记录出错",null);
+            return responseFail("删除“未提交”日结记录出错", null);
         }
         Daily dailyRecent;
-        try{
-            dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id(),DAILY_PASS_STATE[1],DAILY_PASS_STATE[2],DAILY_PASS_STATE[3]); //取出最后一次日结记录
-        }catch (RuntimeException e){
+        try {
+            dailyRecent = dailyMapper.getDailyByUserId(daily.getDaily_user_id(), DAILY_PASS_STATE[1], DAILY_PASS_STATE[2], DAILY_PASS_STATE[3]); //取出最后一次日结记录
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("获取上一次日结记录出错",null);
+            return responseFail("获取上一次日结记录出错", null);
         }
 
 
@@ -203,19 +236,19 @@ public class UserService {
         }
         daily.setDaily_start(end_time); //将上次的结束时间作为本次的初始时间
         daily.setDaily_pass_state(ConstantDefinition.DAILY_PASS_STATE[0]);
-        if(daily.getDaily_end()==null){
+        if (daily.getDaily_end() == null) {
             daily.setDaily_end(new Date());
         }
 
 
         //获取发票List并将其冻结
         List<Bill> bills;
-        try{
-           bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
-           billMapper.updateBillFrozen(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
-        }catch (RuntimeException e){
+        try {
+            bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
+            billMapper.updateBillFrozen(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("获取发票List",null);
+            return responseFail("获取发票List", null);
         }
 
         //通过发票计算费用
@@ -227,25 +260,20 @@ public class UserService {
         BigDecimal daily_examine_sum = new BigDecimal(0);
         BigDecimal daily_handle_sum = new BigDecimal(0);
 
-        for(Bill bill: bills){
-            if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[0])){//挂号费
+        for (Bill bill : bills) {
+            if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[0])) {//挂号费
                 daily_register_sum = daily_register_sum.add(bill.getBill_sum());
-            }
-            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[4])){ //中药费
+            } else if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[4])) { //中药费
                 daily_mid_prescription_sum = daily_mid_prescription_sum.add(bill.getBill_sum());
-            }
-            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[5])){ //西药费
+            } else if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[5])) { //西药费
                 daily_west_prescription_sum = daily_west_prescription_sum.add(bill.getBill_sum());
-            }
-            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[1])){ //检查费
+            } else if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[1])) { //检查费
                 daily_check_sum = daily_check_sum.add(bill.getBill_sum());
-            }
-            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[2])){ //检验费
+            } else if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[2])) { //检验费
                 daily_examine_sum = daily_examine_sum.add(bill.getBill_sum());
-            }
-            else if(bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[3])){ //处置费
+            } else if (bill.getBill_type().equals(ConstantDefinition.BILL_TYPE[3])) { //处置费
                 daily_handle_sum = daily_handle_sum.add(bill.getBill_sum());
-            }else {
+            } else {
                 return responseFail("出现未知类型");
             }
 
@@ -260,11 +288,11 @@ public class UserService {
         daily.setDaily_examine_sum(daily_examine_sum);
         daily.setDaily_handle_sum(daily_handle_sum);
 
-        try{
+        try {
             dailyMapper.addDaily(daily); //将记录插入到日结表
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("将记录插入到日结表出错",null);
+            return responseFail("将记录插入到日结表出错", null);
         }
 
         //给日结表填充发票记录
@@ -272,11 +300,12 @@ public class UserService {
 
         return responseSuccess(daily);
     }
+
     //日结确认
-    public JSONObject dailySubmit(Integer daily_id){
-        try{
-            dailyMapper.updateDailyPass(daily_id,DAILY_PASS_STATE[1],null);
-        }catch (RuntimeException e){
+    public JSONObject dailySubmit(Integer daily_id) {
+        try {
+            dailyMapper.updateDailyPass(daily_id, DAILY_PASS_STATE[1], null);
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return responseFail();
         }
@@ -284,9 +313,9 @@ public class UserService {
     }
 
     //日结审核通过
-    public JSONObject dailyPass(Integer daily_id,Integer daily_owner_id) {
+    public JSONObject dailyPass(Integer daily_id, Integer daily_owner_id) {
         try {
-            dailyMapper.updateDailyPass(daily_id, DAILY_PASS_STATE[2],daily_owner_id);
+            dailyMapper.updateDailyPass(daily_id, DAILY_PASS_STATE[2], daily_owner_id);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return responseFail();
@@ -305,16 +334,16 @@ public class UserService {
     }
 
     //获取日结发票信息
-    public JSONObject getDailyBill(Integer daily_id){
+    public JSONObject getDailyBill(Integer daily_id) {
         Daily daily;
-        try{
+        try {
             daily = dailyMapper.getDailyById(daily_id);
-            if(daily == null){
-                return responseFail("当前id不存在",null);
+            if (daily == null) {
+                return responseFail("当前id不存在", null);
             }
 
-            List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(),sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
-            if(bills.size()==0){
+            List<Bill> bills = billMapper.getBillByUserIdAndTime(daily.getDaily_user_id(), sdf.format(daily.getDaily_start()), sdf.format(daily.getDaily_end()));
+            if (bills.size() == 0) {
                 return responseSuccess(daily);
             }
             daily.setBills(bills);
@@ -322,17 +351,14 @@ public class UserService {
             List<Bill> redoBillList = new ArrayList<>();//重打
             List<Bill> overprintBillList = new ArrayList<>();//补打
             List<Bill> flushBillList = new ArrayList<>();//对冲
-            for(Bill bill: daily.getBills()){
-                if(bill.getBill_state().equals(BILL_STATE[1])){
+            for (Bill bill : daily.getBills()) {
+                if (bill.getBill_state().equals(BILL_STATE[1])) {
                     abandonBillList.add(bill);
-                }
-                else if(bill.getBill_state().equals(BILL_STATE[2])){
+                } else if (bill.getBill_state().equals(BILL_STATE[2])) {
                     redoBillList.add(bill);
-                }
-                else if(bill.getBill_state().equals(BILL_STATE[3])){
+                } else if (bill.getBill_state().equals(BILL_STATE[3])) {
                     overprintBillList.add(bill);
-                }
-                else if(bill.getBill_state().equals(BILL_STATE[4])){
+                } else if (bill.getBill_state().equals(BILL_STATE[4])) {
                     flushBillList.add(bill);
                 }
             }
@@ -342,7 +368,7 @@ public class UserService {
             daily.setOverprintBillList(overprintBillList);
             daily.setFlushBillList(flushBillList);
 
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return responseFail();
         }
@@ -365,30 +391,30 @@ public class UserService {
     }
 
     //退号， 获取一个病人下所有“已挂号”状态下的挂号记录
-    public JSONObject getPaidRegisters(Integer patient_id){
+    public JSONObject getPaidRegisters(Integer patient_id) {
         List<Register> registers;
         //获取挂号记录
-        try{
+        try {
             registers = registerMapper.getRegistersByPatientId(patient_id);
-        }catch (RuntimeException e ){
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("获取挂号记录失败",null);
+            return responseFail("获取挂号记录失败", null);
         }
         Iterator<Register> iterator = registers.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             //如果不是“已挂号”状态，则删除
-            if(!iterator.next().getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])){
+            if (!iterator.next().getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])) {
                 iterator.remove();
             }
         }
         //填充病人
-        try{
-            for(Register register : registers){
+        try {
+            for (Register register : registers) {
                 register.setPatient(patientMapper.getPatientByRecordId(patient_id));
             }
-        }catch (RuntimeException e ){
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            return responseFail("填充挂号记录的病人失败",null);
+            return responseFail("填充挂号记录的病人失败", null);
         }
         return responseSuccess(registers);
     }
@@ -421,7 +447,7 @@ public class UserService {
                 return ConstantUtils.responseFail("当前医技项目状态为["
                         + medicalSkilBefore.getMedical_skill_execute_state() + "],不可退费", null);
             } else {
-                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5],null);
+                medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[5], null);
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -433,8 +459,8 @@ public class UserService {
         bill.setBill_state(ConstantDefinition.BILL_STATE[4]);
         try {
             billMapper.addBill(bill);
-            String billNum = sdf2.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", bill.getBill_id());
-            billMapper.updateBillNum(billNum,bill.getBill_id());
+            String billNum = sdf2.format(c.getTime()).replaceAll("[[\\s-:punct:]]", "") + String.format("%03d", bill.getBill_id());
+            billMapper.updateBillNum(billNum, bill.getBill_id());
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("增加对冲发票过程出错", null);
@@ -447,9 +473,9 @@ public class UserService {
     public JSONObject returnMedicine(Integer prescription_id, Integer prescription_content_id, Integer prescription_num) {
         //首先检测处方处于已退药状态或已缴费状态35
         Prescription prescription = prescriptionMapper.getPrescription(prescription_id);
-        if(!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3])||
-                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0]))){
-            return responseFail("该状态为【"+prescription.getPrescription_execute_state()+"】不可退药",null);
+        if (!(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE[3]) ||
+                prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0]))) {
+            return responseFail("该状态为【" + prescription.getPrescription_execute_state() + "】不可退药", null);
         }
 
         //首先查看此条药品记录是否存在 根据处方ID和药物ID（不能根据药品记录ID）
@@ -507,7 +533,7 @@ public class UserService {
         if (prescription == null) {
             return ConstantUtils.responseFail("不存在该处方", null);
         } else if (!(prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[0])
-        || prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[1]))) {
+                || prescription.getPrescription_execute_state().equals(ConstantDefinition.PRESCRIPTION_EXECUTE_STATE_SENT[1]))) {
             return ConstantUtils.responseFail("该处方状态为["
                     + prescription.getPrescription_execute_state() + "],不可退费", null);
         }
@@ -519,8 +545,8 @@ public class UserService {
             billBefore.setBill_sum(ConstantUtils.convertToNegtive(billBefore.getBill_sum()));
             billBefore.setBill_state(BILL_STATE[4]);
             billMapper.addBill(billBefore);
-            String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", billBefore.getBill_id());
-            billMapper.updateBillNum(billNum,billBefore.getBill_id());
+            String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]", "") + String.format("%03d", billBefore.getBill_id());
+            billMapper.updateBillNum(billNum, billBefore.getBill_id());
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ConstantUtils.responseFail("插入发票对冲记录出错", null);
@@ -530,7 +556,7 @@ public class UserService {
         Prescription prescriptionToAdd = prescriptionMapper.getPrescription(prescription_id);
 
         //更新原处方STATE变成已退费
-        prescriptionMapper.updatePrescriptionState(prescription_id,PRESCRIPTION_EXECUTE_STATE[6]);
+        prescriptionMapper.updatePrescriptionState(prescription_id, PRESCRIPTION_EXECUTE_STATE[6]);
 
         //重新计算处方费用
         List<PrescriptionContent> contentList;
@@ -539,12 +565,11 @@ public class UserService {
             contentList = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
 
 
-
             for (PrescriptionContent content : contentList) {
                 sum = sum.add(content.getPrescription_content_fee());
             }
             //如果处方药品全退，则不需添加新的处方，直接返回退费成功
-            if(sum.compareTo(new BigDecimal(0))==0){
+            if (sum.compareTo(new BigDecimal(0)) == 0) {
                 return responseSuccess(billBefore);
             }
 
@@ -554,17 +579,17 @@ public class UserService {
             return responseFail("获取处方药品记录失败", null);
         }
         //更新状态
-        if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0])){
+        if (prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[0])) {
             prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[3]); //已缴费
-        }else if(prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1])){
+        } else if (prescription.getPrescription_execute_state().equals(PRESCRIPTION_EXECUTE_STATE_SENT[1])) {
             prescriptionToAdd.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[4]); //已缴费
-        }else {
-            return responseFail("状态出错",null);
+        } else {
+            return responseFail("状态出错", null);
         }
         //将新纪录添加
         prescriptionMapper.addPrescription(prescriptionToAdd);
         //将所有药品绑定到新创建的处方ID下
-        prescriptionContentMapper.updatePrescriptionId(prescription_id,prescriptionToAdd.getPrescription_id());
+        prescriptionContentMapper.updatePrescriptionId(prescription_id, prescriptionToAdd.getPrescription_id());
 
 
         //插入新的处方发票记录
@@ -572,38 +597,36 @@ public class UserService {
         billBefore.setBill_state(BILL_STATE[0]);
         billBefore.setBill_sum(prescriptionMapper.getPrescription(prescriptionToAdd.getPrescription_id()).getPrescription_fee());
         billMapper.addBill(billBefore);
-        String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]","") + String.format("%03d", billBefore.getBill_id());
-        billMapper.updateBillNum(billNum,billBefore.getBill_id());
+        String billNum = sdf.format(c.getTime()).replaceAll("[[\\s-:punct:]]", "") + String.format("%03d", billBefore.getBill_id());
+        billMapper.updateBillNum(billNum, billBefore.getBill_id());
 
         return ConstantUtils.responseSuccess(billBefore);
     }
 
 
     public JSONObject refund(String type, Integer id) {
-        if(type.equals(REFUND_TYPE[0]) || type.equals(REFUND_TYPE[1]) || type.equals(REFUND_TYPE[2])){
+        if (type.equals(REFUND_TYPE[0]) || type.equals(REFUND_TYPE[1]) || type.equals(REFUND_TYPE[2])) {
             System.out.println(id);
             return refundMedicalSkill(id);
-        }
-        else if(type.equals(REFUND_TYPE[3]) || type.equals(REFUND_TYPE[4]) ){
+        } else if (type.equals(REFUND_TYPE[3]) || type.equals(REFUND_TYPE[4])) {
             return refundPrescription(id);
-        }
-        else {
-            return responseFail("无此类型",null);
+        } else {
+            return responseFail("无此类型", null);
         }
     }
 
-    public JSONObject getPrescriptions(Integer prescription_id){
-            List<PrescriptionContent> prescriptionContents;
-            try {
-                prescriptionContents = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
-            }catch (RuntimeException e){
-                e.printStackTrace();
-                return responseFail();
-            }
-            //填充药物
-            for(PrescriptionContent prescriptionContent:prescriptionContents){
-                prescriptionContent.setMedicine(medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id()));
-            }
-            return responseSuccess(prescriptionContents);
+    public JSONObject getPrescriptions(Integer prescription_id) {
+        List<PrescriptionContent> prescriptionContents;
+        try {
+            prescriptionContents = prescriptionContentMapper.getPrescriptionContentsPositive(prescription_id);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return responseFail();
+        }
+        //填充药物
+        for (PrescriptionContent prescriptionContent : prescriptionContents) {
+            prescriptionContent.setMedicine(medicineMapper.getMedicine(prescriptionContent.getPrescription_medicine_id()));
+        }
+        return responseSuccess(prescriptionContents);
     }
 }

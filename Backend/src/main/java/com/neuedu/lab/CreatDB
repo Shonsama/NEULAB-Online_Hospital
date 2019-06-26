@@ -11,6 +11,7 @@ drop table if exists  `his`.`record`;
 drop table  if exists `his`.`register_info`;
 drop table  if exists `his`.`schedule`;
 drop table  if exists `his`.`rule`;
+drop table if exists `patient_user`;
 drop table if exists  `his`.`patient_info`;
 drop table if exists  `his`.`usual_diagnose`;
 drop table if exists  `his`.`doctor_info`;
@@ -22,6 +23,7 @@ drop table if exists  `his`.`constant`;
 drop table if exists  `his`.`non_medicine`;
 drop table  if exists `his`.`medicine`;
 drop table  if exists `his`.`department_info`;
+drop table if exists `his`.`medical_skill_content`;
 
 
 #疾病信息表，死表
