@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @RequestMapping("/test")
-    public String connectRedis(){
+    public void connectRedis() {
         //string
         //redisTemplate.opsForValue().set("spring", "test");
 
@@ -34,8 +34,9 @@ public class TestController {
         redisTemplate.opsForZSet().add("articles", "article002", 200);*/
 
         //get string
-        String getString = redisTemplate.opsForValue().get("spring");
-        //redisTemplate.opsForList().leftPush("RegisterAccount", "default");
-        return redisTemplate.opsForList().index("RegisterAccount",0);
+        //String getString = redisTemplate.opsForValue().get("spring");
+        redisTemplate.opsForHash().put("functions","testKey","testValue");
+
+        System.out.println(redisTemplate.opsForHash().get("functions","testKey"));
     }
 }

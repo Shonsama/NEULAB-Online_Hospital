@@ -33,7 +33,7 @@ public class RegisterController {
 
     @RequestMapping("/submit")
     public JSONObject registerSubmit(@RequestBody Register register){
-        return registerService.addRegister(register);
+        return registerService.addRegisterWithRedis(register);
     }
 
     @RequestMapping("/print-bill")

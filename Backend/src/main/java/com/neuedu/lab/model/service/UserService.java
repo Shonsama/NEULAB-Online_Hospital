@@ -45,6 +45,9 @@ public class UserService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    private boolean ifSignUpSucceedUser = false;
+    private boolean ifSignUpSucceedDoctor = false;
+
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Calendar c = Calendar.getInstance();
     private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -69,11 +72,13 @@ public class UserService {
         for (int i = 0; i < userMapper.getAllUsersAccount().size(); i++) {
             if (userMapper.getAllUsersAccount().get(i).equals(user_account)) {
                 flag = true;
+                break;
             }
         }
         for (int i = 0; i < userMapper.getAllDoctorsAccount().size(); i++) {
             if (userMapper.getAllDoctorsAccount().get(i).equals(user_account)) {
                 flag = true;
+                break;
             }
         }
         if (flag == false) {
@@ -96,21 +101,33 @@ public class UserService {
     }
 
     //注册
-    public JSONObject addUser(User user) {
-            /*boolean flag = false;
-            int size = redisTemplate.opsForList().size("RegisterAccount").intValue();
-            for(int j = 0; j<size;j++){
-                if(redisTemplate.opsForList().index("RegisterAccount",j) == user.getUser_account()){
-                    flag = true;
-                    break;
-                }
-            }if(flag == false){//允许插入
-                redisTemplate.opsForList().leftPush("RegisterAccount",user.getUser_account());
-            }*/
+    public boolean addUser(User user) {
         if (!checkIfExistAccount(user.getUser_account())) {
             userMapper.addUser(user);
+            ifSignUpSucceedUser = true;
+            return true;
+        } else {
+            ifSignUpSucceedUser = false;
+            return false;
+        }
+    }
+
+    public JSONObject signUpUser(User user) {
+        while (redisTemplate.opsForHash().hasKey("functions", "addUser")) {
+            try {
+                Thread.sleep(500);
+                System.out.println("Someone is signing up!!!!!!!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        redisTemplate.opsForHash().put("functions", "addUser", "whatever");
+        addUser(user);
+        redisTemplate.opsForHash().delete("functions", "addUser");
+        if (ifSignUpSucceedUser == true) {
+            ifSignUpSucceedUser = false;
             return ConstantUtils.responseSuccess(null);
-        }else{
+        } else {
             return ConstantUtils.responseFail(null);
         }
     }
@@ -169,11 +186,33 @@ public class UserService {
         }
     }
 
-    public JSONObject addDoctor(Doctor doctor) {
+    public boolean addDoctor(Doctor doctor) {
         if (!checkIfExistAccount(doctor.getDoctor_account())) {
             userMapper.addDoctor(doctor);
+            ifSignUpSucceedDoctor = true;
+            return true;
+        } else {
+            ifSignUpSucceedDoctor = false;
+            return false;
+        }
+    }
+
+    public JSONObject signUpDoctor(Doctor doctor) {
+        while (redisTemplate.opsForHash().hasKey("functions", "addDoctor")) {
+            try {
+                Thread.sleep(500);
+                System.out.println("Someone is signing up!!!!!!!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        redisTemplate.opsForHash().put("functions", "addDoctor", "whatever");
+        addDoctor(doctor);
+        redisTemplate.opsForHash().delete("functions", "addDoctor");
+        if (ifSignUpSucceedDoctor == true) {
+            ifSignUpSucceedDoctor = false;
             return ConstantUtils.responseSuccess(null);
-        }else{
+        } else {
             return ConstantUtils.responseFail(null);
         }
     }
