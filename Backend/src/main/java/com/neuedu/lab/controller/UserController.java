@@ -67,21 +67,12 @@ public class UserController {
 
     @RequestMapping("/add-user")
     public JSONObject addUser(@RequestBody User user){
-        if(userService.addUser(user)){
-            return ConstantUtils.responseSuccess(null);
-        }
-        else {
-            return ConstantUtils.responseFail(null);
-        }
+        return userService.addUser(user);
     }
 
     @RequestMapping("/add-doctor")
     public JSONObject addDoctor(@RequestBody Doctor doctor){
-        if(userService.addDoctor(doctor)){
-            return ConstantUtils.responseSuccess(null);
-        }else{
-            return ConstantUtils.responseFail(null);
-        }
+        return userService.addDoctor(doctor);
     }
 
     @RequestMapping("/delete-user")
