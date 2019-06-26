@@ -186,7 +186,7 @@
         <template v-slot:extension>
           <v-flex xs2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          :disabled="disabled"></v-text-field>
+                          ></v-text-field>
           </v-flex>
           <v-btn
             small
@@ -412,7 +412,8 @@
                   v-model="bill_sum"
                   label="应收金额"
                   placeholder="未知"
-                  disabled
+                  readonly
+                  outline
                 ></v-text-field>
               </v-flex>
               <v-flex
@@ -424,7 +425,6 @@
                   v-model="checkbox"
                   v-validate="'required'"
                   value="1"
-                  style="margin-left: 10px"
                   label="是否需要病历本"
                   data-vv-name="checkbox"
                   type="checkbox"
@@ -568,7 +568,7 @@ export default {
     patient_birthDate: function (newState) {
       var date = new Date()
       console.log(newState)
-      var date1 = new Date(newState.replace(/-/, '/'))
+      var date1 = new Date(newState)
       this.patient_age = date.getFullYear() - date1.getFullYear()
     },
     departmentId: function (newState) {
@@ -678,7 +678,7 @@ export default {
             }
             that.patient_name = response.data.data.patient_name
             that.patient_credit_id = response.data.data.patient_credit_id
-            that.patient_birthDate = response.data.data.patient_birthDate
+            that.patient_birthDate = response.data.data.patient_birthDate.slice(0, 10)
             that.patient_age = response.data.data.patient_age
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true
@@ -793,7 +793,7 @@ export default {
             console.log(response.data)
             that.dialog_bill = true
             that.dialog_suc = true
-            that.msg_suc = '发票号重打成功'
+            that.msg_suc = '发票补打成功'
           })
       } else {
         this.dialog_err = true
@@ -815,7 +815,7 @@ export default {
             // that.dialog_bill = true
             console.log(response.data)
             that.dialog_suc = true
-            that.msg_suc = '发票号补打成功'
+            that.msg_suc = '发票重打成功'
             that.dialog_bill = true
           })
       } else {

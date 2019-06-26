@@ -14,12 +14,15 @@ import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
 // import ECharts modules manually to reduce bundle size
 import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
+import Blob from './excel/Blob.js'
+import Export2Excel from './excel/Export2Excel.js'
 // If you want to use ECharts extensions, just import the extension package and it will work
 // Taking ECharts-GL as an example:
 // You only need to install the package with `npm install --save echarts-gl` and import it as follows
 import 'echarts-gl'
 import JsonExcel from 'vue-json-excel'
-
+import vueXlsxTable from 'vue-xlsx-table'
+Vue.use(vueXlsxTable, {rABS: false})
 Vue.component('downloadExcel', JsonExcel)
 // let instance = axios.create({
 //   transfor

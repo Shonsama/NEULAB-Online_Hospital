@@ -123,7 +123,7 @@
         <template v-slot:extension>
           <v-flex xs2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          :disabled="disabled"></v-text-field>
+                          ></v-text-field>
           </v-flex>
           <v-btn
             small
@@ -513,7 +513,7 @@ export default {
     filterDate: function (value) {
       return ((this.date[0] <= new Date(value.time) && this.date[1] >= new Date(value.time)) || this.date[0] === '' || this.date[1] === '')
     },
-     chargeItem: function (value) {
+    chargeItem: function (value) {
       let that = this
       console.log(value)
       var url = this.HOME + '/pay/pay'
@@ -706,7 +706,7 @@ export default {
             console.log(response.data)
             that.dialog_bill = true
             that.dialog_suc = true
-            that.msg_suc = '发票号重打成功'
+            that.msg_suc = '发票号补打成功'
           })
       } else {
         this.dialog_err = true
@@ -725,7 +725,7 @@ export default {
             that.bill = response.data.data
             that.dialog_bill = true
             that.dialog_suc = true
-            that.msg_suc = '发票号补打成功'
+            that.msg_suc = '发票号重打成功'
             console.log(response.data)
           })
       } else {
