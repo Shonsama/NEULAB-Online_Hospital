@@ -161,21 +161,6 @@
             delete
           </v-icon>
         </v-btn>
-        <download-excel
-          class = "export-excel-wrapper"
-          :data = "users"
-          :fields = "json_fields"
-          name = "用户信息.xls">
-          <v-btn
-            icon
-            flat
-            color="primary"
-          >
-            <v-icon>
-              send
-            </v-icon>
-          </v-btn>
-        </download-excel>
       </v-toolbar>
       <v-data-table
         v-model="selected"
@@ -184,7 +169,6 @@
         :search="search"
         item-key="user_account"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -226,11 +210,29 @@
         </template>
       </v-data-table>
     </v-flex>
+    <v-divider/>
+    <v-card-actions>
+      <v-spacer/>
+      <download-excel
+        class = "export-excel-wrapper"
+        :data = "users"
+        :fields = "json_fields"
+        name = "用户信息.xls">
+        <v-btn
+          color="primary"
+        >
+          导出表格
+          <v-icon right>
+            cloud_download
+          </v-icon>
+        </v-btn>
+      </download-excel>
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
-/* eslint-disable camelcase */
+/* eslint-disable*/
 export default {
   data: () => ({
     alert_success: false,

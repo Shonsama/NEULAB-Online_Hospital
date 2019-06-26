@@ -20,6 +20,10 @@
         select * from user_info
     </select>
 
+    <select id="getAllUsersAccount" resultType="String">
+        select user_account from user_info
+    </select>
+
     <select id="getAllCashiers" resultType="User">
         select * from user_info
         where user_type = #{user_type}
@@ -83,6 +87,10 @@
     <!--获取所有医生信息-->
     <select id="getAllDoctors" resultType="Doctor">
         select * from doctor_info
+    </select>
+
+    <select id="getAllDoctorsAccount" resultType="String">
+        select doctor_account from doctor_info
     </select>
 
     <!--注册医生-->

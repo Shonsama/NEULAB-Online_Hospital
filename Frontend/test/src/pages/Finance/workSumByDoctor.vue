@@ -62,7 +62,6 @@
         :search="search"
         item-key="department_id"
         select-all
-        class="elevation-1"
       >
         <template v-slot:items="props">
           <td>
@@ -83,8 +82,9 @@
           <td>{{ props.item.getPrescriptionChinese }}</td>
         </template>
       </v-data-table>
+      <v-divider/>
     </v-flex>
-    <v-flex>
+    <v-flex class="mt-3">
       <v-chart
         style="width: 100%"
         :options="bar"
