@@ -200,7 +200,7 @@
               flat
               icon
               color="primary"
-              @click="load_excel"
+              @click=""
             >
               <v-icon>
                 add
@@ -233,10 +233,10 @@ export default {
     selected: [],
     signal: '',
     json_fields: {
-      '疾病编码': 'disease_id',
+      '疾病编号': 'disease_id',
       '疾病名称': 'disease_name',
       '国际ICD编码': 'disease_icd',
-      '疾病分类': 'disease_type'
+      '疾病类型': 'disease_type'
     },
     headers: [
       {
@@ -314,13 +314,13 @@ export default {
           outdata.map(v => {
             let obj = {}
 
-            obj.disease_id = v.疾病编码
+            obj.disease_id = v.疾病编号
 
             obj.disease_name = v.疾病名称
 
             obj.disease_icd = v.国际ICD编码
 
-            obj.disease_type = v.疾病分类
+            obj.disease_type = v.疾病类型
 
             arr.push(obj)
           })
@@ -340,34 +340,6 @@ export default {
       } else {
         reader.readAsBinaryString(f)
       }
-    },
-    load_excel: function () {
-      var count = 0
-      for (let i = 0; i < this.accountList.length; i++) {
-        var item = {
-          disease_id: this.accountList[i].disease_id,
-          disease_name: this.accountList[i].disease_name,
-          disease_icd: this.accountList[i].disease_icd,
-          disease_type: this.accountList[i].disease_type
-        }
-        let that = this
-        var url = this.HOME + '/maintenance/disease/add'
-        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), item)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data.msg
-            if (that.signal === 'SUCCESS') {
-              that.load()
-              count = count + 1
-            }
-          })
-        if (this.count === this.length) {
-          this.notice_success()
-        } else {
-          this.notice_error()
-        }
-      }
-      this.accountList = []
     },
     load: function () {
       let that = this

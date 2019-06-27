@@ -26,4 +26,8 @@
         WHERE doctor_id = #{doctor_id}
     </update>
 
+    <select id="getDoctorByRegisterId" resultType="Doctor">
+        SELECT doctor_info.* FROM doctor_info, register_info
+        WHERE register_info_id = #{register_id} AND register_info_doctor_id = doctor_id;
+    </select>
 </mapper>

@@ -10,4 +10,7 @@ public interface DepartmentMapper {
     public void deleteDepartment(String department_id);
     public void updateDepartment(Department department);
     public Department getDepartment(String department_id);
+
+    // 通过医生id获取其部门
+    Department getDepartmentByDoctorId(Integer doctor_id);
 }

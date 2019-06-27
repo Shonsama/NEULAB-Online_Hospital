@@ -208,7 +208,7 @@
               flat
               icon
               color="primary"
-              @click="load_excel"
+              @click=""
             >
               <v-icon>
                 add
@@ -325,15 +325,13 @@ export default {
           outdata.map(v => {
             let obj = {}
 
-            obj.register_level_id = v.挂号级别ID
+            obj.disease_id = v.疾病编号
 
-            obj.register_level_seq_num = v.顺序号
+            obj.disease_name = v.疾病名称
 
-            obj.register_level_name = v.挂号级别
+            obj.disease_icd = v.国际ICD编码
 
-            obj.register_level_max = v.挂号限额
-
-            obj.register_level_fee = v.挂号费用
+            obj.disease_type = v.疾病类型
 
             arr.push(obj)
           })
@@ -353,34 +351,6 @@ export default {
       } else {
         reader.readAsBinaryString(f)
       }
-    },
-    load_excel: function () {
-      var count = 0
-      for (let i = 0; i < this.accountList.length; i++) {
-        var item = {
-          register_level_seq_num: this.accountList[i].register_level_seq_num,
-          register_level_name: this.accountList[i].register_level_name,
-          register_level_max: this.accountList[i].register_level_max,
-          register_level_fee: this.accountList[i].register_level_fee
-        }
-        let that = this
-        var url = this.HOME + '/maintenance/register-level/add'
-        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), item)
-          .then(function (response) {
-            console.log(response.data)
-            that.signal = response.data.msg
-            if (that.signal === 'SUCCESS') {
-              that.load()
-              count = count + 1
-            }
-          })
-        if (this.count === this.length) {
-          this.notice_success()
-        } else {
-          this.notice_error()
-        }
-      }
-      this.accountList = []
     },
     load: function () {
       let that = this
