@@ -51,7 +51,7 @@ export default {
       }]
     }
   },
-  mounted: function () {
+  created: function () {
     this.Check()
   },
   methods: {
