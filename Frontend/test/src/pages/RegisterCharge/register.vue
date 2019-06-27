@@ -597,6 +597,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log(this.$store.state.user.id)
     this.load_constants()
     this.load_departs()
     this.load_registerLevels()

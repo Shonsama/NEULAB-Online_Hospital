@@ -207,7 +207,7 @@
               flat
               icon
               color="primary"
-              @click=""
+              @click="load_excel"
             >
               <v-icon>
                 add
@@ -324,13 +324,15 @@ export default {
           outdata.map(v => {
             let obj = {}
 
-            obj.disease_id = v.疾病编号
+            obj.non_medicine_id = v.非药品编号
 
-            obj.disease_name = v.疾病名称
+            obj.non_medicine_name = v.非药品名称
 
-            obj.disease_icd = v.国际ICD编码
+            obj.non_medicine_type = v.非药品类型
 
-            obj.disease_type = v.疾病类型
+            obj.non_medicine_specification = v.非药品规格
+
+            obj.non_medicine_unit_price = v.单价
 
             arr.push(obj)
           })
@@ -350,6 +352,35 @@ export default {
       } else {
         reader.readAsBinaryString(f)
       }
+    },
+    load_excel: function () {
+      var count = 0
+      for (let i = 0; i < this.accountList.length; i++) {
+        var item = {
+          non_medicine_id: this.accountList[i].non_medicine_id,
+          non_medicine_name: this.accountList[i].non_medicine_name,
+          non_medicine_type: this.accountList[i].non_medicine_type,
+          non_medicine_specification: this.accountList[i].non_medicine_specification,
+          non_medicine_unit_price: this.accountList[i].non_medicine_unit_price
+        }
+        let that = this
+        var url = this.HOME + '/maintenance/non-medicine/add'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), item)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              count = count + 1
+            }
+          })
+        if (this.count === this.length) {
+          this.notice_success()
+        } else {
+          this.notice_error()
+        }
+      }
+      this.accountList = []
     },
     load: function () {
       let that = this

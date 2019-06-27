@@ -68,7 +68,7 @@ export default {
       }]
     }
   },
-  mounted: function () {
+  created: function () {
     this.Check()
   },
   methods: {
@@ -84,6 +84,9 @@ export default {
           type: storage.getItem('type')
         }
         that.$store.commit('set_user', data)
+        console.log('This is data ')
+        console.log(data)
+        console.log(that.$store.state.user.department_id)
         that.$store.commit('login')
       }
       if (!this.$store.state.isLogin) {
