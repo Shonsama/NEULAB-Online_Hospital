@@ -7,6 +7,8 @@ import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
 import com.neuedu.lab.utils.ConstantDefinition;
 import com.neuedu.lab.utils.ConstantUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,9 @@ public class RegisterService {
     @Resource
     private PatientMapper patientMapper;
 
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
 /*    public List<Department> getAllDepartments(){
         return departmentMapper.getAllDepartments();
     }*/
@@ -55,6 +60,21 @@ public class RegisterService {
         }catch (Exception e){
             return responseFail(null);
         }
+    }
+
+    public JSONObject addRegisterWithRedis(Register register) {
+        String currentRegister = "addRegister"+register.getRegister_info_doctor_id();
+        while (redisTemplate.opsForHash().hasKey("functions", currentRegister)) {
+            try {
+                Thread.sleep(500);
+                System.out.println("Someone is registering!!!!!!!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }redisTemplate.opsForHash().put("functions",currentRegister,"whatever");
+        JSONObject obj =  addRegister(register);
+        redisTemplate.opsForHash().delete("functions",currentRegister);
+        return obj;
     }
 
     @Transactional
