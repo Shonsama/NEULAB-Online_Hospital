@@ -99,9 +99,4 @@
         patient_connect_id = #{patient_connect_id}
         where patient_account = #{patient_account}
     </update>
-
-    <select id="getPatientByRegisterId" resultType="Patient">
-        SELECT * FROM patient_info, register_info
-        WHERE register_info_id = #{register_id} AND  register_info_patient_id = patient_info.patient_record_id;
-    </select>
 </mapper>

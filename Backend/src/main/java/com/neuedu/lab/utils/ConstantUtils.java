@@ -82,7 +82,7 @@ public class ConstantUtils {
         //生成 token
         Map<String, Object> payload = new HashMap<>();
         Date date = new Date();
-        payload.put("username", id);// user ID 植入token
+        payload.put("user_account", id);// user ID 植入token
         payload.put("startTime", date.getTime());//生成时间
         payload.put("expiryTime", date.getTime() + ConstantDefinition.EXPIRY_TIME);//过期时间1小时
 

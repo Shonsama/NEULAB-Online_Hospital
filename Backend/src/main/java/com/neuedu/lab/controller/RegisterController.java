@@ -33,18 +33,13 @@ public class RegisterController {
 
     @RequestMapping("/submit")
     public JSONObject registerSubmit(@RequestBody Register register){
-        return registerService.addRegister(register);
+        return registerService.addRegisterWithRedis(register);
     }
 
     @RequestMapping("/print-bill")
     public JSONObject printInvoice(@RequestBody Bill bill){
         //打印发票
         return registerService.addBill(bill);
-    }
-
-    @RequestMapping("/update-bill")
-    public JSONObject updateBill(@RequestBody JSONObject request){
-        return registerService.updateBill(request.getString("bill_num"),request.getInteger("bill_id"));
     }
 
     //退号操作
