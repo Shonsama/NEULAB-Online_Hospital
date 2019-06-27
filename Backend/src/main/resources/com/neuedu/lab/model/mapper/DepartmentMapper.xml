@@ -39,4 +39,9 @@
         select * from department_info
     </select>
 
+    <select id="getDepartmentByDoctorId" resultType="Department">
+        SELECT department_info.* FROM doctor_info,department_info
+        WHERE doctor_id = #{doctor_id} AND  doctor_department_id = department_id;
+    </select>
+
 </mapper>

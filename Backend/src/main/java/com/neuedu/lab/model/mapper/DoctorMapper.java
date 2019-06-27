@@ -17,4 +17,7 @@ public interface DoctorMapper {
     //更新医生号源数量
     void updateDoctorRegisterNum(@Param("doctor_id") Integer doctor_id,
                                  @Param("num") Integer num);
+
+    //通过register_id获取医生信息
+    Doctor getDoctorByRegisterId(Integer register_id);
 }
