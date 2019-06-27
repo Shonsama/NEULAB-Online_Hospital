@@ -200,7 +200,7 @@
               flat
               icon
               color="primary"
-              @click=""
+              @click="load_excel"
             >
               <v-icon>
                 add
@@ -314,13 +314,13 @@ export default {
           outdata.map(v => {
             let obj = {}
 
-            obj.disease_id = v.疾病编号
+            obj.department_id = v.科室编号
 
-            obj.disease_name = v.疾病名称
+            obj.department_name = v.科室名称
 
-            obj.disease_icd = v.国际ICD编码
+            obj.department_cat = v.科室分类
 
-            obj.disease_type = v.疾病类型
+            obj.department_type = v.科室类型
 
             arr.push(obj)
           })
@@ -340,6 +340,34 @@ export default {
       } else {
         reader.readAsBinaryString(f)
       }
+    },
+    load_excel: function () {
+      var count = 0
+      for (let i = 0; i < this.accountList.length; i++) {
+        var item = {
+          department_id: this.accountList[i].department_id,
+          department_name: this.accountList[i].department_name,
+          department_cat: this.accountList[i].department_cat,
+          department_type: this.accountList[i].department_type
+        }
+        let that = this
+        var url = this.HOME + '/maintenance/department/add'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), item)
+          .then(function (response) {
+            console.log(response.data)
+            that.signal = response.data.msg
+            if (that.signal === 'SUCCESS') {
+              that.load()
+              count = count + 1
+            }
+          })
+        if (this.count === this.length) {
+          this.notice_success()
+        } else {
+          this.notice_error()
+        }
+      }
+      this.accountList = []
     },
     load: function () {
       let that = this
