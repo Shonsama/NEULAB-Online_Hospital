@@ -86,6 +86,7 @@ export default {
         }
         that.$store.commit('set_user', data)
         that.$store.commit('login')
+        console.log("main")
       }
       if (!this.$store.state.isLogin) {
         this.$router.push('/login')

@@ -132,6 +132,17 @@
             </td>
           </template>
         </v-data-table>
+        <el-upload
+          action="/api/upload"
+          list-type="picture-card"
+          :on-preview="handlePictureCardPreview"
+          name="smfile"
+          :on-remove="handleRemove">
+          <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
       </v-flex>
     </v-layout>
   </div>
@@ -151,6 +162,8 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
+    dialogImageUrl: '',
+    dialogVisible: false,
     ms_item: '',
     ms_patient_id: '',
     show: false,
@@ -204,12 +217,23 @@ export default {
     department_name_default: ''
   }),
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+      console.log('This is image url')
+      console.log(this.dialogImageUrl)
+    },
     filterDepart: function (value) {
       return value.medical_skill_type === this.type_default
     },
     load_dept_name: function () {
       let that = this
       var url = this.HOME + '/maintenance/department/get'
+      console.log('This is dept id')
+      console.log(this.$store.state.user.department_id)
       this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: that.$store.state.user.department_id
       })
         .then(function (response) {

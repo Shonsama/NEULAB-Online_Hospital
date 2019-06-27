@@ -10,16 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    // proxyTable: {
-    //   '/api': {
-    //     // target: 'http://www.wangpeng.pub',//设置你调用的接口域名和端口号 别忘了加http
-    //     target: 'http://localhost:8080/',//设置你调用的接口域名和端口号 别忘了加http
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/api': ''
-    //     }
-    //   }
-    // },
+    proxyTable: {
+      '/': {
+        // target: 'http://www.wangpeng.pub',//设置你调用的接口域名和端口号 别忘了加http
+        target: 'https://sm.ms/',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
+        pathRewrite: {
+          '^/': ''
+        }
+      }
+    },
     transpileDependencies: [
       'vue-echarts',
       'resize-detector'
