@@ -191,7 +191,7 @@ public class DoctorService {
         }
         //websocket 进行群发消息
         try{
-            WebSocket.sendInfo(patient.getPatient_name()+"请到5诊室就诊","doctor  WP");
+            WebSocket.sendInfo(patient.getPatient_name()+"请到5诊室就诊",null);
         } catch (IOException e) {
             e.printStackTrace();
         }
