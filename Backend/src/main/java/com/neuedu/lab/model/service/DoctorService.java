@@ -49,6 +49,9 @@ public class DoctorService {
     @Resource
     private MedicalSkillContentMapper medicalSkillContentMapper;
 
+    @Resource
+    private DepartmentMapper departmentMapper;
+
 
 
 
@@ -183,15 +186,19 @@ public class DoctorService {
         }
         // 获取用户
         Patient patient ;
+        Department department;
+        Doctor doctor;
         try{
+            doctor = doctorMapper.getDoctorByRegisterId(register_id);
             patient =  patientMapper.getPatientByRegisterId(register_id);
+            department = departmentMapper.getDepartmentByDoctorId(doctor.getDoctor_id());
         }catch (RuntimeException e){
             e.printStackTrace();
             return responseFail("获取病人信息失败",null);
         }
         //websocket 进行群发消息
         try{
-            WebSocket.sendInfo(patient.getPatient_name()+"请到5诊室就诊","doctor  WP");
+            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊",null);
         } catch (IOException e) {
             e.printStackTrace();
         }

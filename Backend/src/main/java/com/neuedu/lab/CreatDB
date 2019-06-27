@@ -36,7 +36,7 @@ CREATE TABLE `his`.`disease_info` (
   PRIMARY KEY (`disease_id`)
 )default charset=utf8;
 
-#常数表,死表disease_infodisease_info
+#常数表,死表
 drop table if exists  `his`.`constant`;
 CREATE TABLE `his`.`constant` (
   `constant_id` int NOT NULL AUTO_INCREMENT,
