@@ -101,7 +101,7 @@
       <v-flex xs12>
       <v-form
         class="pa-3 pt-4 scroll-y"
-        style="max-height: 550px"
+        style="max-height: 600px"
       >
         <v-card-title primary-title>
           <div>

@@ -57,6 +57,7 @@
                   name="login"
                   label="查询患者"
                   type="text"
+                  single-line
                   style="margin-left: 25px"
                 ></v-text-field>
               </v-flex>
