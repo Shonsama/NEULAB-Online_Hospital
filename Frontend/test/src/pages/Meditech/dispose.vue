@@ -2,7 +2,7 @@
   <div>
     <v-dialog
       v-model="show"
-      width="300"
+      width="400"
     >
       <v-layout justify-center>
         <v-flex xs12>
@@ -25,6 +25,22 @@
                 placeholder="请输入医技状态"
                 required
               ></v-select>
+              <v-label>
+                <v-text
+                  class="caption"
+                >
+                  医技图片结果
+                </v-text>
+              </v-label>
+              <el-upload
+                ref="my-upload"
+                action="/api/upload"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                name="smfile"
+                :on-remove="handleRemove">
+                <i class="el-icon-plus"></i>
+              </el-upload>
               <v-text-field
                 ref="country"
                 v-model="result"
@@ -64,6 +80,42 @@
       </v-layout>
     </v-dialog>
 
+    <v-dialog v-model="dialogVisible" width="600">
+      <v-layout justify-center>
+        <v-card style="width: 600px">
+          <div ref="printResult">
+            <v-container>
+              <v-layout row justify-center>
+                <div class="title font-weight-light mb-2">医技结果</div>
+              </v-layout>
+              <v-divider></v-divider>
+              <v-layout class="mt-4 mb-4" row justify-center>
+                <el-image
+                  style="width: 400px; height: 400px"
+                  :src="dialogImageUrl"
+                  :fit="fit"></el-image>
+                <!--<v-img src="dialogImageUrl" aspect-ratio="1.7"></v-img>-->
+              </v-layout>
+              <v-layout row>
+                <v-flex xs2 offset-xs2>
+                  <v-subheader>医技结果</v-subheader>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="result"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </div>
+          <v-layout row justify-end>
+            <v-btn @click="$print($refs.printResult)" color="primary">打印医技结果</v-btn>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-dialog>
+
     <v-layout>
       <v-flex xs4>
         <v-card flat>
@@ -71,18 +123,22 @@
             <v-toolbar flat dense>
               <v-toolbar-title>患者查询</v-toolbar-title>
             </v-toolbar>
-            <v-layout>
-              <v-text-field
-                v-model="search_patient"
-                append-icon="search"
-                label="病历号"
-                single-line
-                hide-details
-                style="margin-left: 10px"
-              ></v-text-field>
-              <v-btn color="primary" style="margin-top: 10px">
-                搜索
-              </v-btn>
+            <v-layout wrap>
+              <v-flex lg9 xs12>
+                <v-text-field
+                  v-model="search_patient"
+                  append-icon="search"
+                  label="病历号"
+                  single-line
+                  hide-details
+                  style="margin-left: 10px"
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn color="primary" style="margin-top: 10px">
+                  搜索
+                </v-btn>
+              </v-flex>
             </v-layout>
           </v-form>
         </v-card>
@@ -138,196 +194,202 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    // alert_success: false,
-    // alert_error: false,
-    // mode: true,
-    // department_id: '',
-    // department_name: '',
-    // department_cat: '',
-    // department_type: '',
-    // show: false,
-    // search: '',
-    // expand: false,
-    // selected: [],
-    ms_item: '',
-    ms_patient_id: '',
-    show: false,
-    type_default: '处置',
-    search_patient: '',
-    state: '',
-    ms_id: '',
-    result: '',
-    signal: '',
-    state_items: [
-      {
-        text: '已取消执行'
-      },
-      {
-        text: '已确认执行'
-      }
-    ],
-    headers_patient: [
-      {
-        text: '病人id',
-        align: 'left',
-        value: 'patient_record_id'
-      },
-      { text: '病人姓名', value: 'patient_name' },
-      { text: '操作', value: 'operation', sortable: false }
-    ],
-    desserts_patient: [
-      {
-        patient_record_id: 1,
-        patient_name: 'shu'
-      }
-    ],
-    headers_ms: [
-      {
-        text: '医技id',
-        align: 'left',
-        value: 'medical_skill_id'
-      },
-      { text: '医技状态', value: 'medical_skill_execute_state' },
-      { text: '医技状态', value: 'medical_skill_name' },
-      { text: '医技结果', value: 'medical_skill_result' },
-      { text: '操作', value: 'operation', sortable: false }
-    ],
-    desserts_ms: [
-      {
-        medical_skill_id: 1,
-        medical_skill_execute_state: '验血',
-        medical_skill_result: '正常'
-      }
-    ],
-    department_name_default: ''
-  }),
-  methods: {
-    filterDepart: function (value) {
-      return value.medical_skill_type === this.type_default
-    },
-    load_dept_name: function () {
-      let that = this
-      var url = this.HOME + '/maintenance/department/get'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: that.$store.state.user.department_id
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.department_name_default = response.data.data.department_name
-          that.load()
-        })
-    },
-    load: function () {
-      let that = this
-      var url = this.HOME + '/ms-doctor/get-all-patients'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {medical_skill_execute_department: that.department_name_default,
-        medical_skill_type: that.type_default
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts_patient = response.data.data
-        })
-    },
-    getPersonalMS: function (item) {
-      this.ms_patient_id = item.patient_record_id
-      let that = this
-      var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
-        medical_skill_execute_department: that.department_name_default,
-        patient_id: item.patient_record_id
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.desserts_ms = response.data.data
-        })
-    },
-    setResult: function () {
-      let that = this
-      var url = this.HOME + '/ms-doctor/medical-skill/add-result'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
-        medical_skill_id: that.ms_id,
-        medical_skill_result: that.result
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.load()
-          var item = {
-            patient_record_id: that.ms_patient_id
-          }
-          that.getPersonalMS(item)
-        })
-    },
-    confirmState: function () {
-      let that = this
-      var url = this.HOME + '/ms-doctor/medical-skill/confirm'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
-        medical_skill_id: that.ms_id,
-        medical_skill_execute_doctor_id: that.$store.state.user.id
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.load()
-          var item = {
-            patient_record_id: that.ms_patient_id
-          }
-          that.getPersonalMS(item)
-        })
-    },
-    cancelState: function () {
-      let that = this
-      var url = this.HOME + '/ms-doctor/medical-skill/cancel'
-      this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
-        medical_skill_id: that.ms_id,
-        medical_skill_execute_doctor_id: that.$store.state.user.id
-      })
-        .then(function (response) {
-          console.log(response.data)
-          that.load()
-          var item = {
-            patient_record_id: that.ms_patient_id
-          }
-          that.getPersonalMS(item)
-        })
-    },
-    change: function () {
-      if (this.state !== this.ms_item.medical_skill_execute_state) {
-        if (this.state === '已确认执行') {
-          this.confirmState()
+  export default {
+    data: () => ({
+      // alert_success: false,
+      // alert_error: false,
+      // mode: true,
+      // department_id: '',
+      // department_name: '',
+      // department_cat: '',
+      // department_type: '',
+      // show: false,
+      // search: '',
+      // expand: false,
+      // selected: [],
+      dialogImageUrl: '',
+      dialogVisible: false,
+      ms_item: '',
+      ms_patient_id: '',
+      show: false,
+      type_default: '处置',
+      search_patient: '',
+      state: '',
+      ms_id: '',
+      result: '',
+      signal: '',
+      state_items: [
+        {
+          text: '已取消执行'
+        },
+        {
+          text: '已确认执行'
         }
-        if (this.state === '已取消执行') {
-          this.cancelState()
+      ],
+      headers_patient: [
+        {
+          text: '病人id',
+          align: 'left',
+          value: 'patient_record_id'
+        },
+        { text: '病人姓名', value: 'patient_name' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
+      desserts_patient: [],
+      headers_ms: [
+        {
+          text: '医技id',
+          align: 'left',
+          value: 'medical_skill_id'
+        },
+        { text: '医技状态', value: 'medical_skill_execute_state' },
+        { text: '医技状态', value: 'medical_skill_name' },
+        { text: '医技结果', value: 'medical_skill_result' },
+        { text: '操作', value: 'operation', sortable: false }
+      ],
+      desserts_ms: [],
+      department_name_default: ''
+    }),
+    methods: {
+      clearFiles () {
+        this.$refs['my-upload'].clearFiles();
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+        console.log('This is image url')
+        console.log(this.dialogImageUrl)
+      },
+      filterDepart: function (value) {
+        return value.medical_skill_type === this.type_default
+      },
+      load_dept_name: function () {
+        let that = this
+        var url = this.HOME + '/maintenance/department/get'
+        console.log('This is dept id')
+        console.log(this.$store.state.user.department_id)
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {department_id: that.$store.state.user.department_id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.department_name_default = response.data.data.department_name
+            that.load()
+          })
+      },
+      load: function () {
+        let that = this
+        var url = this.HOME + '/ms-doctor/get-all-patients'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {medical_skill_execute_department: that.department_name_default,
+          medical_skill_type: that.type_default
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.desserts_patient = response.data.data
+          })
+      },
+      getPersonalMS: function (item) {
+        this.ms_patient_id = item.patient_record_id
+        let that = this
+        var url = this.HOME + '/ms-doctor/medical-skill/get-by-patient'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
+          medical_skill_execute_department: that.department_name_default,
+          patient_id: item.patient_record_id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.desserts_ms = response.data.data
+          })
+      },
+      setResult: function () {
+        let that = this
+        var url = this.HOME + '/ms-doctor/medical-skill/add-result'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
+          medical_skill_id: that.ms_id,
+          medical_skill_result: that.result
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.load()
+            var item = {
+              patient_record_id: that.ms_patient_id
+            }
+            that.getPersonalMS(item)
+          })
+      },
+      confirmState: function () {
+        let that = this
+        var url = this.HOME + '/ms-doctor/medical-skill/confirm'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
+          medical_skill_id: that.ms_id,
+          medical_skill_execute_doctor_id: that.$store.state.user.id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.load()
+            var item = {
+              patient_record_id: that.ms_patient_id
+            }
+            that.getPersonalMS(item)
+          })
+      },
+      cancelState: function () {
+        let that = this
+        var url = this.HOME + '/ms-doctor/medical-skill/cancel'
+        this.$http.post(url + '?token=' + sessionStorage.getItem('token'), {
+          medical_skill_id: that.ms_id,
+          medical_skill_execute_doctor_id: that.$store.state.user.id
+        })
+          .then(function (response) {
+            console.log(response.data)
+            that.load()
+            var item = {
+              patient_record_id: that.ms_patient_id
+            }
+            that.getPersonalMS(item)
+          })
+      },
+      change: function () {
+        if (this.state !== this.ms_item.medical_skill_execute_state) {
+          if (this.state === '已确认执行') {
+            this.confirmState()
+          }
+          if (this.state === '已取消执行') {
+            this.cancelState()
+          }
         }
+        if (this.result !== this.ms_item.medical_skill_result) {
+          this.setResult()
+        }
+        this.show = !this.show
+      },
+      eraseForm: function () {
+        this.ms_id = ''
+        this.result = ''
+        this.state = ''
+        this.ms_item = ''
+        this.clearFiles()
+      },
+      fillForm: function (item) {
+        this.ms_item = item
+        this.ms_id = item.medical_skill_id
+        this.result = item.medical_skill_result
+        this.state = item.medical_skill_execute_state
       }
-      if (this.result !== this.ms_item.medical_skill_result) {
-        this.setResult()
-      }
-      this.show = !this.show
     },
-    eraseForm: function () {
-      this.ms_id = ''
-      this.result = ''
-      this.state = ''
-      this.ms_item = ''
+    mounted: function () {
+      this.load_dept_name()
     },
-    fillForm: function (item) {
-      this.ms_item = item
-      this.ms_id = item.medical_skill_id
-      this.result = item.medical_skill_result
-      this.state = item.medical_skill_execute_state
-    }
-  },
-  mounted: function () {
-    this.load_dept_name()
-  },
-  watch: {
-    show: function (newState, oldState) {
-      if (newState === false) {
-        this.eraseForm()
+    watch: {
+      show: function (newState, oldState) {
+        if (newState === false) {
+          this.eraseForm()
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>

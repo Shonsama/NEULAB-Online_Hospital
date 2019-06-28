@@ -76,18 +76,22 @@
             <v-toolbar flat dense>
               <v-toolbar-title>患者查询</v-toolbar-title>
             </v-toolbar>
-            <v-layout>
-              <v-text-field
-                v-model="search_patient"
-                append-icon="search"
-                label="病历号"
-                single-line
-                hide-details
-                style="margin-left: 10px"
-              ></v-text-field>
-              <v-btn color="primary" style="margin-top: 10px">
-                搜索
-              </v-btn>
+            <v-layout wrap>
+              <v-flex lg9 xs12>
+                <v-text-field
+                  v-model="search_patient"
+                  append-icon="search"
+                  label="病历号"
+                  single-line
+                  hide-details
+                  style="margin-left: 10px"
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn color="primary" style="margin-top: 10px">
+                  搜索
+                </v-btn>
+              </v-flex>
             </v-layout>
           </v-form>
         </v-card>
