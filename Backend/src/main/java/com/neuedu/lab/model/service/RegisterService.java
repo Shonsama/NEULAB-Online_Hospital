@@ -5,6 +5,7 @@ import com.neuedu.lab.model.mapper.*;
 import com.neuedu.lab.model.po.Bill;
 import com.neuedu.lab.model.po.Doctor;
 import com.neuedu.lab.model.po.Register;
+import com.neuedu.lab.socket.WebSocket;
 import com.neuedu.lab.utils.ConstantDefinition;
 import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Date;
 
 import static com.neuedu.lab.utils.ConstantUtils.responseFail;
@@ -125,6 +127,11 @@ public class RegisterService {
             e.printStackTrace();
             return responseFail("填充病人信息过程出错",null);
         }
+        try{
+            WebSocket.sendInfo("请刷新科室",null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return responseSuccess(register);
     }
 
@@ -170,6 +177,11 @@ public class RegisterService {
             }catch (Exception e){
                 e.printStackTrace();
                 return responseFail();
+            }
+            try{
+                WebSocket.sendInfo("请刷新科室",null);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return responseSuccess(billMapper.getBillById(bill.getBill_id()));
         }

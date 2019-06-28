@@ -187,30 +187,28 @@
       <v-toolbar extended flat dense>
         <v-toolbar-title>挂号信息</v-toolbar-title>
         <template v-slot:extension>
-          <v-flex xs2>
-            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          :disabled="disabled"></v-text-field>
+          <v-flex xs4 lg2>
+            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"></v-text-field>
           </v-flex>
           <v-btn
             small
-            icon
-            flat
+            class="ml-4"
             color="primary"
             @click="reprint_bill"
           >
-            <v-icon>
-              refresh
+            补打
+            <v-icon small right>
+              print
             </v-icon>
           </v-btn>
           <v-btn
             small
-            icon
-            flat
             color="primary"
             @click="overprint"
           >
-            <v-icon>
-              print
+            重打
+            <v-icon small right>
+              refresh
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
@@ -225,7 +223,7 @@
             <v-layout>
               <v-flex
                 xs12
-                md6
+                md3
                 lg3
               >
                 <v-text-field
@@ -259,7 +257,7 @@
             <v-layout wrap>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -272,7 +270,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -287,7 +285,7 @@
 
               <v-flex
                 xs12
-                md6
+                md3
                 lg4
               >
                 <v-textarea
@@ -301,7 +299,7 @@
 
               <v-flex
                 xs12
-                md6
+                md3
                 lg4
               >
                 <v-text-field
@@ -315,7 +313,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -328,7 +326,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -341,7 +339,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -357,7 +355,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -374,7 +372,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -391,7 +389,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -408,7 +406,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -420,7 +418,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-checkbox
@@ -860,8 +858,9 @@ export default {
             that.print_bill()
             that.get_patient_register()
           } else {
+            console.log(response.data)
             that.dialog_err = true
-            that.msg_err = '挂号失败'
+            that.msg_err = response.data.data
           }
           that.dialog = false
         })

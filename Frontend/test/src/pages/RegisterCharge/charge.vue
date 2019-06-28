@@ -123,12 +123,13 @@
       <v-toolbar extended flat dense>
         <v-toolbar-title>收费信息</v-toolbar-title>
         <template v-slot:extension>
-          <v-flex xs2>
+          <v-flex xs4 lg2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
             ></v-text-field>
           </v-flex>
           <v-btn
             small
+            class="ml-4"
             color="primary"
             @click="reprint_bill"
           >
@@ -159,7 +160,8 @@
           <v-layout>
             <v-flex
               xs12
-              md3
+              md4
+              lg3
             >
               <v-text-field
                 v-model="patient_record_id"
@@ -185,7 +187,7 @@
           <v-layout wrap>
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
@@ -198,7 +200,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
@@ -211,7 +213,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg4
             >
               <v-textarea
@@ -224,7 +226,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg4
             >
               <v-text-field
@@ -237,7 +239,7 @@
             </v-flex>
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-menu
@@ -271,7 +273,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
