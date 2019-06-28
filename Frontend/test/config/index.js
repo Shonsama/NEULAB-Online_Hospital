@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/': {
         // target: 'http://www.wangpeng.pub',//设置你调用的接口域名和端口号 别忘了加http
-        target: 'https://sm.ms/',//设置你调用的接口域名和端口号 别忘了加http
+        target: 'http://39.105.10.253:8080/',//设置你调用的接口域名和端口号 别忘了加http
         changeOrigin: true,
         pathRewrite: {
           '^/': ''

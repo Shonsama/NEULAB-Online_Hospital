@@ -34,10 +34,10 @@
               </v-label>
               <el-upload
                 ref="my-upload"
-                action="/api/upload"
+                v-bind:action= "upUrl"
                 list-type="picture-card"
                 :on-preview="handlePictureCardPreview"
-                name="smfile"
+                name="file"
                 :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
               </el-upload>
@@ -207,6 +207,8 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
+    upUrl : '',
+    act : '/dfs',
     dialogImageUrl: '',
     dialogVisible: false,
     ms_item: '',
@@ -251,6 +253,9 @@ export default {
     department_name_default: ''
   }),
   methods: {
+    urlBlend : function (){
+       this.upUrl = this.act + '/' + this.ms_id
+    },
     clearFiles () {
       this.$refs['my-upload'].clearFiles();
     },
@@ -377,6 +382,7 @@ export default {
       this.ms_id = item.medical_skill_id
       this.result = item.medical_skill_result
       this.state = item.medical_skill_execute_state
+      this.urlBlend()
     }
   },
   mounted: function () {
