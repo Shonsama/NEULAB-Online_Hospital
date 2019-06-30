@@ -242,12 +242,7 @@ export default {
       { text: '病人姓名', value: 'patient_name' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_patient: [
-      {
-        patient_record_id: 1,
-        patient_name: 'shu'
-      }
-    ],
+    desserts_patient: [],
     headers_md: [
       {
         text: '处方id',
@@ -260,15 +255,7 @@ export default {
       { text: '费用', value: 'prescription_fee' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_md: [
-      {
-        prescription_id: 1,
-        prescription_name: '这是处方',
-        prescription_execute_state: '已缴费',
-        prescription_type: '中药',
-        prescription_fee: '25.00'
-      }
-    ]
+    desserts_md: []
   }),
   mounted: function () {
     this.load()
