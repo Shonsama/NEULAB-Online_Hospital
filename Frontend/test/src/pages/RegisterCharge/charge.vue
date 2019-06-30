@@ -44,53 +44,106 @@
     <v-dialog
       v-model="dialog_bill"
       hide-overlay
-      width="400"
+      width="600"
     >
       <v-layout justify-center>
         <v-flex>
           <v-card>
-            <div ref="printThey">
-            <v-card-title>
-              发票
-            </v-card-title>
-            <v-card-text>
-              <v-text-field
-                v-model="bill.bill_id"
-                label="发票号"
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_register_id"
-                label="挂号ID"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_sum"
-                label="发票总额"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_state"
-                label="发票类型"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_time"
-                label="打印时间"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_type"
-                label="收费类别"
-                readonly
-              ></v-text-field>
-              <v-text-field
-                v-model="bill.bill_user_id"
-                label="收费员ID"
-                readonly
-              ></v-text-field>
-            </v-card-text>
+            <div ref="printThem">
+              <v-card-title>
+                <img src="../icon/hospital.png" height="180" width="180"/>
+                <v-spacer/>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content><v-text class="title">东软云医院</v-text></v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>联系电话:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">024-8366 2222</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>医院地址:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">辽宁省沈阳市浑南新区新秀街2号东软软件园A9座</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>公交路线:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">乘坐154路至“唯美品格”站或150路至“东海电子”站</v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+                <v-layout justify-space-around>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>发票号:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>挂号号:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_register_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>患者姓名:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ patient_name }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>病历号:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ patient_record_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费员ID:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_user_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </v-layout>
+                <v-layout justify-space-around>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>发票类型:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_state }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费类别:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_type }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费总额:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_sum }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>打印时间:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_time }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </v-layout>
+              </v-card-title>
+              <v-data-table
+              v-model="selected"
+              :headers="headers_bill"
+              :items="list"
+              hide-actions
+              >
+              <template v-slot:items="props">
+                <td>{{ bill_info.name }}</td>
+                <td>{{ bill_info.type }}</td>
+                <td>{{ bill_info.number }}</td>
+                <td>{{ bill_info.quantity}}</td>
+              </template>
+              </v-data-table>
             </div>
-            <v-btn @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
+            <v-btn style="margin-left: 260px;margin-bottom: 10px" @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -123,12 +176,13 @@
       <v-toolbar extended flat dense>
         <v-toolbar-title>收费信息</v-toolbar-title>
         <template v-slot:extension>
-          <v-flex xs2>
+          <v-flex xs4 lg2>
             <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
             ></v-text-field>
           </v-flex>
           <v-btn
             small
+            class="ml-4"
             color="primary"
             @click="reprint_bill"
           >
@@ -159,7 +213,8 @@
           <v-layout>
             <v-flex
               xs12
-              md3
+              md4
+              lg3
             >
               <v-text-field
                 v-model="patient_record_id"
@@ -185,7 +240,7 @@
           <v-layout wrap>
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
@@ -198,7 +253,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
@@ -211,7 +266,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg4
             >
               <v-textarea
@@ -224,7 +279,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg4
             >
               <v-text-field
@@ -237,7 +292,7 @@
             </v-flex>
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-menu
@@ -271,7 +326,7 @@
 
             <v-flex
               xs12
-              md6
+              md4
               lg2
             >
               <v-text-field
@@ -441,6 +496,13 @@ export default {
       disabled: true,
       desserts: [],
       desserts1: [],
+      list: ['1'],
+      bill_info: {
+        name: '',
+        type: '',
+        number: '',
+        quantity: ''
+      },
       headers: [
         {
           text: '挂号ID',
@@ -452,6 +514,12 @@ export default {
         {text: '类型', value: 'type'},
         {text: '金额', value: 'number'},
         {text: '操作', value: 'operation', sortable: false}
+      ],
+      headers_bill: [
+        {text: '名称', value: 'name'},
+        {text: '类型', value: 'type'},
+        {text: '金额', value: 'number'},
+        {text: '数量', value: 'quantity'}
       ],
       headers1: [
         {
@@ -523,6 +591,12 @@ export default {
         user_id: this.$store.state.user.id,
         register_id: value.code
       }
+      that.bill_info = {
+        name: value.name,
+        type: value.type,
+        number: value.number,
+        quantity: 1
+      }
       that.dialog = true
       this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
@@ -549,6 +623,17 @@ export default {
         id: value.id,
         type: value.type
       }
+      var quantity = 1
+      if (that.quantity_sub !== '') {
+        quantity = that.quantity_sub
+      }
+      that.bill_info = {
+        name: value.name,
+        type: value.type,
+        number: value.number,
+        quantity: quantity
+      }
+      that.quantity_sub = ''
       that.dialog = true
       this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
@@ -568,6 +653,8 @@ export default {
     },
     returnItemMed: function () {
       let that = this
+      that.bill_info = {
+      }
       var url = this.HOME + '/user-service/refund/return-prescription'
       var data = {
         prescription_id: that.prescription.id,
@@ -575,10 +662,11 @@ export default {
         prescription_num: that.quantity_sub
       }
       var value = {
+        name: that.medicine.medicine.medicine_name,
         id: that.prescription.id,
-        type: that.prescription.type
+        type: that.prescription.type,
+        number: that.medicine.prescription_unit_price
       }
-      that.quantity_sub = ''
       console.log(data)
       this.$http.post(url + '?token=' + sessionStorage.getItem('token'), data)
         .then(function (response) {
