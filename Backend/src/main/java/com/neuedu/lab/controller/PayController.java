@@ -22,18 +22,6 @@ public class PayController {
     private PayService payService;
 
     //缴费部分
-/*    @RequestMapping("/medical-skill")
-    public JSONObject payMedicalSkill(@RequestBody JSONArray medical_skill_ids) {
-        List<Integer> ids = JSONObject.parseArray(medical_skill_ids.toJSONString(),Integer.class);
-        return payService.payMedicalSkillFee(ids);
-    }
-
-    @RequestMapping("/prescription")
-    public JSONObject payPrescription(@RequestBody JSONArray prescription_ids){
-        List<Integer> ids = JSONObject.parseArray(prescription_ids.toJSONString(),Integer.class);
-        return payService.payPrescriptionFee(ids);
-    }*/
-
     @RequestMapping("/pay")
     public JSONObject payFee(@RequestBody JSONObject request){
         return payService.payFee(request.getInteger("id"), request.getString("type"),
