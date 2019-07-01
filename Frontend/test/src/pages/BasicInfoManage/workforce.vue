@@ -366,9 +366,7 @@
             </v-flex>
             <v-flex
               sm4
-              xs12
-              offset-xs1
-              class="text-sm-left text-xs-center"
+              class="ml-1 text-sm-left text-xs-center"
             >
               <v-btn @click="$refs.calendar.prev()">
                 <v-icon
@@ -380,11 +378,10 @@
                 前一月
               </v-btn>
             </v-flex>
+            <v-spacer/>
             <v-flex
               sm4
-              xs12
-              offset-xs2
-              class="text-sm-right text-xs-center"
+              class="mr-1 text-sm-right text-xs-center"
             >
               <v-btn @click="$refs.calendar.next()">
                 后一月

@@ -2,7 +2,7 @@
   <div>
     <v-dialog
       v-model="show"
-      width="300"
+      width="400"
     >
       <v-layout justify-center>
         <v-flex xs12>
@@ -25,6 +25,22 @@
                 placeholder="请输入医技状态"
                 required
               ></v-select>
+              <v-label>
+                <v-text
+                class="caption"
+                >
+                  医技图片结果
+                </v-text>
+              </v-label>
+              <el-upload
+                ref="my-upload"
+                v-bind:action= "upUrl"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                name="file"
+                :on-remove="handleRemove">
+                <i class="el-icon-plus"></i>
+              </el-upload>
               <v-text-field
                 ref="country"
                 v-model="result"
@@ -64,6 +80,42 @@
       </v-layout>
     </v-dialog>
 
+    <v-dialog v-model="dialogVisible" width="600">
+      <v-layout justify-center>
+        <v-card style="width: 600px">
+          <div ref="printResult">
+            <v-container>
+              <v-layout row justify-center>
+                <div class="title font-weight-light mb-2">医技结果</div>
+              </v-layout>
+              <v-divider></v-divider>
+              <v-layout class="mt-4 mb-4" row justify-center>
+                <el-image
+                  style="width: 400px; height: 400px"
+                  :src="dialogImageUrl"
+                  :fit="fit"></el-image>
+                <!--<v-img src="dialogImageUrl" aspect-ratio="1.7"></v-img>-->
+              </v-layout>
+              <v-layout row>
+                <v-flex xs2 offset-xs2>
+                  <v-subheader>医技结果</v-subheader>
+                </v-flex>
+                <v-flex xs6>
+                  <v-text-field
+                    v-model="result"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </div>
+          <v-layout row justify-end>
+          <v-btn @click="$print($refs.printResult)" color="primary">打印医技结果</v-btn>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-dialog>
+
     <v-layout>
       <v-flex xs4>
         <v-card flat>
@@ -71,18 +123,22 @@
             <v-toolbar flat dense>
               <v-toolbar-title>患者查询</v-toolbar-title>
             </v-toolbar>
-            <v-layout>
-              <v-text-field
-                v-model="search_patient"
-                append-icon="search"
-                label="病历号"
-                single-line
-                hide-details
-                style="margin-left: 10px"
-              ></v-text-field>
-              <v-btn color="primary" style="margin-top: 10px">
-                搜索
-              </v-btn>
+            <v-layout wrap>
+              <v-flex lg9 xs12>
+                <v-text-field
+                  v-model="search_patient"
+                  append-icon="search"
+                  label="病历号"
+                  single-line
+                  hide-details
+                  style="margin-left: 10px"
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn color="primary" style="margin-top: 10px">
+                  搜索
+                </v-btn>
+              </v-flex>
             </v-layout>
           </v-form>
         </v-card>
@@ -132,17 +188,6 @@
             </td>
           </template>
         </v-data-table>
-        <el-upload
-          action="/api/upload"
-          list-type="picture-card"
-          :on-preview="handlePictureCardPreview"
-          name="smfile"
-          :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
       </v-flex>
     </v-layout>
   </div>
@@ -162,6 +207,8 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
+    upUrl : '',
+    act : '/dfs',
     dialogImageUrl: '',
     dialogVisible: false,
     ms_item: '',
@@ -190,12 +237,7 @@ export default {
       { text: '病人姓名', value: 'patient_name' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_patient: [
-      {
-        patient_record_id: 1,
-        patient_name: 'shu'
-      }
-    ],
+    desserts_patient: [],
     headers_ms: [
       {
         text: '医技id',
@@ -207,22 +249,22 @@ export default {
       { text: '医技结果', value: 'medical_skill_result' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_ms: [
-      {
-        medical_skill_id: 1,
-        medical_skill_execute_state: '验血',
-        medical_skill_result: '正常'
-      }
-    ],
+    desserts_ms: [],
     department_name_default: ''
   }),
   methods: {
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
+    urlBlend : function (){
+       this.upUrl = this.act + '/' + this.ms_id
     },
-    handlePictureCardPreview (file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
+    clearFiles () {
+      this.$refs['my-upload'].clearFiles();
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
       console.log('This is image url')
       console.log(this.dialogImageUrl)
     },
@@ -333,12 +375,14 @@ export default {
       this.result = ''
       this.state = ''
       this.ms_item = ''
+      this.clearFiles()
     },
     fillForm: function (item) {
       this.ms_item = item
       this.ms_id = item.medical_skill_id
       this.result = item.medical_skill_result
       this.state = item.medical_skill_execute_state
+      this.urlBlend()
     }
   },
   mounted: function () {

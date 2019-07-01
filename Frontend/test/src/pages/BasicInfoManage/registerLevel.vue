@@ -99,7 +99,7 @@
 
     <v-flex>
       <v-toolbar flat>
-        <v-flex xs3>
+        <v-flex lg3 xs6>
           <v-text-field
             prepend-inner-icon="search"
             v-model="search"
