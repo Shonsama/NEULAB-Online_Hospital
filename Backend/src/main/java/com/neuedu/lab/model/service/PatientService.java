@@ -5,6 +5,8 @@ import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.po.Patient;
 import com.neuedu.lab.model.po.PatientUser;
 import com.neuedu.lab.utils.ConstantUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,6 +17,9 @@ public class PatientService {
 
     @Resource
     private PatientMapper patientMapper;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+    //private boolean ifSignUpSucceedPatient = false;
 
     public List<Patient> getAllPatients() {
         return patientMapper.getAllPatients();
@@ -92,10 +97,27 @@ public class PatientService {
             patientUser.setPatient_account(patient_account);
             patientUser.setPatient_password(patient_password);
             patientMapper.addPatientUser(patientUser);
+            //ifSignUpSucceedPatient = true;
             return ConstantUtils.responseSuccess("注册成功");
         } else {
+            //ifSignUpSucceedPatient = false;
             return ConstantUtils.responseFail("注册失败，已有相同account存在");
         }
+    }
+
+    public JSONObject signUpWithRedis(String patient_account, String patient_password){
+        while (redisTemplate.opsForHash().hasKey("functions", "addPatient")) {
+            try {
+                Thread.sleep(100);
+                System.out.println("Someone is signing up!!!!!!!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        redisTemplate.opsForHash().put("functions", "addPatient", "whatever");
+        JSONObject obj = signUp(patient_account,patient_password);
+        redisTemplate.opsForHash().delete("functions", "addPatient");
+        return obj;
     }
 
     //绑定已有病历号
