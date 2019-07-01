@@ -68,7 +68,7 @@ public class RegisterService {
         String currentRegister = "addRegister"+register.getRegister_info_doctor_id();
         while (redisTemplate.opsForHash().hasKey("functions", currentRegister)) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
                 System.out.println("Someone is registering!!!!!!!");
             } catch (InterruptedException e) {
                 e.printStackTrace();
