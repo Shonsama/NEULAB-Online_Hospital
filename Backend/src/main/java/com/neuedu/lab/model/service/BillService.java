@@ -27,7 +27,7 @@ public class BillService {
         billMapper.addBill(previousBill);
         Integer lastBillId = billMapper.getLastBillId();
         billMapper.updateBillState(ConstantDefinition.BILL_STATE[2],lastBillId);
-        Bill newBill = billMapper.getBillById(bill_id+1);
+        Bill newBill = billMapper.getBillById(lastBillId);
         return ConstantUtils.responseSuccess("重打成功",newBill);
     }
 }
