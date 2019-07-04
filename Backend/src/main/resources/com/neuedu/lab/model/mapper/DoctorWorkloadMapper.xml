@@ -18,9 +18,48 @@
     <select id="getBillsNum" resultType="Integer">
         select count(distinct bill_id) from register_info,bill,medical_skill,prescription
         where (bill_register_id = register_info_id
-        or bill_medical_skill_id = medical_skill_id
-        or bill_prescription_id = prescription_id)
+        or prescription_id = bill_prescription_id
+        or medical_skill_id = bill_medical_skill_id)
         and register_info_doctor_id = #{doctor_id}
+        and medical_skill_doctor_id = #{doctor_id}
+        and prescription_doctor_id = #{doctor_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+
+
+    <select id="getBillsNumInRegister" resultType="Integer">
+        select count(distinct bill_id) from register_info,bill
+        where bill_register_id = register_info_id
+        and register_info_doctor_id = #{doctor_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+
+    <select id="getBillsNumInMedicalSkill" resultType="Integer">
+        select count(distinct bill_id) from bill,medical_skill
+        where bill_medical_skill_id = medical_skill_id
+        and medical_skill_doctor_id = #{doctor_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+
+    <select id="getBillsNumInPrescription" resultType="Integer">
+        select count(distinct bill_id) from bill,prescription
+        where bill_prescription_id = prescription_id
+        and  prescription_doctor_id= #{doctor_id}
         <if test="start_time != null">
             and bill_time &gt; #{start_time}
         </if>
