@@ -18,12 +18,10 @@ import java.util.Map;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     private static Logger logger = LogManager.getLogger(LoginInterceptor.class);
-
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             String token = request.getParameter("token");
             if (token != null) {
-                // WeNEULogger.i("token: "+token);
                 System.out.println(request.getRequestURL() + "登录:[token]:" + token);
                 Map<String, Object> result = Tokenizer.validToken(token);
                 String state = (String) result.get("state");

@@ -279,7 +279,7 @@ public class DoctorService {
 
 
     //新增医技项目
-    public boolean addMedicalSkill(MedicalSkill medicalSkill){
+    public JSONObject addMedicalSkill(MedicalSkill medicalSkill){
         try{
             medicalSkill.setMedical_skill_execute_state(MEDICAL_SKILL_EXECUTE_STATE[0]);
             medicalSkill.setMedical_skill_execute_department(medicalSkill.getMedical_skill_execute_department().
@@ -288,47 +288,47 @@ public class DoctorService {
             medicalSkillMapper.addMedicalSkill(medicalSkill);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess();
     }
 
     //删除医技项目
-    public boolean deleteMedicalSkill(Integer medical_skill_id){
+    public JSONObject deleteMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.deleteMedicalSkill(medical_skill_id);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess();
     }
 
     //开立医技项目
-    public boolean startMedicalSkill(Integer medical_skill_id){
+    public JSONObject startMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id,MEDICAL_SKILL_EXECUTE_STATE[1],null);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess();
     }
 
     //作废医技项目
-    public boolean endMedicalSkill(Integer medical_skill_id){
+    public JSONObject endMedicalSkill(Integer medical_skill_id){
         try{
             medicalSkillMapper.updateMedicalSkillState(medical_skill_id, MEDICAL_SKILL_EXECUTE_STATE[2],null);
         }catch (RuntimeException e){
             e.printStackTrace();
-            return false;
+            return responseFail();
         }
-        return true;
+        return responseSuccess();
     }
 
     //查看检查结果
-    public MedicalSkill checkResult(Integer medical_skill_id){
-        return medicalSkillMapper.getMedicalSkill( medical_skill_id);
+    public JSONObject checkResult(Integer medical_skill_id){
+        return responseSuccess( medicalSkillMapper.getMedicalSkill( medical_skill_id));
     }
 
     //查看初步诊断信息

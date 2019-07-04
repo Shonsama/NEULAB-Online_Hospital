@@ -705,6 +705,7 @@ export default {
     geturl: function (value) {
       var that = this
       var url = '/dfs/get'
+      this.url = ''
       var data = {
         id: value
       }
