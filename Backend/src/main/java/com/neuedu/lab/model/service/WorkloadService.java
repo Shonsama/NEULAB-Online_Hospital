@@ -34,21 +34,55 @@ public class WorkloadService {
     }
 
     public JSONObject getDoctorsWorkload(Date start_time, Date end_time) {
+        long startTime=System.currentTimeMillis();
         List<JSONObject> list = new ArrayList<>();
         Integer doctorNum = doctorWorkloadMapper.getDoctors().size();
         for (int i = 0; i < doctorNum; i++) {
             JSONObject obj = new JSONObject();
             obj.put("getDoctorName", doctorWorkloadMapper.getDoctors().get(i).getDoctor_name());
+            long startTime1=System.currentTimeMillis();
             obj.put("getVisitorsNum", checkIfNull(doctorWorkloadMapper.getVisitorsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
-            obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime1=System.currentTimeMillis();
+
+            long startTime2=System.currentTimeMillis();
+            //obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNumInRegister(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id()))
+            //+doctorWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
+            //+doctorWorkloadMapper.getBillsNumInPrescription(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id()));
+            obj.put("getRegisterFee", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime2=System.currentTimeMillis();
+
+            long startTime3=System.currentTimeMillis();
             obj.put("getRegisterFee", checkIfNull(doctorWorkloadMapper.getRegisterFee(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime3=System.currentTimeMillis();
+            long startTime4=System.currentTimeMillis();
             obj.put("getMedicalSkillCheck", checkIfNull(doctorWorkloadMapper.getMedicalSkillCheck(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime4=System.currentTimeMillis();
+            long startTime5=System.currentTimeMillis();
             obj.put("getMedicalSkillInspect", checkIfNull(doctorWorkloadMapper.getMedicalSkillInspect(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime5=System.currentTimeMillis();
+            long startTime6=System.currentTimeMillis();
             obj.put("getMedicalSkillDispose", checkIfNull(doctorWorkloadMapper.getMedicalSkillDispose(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime6=System.currentTimeMillis();
+            long startTime7=System.currentTimeMillis();
             obj.put("getPrescriptionWest", checkIfNull(doctorWorkloadMapper.getPrescriptionWest(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime7=System.currentTimeMillis();
+            long startTime8=System.currentTimeMillis();
             obj.put("getPrescriptionChinese", checkIfNull(doctorWorkloadMapper.getPrescriptionChinese(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            long endTime8=System.currentTimeMillis();
             list.add(obj);
+            System.out.println("医生"+i+":");
+            System.out.println("运行时间1:"+(endTime1 - startTime1)+"ms");
+            System.out.println("运行时间2:"+(endTime2 - startTime2)+"ms");
+            System.out.println("运行时间3:"+(endTime3 - startTime3)+"ms");
+            System.out.println("运行时间4:"+(endTime4 - startTime4)+"ms");
+            System.out.println("运行时间5:"+(endTime5 - startTime5)+"ms");
+            System.out.println("运行时间6:"+(endTime6 - startTime6)+"ms");
+            System.out.println("运行时间7:"+(endTime7 - startTime7)+"ms");
+            System.out.println("运行时间8:"+(endTime8 - startTime8)+"ms");
+            System.out.println("Process time for current doctor:"+(endTime8 - startTime1)+"ms");
         }
+        long endTime=System.currentTimeMillis();
+        System.out.println("Process time for all doctors:"+(endTime - startTime)+"ms");
         return ConstantUtils.responseSuccess(list);
     }
 

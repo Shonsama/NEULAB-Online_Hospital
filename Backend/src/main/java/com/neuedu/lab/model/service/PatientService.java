@@ -92,7 +92,7 @@ public class PatientService {
     //    注册用户
     public JSONObject signUp(String patient_account, String patient_password) {
         if (!checkIfExistAccount(patient_account)) {
-            //允许注册
+            //able to sign up
             PatientUser patientUser = new PatientUser();
             patientUser.setPatient_account(patient_account);
             patientUser.setPatient_password(patient_password);
