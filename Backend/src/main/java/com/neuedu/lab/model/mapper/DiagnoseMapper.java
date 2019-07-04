@@ -13,4 +13,7 @@ public interface DiagnoseMapper {
 
     //供医生删除原诊断使用
     void deleteDiagnosesByRecordId(Integer diagnose_record_id);
+
+    void deleteFinalDiagnosesByRecordId(Integer diagnose_record_id);
+
 }

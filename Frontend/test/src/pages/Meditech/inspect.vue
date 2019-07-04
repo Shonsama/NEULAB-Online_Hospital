@@ -94,7 +94,6 @@
                   style="width: 400px; height: 400px"
                   :src="dialogImageUrl"
                   :fit="fit"></el-image>
-                <!--<v-img src="dialogImageUrl" aspect-ratio="1.7"></v-img>-->
               </v-layout>
               <v-layout row>
                 <v-flex xs2 offset-xs2>
@@ -207,8 +206,8 @@ export default {
     // search: '',
     // expand: false,
     // selected: [],
-    upUrl : '',
-    act : '/dfs',
+    upUrl: '',
+    act: '/dfs',
     dialogImageUrl: '',
     dialogVisible: false,
     ms_item: '',
@@ -253,18 +252,18 @@ export default {
     department_name_default: ''
   }),
   methods: {
-    urlBlend : function (){
-       this.upUrl = this.act + '/' + this.ms_id
+    urlBlend: function () {
+      this.upUrl = this.act + '/' + this.ms_id
     },
     clearFiles () {
-      this.$refs['my-upload'].clearFiles();
+      this.$refs['my-upload'].clearFiles()
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    handleRemove (file, fileList) {
+      console.log(file, fileList)
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
+    handlePictureCardPreview (file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
       console.log('This is image url')
       console.log(this.dialogImageUrl)
     },

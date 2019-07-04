@@ -243,10 +243,13 @@ public class DoctorService {
     @Transactional
     public JSONObject submitFirstDiagnose(List<Diagnose> diagnoses){
         try {
+            //判断是否有诊断上传
             if(diagnoses.size()==0){
                 return ConstantUtils.responseFail("无诊断显示",null);
             }
+            //假设存在先删除
             diagnoseMapper.deleteDiagnosesByRecordId(diagnoses.get(0).getDiagnose_record_id());
+            //添加
             for(int i = 0; i<diagnoses.size(); i++){
                 diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[0]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
@@ -362,6 +365,12 @@ public class DoctorService {
     @Transactional
     public JSONObject submitFinalDiagnose(List<Diagnose> diagnoses){
         try {
+            //判断是否有诊断上传
+            if(diagnoses.size()==0){
+                return ConstantUtils.responseFail("无诊断显示",null);
+            }
+            //假设存在先删除
+            diagnoseMapper.deleteFinalDiagnosesByRecordId(diagnoses.get(0).getDiagnose_record_id());
             for(int i = 0; i<diagnoses.size(); i++){
                 diagnoses.get(i).setDiagnose_type(DIAGNOSE_TYPE[1]);
                 diagnoseMapper.addDiagnose(diagnoses.get(i));
