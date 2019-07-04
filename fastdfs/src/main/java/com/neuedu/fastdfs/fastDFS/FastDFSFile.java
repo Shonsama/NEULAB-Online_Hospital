@@ -15,20 +15,20 @@ public class FastDFSFile implements FileManagerConfig {
         this.ext = ext;
     }
 
-    public FastDFSFile(byte[] content, String name, String ext) {
-        this.content = content;
-        this.name = name;
-        this.ext = ext;
-    }
-
-    public FastDFSFile(byte[] content, String name, String ext, String length,
-                       String author) {
-        this.content = content;
-        this.name = name;
-        this.ext = ext;
-        this.length = length;
-        this.author = author;
-    }
+//    public FastDFSFile(byte[] content, String name, String ext) {
+//        this.content = content;
+//        this.name = name;
+//        this.ext = ext;
+//    }
+//
+//    public FastDFSFile(byte[] content, String name, String ext, String length,
+//                       String author) {
+//        this.content = content;
+//        this.name = name;
+//        this.ext = ext;
+//        this.length = length;
+//        this.author = author;
+//    }
 
     public byte[] getContent() {
         return content;
