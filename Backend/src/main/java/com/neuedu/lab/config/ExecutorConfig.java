@@ -12,9 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @EnableAsync
 public class ExecutorConfig {
-
 //    private static final Logger logger = LogManager.getLogger(ExecutorConfig.class);
-
     @Value("${async.executor.thread.core_pool_size}")
     private int corePoolSize;
     @Value("${async.executor.thread.max_pool_size}")

@@ -14,13 +14,10 @@ import java.util.Arrays;
 @Component
 @Aspect
 public class LoggerAspect {
-
-
     @Pointcut("execution (* com.neuedu.lab.controller..*.*(..))")
     public void executeService(){
 
     }
-
     @Before(value = "executeService()")
     public void doBefore(JoinPoint joinPoint){
         System.out.println("[A request start]");
@@ -38,10 +35,6 @@ public class LoggerAspect {
 //        printInfo("[CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         printInfo("RESPONSE : " + response);
     }
-
-
-
-
     public void printInfo(String s){
         System.out.println("[INFO]:"+s);
     }
