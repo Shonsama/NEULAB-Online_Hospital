@@ -40,7 +40,7 @@ public class PatientController {
 
     @RequestMapping("/sign-up")
     public JSONObject signUp(@RequestBody JSONObject request){
-        return patientService.signUp(request.getString("patient_account"),request.getString("patient_password"));
+        return patientService.signUpWithRedis(request.getString("patient_account"),request.getString("patient_password"));
     }
     @RequestMapping("/bound-exist-record")
     public JSONObject boundExistedRecord(@RequestBody JSONObject request){
