@@ -378,7 +378,6 @@ public class DoctorService {
         try{
             prescription.setPrescription_execute_state(PRESCRIPTION_EXECUTE_STATE[0]);
             prescription.setPrescription_fee(new BigDecimal(0));
-            //更新处方名称为默认值
             if(prescription.getPrescription_name()==null){
                 prescription.setPrescription_name(ADD_PRESCRIPTION_NAME+prescription.getPrescription_id());
                 prescriptionMapper.updatePrescriptionName(prescription);

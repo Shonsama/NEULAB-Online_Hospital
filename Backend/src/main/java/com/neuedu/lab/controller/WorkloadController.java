@@ -18,17 +18,19 @@ public class WorkloadController {
 
     @RequestMapping("/get-doctor")
     public JSONObject getDoctorsWorkload(@RequestBody JSONObject request) throws ExecutionException, InterruptedException {
-        return workloadService.getDoctorsWorkload(request.getDate("start_time"),request.getDate("end_time"));
+
+        return workloadService.getDoctorsWorkload(request.getDate("start_time"), request.getDate("end_time"));
+
     }
 
     @RequestMapping("/get-department-draw")
     public JSONObject getDepartmentsWorkloadDraw(@RequestBody JSONObject request) throws ExecutionException, InterruptedException {
-        return workloadService.getDepartmentsWorkloadDraw(request.getDate("start_time"),request.getDate("end_time"));
+        return workloadService.getDepartmentsWorkloadDraw(request.getDate("start_time"), request.getDate("end_time"));
     }
 
     @RequestMapping("/get-department-execute")
     public JSONObject getDepartmentsWorkloadExecute(@RequestBody JSONObject request) throws ExecutionException, InterruptedException {
-        return workloadService.getDepartmentsWorkloadExecute(request.getDate("start_time"),request.getDate("end_time"));
+        return workloadService.getDepartmentsWorkloadExecute(request.getDate("start_time"), request.getDate("end_time"));
     }
 }
 

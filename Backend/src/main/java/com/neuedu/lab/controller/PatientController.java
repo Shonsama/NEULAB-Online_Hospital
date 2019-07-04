@@ -16,38 +16,42 @@ public class PatientController {
     private PatientService patientService;
 
     @RequestMapping("/get-all")
-    public JSONObject getAllPatients(){
+    public JSONObject getAllPatients() {
         return ConstantUtils.responseSuccess(patientService.getAllPatients());
     }
 
     @RequestMapping("/add")
-    public JSONObject addPatient(@RequestBody Patient patient){
+    public JSONObject addPatient(@RequestBody Patient patient) {
         return patientService.addPatient(patient);
     }
 
     @RequestMapping("/get-by-patient-id")
-    public JSONObject getPatientByRecordId(@RequestBody JSONObject request){
+    public JSONObject getPatientByRecordId(@RequestBody JSONObject request) {
         return ConstantUtils.responseSuccess(patientService.getPatientByRecordId(request.getInteger("patient_record_id")));
     }
+
     @RequestMapping("/get-by-doctor-id")
-    public JSONObject getPatientByDoctorId(@RequestBody JSONObject request){
+    public JSONObject getPatientByDoctorId(@RequestBody JSONObject request) {
         return ConstantUtils.responseSuccess(patientService.getPatientByDoctorId(request.getString("register_info_doctor_id")));
     }
+
     @RequestMapping("/get-by-department-id")
-    public JSONObject getPatientByDepartmentId(@RequestBody JSONObject request){
+    public JSONObject getPatientByDepartmentId(@RequestBody JSONObject request) {
         return ConstantUtils.responseSuccess(patientService.getPatientByDepartmentId(request.getString("doctor_department_id")));
     }
 
     @RequestMapping("/sign-up")
-    public JSONObject signUp(@RequestBody JSONObject request){
-        return patientService.signUpWithRedis(request.getString("patient_account"),request.getString("patient_password"));
+    public JSONObject signUp(@RequestBody JSONObject request) {
+        return patientService.signUpWithRedis(request.getString("patient_account"), request.getString("patient_password"));
     }
+
     @RequestMapping("/bound-exist-record")
-    public JSONObject boundExistedRecord(@RequestBody JSONObject request){
-        return patientService.boundExistedRecord(request.getString("patient_account"),request.getInteger("patient_record_id"));
+    public JSONObject boundExistedRecord(@RequestBody JSONObject request) {
+        return patientService.boundExistedRecord(request.getString("patient_account"), request.getInteger("patient_record_id"));
     }
+
     @RequestMapping("/create-new-record")
-    public JSONObject createNewRecord(@RequestBody JSONObject request){
+    public JSONObject createNewRecord(@RequestBody JSONObject request) {
         //PatientUser patientUser = new PatientUser();
         Patient patient = new Patient();
         //patientUser.setPatient_account(request.getString("patient_account"));
@@ -57,7 +61,7 @@ public class PatientController {
         patient.setPatient_address(request.getString("patient_address"));
         patient.setPatient_birthDate(request.getDate("patient_birthDate"));
         patient.setPatient_age(request.getInteger("patient_age"));
-        return patientService.createNewRecord(patient,request.getString("patient_account"));
+        return patientService.createNewRecord(patient, request.getString("patient_account"));
     }
 
 }
