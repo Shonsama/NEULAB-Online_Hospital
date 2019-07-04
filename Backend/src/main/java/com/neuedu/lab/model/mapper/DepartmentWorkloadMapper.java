@@ -11,6 +11,9 @@ public interface DepartmentWorkloadMapper {
     Integer getVisitorsNum(@Param("start_time") Date start_time, @Param("end_time")Date end_time, @Param("department_id")String department_id);
 
     Integer getBillsNum(@Param("start_time")Date start_time,@Param("end_time")Date end_time, @Param("department_id")String department_id);
+    Integer getBillsNumInRegister(@Param("start_time")Date start_time,@Param("end_time")Date end_time, @Param("department_id")String department_id);
+    Integer getBillsNumInMedicalSkill(@Param("start_time")Date start_time,@Param("end_time")Date end_time, @Param("department_id")String department_id);
+    Integer getBillsNumInPrescription(@Param("start_time")Date start_time,@Param("end_time")Date end_time, @Param("department_id")String department_id);
 
     BigDecimal getRegisterFee(@Param("start_time")Date start_time, @Param("end_time")Date end_time, @Param("department_id")String department_id);
 

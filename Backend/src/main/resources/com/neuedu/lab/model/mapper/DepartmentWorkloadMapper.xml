@@ -31,6 +31,43 @@
         </if>
     </select>
 
+    <select id="getBillsNumInRegister" resultType="Integer">
+        select count(distinct bill_id) from register_info,bill,doctor_info
+        where bill_register_id = register_info_id
+        and register_info_doctor_id = doctor_id
+        and doctor_department_id = #{department_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+    <select id="getBillsNumInMedicalSkill" resultType="Integer">
+        select count(distinct bill_id) from bill,doctor_info,medical_skill
+        where bill_medical_skill_id = medical_skill_id
+        and medical_skill_doctor_id = doctor_id
+        and doctor_department_id = #{department_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+    <select id="getBillsNumInPrescription" resultType="Integer">
+        select count(distinct bill_id) from bill,doctor_info,prescription
+        where bill_prescription_id = prescription_id
+        and prescription_doctor_id = doctor_id
+        and doctor_department_id = #{department_id}
+        <if test="start_time != null">
+            and bill_time &gt; #{start_time}
+        </if>
+        <if test="end_time != null">
+            and bill_time &lt; #{end_time}
+        </if>
+    </select>
+
     <select id="getRegisterFee" resultType="BigDecimal">
         select sum(register_info_fee) from register_info,bill,doctor_info
         where bill_register_id = register_info_id

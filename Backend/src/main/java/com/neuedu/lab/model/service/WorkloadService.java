@@ -33,7 +33,7 @@ public class WorkloadService {
             return source;
     }
 
-    public JSONObject getDoctorsWorkload(Date start_time, Date end_time) {
+    public JSONObject getDoctorsWorkload(Date start_time, Date end_time){
         long startTime=System.currentTimeMillis();
         List<JSONObject> list = new ArrayList<>();
         Integer doctorNum = doctorWorkloadMapper.getDoctors().size();
@@ -45,10 +45,10 @@ public class WorkloadService {
             long endTime1=System.currentTimeMillis();
 
             long startTime2=System.currentTimeMillis();
-            //obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNumInRegister(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id()))
-            //+doctorWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
-            //+doctorWorkloadMapper.getBillsNumInPrescription(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id()));
-            obj.put("getRegisterFee", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNumInRegister(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
+            +doctorWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
+            +doctorWorkloadMapper.getBillsNumInPrescription(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            //obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
             long endTime2=System.currentTimeMillis();
 
             long startTime3=System.currentTimeMillis();
@@ -70,15 +70,15 @@ public class WorkloadService {
             obj.put("getPrescriptionChinese", checkIfNull(doctorWorkloadMapper.getPrescriptionChinese(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
             long endTime8=System.currentTimeMillis();
             list.add(obj);
-            System.out.println("医生"+i+":");
-            System.out.println("运行时间1:"+(endTime1 - startTime1)+"ms");
-            System.out.println("运行时间2:"+(endTime2 - startTime2)+"ms");
-            System.out.println("运行时间3:"+(endTime3 - startTime3)+"ms");
-            System.out.println("运行时间4:"+(endTime4 - startTime4)+"ms");
-            System.out.println("运行时间5:"+(endTime5 - startTime5)+"ms");
-            System.out.println("运行时间6:"+(endTime6 - startTime6)+"ms");
-            System.out.println("运行时间7:"+(endTime7 - startTime7)+"ms");
-            System.out.println("运行时间8:"+(endTime8 - startTime8)+"ms");
+            System.out.println("doctor"+i+":");
+            System.out.println("getVisitorsNum:"+(endTime1 - startTime1)+"ms");
+            System.out.println("getBillsNum:"+(endTime2 - startTime2)+"ms");
+            System.out.println("getRegisterFee:"+(endTime3 - startTime3)+"ms");
+            System.out.println("getMedicalSkillCheck:"+(endTime4 - startTime4)+"ms");
+            System.out.println("getMedicalSkillInspect:"+(endTime5 - startTime5)+"ms");
+            System.out.println("getMedicalSkillDispose:"+(endTime6 - startTime6)+"ms");
+            System.out.println("getPrescriptionWest:"+(endTime7 - startTime7)+"ms");
+            System.out.println("getPrescriptionChinese:"+(endTime8 - startTime8)+"ms");
             System.out.println("Process time for current doctor:"+(endTime8 - startTime1)+"ms");
         }
         long endTime=System.currentTimeMillis();
@@ -93,7 +93,10 @@ public class WorkloadService {
             JSONObject obj = new JSONObject();
             obj.put("getDepartmentName", departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_name());
             obj.put("getVisitorsNum", checkIfNull(departmentWorkloadMapper.getVisitorsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
-            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
+            //obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
+            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNumInRegister(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
+                            departmentWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
+                            departmentWorkloadMapper.getBillsNumInPrescription(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getRegisterFee", checkIfNull(departmentWorkloadMapper.getRegisterFee(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getMedicalSkillCheck", checkIfNull(departmentWorkloadMapper.getMedicalSkillCheck(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getMedicalSkillInspect", checkIfNull(departmentWorkloadMapper.getMedicalSkillInspect(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
@@ -112,7 +115,10 @@ public class WorkloadService {
             JSONObject obj = new JSONObject();
             obj.put("getDepartmentName", departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_name());
             obj.put("getVisitorsNum", checkIfNull(departmentWorkloadMapper.getVisitorsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
-            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
+            //obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
+            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNumInRegister(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
+                    departmentWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
+                    departmentWorkloadMapper.getBillsNumInPrescription(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
             obj.put("getRegisterFee", checkIfNull(departmentWorkloadMapper.getRegisterFee(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getMedicalSkillCheck", checkIfNull(departmentWorkloadMapper.getMedicalSkillCheck(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getMedicalSkillInspect", checkIfNull(departmentWorkloadMapper.getMedicalSkillInspect(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));

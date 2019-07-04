@@ -6,15 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 @EnableAsync
 public class ExecutorConfig {
-
 //    private static final Logger logger = LogManager.getLogger(ExecutorConfig.class);
-
     @Value("${async.executor.thread.core_pool_size}")
     private int corePoolSize;
     @Value("${async.executor.thread.max_pool_size}")
@@ -25,7 +22,7 @@ public class ExecutorConfig {
     private String namePrefix;
 
     @Bean(name = "asyncServiceExecutor")
-    public Executor asyncServiceExecutor() {
+    public ThreadPoolTaskExecutor asyncServiceExecutor() {
 //        logger.info("start asyncServiceExecutor");
         ThreadPoolTaskExecutor executor = new VisiableThreadPoolTaskExecutor();
         //配置核心线程数
