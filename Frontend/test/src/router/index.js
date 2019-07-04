@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/pages/HelloWorld'
-import RegisterCharge from '@/pages/RegisterCharge'
-import BasicInfoManage from '@/pages/BasicInfoManage'
-import Diagnostician from '@/pages/Diagnostician'
-import Meditech from '@/pages/Meditech'
-import Pharmacy from '@/pages/Pharmacy'
-import Finance from '@/pages/Finance'
-import error from '@/pages/error'
+const HelloWorld = resolve => require(['@/pages/HelloWorld'], resolve)
+const RegisterCharge = resolve => require(['@/pages/RegisterCharge'], resolve)
+const BasicInfoManage = resolve => require(['@/pages/BasicInfoManage'], resolve)
+const Diagnostician = resolve => require(['@/pages/Diagnostician'], resolve)
+const Meditech = resolve => require(['@/pages/Meditech'], resolve)
+const Pharmacy = resolve => require(['@/pages/Pharmacy'], resolve)
+const Finance = resolve => require(['@/pages/Finance'], resolve)
 
 Vue.use(Router)
 
@@ -48,11 +47,6 @@ const router = new Router({
       path: '/Finance',
       name: 'Finance',
       component: Finance
-    },
-    {
-      path: '/error',
-      name: 'error',
-      component: error
     }
   ]
 })
