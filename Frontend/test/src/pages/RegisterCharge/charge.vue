@@ -70,13 +70,13 @@
                     <v-list-tile-content class="align-end">乘坐154路至“唯美品格”站或150路至“东海电子”站</v-list-tile-content>
                   </v-list-tile>
                 </v-list>
-                <v-layout justify-space-around>
-                  <v-list dense>
-                    <v-list-tile>
-                      <v-list-tile-content>发票号:</v-list-tile-content>
-                      <v-list-tile-content class="align-end">{{ bill.bill_id }}</v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content>发票号:</v-list-tile-content>
+                    <v-list-tile-content style="margin-left: 20px" class="align-end"><el-input v-model="bill.bill_id" placeholder="请输入内容" size="mini"></el-input></v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+                <v-layout justify-space-between>
                   <v-list dense>
                     <v-list-tile>
                       <v-list-tile-content>挂号号:</v-list-tile-content>
@@ -102,7 +102,7 @@
                     </v-list-tile>
                   </v-list>
                 </v-layout>
-                <v-layout justify-space-around>
+                <v-layout justify-space-between>
                   <v-list dense>
                     <v-list-tile>
                       <v-list-tile-content>发票类型:</v-list-tile-content>

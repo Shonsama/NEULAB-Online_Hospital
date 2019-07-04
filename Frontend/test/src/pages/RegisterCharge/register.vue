@@ -29,13 +29,13 @@
                     <v-list-tile-content class="align-end">乘坐154路至“唯美品格”站或150路至“东海电子”站</v-list-tile-content>
                   </v-list-tile>
                 </v-list>
-                <v-layout justify-space-around>
-                  <v-list dense>
-                    <v-list-tile>
-                      <v-list-tile-content>发票号:</v-list-tile-content>
-                      <v-list-tile-content class="align-end">{{ bill.bill_id }}</v-list-tile-content>
-                    </v-list-tile>
-                  </v-list>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content>发票号:</v-list-tile-content>
+                    <v-list-tile-content style="margin-left: 20px" class="align-end"><el-input v-model="bill.bill_id" placeholder="请输入内容" size="mini"></el-input></v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+                <v-layout justify-space-between>
                   <v-list dense>
                     <v-list-tile>
                       <v-list-tile-content>挂号号:</v-list-tile-content>
@@ -61,7 +61,7 @@
                     </v-list-tile>
                   </v-list>
                 </v-layout>
-                <v-layout justify-space-around>
+                <v-layout justify-space-between>
                   <v-list dense>
                     <v-list-tile>
                       <v-list-tile-content>发票类型:</v-list-tile-content>
@@ -304,10 +304,20 @@
               >
                 <v-icon>add</v-icon>
               </v-btn>
+              <v-btn
+                @click="clear"
+                color="primary"
+                flat
+                icon
+                style="margin-top: 20px"
+              >
+                <v-icon>refresh</v-icon>
+              </v-btn>
             </v-layout>
             <v-layout>
               <div class="title font-weight-light">患者信息确认</div>
             </v-layout>
+
             <v-layout wrap>
               <v-flex
                 xs12
@@ -615,6 +625,14 @@ export default {
     ]
   }),
   watch: {
+    //实时监控变量变化
+    departmentId: function (newState) {
+      this.load_doctors()
+    },
+    register_level: function (newState) {
+      this.bill_sum = newState.register_level_fee
+      this.load_doctors()
+    },
     bill: function (newState) {
       if (newState.bill_id) {
         this.isPrint = true
@@ -637,13 +655,7 @@ export default {
         this.patient_age = date.getFullYear() - date1.getFullYear()
       }
     },
-    departmentId: function (newState) {
-      this.load_doctors()
-    },
-    register_level: function (newState) {
-      this.bill_sum = newState.register_level_fee
-      this.load_doctors()
-    },
+
     dialog_suc (val) {
       if (!val) return
       setTimeout(() => (this.dialog_suc = false), 1000)
@@ -664,6 +676,19 @@ export default {
     this.load_registerLevels()
   },
   methods: {
+    clear: function () {
+      var that = this
+      that.patient_gender = ''
+      that.patient_name = ''
+      that.patient_age = ''
+      that.patient_credit_id = ''
+      that.patient_birthDate = ''
+      that.patient_address = ''
+      that.doctor_id = ''
+      that.paycate = ''
+      that.register_level = ''
+      that.departmentId = ''
+    },
     filterDepart: function (value) {
       return value.department_cat === '临床科室'
     },

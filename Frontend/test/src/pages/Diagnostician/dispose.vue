@@ -452,7 +452,7 @@
             <td>{{ props.item.medical_skill_fee }}</td>
             <td>
               <v-icon
-                @click="props.expanded = !props.expanded,getItem()"
+                @click="props.expanded = !props.expanded,getItem(),geturl(props.item.medical_skill_id)"
               >
                 remove_red_eye
               </v-icon>
@@ -470,6 +470,11 @@
                     <span>目的：{{ props.item.medical_skill_purpose}}</span><br>
                     <span class="font-weight-regular">结果</span><br>
                     <span>详情：{{props.item.medical_skill_result}}</span><br>
+                    <el-image
+                      style="width: 400px; height: 400px"
+                      :src="url"
+                    >
+                    </el-image>
                   </div>
                 </v-card-title>
               </v-card>
@@ -538,6 +543,7 @@ export default {
   props: ['msgfromfa', 'record'],
   data () {
     return {
+      url: '',
       dialog_err: false,
       dialog_suc: false,
       msg_suc: 'success',
@@ -694,6 +700,18 @@ export default {
     }
   },
   methods: {
+    geturl: function (value) {
+      var that = this
+      var url = '/dfs/get'
+      var data = {
+        id: value
+      }
+      this.$http.post(url, data)
+        .then(function (response) {
+          console.log(response.data)
+          that.url = response.data.data[0].url
+        })
+    },
     network_out: function () {
       this.dialog = false
       this.dialog_err = true

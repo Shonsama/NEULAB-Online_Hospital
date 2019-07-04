@@ -21,6 +21,11 @@
         WHERE bill_id = #{bill_id}
     </select>
 
+    <!--获取最后一个bill的bill_id-->
+    <select id="getLastBillId" resultType="Integer">
+        SELECT bill_id FROM bill ORDER BY bill_id DESC LIMIT 1
+    </select>
+
     <select id="getBillForOneRecord" resultType="Bill">
         SELECT * FROM bill
         WHERE bill_register_id = #{register_id}
