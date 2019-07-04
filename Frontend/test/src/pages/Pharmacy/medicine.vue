@@ -76,18 +76,22 @@
             <v-toolbar flat dense>
               <v-toolbar-title>患者查询</v-toolbar-title>
             </v-toolbar>
-            <v-layout>
-              <v-text-field
-                v-model="search_patient"
-                append-icon="search"
-                label="病历号"
-                single-line
-                hide-details
-                style="margin-left: 10px"
-              ></v-text-field>
-              <v-btn color="primary" style="margin-top: 10px">
-                搜索
-              </v-btn>
+            <v-layout wrap>
+              <v-flex lg9 xs12>
+                <v-text-field
+                  v-model="search_patient"
+                  append-icon="search"
+                  label="病历号"
+                  single-line
+                  hide-details
+                  style="margin-left: 10px"
+                ></v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn color="primary" style="margin-top: 10px">
+                  搜索
+                </v-btn>
+              </v-flex>
             </v-layout>
           </v-form>
         </v-card>
@@ -238,12 +242,7 @@ export default {
       { text: '病人姓名', value: 'patient_name' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_patient: [
-      {
-        patient_record_id: 1,
-        patient_name: 'shu'
-      }
-    ],
+    desserts_patient: [],
     headers_md: [
       {
         text: '处方id',
@@ -256,15 +255,7 @@ export default {
       { text: '费用', value: 'prescription_fee' },
       { text: '操作', value: 'operation', sortable: false }
     ],
-    desserts_md: [
-      {
-        prescription_id: 1,
-        prescription_name: '这是处方',
-        prescription_execute_state: '已缴费',
-        prescription_type: '中药',
-        prescription_fee: '25.00'
-      }
-    ]
+    desserts_md: []
   }),
   mounted: function () {
     this.load()

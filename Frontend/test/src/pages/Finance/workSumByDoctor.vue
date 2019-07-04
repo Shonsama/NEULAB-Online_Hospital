@@ -23,7 +23,7 @@
 
     <v-flex>
       <v-toolbar flat>
-        <v-flex xs3>
+        <v-flex lg3 xs6>
           <v-text-field
             prepend-inner-icon="search"
             v-model="search"
@@ -105,7 +105,6 @@ export default {
   data () {
     let options = qs.parse(location.search, { ignoreQueryPrefix: true })
     return {
-      // option: qs.parse(location.search, { ignoreQueryPrefix: true }),
       initOptions: {
         renderer: options.renderer || 'canvas'
       },

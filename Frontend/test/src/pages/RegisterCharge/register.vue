@@ -3,54 +3,108 @@
     <v-dialog
       v-model="dialog_bill"
       hide-overlay
-      width="400"
+      width="600"
     >
       <v-layout justify-center>
         <v-flex>
           <v-card>
             <div ref="printThem">
               <v-card-title>
-                发票
+                <img src="../icon/hospital.png" height="180" width="180"/>
+                <v-spacer/>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content><v-text class="title">东软云医院</v-text></v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>联系电话:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">024-8366 2222</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>医院地址:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">辽宁省沈阳市浑南新区新秀街2号东软软件园A9座</v-list-tile-content>
+                  </v-list-tile>
+                  <v-list-tile>
+                    <v-list-tile-content>公交路线:</v-list-tile-content>
+                    <v-list-tile-content class="align-end">乘坐154路至“唯美品格”站或150路至“东海电子”站</v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content>发票号:</v-list-tile-content>
+                    <v-list-tile-content style="margin-left: 20px" class="align-end"><el-input v-model="bill.bill_id" placeholder="请输入内容" size="mini"></el-input></v-list-tile-content>
+                  </v-list-tile>
+                </v-list>
+                <v-layout justify-space-between>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>挂号号:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_register_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>患者姓名:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ patient_name }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>病历号:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ patient_record_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费员ID:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_user_id }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </v-layout>
+                <v-layout justify-space-between>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>发票类型:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_state }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费类别:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_type }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>收费总额:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_sum }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <v-list dense>
+                    <v-list-tile>
+                      <v-list-tile-content>打印时间:</v-list-tile-content>
+                      <v-list-tile-content class="align-end">{{ bill.bill_time }}</v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </v-layout>
               </v-card-title>
-              <v-card-text>
-                <v-text-field
-                  v-model="bill.bill_id"
-                  label="发票号"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_register_id"
-                  label="挂号ID"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_sum"
-                  label="发票总额"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_state"
-                  label="发票类型"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_time"
-                  label="打印时间"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_type"
-                  label="收费类别"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  v-model="bill.bill_user_id"
-                  label="收费员ID"
-                  readonly
-                ></v-text-field>
-              </v-card-text>
+              <!--<v-data-table-->
+                <!--v-model="selected"-->
+                <!--:headers="headers_bill"-->
+                <!--:items="bills"-->
+                <!--item-key="register_info_id"-->
+              <!--&gt;-->
+                <!--<template v-slot:items="props">-->
+                  <!--<td>{{ props.item.register_info_id }}</td>-->
+                  <!--<td>{{ props.item.register_info_patient_id }}</td>-->
+                  <!--<td>{{ props.item.register_info_state }}</td>-->
+                  <!--<td>{{ props.item.register_info_doctor_id }}</td>-->
+                  <!--<td>{{ props.item.register_info_doctor_id }}</td>-->
+                  <!--<td>{{ props.item.register_info_fee }}</td>-->
+                <!--</template>-->
+              <!--</v-data-table>-->
             </div>
-              <v-btn @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
+              <v-btn style="margin-left: 260px;margin-bottom: 10px" @click="$print($refs.printThem)" color="primary">打印发票</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -187,30 +241,28 @@
       <v-toolbar extended flat dense>
         <v-toolbar-title>挂号信息</v-toolbar-title>
         <template v-slot:extension>
-          <v-flex xs2>
-            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"
-                          :disabled="disabled"></v-text-field>
+          <v-flex xs4 lg2>
+            <v-text-field v-model="bill.bill_id" prepend-inner-icon="assignment" name="login" label="发票号" type="text"></v-text-field>
           </v-flex>
           <v-btn
             small
-            icon
-            flat
+            class="ml-4"
             color="primary"
             @click="reprint_bill"
           >
-            <v-icon>
-              refresh
+            补打
+            <v-icon small right>
+              print
             </v-icon>
           </v-btn>
           <v-btn
             small
-            icon
-            flat
             color="primary"
             @click="overprint"
           >
-            <v-icon>
-              print
+            重打
+            <v-icon small right>
+              refresh
             </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
@@ -225,7 +277,7 @@
             <v-layout>
               <v-flex
                 xs12
-                md6
+                md3
                 lg3
               >
                 <v-text-field
@@ -252,14 +304,24 @@
               >
                 <v-icon>add</v-icon>
               </v-btn>
+              <v-btn
+                @click="clear"
+                color="primary"
+                flat
+                icon
+                style="margin-top: 20px"
+              >
+                <v-icon>refresh</v-icon>
+              </v-btn>
             </v-layout>
             <v-layout>
               <div class="title font-weight-light">患者信息确认</div>
             </v-layout>
+
             <v-layout wrap>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -272,7 +334,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -287,7 +349,7 @@
 
               <v-flex
                 xs12
-                md6
+                md3
                 lg4
               >
                 <v-textarea
@@ -301,7 +363,7 @@
 
               <v-flex
                 xs12
-                md6
+                md3
                 lg4
               >
                 <v-text-field
@@ -315,7 +377,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -328,7 +390,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -341,7 +403,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -357,7 +419,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -374,7 +436,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -391,7 +453,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-select
@@ -408,7 +470,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-text-field
@@ -420,7 +482,7 @@
               </v-flex>
               <v-flex
                 xs12
-                md6
+                md3
                 lg2
               >
                 <v-checkbox
@@ -493,6 +555,15 @@ export default {
     dialog_err: false,
     isExist: false,
     register_items: [],
+    headers_bill: [
+      {
+        text: '挂号级别',
+        align: 'left',
+        value: 'register_info_id'
+      },
+      { text: '挂号科室', value: 'register_info_patient_id' },
+      { text: '挂号医生', value: 'register_info_state' }
+    ],
     headers: [
       {
         text: '挂号ID',
@@ -554,6 +625,14 @@ export default {
     ]
   }),
   watch: {
+    //实时监控变量变化
+    departmentId: function (newState) {
+      this.load_doctors()
+    },
+    register_level: function (newState) {
+      this.bill_sum = newState.register_level_fee
+      this.load_doctors()
+    },
     bill: function (newState) {
       if (newState.bill_id) {
         this.isPrint = true
@@ -571,16 +650,12 @@ export default {
     patient_birthDate: function (newState) {
       var date = new Date()
       console.log(newState)
-      var date1 = new Date(newState.replace(/-/, '/'))
-      this.patient_age = date.getFullYear() - date1.getFullYear()
+      var date1 = new Date(newState)
+      if (newState) {
+        this.patient_age = date.getFullYear() - date1.getFullYear()
+      }
     },
-    departmentId: function (newState) {
-      this.load_doctors()
-    },
-    register_level: function (newState) {
-      this.bill_sum = newState.register_level_fee
-      this.load_doctors()
-    },
+
     dialog_suc (val) {
       if (!val) return
       setTimeout(() => (this.dialog_suc = false), 1000)
@@ -601,6 +676,19 @@ export default {
     this.load_registerLevels()
   },
   methods: {
+    clear: function () {
+      var that = this
+      that.patient_gender = ''
+      that.patient_name = ''
+      that.patient_age = ''
+      that.patient_credit_id = ''
+      that.patient_birthDate = ''
+      that.patient_address = ''
+      that.doctor_id = ''
+      that.paycate = ''
+      that.register_level = ''
+      that.departmentId = ''
+    },
     filterDepart: function (value) {
       return value.department_cat === '临床科室'
     },
@@ -682,7 +770,7 @@ export default {
             }
             that.patient_name = response.data.data.patient_name
             that.patient_credit_id = response.data.data.patient_credit_id
-            that.patient_birthDate = response.data.data.patient_birthDate
+            that.patient_birthDate = response.data.data.patient_birthDate.slice(0, 10)
             that.patient_age = response.data.data.patient_age
             that.patient_address = response.data.data.patient_address
             that.dialog_suc = true
@@ -858,8 +946,9 @@ export default {
             that.print_bill()
             that.get_patient_register()
           } else {
+            console.log(response.data)
             that.dialog_err = true
-            that.msg_err = '挂号失败'
+            that.msg_err = response.data.data
           }
           that.dialog = false
         })

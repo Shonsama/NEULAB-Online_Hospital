@@ -33,4 +33,9 @@
         DELETE FROM diagnose
         WHERE diagnose_record_id = #{diagnose_record_id}
     </delete>
+
+    <delete id="deleteFinalDiagnosesByRecordId" parameterType="Integer">
+        DELETE FROM diagnose
+        WHERE diagnose_record_id = #{diagnose_record_id} and diagnose_type = "最终诊断"
+    </delete>
 </mapper>

@@ -1,15 +1,14 @@
 package com.neuedu.lab.model.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.utils.ConstantDefinition;
-import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.mapper.MedicalSkillContentMapper;
 import com.neuedu.lab.model.mapper.MedicalSkillMapper;
 import com.neuedu.lab.model.mapper.PatientMapper;
 import com.neuedu.lab.model.mapper.RegisterMapper;
 import com.neuedu.lab.model.po.MedicalSkill;
 import com.neuedu.lab.model.po.Patient;
-import org.springframework.scheduling.annotation.Async;
+import com.neuedu.lab.utils.ConstantDefinition;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,13 +30,15 @@ public class MedicalSkillDoctorService {
     MedicalSkillContentMapper medicalSkillContentMapper;
 
     public JSONObject confirmMedicalSkill(Integer medical_skill_id,Integer medical_skill_execute_doctor_id){
-        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_doctor_id);
+        medicalSkillMapper.updateMedicalSkillState(medical_skill_id,
+                ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_doctor_id);
         MedicalSkill result = medicalSkillMapper.getMedicalSkill(medical_skill_id);
         result.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(result.getMedical_skill_content_id()));
         return ConstantUtils.responseSuccess(result);
     }
     public JSONObject cancelMedicalSkill(Integer medical_skill_id, Integer medical_skill_execute_doctor_id){
-        medicalSkillMapper.updateMedicalSkillState(medical_skill_id, ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[7], medical_skill_execute_doctor_id);
+        medicalSkillMapper.updateMedicalSkillState(medical_skill_id,
+                ConstantDefinition.MEDICAL_SKILL_EXECUTE_STATE[7], medical_skill_execute_doctor_id);
         MedicalSkill result = medicalSkillMapper.getMedicalSkill(medical_skill_id);
         result.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(result.getMedical_skill_content_id()));
         return ConstantUtils.responseSuccess(result);
@@ -65,9 +66,11 @@ public class MedicalSkillDoctorService {
 
         List<MedicalSkill> medicalSkills;
         try{
-            medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_department);
+            medicalSkills = medicalSkillMapper.getDepartmentMedicalSkillByPatientId(patient_id,MEDICAL_SKILL_EXECUTE_STATE[3],
+                    MEDICAL_SKILL_EXECUTE_STATE[6],medical_skill_execute_department);
             for(MedicalSkill medicalSkill:medicalSkills){
-                medicalSkill.setMedicalSkillContent(medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id()));
+                medicalSkill.setMedicalSkillContent(
+                        medicalSkillContentMapper.getMedicalSkillContent(medicalSkill.getMedical_skill_content_id()));
             }
         }catch (RuntimeException e){
             e.printStackTrace();

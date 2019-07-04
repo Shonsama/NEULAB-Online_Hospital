@@ -80,6 +80,12 @@
         #{template_medical_skill_content_unit_price})
     </insert>
 
+    <!--删除项目-->
+    <delete id="deleteTemplateContent" parameterType="TemplateContent">
+        DELETE FROM template_content
+        where template_content_id = #{template_content_id}
+    </delete>
+
     <!--    增加项目,药品-->
     <insert id="addTemplateContentMedicine" parameterType="TemplateContent" useGeneratedKeys="true"
             keyProperty="template_content_id">
@@ -100,11 +106,7 @@
     </insert>
 
 
-    <!--删除项目-->
-    <delete id="deleteTemplateContent" parameterType="TemplateContent">
-        DELETE FROM template_content
-        where template_content_id = #{template_content_id}
-    </delete>
+
 
 
     <!--查询项目内容,医技-->
