@@ -94,7 +94,6 @@
                   style="width: 400px; height: 400px"
                   :src="dialogImageUrl"
                   :fit="fit"></el-image>
-                <!--<v-img src="dialogImageUrl" aspect-ratio="1.7"></v-img>-->
               </v-layout>
               <v-layout row>
                 <v-flex xs2 offset-xs2>

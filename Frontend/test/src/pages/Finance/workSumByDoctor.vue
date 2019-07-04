@@ -105,7 +105,6 @@ export default {
   data () {
     let options = qs.parse(location.search, { ignoreQueryPrefix: true })
     return {
-      // option: qs.parse(location.search, { ignoreQueryPrefix: true }),
       initOptions: {
         renderer: options.renderer || 'canvas'
       },
