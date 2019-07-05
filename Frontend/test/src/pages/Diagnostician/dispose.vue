@@ -702,7 +702,7 @@ export default {
   methods: {
     geturl: function (value) {
       var that = this
-      var url = '/dfs/get'
+      var url = 'http://39.105.10.253:8080/dfs/get'
       this.url = ''
       var data = {
         id: value

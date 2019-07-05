@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
 import javax.crypto.Cipher;
@@ -24,6 +23,7 @@ import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Base64.Decoder;
 
 import static com.neuedu.lab.utils.ConstantDefinition.*;
 import static com.neuedu.lab.utils.ConstantUtils.responseFail;
@@ -115,8 +115,8 @@ public class UserService {
             Exception {
         if (data == null)
             return null;
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] buf = decoder.decodeBuffer(data);
+        Decoder decoder = Base64.getDecoder();
+        byte[] buf = decoder.decode(data);
         byte[] bt = DESDecrypt(buf,key.getBytes());
         return new String(bt,"utf-8");
     }

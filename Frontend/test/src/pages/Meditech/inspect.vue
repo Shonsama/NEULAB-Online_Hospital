@@ -207,7 +207,7 @@ export default {
     // expand: false,
     // selected: [],
     upUrl: '',
-    act: '/dfs',
+    act: 'http://39.105.10.253:8080/dfs',
     dialogImageUrl: '',
     dialogVisible: false,
     ms_item: '',
