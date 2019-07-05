@@ -116,9 +116,9 @@ public class WorkloadService {
             obj.put("getDepartmentName", departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_name());
             obj.put("getVisitorsNum", checkIfNull(departmentWorkloadMapper.getVisitorsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             //obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNum(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
-            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNumInRegister(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
-                    departmentWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())+
-                    departmentWorkloadMapper.getBillsNumInPrescription(start_time, end_time, departmentWorkloadMapper.getDepartmentsClinical().get(i).getDepartment_id())));
+            obj.put("getBillsNum", checkIfNull(departmentWorkloadMapper.getBillsNumInRegister(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())+
+                    departmentWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())+
+                    departmentWorkloadMapper.getBillsNumInPrescription(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getRegisterFee", checkIfNull(departmentWorkloadMapper.getRegisterFee(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getMedicalSkillCheck", checkIfNull(departmentWorkloadMapper.getMedicalSkillCheck(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
             obj.put("getMedicalSkillInspect", checkIfNull(departmentWorkloadMapper.getMedicalSkillInspect(start_time, end_time, departmentWorkloadMapper.getDepartmentsMedicalSkill().get(i).getDepartment_id())));
