@@ -126,6 +126,12 @@
 </template>
 
 <script>
+const CryptoJS = require('crypto-js')
+const ModeECB = require ('crypto-js/mode-ecb')
+const outBase64 = require ('crypto-js/enc-base64')
+console.log('start encrypt')
+  // 密钥
+const desKey = '12345678901234567890123456789012'
 export default {
   name: 'HelloWorld',
   data () {
@@ -166,15 +172,24 @@ export default {
       let that = this
       var data
       var url = this.HOME + '/user/check-valid'
+      var password = that.password
+      var keyHex = CryptoJS.enc.Utf8.parse(desKey)
+      var dataHex = CryptoJS.enc.Utf8.parse(password)
+      const encrypted = CryptoJS.DES.encrypt(dataHex, keyHex, {
+        mode: ModeECB,
+      })
+      console.log('encrypt:', encrypted.ciphertext.toString())
+      // encrypt: 74ef8f14f789e74e77cc5a1e05434f400c2f7cafab0ab326
+      console.log('encrypt  Base64:', outBase64.stringify(encrypted.ciphertext))
       if (!that.isDoctor) {
         data = {
           user_account: that.account,
-          user_password: that.password
+          user_password: outBase64.stringify(encrypted.ciphertext)
         }
       } else {
         data = {
           doctor_account: that.account,
-          doctor_password: that.password
+          doctor_password: outBase64.stringify(encrypted.ciphertext)
         }
       }
       this.dialog = true
