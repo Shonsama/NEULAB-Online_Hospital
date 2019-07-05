@@ -70,6 +70,7 @@ public class FeeCatService {
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println("here!!!!!!");
         return null;
         //List<FeeCat> feeCatList = new ArrayList<>();
         //Map<Object, Object> entries = redisTemplate.opsForHash().entries("fee_cat:hash");
