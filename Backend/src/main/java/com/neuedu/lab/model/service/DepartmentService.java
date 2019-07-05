@@ -22,6 +22,7 @@ public class DepartmentService {
     }
 
     public boolean addDepartment(Department department){
+
         try {
             departmentMapper.addDepartment(department);
         }

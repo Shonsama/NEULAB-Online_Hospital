@@ -1,10 +1,11 @@
 package com.neuedu.lab.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.neuedu.lab.utils.ConstantUtils;
 import com.neuedu.lab.model.po.*;
 import com.neuedu.lab.model.service.*;
+import com.neuedu.lab.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -156,7 +157,8 @@ public class MaintenanceController {
 
     @Autowired
     private FeeCatService feeCatService;
-
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     @RequestMapping("fee-cat/get")
     public Object getFeeCat(@RequestBody JSONObject request){
         return ConstantUtils.responseSuccess(feeCatService.getFeeCat(request.getString("fee_cat_id")));
