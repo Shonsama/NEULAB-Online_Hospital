@@ -122,16 +122,16 @@ public class UserService {
     }
 
     private static byte[] DESDecrypt(byte[] data, byte[] key) throws Exception {
-        // 生成一个可信任的随机数源
+        //generate a random number
         SecureRandom sr = new SecureRandom();
-        // 从原始密钥数据创建DESKeySpec对象
+        //generate a DESKey Object
         DESKeySpec dks = new DESKeySpec(key);
-        // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
+        //create a factory, which is used to transform DESKey into SecretKey
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey securekey = keyFactory.generateSecret(dks);
-        // Cipher对象实际完成解密操作
+        //use Cipher to decode
         Cipher cipher = Cipher.getInstance("DES");
-        // 用密钥初始化Cipher对象
+        //use key to initiate Cipher object
         cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
         return cipher.doFinal(data);
     }
