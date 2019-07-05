@@ -45,10 +45,10 @@ public class WorkloadService {
             long endTime1=System.currentTimeMillis();
 
             long startTime2=System.currentTimeMillis();
-            obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNumInRegister(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
-            +doctorWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
-            +doctorWorkloadMapper.getBillsNumInPrescription(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
-            //obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            //obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNumInRegister(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
+            //+doctorWorkloadMapper.getBillsNumInMedicalSkill(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())
+            //+doctorWorkloadMapper.getBillsNumInPrescription(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
+            obj.put("getBillsNum", checkIfNull(doctorWorkloadMapper.getBillsNum(start_time, end_time, doctorWorkloadMapper.getDoctors().get(i).getDoctor_id())));
             long endTime2=System.currentTimeMillis();
 
             long startTime3=System.currentTimeMillis();
