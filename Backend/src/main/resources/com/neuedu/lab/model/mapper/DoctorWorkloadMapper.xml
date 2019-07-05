@@ -20,9 +20,9 @@
         where (bill_register_id = register_info_id
         or prescription_id = bill_prescription_id
         or medical_skill_id = bill_medical_skill_id)
-        and register_info_doctor_id = #{doctor_id}
-        and medical_skill_doctor_id = #{doctor_id}
-        and prescription_doctor_id = #{doctor_id}
+        and (register_info_doctor_id = #{doctor_id}
+        or medical_skill_doctor_id = #{doctor_id}
+        or prescription_doctor_id = #{doctor_id})
         <if test="start_time != null">
             and bill_time &gt; #{start_time}
         </if>

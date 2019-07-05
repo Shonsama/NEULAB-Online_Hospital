@@ -198,7 +198,8 @@ public class DoctorService {
         }
         //websocket 进行群发消息
         try{
-            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊",null);
+            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊",department.getDepartment_id());
+            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊","0");
         } catch (IOException e) {
             e.printStackTrace();
         }
