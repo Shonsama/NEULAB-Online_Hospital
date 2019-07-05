@@ -63,7 +63,7 @@
                   ></v-text-field>
                 </v-flex>
                 <v-btn
-                  @click="load_patient_self,load_patient_depart"
+                  @click="load_patient_self(),load_patient_depart()"
                   color="primary"
                   flat
                   icon

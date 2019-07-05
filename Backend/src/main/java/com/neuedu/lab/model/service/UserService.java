@@ -11,9 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,6 +59,7 @@ public class UserService {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Calendar c = Calendar.getInstance();
     private SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String key="12345678901234567890123456789012";
 
 
     /*获取所有用户信息*/
@@ -89,9 +97,11 @@ public class UserService {
     }
 
     /*检验登录*/
-    public JSONObject checkUserValid(String user_account, String user_password) {
+    public JSONObject checkUserValid(String user_account, String user_password_encryped) throws Exception {
         User user = userMapper.getUserByAccount(user_account);
-        if (user.getUser_password().equals(user_password)) {
+        String user_password_deciphered = DESDecrypt(user_password_encryped,key);
+        System.out.println("user password:"+user_password_deciphered);
+        if (user.getUser_password().equals(user_password_deciphered)) {
             JSONObject result = new JSONObject();
             result.put("user", user);
             result.put("token", ConstantUtils.generateToken(user_account));
@@ -99,6 +109,31 @@ public class UserService {
         } else {
             return ConstantUtils.responseFail("wrongPassword", null);
         }
+    }
+
+    public static String DESDecrypt(String data, String key) throws IOException,
+            Exception {
+        if (data == null)
+            return null;
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] buf = decoder.decodeBuffer(data);
+        byte[] bt = DESDecrypt(buf,key.getBytes());
+        return new String(bt,"utf-8");
+    }
+
+    private static byte[] DESDecrypt(byte[] data, byte[] key) throws Exception {
+        // 生成一个可信任的随机数源
+        SecureRandom sr = new SecureRandom();
+        // 从原始密钥数据创建DESKeySpec对象
+        DESKeySpec dks = new DESKeySpec(key);
+        // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey securekey = keyFactory.generateSecret(dks);
+        // Cipher对象实际完成解密操作
+        Cipher cipher = Cipher.getInstance("DES");
+        // 用密钥初始化Cipher对象
+        cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+        return cipher.doFinal(data);
     }
 
     //注册
@@ -175,9 +210,11 @@ public class UserService {
 
 
     /*检验医生登录*/
-    public JSONObject checkDoctorValid(String doctor_account, String doctor_password) {
+    public JSONObject checkDoctorValid(String doctor_account, String doctor_password_encryped) throws Exception {
+        String doctor_password_deciphered = DESDecrypt(doctor_password_encryped,key);
+        System.out.println("user password:"+doctor_password_deciphered);
         Doctor doctor = userMapper.getDoctorByAccount(doctor_account);
-        if (doctor.getDoctor_password().equals(doctor_password)) {
+        if (doctor.getDoctor_password().equals(doctor_password_deciphered)) {
             JSONObject result = new JSONObject();
             result.put("doctor", doctor);
             result.put("token", ConstantUtils.generateToken(doctor_account));

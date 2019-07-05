@@ -71,7 +71,6 @@ public class PatientService {
         return false;
     }
 
-
     //登录
     public JSONObject checkUserValid(String patient_account, String patient_password) {
         if(!checkIfExistAccount(patient_account)){
