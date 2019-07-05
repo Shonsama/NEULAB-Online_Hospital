@@ -6,14 +6,7 @@ Component({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    list: [{
-      title: '中心吸氧',
-      type: '检查',
-      state: '已开立',
-      register_id: '25',
-      fee: '80'
-    }
-    ]
+    list: []
   },
   methods: {
     toChild(e) {

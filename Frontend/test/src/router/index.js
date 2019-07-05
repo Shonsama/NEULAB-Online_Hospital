@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const HelloWorld = resolve => require(['@/pages/HelloWorld'], resolve)
+import HelloWorld from '@/pages/HelloWorld'
+// const HelloWorld = resolve => require(['@/pages/HelloWorld'], resolve)
 const RegisterCharge = resolve => require(['@/pages/RegisterCharge'], resolve)
 const BasicInfoManage = resolve => require(['@/pages/BasicInfoManage'], resolve)
 const Diagnostician = resolve => require(['@/pages/Diagnostician'], resolve)
