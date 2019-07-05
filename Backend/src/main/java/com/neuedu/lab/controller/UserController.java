@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * 将来合并的系统管理员的控制类
  */
@@ -56,7 +54,7 @@ public class UserController {
 
     @RequestMapping("/check-valid")
     //检验登录
-    public JSONObject checkValid(@RequestBody JSONObject request, HttpSession session) throws Exception {
+    public JSONObject checkValid(@RequestBody JSONObject request) throws Exception {
         if (request.getString("user_account") != null) {
             return userService.checkUserValid(request.getString("user_account"), request.getString("user_password"));
         } else {

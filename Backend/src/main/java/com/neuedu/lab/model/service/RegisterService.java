@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.Date;
 
 import static com.neuedu.lab.utils.ConstantUtils.responseFail;
@@ -127,11 +126,7 @@ public class RegisterService {
             e.printStackTrace();
             return responseFail("填充病人信息过程出错",null);
         }
-        try{
-            WebSocket.sendInfo("请刷新科室",doctor.getDoctor_department_id());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WebSocket.sendInfo("请刷新科室",doctor.getDoctor_department_id());
         return responseSuccess(register);
     }
 
@@ -178,11 +173,7 @@ public class RegisterService {
                 e.printStackTrace();
                 return responseFail();
             }
-            try{
-                WebSocket.sendInfo("请刷新科室",register.getDoctor().getDoctor_department_id());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            WebSocket.sendInfo("请刷新科室",register.getDoctor().getDoctor_department_id());
             return responseSuccess(billMapper.getBillById(bill.getBill_id()));
         }
     }

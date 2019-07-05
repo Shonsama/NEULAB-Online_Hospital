@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
-@ServerEndpoint(value = "/websocket/{sid}")
+@ServerEndpoint(value = "/websocket/{department_id}")
 @Component
 public class WebSocket {
 
@@ -29,7 +29,7 @@ public class WebSocket {
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(Session session,@PathParam("sid") String sid) {
+    public void onOpen(Session session,@PathParam("department_id") String sid) {
         this.session = session;
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
@@ -90,14 +90,14 @@ public class WebSocket {
     /**
      * 群发自定义消息
      * */
-    public static void sendInfo(String message,@PathParam("sid") String sid) throws IOException {
-        log.info("推送消息到窗口"+sid+"，推送内容:"+message);
+    public static void sendInfo(String message,@PathParam("department_id") String department_id){
+        log.info("推送消息到窗口"+department_id+"，推送内容:"+message);
         for (WebSocket item : webSocketSet) {
             try {
                 //这里可以设定只推送给这个sid的，为null则全部推送
-                if(sid==null) {
+                if(department_id==null) {
                     item.sendMessage(message);
-                }else if(item.sid.equals(sid)){
+                }else if(item.sid.equals(department_id)){
                     item.sendMessage(message);
                 }
             } catch (IOException e) {

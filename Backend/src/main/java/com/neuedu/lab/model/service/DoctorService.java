@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -197,12 +196,8 @@ public class DoctorService {
             return responseFail("获取病人信息失败",null);
         }
         //websocket 进行群发消息
-        try{
-            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊",department.getDepartment_id());
-            WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊","0");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊",department.getDepartment_id());
+        WebSocket.sendInfo(patient.getPatient_name()+"请到"+department.getDepartment_name()+doctor.getDoctor_name()+"医生处就诊","0");
         return responseSuccess(registerMapper.getRegister(register_id));
     }
 
