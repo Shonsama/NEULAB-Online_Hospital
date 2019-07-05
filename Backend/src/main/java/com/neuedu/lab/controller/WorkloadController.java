@@ -25,12 +25,12 @@ public class WorkloadController {
 
     @RequestMapping("/get-department-draw")
     public JSONObject getDepartmentsWorkloadDraw(@RequestBody JSONObject request) throws ExecutionException, InterruptedException {
-        return workloadService.getDepartmentsWorkloadDraw(request.getDate("start_time"), request.getDate("end_time"));
+        return workloadService.getDepartmentsWorkload(request.getDate("start_time"), request.getDate("end_time"),0);
     }
 
     @RequestMapping("/get-department-execute")
     public JSONObject getDepartmentsWorkloadExecute(@RequestBody JSONObject request) throws ExecutionException, InterruptedException {
-        return workloadService.getDepartmentsWorkloadExecute(request.getDate("start_time"), request.getDate("end_time"));
+        return workloadService.getDepartmentsWorkload(request.getDate("start_time"), request.getDate("end_time"),1);
     }
 }
 
