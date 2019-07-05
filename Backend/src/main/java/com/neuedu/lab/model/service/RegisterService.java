@@ -126,6 +126,7 @@ public class RegisterService {
             e.printStackTrace();
             return responseFail("填充病人信息过程出错",null);
         }
+        register.setDoctor(doctorMapper.getDoctorByRegisterId(register.getRegister_info_id()));
         WebSocket.sendInfo("请刷新科室",doctor.getDoctor_department_id());
         return responseSuccess(register);
     }
@@ -157,6 +158,7 @@ public class RegisterService {
     @Transactional
     public JSONObject refund(Integer register_id) {
         Register register = registerMapper.getRegister(register_id);
+
         Bill bill;
         if(!register.getRegister_info_state().equals(ConstantDefinition.REGISTER_STATE[0])){
             return responseFail("不满足退号条件");
@@ -169,6 +171,8 @@ public class RegisterService {
                 bill.setBill_sum(ConstantUtils.convertToNegtive(bill.getBill_sum()));
                 bill.setBill_state(ConstantDefinition.BILL_STATE[4]);
                 billMapper.addBill(bill);
+
+                register.setDoctor(doctorMapper.getDoctorByRegisterId(register_id));
             }catch (Exception e){
                 e.printStackTrace();
                 return responseFail();
