@@ -128,7 +128,7 @@ public class RegisterService {
             return responseFail("填充病人信息过程出错",null);
         }
         try{
-            WebSocket.sendInfo("请刷新科室",null);
+            WebSocket.sendInfo("请刷新科室",doctor.getDoctor_department_id());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -179,7 +179,7 @@ public class RegisterService {
                 return responseFail();
             }
             try{
-                WebSocket.sendInfo("请刷新科室",null);
+                WebSocket.sendInfo("请刷新科室",register.getDoctor().getDoctor_department_id());
             } catch (IOException e) {
                 e.printStackTrace();
             }
