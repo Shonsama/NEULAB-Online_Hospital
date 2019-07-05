@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
 import javax.crypto.Cipher;
@@ -24,6 +23,7 @@ import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Base64.Decoder;
 
 import static com.neuedu.lab.utils.ConstantDefinition.*;
 import static com.neuedu.lab.utils.ConstantUtils.responseFail;
@@ -115,23 +115,23 @@ public class UserService {
             Exception {
         if (data == null)
             return null;
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] buf = decoder.decodeBuffer(data);
+        Decoder decoder = Base64.getDecoder();
+        byte[] buf = decoder.decode(data);
         byte[] bt = DESDecrypt(buf,key.getBytes());
         return new String(bt,"utf-8");
     }
 
     private static byte[] DESDecrypt(byte[] data, byte[] key) throws Exception {
-        // 生成一个可信任的随机数源
+        //generate a random number
         SecureRandom sr = new SecureRandom();
-        // 从原始密钥数据创建DESKeySpec对象
+        //generate a DESKey Object
         DESKeySpec dks = new DESKeySpec(key);
-        // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
+        //create a factory, which is used to transform DESKey into SecretKey
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey securekey = keyFactory.generateSecret(dks);
-        // Cipher对象实际完成解密操作
+        //use Cipher to decode
         Cipher cipher = Cipher.getInstance("DES");
-        // 用密钥初始化Cipher对象
+        //use key to initiate Cipher object
         cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
         return cipher.doFinal(data);
     }
